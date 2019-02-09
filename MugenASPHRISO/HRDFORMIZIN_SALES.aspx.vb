@@ -60,6 +60,15 @@ Partial Class HRDFORMIZIN_SALES
         nSr = IIf(IsDBNull(nilai), "", nilai)
 ErrHand:
     End Function
+    ''fungsi delete di gridview1
+    'Protected Sub GridView1_RowDeleting(ByVal sender As Object, ByVal e As GridViewDeleteEventArgs)
+
+    '    Dim EmployeeID = GridViewCancel.DataKeys(e.RowIndex).Value.ToString()
+    '    Response.Write("<script>alert('Value terpilih untuk delete : " + EmployeeID + "')</script>")
+    '    'Dim Query = “delete Employee where Employee.EmployeeID = “ + EmployeeID
+    '    'DataBind(Query)
+    'End Sub
+
     'fungsi get email sales
     'fungsi get jenis izin
     Public izin_jenisApv As String

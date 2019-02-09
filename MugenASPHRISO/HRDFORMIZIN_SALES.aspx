@@ -561,7 +561,9 @@ WHERE  ([izin_tgldetail] between ? and ?)"
                         <td class="col-md-2">
                             <asp:Label ID="Label7" runat="server" Text="Tanggal yang di Ajukan"></asp:Label>
                             <asp:Label ID="Label60" runat="server" Text="Tanggal Pengajuan Memotong Cuti Tahunan"></asp:Label></td>
-                        <td class="col-md-4"><asp:GridView ID="GridViewCancel" runat="server" EnableModelValidation="True" GridLines="None" Height="100px" ShowHeader="False" Width="100px" BorderStyle="None"></asp:GridView></td>
+                        <td class="col-md-4"><asp:GridView ID="GridViewCancel" runat="server"  EnableModelValidation="True" GridLines="None" Height="100px" ShowHeader="False" Width="100px" BorderStyle="None">
+
+                                             </asp:GridView></td>
                     </tr>
                     <tr>
                         <td class="col-md-2">
