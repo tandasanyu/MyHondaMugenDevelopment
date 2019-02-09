@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap>
+  <siteMapNode url="~/Default.aspx" title="Home"  description="Kembali Ke Halaman Utama">
+    <siteMapNode url="~/Form0101HRD.aspx" title="Data Karyawan"   description="" />
+    <siteMapNode url="~/Form0101ISO.aspx" title="Sasaran Mutu ISO"  description="" />
+  </siteMapNode>
+</siteMap>

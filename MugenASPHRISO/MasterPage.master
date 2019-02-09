@@ -1,0 +1,237 @@
+﻿<%@ Master Language="VB" CodeFile="MasterPage.master.vb" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+	
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>ISO Honda Mugen</title>
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/modern-business.css" rel="stylesheet" />
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css" />
+
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <script language="javascript" type="text/javascript">
+          function isNumberKey(evt)
+          {
+             var charCode = (evt.which) ? evt.which : evt.keyCode;
+             if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;    
+             return true;
+          }
+    </script>
+    <script type="text/javascript" src="assets/DataTables/media/js/jquery.js"></script>
+    <!-- data table js -->
+	<script type="text/javascript" src="assets/DataTables/media/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript" src="js/tinymce/tinymce.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="assets/DataTables/media/css/jquery.dataTables.css" />
+	<link rel="stylesheet" type="text/css" href="assets/DataTables/media/css/dataTables.bootstrap.css" />
+    
+   <%-- add this line of code to head of master page--%>
+    <script type="text/javascript" src="assets/js/jquery-1.12"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui.js"></script>
+    <%--time picker--%>
+    <!-- jQuery library -->
+
+    <!-- jQuery timepicker library -->
+    <link href="assets/js/jquery.timepicker.min.css" rel="stylesheet" />
+    <script  type="text/javascript" src="assets/js/jquery.timepicker.min.js"></script>
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<%--    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
+
+</head>
+<body>
+
+ <!-- Navigation -->
+    <nav class="navbar navbar-inverse" style="border-bottom: 2px solid #d60000; margin-top: -50px;">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" style="color:#f5f5f5;font-weight:bold;"><i>Honda <span style="color:#d60000;">Mugen</span></i></a>
+            </div>
+            
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav ">
+                    <li><a href="Default.aspx"><span class="glyphicon glyphicon-home"></span> Beranda</a></li>
+                    <!--<li id="Li3" runat="server"><a href="Form0103PERMINTAAN.aspx">Form Permintaan Unit</a></li>-->
+                  
+                    <li id="hrd" runat="server" class="dropdown">
+			            <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false"><i class="glyphicon glyphicon-user"></i> &nbsp HRD <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li id="dataKaryawan" runat="server"><a href="HRDFORMKARYAWAN.aspx"><span class="glyphicon glyphicon-user"></span> &nbsp Data Karyawan</a></li> 
+                            <li id="databaseKaryawan" runat="server"><a href="HRDKARYAWAN.aspx"><span class="glyphicon glyphicon-list-alt"></span> &nbsp Database Karyawan</a></li> 
+                            <li id="databaseJabatan" runat="server"><a href="HRDDATAJABATAN.aspx"><span class="glyphicon glyphicon-briefcase"></span> &nbsp Database Jabatan</a></li> 
+                            <li id="pengajuanIzin" runat="server"><a href="HRDFORMIZIN.aspx"><span class="glyphicon glyphicon-user"></span> &nbsp Form Pengajuan Izin</a></li> 
+							<hr runat="server" id="batas1" />
+                            <li id="penilaianKaryawan" runat="server"><a href="HRDPENILAIANKARYAWAN.aspx"><span class="	glyphicon glyphicon-edit"></span> &nbsp Penilaian Karyawan</a></li> 
+                            <li id="penilaianBawahan" runat="server"><a href="HRDPENILAIANBAWAHAN.aspx"><span class="	glyphicon glyphicon-download"></span> &nbsp Penilaian Atasan ke Bawahan</a></li>
+                            <li id="penilaianLeader" runat="server"><a href="HRDPENILAIANATASANLEADER.aspx"><span class="	glyphicon glyphicon-upload"></span> &nbsp Penilaian Bawahan ke Atasan (Leader)</a></li>
+                            <li id="penilaianSPV" runat="server"><a href="HRDPENILAIANATASANSPV.aspx"><span class="	glyphicon glyphicon-upload"></span> &nbsp Penilaian Bawahan ke Atasan (SPV)</a></li>
+                            <hr runat="server" id="batas2" visible="false"/>
+                            <li id="hakAkses" visible="false" runat="server"><a href="HRDHAKAKSES.aspx"><span class="glyphicon glyphicon-lock"></span> &nbsp Hak Akses Karyawan</a></li> 
+                            <li id="normapenilaian" runat="server"><a href="HRDNORMAPENILAIANKARYAWAN.aspx"><span class="glyphicon glyphicon-screenshot"></span> &nbsp Norma Penilaian Karyawan</a></li> 
+                            <li id="itempenilaian" runat="server"><a href="HRDITEMPENILAIANKARYAWAN.aspx"><span class="glyphicon glyphicon-info-sign"></span> &nbsp Item Penilaian Karyawan</a></li> 
+                            <li id="absensikaryawan" runat="server"><a href="HRDABSENSIPENILAIANKARYAWAN.aspx"><span class="glyphicon glyphicon-info-sign"></span> &nbsp Absensi Penilaian Karyawan</a></li> 
+                            <li id="reportpenilaian" runat="server"><a href="HRDREPORTPENILAIANKARYAWAN.aspx"><span class="glyphicon glyphicon-briefcase"></span> &nbsp Report Penilaian Karyawan</a></li> 
+                             <hr runat="server" id="batas3" visible="false"/>
+                            <li id="formFPTK" runat="server"><a href="HRDFPTK.aspx"><span class="glyphicon glyphicon-duplicate"></span> &nbsp Form FPTK</a></li> 
+					    </ul>
+                    </li> 
+                    
+                    <li id="iso" runat="server" class="dropdown">
+				        <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false"><span class="glyphicon glyphicon-globe"></span> ISO <i class="fa fa-angle-down"></i></a>
+				        <ul class="dropdown-menu">
+				            <li id="sasaran" runat="server"><a href="ISOSASARANMUTU.aspx"><span class="glyphicon glyphicon-share"></span> &nbsp Sasaran Mutu ISO</a></li>
+                            <li id="panduanmutu" runat="server"><a href="Form0103PANDUANMUTU.aspx"><span class="glyphicon glyphicon-book"></span> &nbsp Panduan Mutu</a></li>
+                            <li id="sop" runat="server"><a href="ISOSOP.aspx"><span class="glyphicon glyphicon-warning-sign"></span> &nbsp SOP</a></li>
+                            <li id="instruksi" runat="server"><a href="ISOINSTRUKSIKERJA.aspx"><span class="glyphicon glyphicon-briefcase"></span> &nbsp Instruksi Kerja</a></li>
+				        </ul>
+			        </li>
+                    <li id="IT" runat="server" class="dropdown">
+			            <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false"><i class="fa fa-desktop"></i> &nbsp IT <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li id="sdr" runat="server"><a href="ITSDR.aspx"><span class="glyphicon glyphicon-duplicate"></span> &nbsp Form SDR</a></li>
+                            <li id="login" runat="server"><a href="ITLOGIN.aspx"><span class="glyphicon glyphicon-log-in"></span> &nbsp Form Login</a></li>
+                            <li id="backup" runat="server"><a href="ITBACKUP.aspx"><span class="glyphicon glyphicon-save"></span> &nbsp Form Backup</a></li>
+						    <li id="maintenance" runat="server"><a href="ITMAINTENANCE.aspx"><span class="glyphicon glyphicon-wrench"></span> &nbsp Form Maintenance</a></li>
+                            <li id="verifikasi" runat="server"><a href="ITVERIFIKASI.aspx"><span class="glyphicon glyphicon-saved"></span> &nbsp Form Verifikasi Program</a></li> 
+					    </ul>
+                    </li> 
+                    <li id="Warehouse" runat="server" class="dropdown">
+			            <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false"><i class="fa fa-desktop"></i> &nbsp Warehouse <i class="fa fa-angle-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li id="mintaunit" runat="server"><a href="WAREHOUSEPERMINTAAN.aspx"><span class="glyphicon glyphicon-duplicate"></span> &nbsp Form Permintaan Unit</a></li> 
+					    </ul>
+                    </li> 
+                    <li id="beritaacara" runat="server"><a href="AUDITBERITAACARA.aspx"><span class="glyphicon glyphicon-duplicate"></span> &nbsp Laporan Audit</a></li>
+                    <li id="approval" runat="server"><a href="APPROVEDOKUMEN.aspx"><span class="glyphicon glyphicon-check"></span> Approval Dokumen</a></li>
+                    
+                </ul>
+                <form id="form1" runat="server"> 
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown" id="kontrol" runat="server">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;User Kontrol <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class=""><a href="editpassword.aspx">Ubah Password</a></li>
+                            <li id="konfigurasiAkun" runat="server"><a href="konfigurasiakun.aspx">Konfigurasi Akun</a></li>
+                            <li class="">
+                                <asp:LoginView ID="LoginView1" runat="server"></asp:LoginView>
+                                <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" style="text-decoration: none;" LogoutPageUrl="" /> </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <div id="wrapper">
+        <div id="subheader">
+        </div>
+
+        <div id="mainContent">
+            <asp:ContentPlaceHolder id="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </div>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+            <p>&nbsp;<asp:Label ID="LblUser" runat="server" Visible="False"></asp:Label>	  
+                <asp:TextBox ID="TxtUser" runat="server"  Text="" Visible="False" ></asp:TextBox>
+            </p>
+        </asp:ContentPlaceHolder>
+   <div id="wrapper">     
+        <!-- Footer -->
+        <div class="container">
+            <footer>
+                <div class="navbar navbar-inverse navbar-fixed-bottom" style="border-bottom:2px solid #d60000;">
+                    <div class="copyright" style="float:left;margin:10px;color:#888888;font-size:10pt;font-family:Verdana;">
+                        <span class="glyphicon glyphicon-user"></span>&nbsp Selamat Datang, <b><asp:Label ID="username" runat="server" style="color:#ffffff;"></asp:Label></b><br />
+                        <span class="glyphicon glyphicon-calendar"></span>&nbsp <span id="date" style=""></span>. <span class="glyphicon glyphicon-time"></span> <span id="clock" style="float:;"></span> </p>
+                    </div>
+                    <div class="copyright" style="float:right;margin:10px;color:#888888;font-size:10pt;font-family:Verdana;">
+                        <asp:Image ID="Image1" runat="server" style="width:50px;height:35px;" ImageUrl="~/img/hlogo.png" />
+                    </div>
+                    <div class="copyright" style="float:right;margin:10px;color:#888888;font-size:10pt;font-family:Verdana;">
+                        <p align="right">Copyright &copy; 2017 Honda Mugen<br />
+                            Developed by IT Department</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+    
+        <script src="js/bootstrap.min.js"></script>
+        </form>
+
+    </div>
+</body>
+</html>
+
+ <script type="text/javascript">
+    var months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+    var hari = ['Mingggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth();
+    var year = date.getFullYear();
+    var hariini = date.getDay();
+    document.getElementById("date").innerHTML = " " + hari[hariini] + ", " + day + " " + months[month] + " " + year;
+    $('#notif').popover('show');
+</script>
+
+<script type="text/javascript">
+    function showTime() {
+        var a_p = "";
+        var today = new Date();
+        var curr_hour = today.getHours();
+        var curr_minute = today.getMinutes();
+        var curr_second = today.getSeconds();
+        if (curr_hour < 12) {
+            a_p = "AM";
+        } else {
+            a_p = "PM";
+        }
+        if (curr_hour == 0) {
+            curr_hour = 12;
+        }
+        if (curr_hour > 12) {
+            curr_hour = curr_hour - 12;
+        }
+        curr_hour = checkTime(curr_hour);
+        curr_minute = checkTime(curr_minute);
+        curr_second = checkTime(curr_second);
+        document.getElementById('clock').innerHTML=curr_hour + ":" + curr_minute + ":" + curr_second + " " + a_p;
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+setInterval(showTime, 500);
+</script>

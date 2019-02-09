@@ -1,0 +1,130 @@
+﻿<%@ Master Language="VB" CodeFile="MasterPage.master.vb" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>ISO Honda Mugen</title>
+    
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="css/modern-business.css" rel="stylesheet" />
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <script language="javascript" type="text/javascript">
+    // <!CDATA[
+          function isNumberKey(evt)
+          {
+             var charCode = (evt.which) ? evt.which : evt.keyCode;
+             if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;    
+             return true;
+          }
+    // ]]>
+    </script>
+</head>
+<body>
+ <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:darkred" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Honda Mugen</a>
+            </div>
+            
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="Default.aspx">Beranda</a></li>
+                   <!-- 
+                        <li id="Li1" runat="server"><a href="Form0103MAINTENANCE.aspx">Form Maintenance</a></li>
+                        <li id="Li2" runat="server"><a href="Form0103VERIFIKASI.aspx">Form Verifikasi Program</a></li></li>
+                        <li id="Li3" runat="server"><a href="Form0103PERMINTAAN.aspx">Form Permintaan Unit</a></li>
+                        <li id="sdr" runat="server"><a href="Form0103SDR.aspx">SDR</a></li>
+                        <li id="login" runat="server"><a href="Form0103LOGIN.aspx">Form Login</a></li>
+                        <li id="backup" runat="server"><a href="Form0103BACKUP.aspx">Form Backup</a></li>
+                    -->
+                   
+                    <li id="hrd" runat="server" runat="server"><a href="Form0101HRD.aspx">Data Karyawan</a></li>
+                        <li id="iso" runat="server" class="dropdown">
+				            <a href="#" class="dropdown-toggle " data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false">ISO <i class="fa fa-angle-down"></i></a>
+					        <ul class="dropdown-menu">
+							    <li id="sasaran" runat="server"><a href="Form0101ISO.aspx">Sasaran Mutu ISO</a></li>
+                                <li id="panduanmutu" runat="server"><a href="Form0103PANDUANMUTU.aspx">Panduan Mutu</a></li>
+                                <li id="sop" runat="server"><a href="Form0103SOP.aspx">SOP</a></li>
+                                <li id="instruksi" runat="server"><a href="Form0103INSTRUKSIKERJA.aspx">Instruksi Kerja</a></li>
+                                <li id="approval" runat="server"><a href="Form0103APPROVEDOKUMEN.aspx">Approval Dokumen</a></li>
+						    </ul>
+				        </li>
+                        <li><a href="Form0100Changepassword.aspx">Ubah Password</a></li>
+                        <li style="margin-top:15px;">
+                            <form id="form1" runat="server"> 
+                                <asp:LoginView ID="LoginView1" runat="server">
+                                </asp:LoginView>
+                                <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" style="color: yellow; text-decoration: none;" LogoutPageUrl="" /> 
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container -->
+        </nav>
+        <div id="wrapper">
+            <div id="subheader">
+                            
+            </div>
+
+            <div id="mainContent">
+                <asp:ContentPlaceHolder id="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+
+            <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+	            <p>&nbsp;<asp:Label ID="LblUser" runat="server" Visible="False"></asp:Label>	  
+                <asp:TextBox ID="TxtUser" runat="server"  Text="" Visible="False" ></asp:TextBox>
+           	    </p>
+            </asp:ContentPlaceHolder>
+
+            <div class="container">
+	        <!-- Footer -->
+                <footer><hr style="border-top: 1px solid #808080" />
+                    <div class="row">
+                        <div class="col-lg-12">
+                   
+                            <p align="right">Copyright &copy; 2017 Honda Mugen<br />
+                            Developed by IT Department</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <!-- jQuery -->
+            <script src="js/jquery.js"></script>
+            <!-- Bootstrap Core JavaScript -->
+            <script src="js/bootstrap.min.js"></script>
+        </form>
+    </div>
+</body>
+</html>
+

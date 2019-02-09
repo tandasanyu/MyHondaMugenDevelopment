@@ -1,0 +1,97 @@
+﻿<%@ Master Language="VB" CodeFile="MasterPage.master.vb" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+  <title>Menu Izin Sales</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Js -->
+  <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--%>
+    <link rel="stylesheet" href="css/bootstrap.min.css"  />
+  <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--%>
+    <script src="js/jquery.min.js"></script>
+  <%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--%>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- DATEPICKER RANGE -->
+  <%--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">--%>
+    <link href="css/jquery-ui.css" rel="stylesheet" />
+  <%--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>--%>
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/moment.js"></script>
+ <%-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--%>
+    <script src="js/jquery-ui.js"></script>
+    <link href="css/jquery.timepicker.min.css" rel="stylesheet" />
+    <script src="js/jquery.timepicker.min.js"></script>
+    <!-- datTable -->
+    <script src="js/jquery.dataTables.min.js"></script>
+    <link href="css/jquery.dataTables.min.css" rel="stylesheet" />
+    <!-- END OF JS SECTION -->
+    <!-- CSS -->
+
+        <style>
+        .footer {
+          position: fixed;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          background-color: #777;
+          color: white;
+          text-align: center;
+        }
+        </style>
+    <!-- -->
+<%--        <link rel="stylesheet" type="text/css" href="Content/bootstrap.min.css" />
+    <script type="text/javascript" src="Scripts/jquery-3.0.0.min.js"></script>
+    <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>--%>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <!--FIXED CONTENT FOR ALL PAGES -->
+        <nav class="navbar navbar-default" >
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand">Menu Izin Sales</a>
+            </div>
+            <ul class="nav navbar-nav">
+              <li ><a href="#"></a></li>
+              <li><a href="#"></a></li>
+              <li><a href="#"></a></li>
+              <li><a href="http://office.hondamugen.co.id:8084/Default.aspx">Keluar</a></li>
+            </ul>
+          </div>
+        </nav>
+        <!--FIXED CONTENT FOR ALL PAGES -->
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+<%--    <div class="footer">
+      <p>Honda Mugen &copy;</p>
+         <p>Developed by IT Departement</p>
+    </div>--%>
+        <!-- Footer -->
+        <div class="container">
+            <footer>
+                <div class="navbar navbar-inverse navbar-fixed-bottom" style="border-bottom:2px solid #777;">
+                    <div class="copyright" style="float:left;margin:10px;color:#777;font-size:10pt;font-family:Verdana;">
+
+                    </div>
+                    <div class="copyright" style="float:right;margin-top:15px;color:#888888;font-size:10pt;font-family:Verdana;">
+                        <asp:Image ID="Image1" runat="server" style="width:50px;height:35px;" ImageUrl="~/img/hlogo.png" />
+                    </div>
+                    <div class="copyright" style="float:right;margin:10px;color:#888888;font-size:10pt;font-family:Verdana;">
+                        <p align="right">Copyright &copy; 2019 Honda Mugen<br />
+                            Developed by IT Department</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+</body>
+    
+</html>
