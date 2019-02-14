@@ -563,7 +563,10 @@ WHERE  ([izin_tgldetail] between ? and ?)"
                             <asp:Label ID="Label60" runat="server" Text="Tanggal Pengajuan Memotong Cuti Tahunan"></asp:Label></td>
                         <td class="col-md-4"><asp:GridView ID="GridViewCancel" runat="server"  EnableModelValidation="True" GridLines="None" Height="100px" ShowHeader="False" Width="100px" BorderStyle="None">
 
-                                             </asp:GridView></td>
+                                             </asp:GridView>
+                            <!-- add chk list  -->
+
+                        </td>
                     </tr>
                     <tr>
                         <td class="col-md-2">

@@ -1433,7 +1433,12 @@ left join DATA_IZIN_SALDO_HUTANGCUTI on data_staff.staff_nik = DATA_IZIN_SALDO_H
                             <asp:TextBox ID="TxtDetailStaffCancelIdIzin" Visible="true" runat="server" class="form-control required"></asp:TextBox></td>
                         <td class="col-md-2">
                             <asp:Label ID="Label60" runat="server" Text="Tanggal Pengajuan Memotong Cuti Tahunan"></asp:Label></td>
-                        <td class="col-md-4"><asp:GridView ID="GridViewCancel" runat="server" EnableModelValidation="True" GridLines="None" Height="100px" ShowHeader="False" Width="100px" BorderStyle="None"></asp:GridView></td>
+                        <td class="col-md-4"><asp:GridView ID="GridViewCancel" runat="server" EnableModelValidation="True" GridLines="None" Height="100px" ShowHeader="False" Width="100px" BorderStyle="None"></asp:GridView>
+                            <!-- Penambahan Code Baru -->
+                            <asp:ListBox ID="ListBox1" runat="server" SelectionMode="Multiple" ToolTip="List Tanggal Keseluruhan"></asp:ListBox>
+                            <asp:CheckBoxList ID="CheckBoxList1" runat="server"></asp:CheckBoxList>
+                            <asp:Button ID="Button2" runat="server" Text="Get selected Value" />
+                        </td>
                     </tr>
                     <tr>
                         <td class="col-md-2">

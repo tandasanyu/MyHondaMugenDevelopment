@@ -1266,6 +1266,7 @@ ErrHand:
     '***LISTVIEW DETAIL IZIN TERPILIH SALES
     Public ListTgl As New List(Of String)()
     Public ListTgl_Pend As New List(Of String)()
+    Public ListTglKesel As New List(Of String)()
     Protected Sub ListViewHRDPembatalanIzin_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListViewHRDPembatalanIzin.SelectedIndexChanged
         'get value terpilih  dari listview
         Dim sales_IzinIDHRDFormIzinPembatalan As String = (ListViewHRDPembatalanIzin.DataKeys(ListViewHRDPembatalanIzin.SelectedIndex).Value.ToString)
@@ -1297,6 +1298,10 @@ ErrHand:
         GridViewCancel.DataBind()
         GridViewCancelPend.DataSource = ListTgl_Pend
         GridViewCancelPend.DataBind()
+        'gabungkan semua tanggal yang di pilih
+
+
+
         'logic hide object 
         If TxtAlasanpengajuan.Text = "Cuti" Then
             Label7.Visible = False

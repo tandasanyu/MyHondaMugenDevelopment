@@ -2106,7 +2106,7 @@ ErrHand:
 
     Public ListTgl As New List(Of String)()
     Public ListTgl_Pend As New List(Of String)()
-    'Public ListTgl_seluruh As New List(Of String)()
+    Public ListTgl_seluruh As New List(Of String)()
     Function GetData_ListTglIzin(ByVal mSqlCommadstring As String, ByVal mPos As String) As String
         Dim strconn As String = WebConfigurationManager.ConnectionStrings("MyConnCloudDnet2").ConnectionString
 
@@ -3155,6 +3155,19 @@ ErrHand:
         GridViewCancelPend.DataSource = ListTgl_Pend
         GridViewCancelPend.DataBind()
 
+        For Each item In ListTgl
+            ListTgl_seluruh.Add(item)
+        Next
+        For Each item In ListTgl_Pend
+            ListTgl_seluruh.Add(item)
+        Next
+
+        For Each item In ListTgl_seluruh
+            ListBox1.Items.Add(item)
+        Next
+
+        CheckBoxList1.DataSource = ListTgl_seluruh
+        CheckBoxList1.DataBind()
 
         If TxtDetailStaffCancelJenisIzin.Text = "Cuti" Then
             If ListTgl.Count > 0 And ListTgl_Pend.Count > 0 Then
@@ -5507,6 +5520,21 @@ ErrHand:
     Protected Sub BtnMenuSales_Click(sender As Object, e As EventArgs) Handles BtnMenuSales.Click
         Response.Redirect("HRDFORMIZIN_SALES.aspx")
 
+    End Sub
+
+    Public arr_selected As New List(Of String)()
+    Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+        'Dim tgl As String
+        For Each i As ListItem In CheckBoxList1.Items
+
+            If i.Selected = True Then
+                arr_selected.Add(i.Value)
+            End If
+        Next
+        For Each item In arr_selected
+            Response.Write("<script>alert('Tanggal yang di pilih : " + item + "')</script>")
+        Next
     End Sub
 End Class
 '============================================NOTE=================================================='
