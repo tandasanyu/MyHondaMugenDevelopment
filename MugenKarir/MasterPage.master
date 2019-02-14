@@ -1,0 +1,66 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        body {
+            margin: 0;
+        }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      width: 15%;
+      background-color: dimgrey;
+      position: fixed;
+      height: 100%;
+      overflow: auto;
+    }
+
+    li a {
+      display: block;
+      color: white;
+      padding: 8px 16px;
+      text-decoration: none;
+    }
+
+    li a.active {
+      background-color: #ff0000;
+      color: white;
+    }
+
+    li a:hover:not(.active) {
+      background-color: #f73333;
+      color: white;
+    }
+
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <div >
+            <ul>              
+              <li><a href="HomeHRD.aspx?Menu=0">Home</a></li>
+              <li><a href="HomeHRD.aspx?Menu=1">Lowongan Kerja</a></li>
+              <li><a href="HomeHRD.aspx?Menu=2">Data Pelamar</a></li>
+              <li style="margin-top:200%; margin-left:25%">
+                  <asp:Image ID="Image1" runat="server"  ImageUrl="~/img/cropped-honda-icon.png" Width="90" Height="90" />
+              </li>
+            </ul>
+        </div>
+
+    <div>
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>

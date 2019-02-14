@@ -2106,6 +2106,7 @@ ErrHand:
 
     Public ListTgl As New List(Of String)()
     Public ListTgl_Pend As New List(Of String)()
+    'Public ListTgl_seluruh As New List(Of String)()
     Function GetData_ListTglIzin(ByVal mSqlCommadstring As String, ByVal mPos As String) As String
         Dim strconn As String = WebConfigurationManager.ConnectionStrings("MyConnCloudDnet2").ConnectionString
 
@@ -3099,7 +3100,7 @@ ErrHand:
     End Sub
     Protected Sub ListViewHRDPembatalanIzin_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListViewHRDPembatalanIzin.SelectedIndexChanged
         Dim staff_IzinIDHRDFormIzinPembatalan As String = (ListViewHRDPembatalanIzin.DataKeys(ListViewHRDPembatalanIzin.SelectedIndex).Value.ToString)
-        Response.Write("<script>alert('Id Izin yang di Click : " + staff_IzinIDHRDFormIzinPembatalan + "')</script>")
+        'Response.Write("<script>alert('Id Izin yang di Click : " + staff_IzinIDHRDFormIzinPembatalan + "')</script>")
         'Response.Write("<script>window.location.href='HRDFORMIZIN.aspx';</script>")
         'show tb staff list 
         MultiViewHRDFormIzin.ActiveViewIndex = -1
@@ -3153,6 +3154,7 @@ ErrHand:
 
         GridViewCancelPend.DataSource = ListTgl_Pend
         GridViewCancelPend.DataBind()
+
 
         If TxtDetailStaffCancelJenisIzin.Text = "Cuti" Then
             If ListTgl.Count > 0 And ListTgl_Pend.Count > 0 Then

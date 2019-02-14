@@ -1444,11 +1444,17 @@ left join DATA_IZIN_SALDO_HUTANGCUTI on data_staff.staff_nik = DATA_IZIN_SALDO_H
                            <asp:Label ID="Label59" runat="server" Text="Tanggal Pengajuan Memotong Cuti Pending"></asp:Label></td>
                         <td class="col-md-4"><asp:GridView ID="GridViewCancelPend" runat="server" GridLines="None" Height="100px" ShowHeader="False" Width="100px" BorderStyle="None" EnableModelValidation="True"></asp:GridView></td>
                     </tr>
+                    <!-- Tanggal Keseluruhan -->
                     <tr>
                         <td class="col-md-2">
                             <asp:Label ID="Label28" runat="server" Text="Nama"></asp:Label></td>
                         <td class="col-md-4">
-                            <asp:TextBox ID="TxtDetailStaffCancelNama" Visible="true" runat="server" class="form-control required"></asp:TextBox></td><td></td>
+                            <asp:TextBox ID="TxtDetailStaffCancelNama" Visible="true" runat="server" class="form-control required"></asp:TextBox></td>
+                        <td class="col-md-2">
+                           <asp:Label ID="Label64" runat="server" Text="Tanggal Pengajuan Keseluruhan"></asp:Label></td>
+                        <td class="col-md-4">
+
+                        </td>
                     </tr>
                     <tr >
                         <td class="col-md-2">
