@@ -1487,11 +1487,11 @@ left join DATA_IZIN_SALDO_HUTANGCUTI on data_staff.staff_nik = DATA_IZIN_SALDO_H
                             <br />
                         </td>
                         <td>
-                            <asp:Button ID="BtnDetailStaffHRDCancelTahunan" visible="True" runat="server" Text="Cancel Data Pengajuan Tahunan" class="btn btn-danger" /> 
+                            <asp:Button ID="BtnDetailStaffHRDCancelTahunan" visible="false" runat="server" Text="Cancel Data Pengajuan Tahunan" class="btn btn-danger" /> 
                             <br />
                         </td>
                         <td>
-                            <asp:Button ID="BtnDetailStaffHRDCancelPending" visible="True" runat="server" Text="Cancel Data Pengajuan Pending" class="btn btn-danger" /> 
+                            <asp:Button ID="BtnDetailStaffHRDCancelPending" visible="false" runat="server" Text="Cancel Data Pengajuan Pending" class="btn btn-danger" /> 
                             <br />
                         </td>
                         <td>

@@ -3194,6 +3194,8 @@ ErrHand:
                 BtnDetailStaffHRDCancel.Visible = False
                 Label61.Visible = True
             End If
+            BtnDetailStaffHRDCancelTahunan.Visible = False
+            BtnDetailStaffHRDCancelPending.Visible = False
         Else
             BtnDetailStaffHRDCancelTahunan.Visible = False
             BtnDetailStaffHRDCancelPending.Visible = False
@@ -5575,7 +5577,38 @@ ErrHand:
         'Response.Write("<script>alert('Count THN : " + Convert.ToString(arr_selected_thn.Count) + "')</script>")
         '***cek
         '***Hapus pada Database, tanggal yg masih berlaku. sekaligus tambahkan jumlah saldo
+        Dim string_deletethn As String
+        Dim string_deletepc As String
+        Dim string_updatethn As String
+        Dim string_updatepc As String
+        '**delete di database
+        If arr_selected_thn.Count <> 0 Then 'THN
+            For Each item In arr_selected_thn
+                string_deletethn = "delete  FROM DATA_IZIN_DETAIL WHERE  IZIN_ID ='" + TxtDetailStaffCancelIdIzin.Text + "' AND IZIN_TGLDETAIL = '" + item + "' "
+                Call UpdateData_Server(string_deletethn, "")
+            Next
+        End If
+        If arr_selected_pc.Count <> 0 Then 'PC
+            For Each item In arr_selected_pc
+                string_deletepc = "delete  FROM DATA_IZIN_DETAILPC WHERE  IZIN_ID ='" + TxtDetailStaffCancelIdIzin.Text + "' AND IZIN_TGLDETAIL = '" + item + "' "
+                Call UpdateData_Server(string_deletepc, "")
+            Next
+        End If
+        '**update di database
+        If arr_selected_thn.Count <> 0 Then 'THN
+            Dim saldo_thn_final As Integer = saldo_tahunan + arr_selected_thn.Count
 
+            string_updatethn = "UPDATE data_izin_header Set izin_saldo='" + Convert.ToString(saldo_thn_final) + "' WHERE  IZIN_NIK='" & TxtDetailStaffCancelNIK.Text & "'"
+            Call UpdateData_Server(string_updatethn, "")
+        End If
+        If arr_selected_pc.Count <> 0 Then 'PC
+            Dim saldo_pc_final As Integer = saldo_pending + arr_selected_pc.Count
+            string_updatepc = "UPDATE data_izin_header Set izin_saldo_pc='" + Convert.ToString(saldo_pc_final) + "'  WHERE  IZIN_NIK='" & TxtDetailStaffCancelNIK.Text & "'"
+            Call UpdateData_Server(string_updatepc, "")
+        End If
+
+        Response.Write("<script>alert('Proses Berhasil.')</script>")
+        Response.Write("<script>window.location.href='HRDFORMIZIN.aspx';</script>")
     End Sub
 End Class
 '============================================NOTE=================================================='

@@ -85,9 +85,9 @@
 	            </div>  <br /><br />
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#HO">Head Office</a></li>
-                    <li><a data-toggle="tab" href="#meruya">Meruya</a></li>
+                    <li><a data-toggle="tab" href="#meruya">Cisauk</a></li>
                     <li><a data-toggle="tab" href="#psminggu">Mugen Ps. Minggu</a></li>
-                    <li><a data-toggle="tab" href="#puri">Mugen Puri & Dadap</a></li> 
+                    <li><a data-toggle="tab" href="#puri">Mugen Puri</a></li> 
                     <li><a data-toggle="tab" href="#download">Download Report</a></li> 
                 </ul><br /><br />
                 
@@ -161,7 +161,7 @@
                         </asp:ListView>
                     </div>
                     <div id="meruya" class="tab-pane fade">
-                        <h3 style="font-family:Blunter;">Meruya</h3>
+                        <h3 style="font-family:Blunter;">Cisauk</h3>
                         <br />
                         <asp:SqlDataSource ID="SqlDataMutuMaster2" runat="server"
                             ConnectionString="<%$ ConnectionStrings:MyConnCloudDnet2 %>"
@@ -297,7 +297,7 @@
                         </asp:ListView>
                     </div>
                      <div id="puri" class="tab-pane fade">
-                        <h3 style="font-family:Blunter;">Mugen Puri & Dadap</h3>
+                        <h3 style="font-family:Blunter;">Mugen Puri </h3>
                         <br />
                         <asp:SqlDataSource ID="SqlDataMutuMaster4" runat="server"
                             ConnectionString="<%$ ConnectionStrings:MyConnCloudDnet2 %>"
