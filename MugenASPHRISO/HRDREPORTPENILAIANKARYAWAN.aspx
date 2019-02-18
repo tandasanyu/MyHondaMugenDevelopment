@@ -97,8 +97,11 @@
                         <br />
                         <asp:SqlDataSource ID="SqlDataMutuMaster" runat="server"
                             ConnectionString="<%$ ConnectionStrings:MyConnCloudDnet2 %>"
-                            SelectCommand="select * from TRXN_KPIH, DATA_STAFF where KPIH_NIK = STAFF_NIK AND STAFF_STATUSKERJALOKASI='HO' order by STAFF_STATUSKERJADEPT ASC, STAFF_STATUSKERJAJABATAN ASC, STAFF_STATUSKERJALOKASI DESC" 
+                            SelectCommand="select * from TRXN_KPIH, DATA_STAFF where KPIH_NIK = STAFF_NIK AND STAFF_STATUSKERJALOKASI='HO' and KPIH_TAHUN = ? order by STAFF_STATUSKERJADEPT ASC, STAFF_STATUSKERJAJABATAN ASC, STAFF_STATUSKERJALOKASI DESC " 
                             ProviderName="<%$ ConnectionStrings:MyConnCloudDnet2.ProviderName %>">
+                <SelectParameters>
+                <asp:ControlParameter ControlID="LabelThn" Name="KPIH_TAHUN" PropertyName="Text" Type="string" />
+                </SelectParameters>
                         </asp:SqlDataSource>                                             
                         <asp:ListView ID="ListView1" runat="server" DataSourceID="SqlDataMutuMaster" DataKeyNames ="KPIH_NIK">
                             <LayoutTemplate>
@@ -162,8 +165,11 @@
                         <br />
                         <asp:SqlDataSource ID="SqlDataMutuMaster2" runat="server"
                             ConnectionString="<%$ ConnectionStrings:MyConnCloudDnet2 %>"
-                            SelectCommand="select * from TRXN_KPIH, DATA_STAFF where KPIH_NIK = STAFF_NIK AND STAFF_STATUSKERJALOKASI='MERUYA' order by STAFF_STATUSKERJADEPT ASC, STAFF_STATUSKERJAJABATAN ASC, STAFF_STATUSKERJALOKASI DESC" 
+                            SelectCommand="select * from TRXN_KPIH, DATA_STAFF where KPIH_NIK = STAFF_NIK AND STAFF_STATUSKERJALOKASI='MERUYA' and KPIH_TAHUN=? order by STAFF_STATUSKERJADEPT ASC, STAFF_STATUSKERJAJABATAN ASC, STAFF_STATUSKERJALOKASI DESC" 
                             ProviderName="<%$ ConnectionStrings:MyConnCloudDnet2.ProviderName %>">
+                            	                <SelectParameters>
+                <asp:ControlParameter ControlID="LabelThn" Name="KPIH_TAHUN" PropertyName="Text" Type="string" />
+                </SelectParameters>
                         </asp:SqlDataSource>                                             
                         <asp:ListView ID="ListView2" runat="server" DataSourceID="SqlDataMutuMaster2" DataKeyNames ="KPIH_NIK">
                             <LayoutTemplate>
@@ -227,8 +233,11 @@
                         <br />
                         <asp:SqlDataSource ID="SqlDataMutuMaster3" runat="server"
                             ConnectionString="<%$ ConnectionStrings:MyConnCloudDnet2 %>"
-                            SelectCommand="select * from TRXN_KPIH, DATA_STAFF where KPIH_NIK = STAFF_NIK AND STAFF_STATUSKERJALOKASI='Mugen Ps. Minggu' order by STAFF_STATUSKERJADEPT ASC, STAFF_STATUSKERJAJABATAN ASC, STAFF_STATUSKERJALOKASI DESC" 
+                            SelectCommand="select * from TRXN_KPIH, DATA_STAFF where KPIH_NIK = STAFF_NIK AND STAFF_STATUSKERJALOKASI='Mugen Ps. Minggu' and KPIH_TAHUN=? order by STAFF_STATUSKERJADEPT ASC, STAFF_STATUSKERJAJABATAN ASC, STAFF_STATUSKERJALOKASI DESC" 
                             ProviderName="<%$ ConnectionStrings:MyConnCloudDnet2.ProviderName %>">
+                            	                <SelectParameters>
+                <asp:ControlParameter ControlID="LabelThn" Name="KPIH_TAHUN" PropertyName="Text" Type="string" />
+                </SelectParameters>
                         </asp:SqlDataSource>                                             
                         <asp:ListView ID="ListView3" runat="server" DataSourceID="SqlDataMutuMaster3" DataKeyNames ="KPIH_NIK">
                             <LayoutTemplate>
@@ -292,8 +301,11 @@
                         <br />
                         <asp:SqlDataSource ID="SqlDataMutuMaster4" runat="server"
                             ConnectionString="<%$ ConnectionStrings:MyConnCloudDnet2 %>"
-                            SelectCommand="select * from TRXN_KPIH, DATA_STAFF where KPIH_NIK = STAFF_NIK AND STAFF_STATUSKERJALOKASI in ('Mugen Puri', 'DADAP') order by STAFF_STATUSKERJADEPT ASC, STAFF_STATUSKERJAJABATAN ASC, STAFF_STATUSKERJALOKASI DESC" 
+                            SelectCommand="select * from TRXN_KPIH, DATA_STAFF where KPIH_NIK = STAFF_NIK AND STAFF_STATUSKERJALOKASI in ('Mugen Puri', 'DADAP') and KPIH_TAHUN=? order by STAFF_STATUSKERJADEPT ASC, STAFF_STATUSKERJAJABATAN ASC, STAFF_STATUSKERJALOKASI DESC" 
                             ProviderName="<%$ ConnectionStrings:MyConnCloudDnet2.ProviderName %>">
+                            	                <SelectParameters>
+                <asp:ControlParameter ControlID="LabelThn" Name="KPIH_TAHUN" PropertyName="Text" Type="string" />
+                </SelectParameters>
                         </asp:SqlDataSource>                                             
                         <asp:ListView ID="ListView4" runat="server" DataSourceID="SqlDataMutuMaster4" DataKeyNames ="KPIH_NIK">
                             <LayoutTemplate>
