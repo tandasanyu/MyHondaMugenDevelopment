@@ -3155,37 +3155,38 @@ ErrHand:
         GridViewCancelPend.DataSource = ListTgl_Pend
         GridViewCancelPend.DataBind()
 
+        'masukan nilai gabungan tgl ke dalam 1 array ListTgl_seluruh
         For Each item In ListTgl
             ListTgl_seluruh.Add(item)
         Next
         For Each item In ListTgl_Pend
             ListTgl_seluruh.Add(item)
         Next
-
-        For Each item In ListTgl_seluruh
-            ListBox1.Items.Add(item)
-        Next
-
+        'masukan nilai array untuk nilai checkboxlist
         CheckBoxList1.DataSource = ListTgl_seluruh
         CheckBoxList1.DataBind()
 
         If TxtDetailStaffCancelJenisIzin.Text = "Cuti" Then
+            'tampilkan button delete pilihan
+            Button2.Visible = True
+            CheckBoxList1.Visible = True
+            Label64.Visible = True
             If ListTgl.Count > 0 And ListTgl_Pend.Count > 0 Then
                 BtnDetailStaffHRDCancelTahunan.Visible = True
                 BtnDetailStaffHRDCancelPending.Visible = True
                 Label59.Visible = True
                 Label60.Visible = True
-            ElseIf ListTgl.Count > 0 And ListTgl_Pend.count = 0 Then
+            ElseIf ListTgl.Count > 0 And ListTgl_Pend.Count = 0 Then
                 BtnDetailStaffHRDCancelTahunan.Visible = True
                 BtnDetailStaffHRDCancelPending.Visible = False
                 Label59.Visible = False
                 Label60.Visible = True
-            ElseIf ListTgl.Count = 0 And ListTgl_Pend.count > 0 Then
+            ElseIf ListTgl.Count = 0 And ListTgl_Pend.Count > 0 Then
                 BtnDetailStaffHRDCancelTahunan.Visible = False
                 BtnDetailStaffHRDCancelPending.Visible = True
                 Label59.Visible = True
                 Label60.Visible = False
-            ElseIf ListTgl.Count = 0 And ListTgl_Pend.count = 0 Then
+            ElseIf ListTgl.Count = 0 And ListTgl_Pend.Count = 0 Then
                 BtnDetailStaffHRDCancelTahunan.Visible = False
                 BtnDetailStaffHRDCancelPending.Visible = False
                 Label59.Visible = False
@@ -3198,6 +3199,10 @@ ErrHand:
             BtnDetailStaffHRDCancelPending.Visible = False
             Label59.Visible = False
             Label60.Visible = False
+            'new control object untuk checkbox list
+            Button2.Visible = False
+            CheckBoxList1.Visible = False
+            Label64.Visible = False
         End If
 
     End Sub
@@ -5522,19 +5527,55 @@ ErrHand:
 
     End Sub
 
-    Public arr_selected As New List(Of String)()
+    'Fungsi delete tanggal by checkboxlist
+    Public arr_selected As New List(Of DateTime)()
+    Public arr_selected_thn As New List(Of DateTime)() 'array tahunan
+    Public arr_selected_pc As New List(Of DateTime)() 'array pc
     Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-
-        'Dim tgl As String
         For Each i As ListItem In CheckBoxList1.Items
-
             If i.Selected = True Then
                 arr_selected.Add(i.Value)
             End If
         Next
+        '**********core operation
+        '***Get value saldo_thn dan saldo_pc
+        Call Real_saldoStaff("select IZIN_SALDO, IZIN_SALDO_CUTI_TAHUNAN_BERLAKU, IZIN_SALDO_PC, IZIN_SALDO_PC_BERLAKU from DATA_IZIN_HEADER where IZIN_NIK ='" & TxtDetailStaffCancelNIK.Text & "'")
+        ListTgl.Clear()
+        ListTgl_Pend.Clear()
+        Call GetData_ListTglIzin("select izin_tgldetail from data_izin_detail where izin_id = '" & TxtDetailStaffCancelIdIzin.Text & "'", "1") 'list tgl
+        Call GetData_ListTglIzin("select izin_tgldetail from DATA_IZIN_DETAILPC where izin_id = '" & TxtDetailStaffCancelIdIzin.Text & "'", "3") 'list tgl pending
+        '***PISAHKAN arr_selected  KE DALAM ARRAY TAHUNAN DAN PC 
+        'Public saldo_tahunan As Integer
+        'Public saldo_tahunanberlaku As DateTime
+        'Public saldo_pending As Integer
+        'Public saldo_pendingberlaku As DateTime
         For Each item In arr_selected
-            Response.Write("<script>alert('Tanggal yang di pilih : " + item + "')</script>")
+            For Each itemx In ListTgl
+                If item = itemx Then
+                    arr_selected_thn.Add(item)
+                End If
+            Next
         Next
+        For Each item In arr_selected
+            For Each itemx In ListTgl_Pend
+                If item = itemx Then
+                    arr_selected_pc.Add(item)
+                End If
+            Next
+        Next
+        '***cek
+        'For Each item In arr_selected_pc
+        '    Response.Write("<script>alert('Tanggal yang di pilih pc : " + item + "')</script>")
+        'Next
+        'For Each item In arr_selected_thn
+        '    Response.Write("<script>alert('Tanggal yang di pilih thn : " + item + "')</script>")
+        'Next
+
+        'Response.Write("<script>alert('Count PC : " + Convert.ToString(arr_selected_pc.Count) + "')</script>")
+        'Response.Write("<script>alert('Count THN : " + Convert.ToString(arr_selected_thn.Count) + "')</script>")
+        '***cek
+        '***Hapus pada Database, tanggal yg masih berlaku. sekaligus tambahkan jumlah saldo
+
     End Sub
 End Class
 '============================================NOTE=================================================='

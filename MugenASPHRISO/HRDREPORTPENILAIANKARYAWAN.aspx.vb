@@ -19,6 +19,10 @@ Partial Class HRDREPORTPENILAIANKARYAWAN
         If Not mpLabel Is Nothing Then
             mpLabel.Text = "Master page label = " + mpLabel.Text
         End If
+        'define value get tahun 
+        Dim thn As String = DateTime.Now.ToString("yyyy")
+        Dim hasil As Integer = Convert.ToInt32(thn) - 1
+        LabelThn.Text = hasil
 
         If LblUserName.Text = "" Then
             Dim x As String

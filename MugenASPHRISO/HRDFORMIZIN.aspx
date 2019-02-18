@@ -1434,10 +1434,6 @@ left join DATA_IZIN_SALDO_HUTANGCUTI on data_staff.staff_nik = DATA_IZIN_SALDO_H
                         <td class="col-md-2">
                             <asp:Label ID="Label60" runat="server" Text="Tanggal Pengajuan Memotong Cuti Tahunan"></asp:Label></td>
                         <td class="col-md-4"><asp:GridView ID="GridViewCancel" runat="server" EnableModelValidation="True" GridLines="None" Height="100px" ShowHeader="False" Width="100px" BorderStyle="None"></asp:GridView>
-                            <!-- Penambahan Code Baru -->
-                            <asp:ListBox ID="ListBox1" runat="server" SelectionMode="Multiple" ToolTip="List Tanggal Keseluruhan"></asp:ListBox>
-                            <asp:CheckBoxList ID="CheckBoxList1" runat="server"></asp:CheckBoxList>
-                            <asp:Button ID="Button2" runat="server" Text="Get selected Value" />
                         </td>
                     </tr>
                     <tr>
@@ -1456,9 +1452,10 @@ left join DATA_IZIN_SALDO_HUTANGCUTI on data_staff.staff_nik = DATA_IZIN_SALDO_H
                         <td class="col-md-4">
                             <asp:TextBox ID="TxtDetailStaffCancelNama" Visible="true" runat="server" class="form-control required"></asp:TextBox></td>
                         <td class="col-md-2">
-                           <asp:Label ID="Label64" runat="server" Text="Tanggal Pengajuan Keseluruhan"></asp:Label></td>
+                           <asp:Label ID="Label64" runat="server" Text="Tanggal Pengajuan Keseluruhan"></asp:Label></td>                       
                         <td class="col-md-4">
-
+                            <!-- Penambahan Code Baru -->
+                            <asp:CheckBoxList ID="CheckBoxList1" runat="server"></asp:CheckBoxList>
                         </td>
                     </tr>
                     <tr >
@@ -1495,6 +1492,10 @@ left join DATA_IZIN_SALDO_HUTANGCUTI on data_staff.staff_nik = DATA_IZIN_SALDO_H
                         </td>
                         <td>
                             <asp:Button ID="BtnDetailStaffHRDCancelPending" visible="True" runat="server" Text="Cancel Data Pengajuan Pending" class="btn btn-danger" /> 
+                            <br />
+                        </td>
+                        <td>
+                            <asp:Button ID="Button2" runat="server" Text="Batalkan Tanggal Terpilih" visible="false" class="btn btn-danger"/>
                             <br />
                         </td>
                     </tr>

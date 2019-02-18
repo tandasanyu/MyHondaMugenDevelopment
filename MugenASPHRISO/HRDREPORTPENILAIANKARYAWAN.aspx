@@ -62,6 +62,8 @@
     <asp:Label ID="lblAkses" Style="display:none" runat="server"></asp:Label>
     <asp:Label ID="lblArea1" Style="display:none" runat="server"></asp:Label>
     <asp:Label ID="lblArea2" Style="display:none" runat="server"></asp:Label>
+    <!-- label datetimenow -->
+    <asp:Label ID="LabelThn" Style="display:none" runat="server"></asp:Label>
 
     <div class="container">
          <ul class="breadcrumb">
@@ -508,9 +510,11 @@
         <div style="display:none;">
             <asp:SqlDataSource ID="SqlDataSource2" runat="server"
                 ConnectionString="<%$ ConnectionStrings:MyConnCloudDnet2 %>"
-                SelectCommand="select * from (SELECT KPIH_NIK, staff_nama, STAFF_STATUSKERJALOKASI, staff_statuskerjadept, kpih_sp, staff_statuskerjajabatan, kpih_nilai1, kpih_nilai, kpi_kodeitem, kpi_atasan, CONVERT(varchar, staff_statuskerjamasukk, 103) as staff_statuskerjamasukk, CONVERT(varchar, staff_statuskerjatglangkat, 103) as staff_statuskerjatglangkat, CASE  WHEN kpih_appvhrdtgl <> '' THEN 'Verified by HRD' WHEN kpih_appvheadtgl2 <> '' THEN 'Verified by Atasan dari Atasan Langsung' WHEN kpih_appvheadtgl <> '' THEN 'Verified by Atasan Langsung' WHEN kpih_appvusertgl <> '' THEN 'Verified by Karyawan Ybs' ELSE 'Not Verified by Karyawan Ybs'END AS verification_by, CASE  WHEN staff_subjabatan = '0' THEN 'Operator' WHEN staff_subjabatan = '1' THEN 'Staff' WHEN STAFF_SUBJABATAN = '2' THEN 'Leader' WHEN STAFF_SUBJABATAN = '3' THEN 'SPV' WHEN STAFF_SUBJABATAN = '4' THEN 'Ast. Manager' ELSE 'Manager' END AS level_jabatan FROM trxn_kpih, data_staff, trxn_kpidd  where kpih_nik=staff_nik and kpih_nik = kpi_nik) as a pivot (max (kpi_atasan) for kpi_kodeitem in([PR1],[PR2],[PR3],[PR4],[PR5],[PR6],[PR7],[HD1],[HD2],[HD3],[HD4],[HD5])) as nilai" 
+                SelectCommand="select * from (SELECT KPIH_NIK,KPIH_TAHUN, staff_nama, STAFF_STATUSKERJALOKASI, staff_statuskerjadept, kpih_sp, staff_statuskerjajabatan, kpih_nilai1, kpih_nilai, kpi_kodeitem, kpi_atasan, CONVERT(varchar, staff_statuskerjamasukk, 103) as staff_statuskerjamasukk, CONVERT(varchar, staff_statuskerjatglangkat, 103) as staff_statuskerjatglangkat, CASE  WHEN kpih_appvhrdtgl <> '' THEN 'Verified by HRD' WHEN kpih_appvheadtgl2 <> '' THEN 'Verified by Atasan dari Atasan Langsung' WHEN kpih_appvheadtgl <> '' THEN 'Verified by Atasan Langsung' WHEN kpih_appvusertgl <> '' THEN 'Verified by Karyawan Ybs' ELSE 'Not Verified by Karyawan Ybs'END AS verification_by, CASE  WHEN staff_subjabatan = '0' THEN 'Operator' WHEN staff_subjabatan = '1' THEN 'Staff' WHEN STAFF_SUBJABATAN = '2' THEN 'Leader' WHEN STAFF_SUBJABATAN = '3' THEN 'SPV' WHEN STAFF_SUBJABATAN = '4' THEN 'Ast. Manager' ELSE 'Manager' END AS level_jabatan FROM trxn_kpih, data_staff, trxn_kpidd  where kpih_nik=staff_nik and kpih_nik = kpi_nik) as a pivot (max (kpi_atasan) for kpi_kodeitem in([PR1],[PR2],[PR3],[PR4],[PR5],[PR6],[PR7],[HD1],[HD2],[HD3],[HD4],[HD5])) as nilai " 
                 ProviderName="<%$ ConnectionStrings:MyConnCloudDnet2.ProviderName %>">
-            </asp:SqlDataSource>                                             
+
+            </asp:SqlDataSource>        
+            <!-- LabelThn -->                                     
             <asp:ListView ID="ListViewPK" runat="server" DataSourceID="SqlDataSource2" DataKeyNames ="KPIH_NIK">
                 <LayoutTemplate>
                     <table id="table-a" border="1">
@@ -518,6 +522,7 @@
                             <th style="text-align:center;" rowspan ="2">No.</th>
                             <th style="text-align:center;" rowspan ="2">NIK</th>
                             <th style="text-align:center;" rowspan ="2">Nama Karyawan</th>
+                            <th style="text-align:center;" rowspan ="2">Tahun PK</th>
                             <th style="text-align:center;" rowspan ="2">Lokasi</th>
                             <th style="text-align:center;" rowspan ="2">Department</th>
                             <th style="text-align:center;" rowspan ="2">Jabatan</th>
@@ -552,8 +557,9 @@
                 <ItemTemplate>
                     <tr>
                         <td align="center"><%#Container.DataItemIndex + 1 %></td>
-                        <td align="center"><%#Eval("KPIH_NIK")%></td>
+                        <td align="center"><%#Eval("KPIH_NIK")%></td>                        
                         <td><%#Eval("STAFF_NAMA")%></p></td>
+                        <td><%#Eval("KPIH_TAHUN")%></p></td>
                         <td><%#Eval("STAFF_STATUSKERJALOKASI")%></td>
                         <td><%#Eval("STAFF_STATUSKERJADEPT")%></td>
                         <td><%#Eval("STAFF_STATUSKERJAJABATAN")%></td>
