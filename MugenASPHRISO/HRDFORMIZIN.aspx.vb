@@ -848,7 +848,7 @@ ErrHand:
                                     'jika arr_notpc = 0 
                                     If arr_temp.Count > 0 And arr_notpc.Count = 0 Then
                                         'input tgl arr_temp ke arr_notpc sebanyak jml saldo tahunan, di validasi dulu apakah arr_temp lebih besar = dari saldo tahunan
-                                        If arr_temp.Count >= saldo_tahunan Then
+                                        If arr_temp.Count <= saldo_tahunan Then
                                             For a As Integer = 0 To saldo_tahunan - 1
                                                 arr_notpc.Add(arr_temp(a))
                                             Next
@@ -862,7 +862,7 @@ ErrHand:
                                     saldo_cutifinal = arr_pc.Count
                                     'end of process============================================================
                                     'proses update ke database==============================
-                                    If arr_pc.Count = saldo_pending And arr_notpc.Count = saldo_tahunan Then
+                                    If arr_pc.Count <= saldo_pending And arr_notpc.Count <= saldo_tahunan Then
                                         ' insert data_izin_body
                                         If UpdateData_Server("INSERT INTO DATA_IZIN_BODY (IZIN_ALASANDETAIL,IZIN_BLNPENGAJUAN, IZIN_NIK, IZIN_ALASAN, IZIN_JENIS, IZIN_THNPENGAJUAN, IZIN_TGLPENGAJUAN, IZIN_TGLDEADLINE, IZIN_STATUS) VALUES ('" & TxtAlasanIzinDetail.Text & "','" & TxtBulanCuti.Text & "','" & TxtStaffNIKMaster.Text & "','" & TxtPetik(DropDownListCuti.Text) & "','" & JnsIzin & "','" & TxtTahunCuti.Text & "','" & datenowher & "','" & tgldead & "','Pending')", "") = 1 Then
                                             Call GetData_IdIzinPengajuan("select top 1 IZIN_ID from DATA_IZIN_BODY order by izin_id desc")

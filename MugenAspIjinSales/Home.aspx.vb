@@ -3,15 +3,15 @@ Partial Class Home
     Inherits System.Web.UI.Page
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim v1 As String = Request.QueryString("Name")
-        'v1 = "112VYE"
+        'v1 = "FAIZ"
 
-        If v1 = "FAIZ" Or v1 = "JULIUS" Or v1 = "RONI" Or v1 = "DAVIDH" Or v1 = "HELMI" Or v1 = "IVAN" Or v1 = "SAHRUL" Or v1 = "BAYU" Or v1 = "FENDY" Or v1 = "MEGAH" Then
+        If v1 = "FAIZ" Or v1 = "JULIUS" Or v1 = "RONI" Or v1 = "DAVIDH" Or v1 = "HELMI" Or v1 = "IVAN" Or v1 = "SAHRUL" Or v1 = "BAYU" Or v1 = "FENDY" Or v1 = "MEGAH" Or v1 = "MICHAEL" Then
             FormPengajuanIzin.Visible = False
             LabelPengajuanIzin.Visible = False
-            LblUsername_Home.text = v1
+            LblUsername_Home.Text = v1
         ElseIf v1 = "" Then
             Response.Write("<script>alert('Gagal Mendapatkan UserName Login. Anda Tidak Bisa Akses Menu Apapun')</script>")
-            LblUsername_Home.text = ""
+            LblUsername_Home.Text = ""
         Else
             FormPengajuanIzin.Visible = True
             LabelPengajuanIzin.Visible = True

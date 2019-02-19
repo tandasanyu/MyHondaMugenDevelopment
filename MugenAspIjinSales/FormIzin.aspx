@@ -196,6 +196,9 @@
             <asp:Label ID="emailatasan" runat="server" Text="Label" ></asp:Label></div>
     <div class="container" >
           <h1 class="headertekst">FORM PENGAJUAN IZIN</h1><br /><br /><br />
+        <div>
+            <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath><br />
+        </div>
         <div class="form-group">
           <%--<label for="email">Pilih Jenis Izin</label><br />--%>
             <asp:Button ID="Button5" runat="server" Text="Cuti" class="btn btn-info"/>

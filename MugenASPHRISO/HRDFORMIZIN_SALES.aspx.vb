@@ -587,7 +587,7 @@ ErrHand:
         'di tambahkan cloud dnet 6 untuk 128
 
         If LblCabang.Text = "112" Then
-            Response.Write("<script>alert('112!')</script>")
+            'Response.Write("<script>alert('112!')</script>")
             'CALL TO GET NAMA SALES DAN ATASAN SALES
             For Each item As String In ID_S
                 If GetData_ListNamaSales("select sales_nama from data_salesman where SALES_Kode = '" + item + "'", "MyConnCloudDnet5", 1) = 1 Then 'wtsalestransaction
@@ -919,7 +919,7 @@ ErrHand:
                 Response.Write("<script>window.location.href='hrdformizin_sales.aspx';</script>")
             End If
         ElseIf LblCabang.Text = "128" Then
-            Response.Write("<script>alert('128!')</script>")
+            'Response.Write("<script>alert('128!')</script>")
             Dim val1 As String = "INPUT SALDO AWAL TAHUN"
             'CALL TO GET NAMA SALES DAN ATASAN SALES
             For Each item As String In ID_S
@@ -1267,6 +1267,7 @@ ErrHand:
     Public ListTgl As New List(Of String)()
     Public ListTgl_Pend As New List(Of String)()
     Public ListTglKesel As New List(Of String)()
+    Public ListTgl_seluruh As New List(Of String)()
     Protected Sub ListViewHRDPembatalanIzin_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListViewHRDPembatalanIzin.SelectedIndexChanged
         'get value terpilih  dari listview
         Dim sales_IzinIDHRDFormIzinPembatalan As String = (ListViewHRDPembatalanIzin.DataKeys(ListViewHRDPembatalanIzin.SelectedIndex).Value.ToString)
@@ -1300,7 +1301,16 @@ ErrHand:
         GridViewCancelPend.DataBind()
         'gabungkan semua tanggal yang di pilih
 
-
+        'masukan nilai gabungan tgl ke dalam 1 array ListTgl_seluruh
+        For Each item In ListTgl
+            ListTgl_seluruh.Add(item)
+        Next
+        For Each item In ListTgl_Pend
+            ListTgl_seluruh.Add(item)
+        Next
+        'masukan nilai array untuk nilai checkboxlist
+        CheckBoxList1.DataSource = ListTgl_seluruh
+        CheckBoxList1.DataBind()
 
         'logic hide object 
         If TxtAlasanpengajuan.Text = "Cuti" Then
@@ -1328,6 +1338,8 @@ ErrHand:
                 BtnDetailStaffHRDCancel.Visible = False
                 Label61.Visible = True
             End If
+            BtnDetailStaffHRDCancelTahunan.Visible = False
+            BtnDetailStaffHRDCancelPending.Visible = False
         Else
             BtnDetailStaffHRDCancelTahunan.Visible = False
             BtnDetailStaffHRDCancelPending.Visible = False
@@ -1553,5 +1565,86 @@ ErrHand:
     End Sub
     Protected Sub BtnKembali_Click(sender As Object, e As EventArgs) Handles BtnKembali.Click
         Response.Write("<script>window.location.href='HRDFORMIZIN.aspx';</script>")
+    End Sub
+    'Fungsi delete tanggal by checkboxlist
+    Public arr_selected As New List(Of DateTime)()
+    Public arr_selected_thn As New List(Of DateTime)() 'array tahunan
+    Public arr_selected_pc As New List(Of DateTime)() 'array pc
+    Protected Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        For Each i As ListItem In CheckBoxList1.Items
+            If i.Selected = True Then
+                arr_selected.Add(i.Value)
+            End If
+        Next
+        '**********core operation
+        '***Get value saldo_thn dan saldo_pc
+        Call Real_saldoStaff("select IZIN_SALDO, IZIN_SALDO_CUTI_TAHUNAN_BERLAKU, IZIN_SALDO_PC, IZIN_SALDO_PC_BERLAKU from DATA_IZIN_HEADER_SALES where IZIN_NIK ='" & TxtDetailStaffCancelNIK.Text & "'")
+        ListTgl.Clear()
+        ListTgl_Pend.Clear()
+        Call GetData_ListTglIzin("select izin_tgldetail from data_izin_detail_sales where izin_id = '" & TxtDetailStaffCancelIdIzin.Text & "'", "1") 'list tgl
+        Call GetData_ListTglIzin("select izin_tgldetail from DATA_IZIN_DETAILPC_sales where izin_id = '" & TxtDetailStaffCancelIdIzin.Text & "'", "3") 'list tgl pending
+        '***PISAHKAN arr_selected  KE DALAM ARRAY TAHUNAN DAN PC 
+        'Public saldo_tahunan As Integer
+        'Public saldo_tahunanberlaku As DateTime
+        'Public saldo_pending As Integer
+        'Public saldo_pendingberlaku As DateTime
+        For Each item In arr_selected
+            For Each itemx In ListTgl
+                If item = itemx Then
+                    arr_selected_thn.Add(item)
+                End If
+            Next
+        Next
+        For Each item In arr_selected
+            For Each itemx In ListTgl_Pend
+                If item = itemx Then
+                    arr_selected_pc.Add(item)
+                End If
+            Next
+        Next
+        '***cek
+        'For Each item In arr_selected_pc
+        '    Response.Write("<script>alert('Tanggal yang di pilih pc : " + item + "')</script>")
+        'Next
+        'For Each item In arr_selected_thn
+        '    Response.Write("<script>alert('Tanggal yang di pilih thn : " + item + "')</script>")
+        'Next
+
+        'Response.Write("<script>alert('Count PC : " + Convert.ToString(arr_selected_pc.Count) + "')</script>")
+        'Response.Write("<script>alert('Count THN : " + Convert.ToString(arr_selected_thn.Count) + "')</script>")
+        '***cek
+        '***Hapus pada Database, tanggal yg masih berlaku. sekaligus tambahkan jumlah saldo
+        Dim string_deletethn As String
+        Dim string_deletepc As String
+        Dim string_updatethn As String
+        Dim string_updatepc As String
+        '**delete di database
+        If arr_selected_thn.Count <> 0 Then 'THN
+            For Each item In arr_selected_thn
+                string_deletethn = "delete  FROM DATA_IZIN_DETAIL_SALES WHERE  IZIN_ID ='" + TxtDetailStaffCancelIdIzin.Text + "' AND IZIN_TGLDETAIL = '" + item + "' "
+                Call UpdateData_Server(string_deletethn)
+            Next
+        End If
+        If arr_selected_pc.Count <> 0 Then 'PC
+            For Each item In arr_selected_pc
+                string_deletepc = "delete  FROM DATA_IZIN_DETAILPC_SALES WHERE  IZIN_ID ='" + TxtDetailStaffCancelIdIzin.Text + "' AND IZIN_TGLDETAIL = '" + item + "' "
+                Call UpdateData_Server(string_deletepc)
+            Next
+        End If
+        '**update di database
+        If arr_selected_thn.Count <> 0 Then 'THN
+            Dim saldo_thn_final As Integer = saldo_tahunan + arr_selected_thn.Count
+
+            string_updatethn = "UPDATE data_izin_header_sales Set izin_saldo='" + Convert.ToString(saldo_thn_final) + "' WHERE  IZIN_NIK='" & TxtDetailStaffCancelNIK.Text & "'"
+            Call UpdateData_Server(string_updatethn)
+        End If
+        If arr_selected_pc.Count <> 0 Then 'PC
+            Dim saldo_pc_final As Integer = saldo_pending + arr_selected_pc.Count
+            string_updatepc = "UPDATE data_izin_header_sales Set izin_saldo_pc='" + Convert.ToString(saldo_pc_final) + "'  WHERE  IZIN_NIK='" & TxtDetailStaffCancelNIK.Text & "'"
+            Call UpdateData_Server(string_updatepc)
+        End If
+
+        Response.Write("<script>alert('Proses Berhasil.')</script>")
+        Response.Write("<script>window.location.href='HRDFORMIZIN_SALES.aspx';</script>")
     End Sub
 End Class

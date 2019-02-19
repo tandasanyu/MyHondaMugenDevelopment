@@ -52,14 +52,17 @@
     <!-- 2 View -->
     <div class="container">
         <div id="divCheckbox" >
-        <asp:Label ID="LabelUsernameLogin" runat="server" Text="LabelUsernameLogin"  ForeColor="red"></asp:Label>
-        <asp:Label ID="LabelUsernameLoginID" runat="server" Text="LabelUsernameLoginID"  ForeColor="Yellow"></asp:Label>
-        <asp:Label ID="LabelNama" runat="server" Text="LabelNama"  ForeColor="green"></asp:Label></div>
+        <asp:Label ID="LabelUsernameLogin" runat="server" Visible="false" Text="LabelUsernameLogin"  ForeColor="red"></asp:Label>
+        <asp:Label ID="LabelUsernameLoginID" runat="server" Visible="false" Text="LabelUsernameLoginID"  ForeColor="Yellow"></asp:Label>
+        <asp:Label ID="LabelNama" runat="server" Visible="false" Text="LabelNama"  ForeColor="green"></asp:Label></div>
         <asp:MultiView ID="MultiViewListIzin" runat="server" ActiveViewIndex="0">
         <asp:View ID="View0" runat="server"> <!-- VIEW STAFF -->
                 <br />
 		            <h3 style="font-family:Blunter;"><span class="glyphicon glyphicon-user"></span> Table Data List Izin Sales</h3>
 	            <br />
+                    <div>
+            <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath><br />
+        </div>
                         <asp:SqlDataSource ID="SqlDataSourceSales" runat="server"
 					        ConnectionString="<%$ ConnectionStrings:MyConnCloudDnet2 %>"
                             SelectCommand="select * from data_izin_body_sales 
@@ -122,6 +125,9 @@ join data_izin_header_sales on data_izin_header_sales.izin_nik = data_izin_body_
                 <br />
 		            <h3 style="font-family:Blunter;"><span class="glyphicon glyphicon-user"></span> Table Data List Izin Bawahan</h3>
 	            <br />
+                                <div>
+            <asp:SiteMapPath ID="SiteMapPath2" runat="server"></asp:SiteMapPath><br />
+        </div>
                         <asp:SqlDataSource ID="SqlDataSourceBawahan" runat="server"
 					        ConnectionString="<%$ ConnectionStrings:MyConnCloudDnet2 %>"
                             SelectCommand="select * from data_izin_body_sales 
@@ -186,6 +192,9 @@ join data_izin_header_sales on data_izin_header_sales.izin_nik = data_izin_body_
                                 <br />
 		            <h3 style="font-family:Blunter;"><span class="glyphicon glyphicon-user"></span> Table Data List Izin Bawahan SPV</h3>
 	            <br />
+                                <div>
+            <asp:SiteMapPath ID="SiteMapPath3" runat="server"></asp:SiteMapPath><br />
+        </div>
                         <asp:SqlDataSource ID="SqlDataSourceBawahanSPV" runat="server"
 					        ConnectionString="<%$ ConnectionStrings:MyConnCloudDnet2 %>"
                             SelectCommand="select * from data_izin_body_sales 

@@ -22,7 +22,7 @@ Partial Class ListIzin
 
         If v1 = "FAIZ" Or v1 = "UGAM" Then
             MultiViewListIzin.ActiveViewIndex = 1 'view bawahan
-        ElseIf v1 = "JULIUS" Or v1 = "RONI" Or v1 = "DAVIDH" Or v1 = "HELMI" Or v1 = "IVAN" Or v1 = "SAHRUL" Or v1 = "BAYU" Or v1 = "FENDY" Or v1 = "MEGAH" Then
+        ElseIf v1 = "JULIUS" Or v1 = "RONI" Or v1 = "DAVIDH" Or v1 = "HELMI" Or v1 = "IVAN" Or v1 = "SAHRUL" Or v1 = "BAYU" Or v1 = "FENDY" Or v1 = "MEGAH" Or v1 = "MICHAEL" Then
             Call GetData_DetaiIzinStaff("select user_id from DATA_SECURITYU where User_nama ='" + v1 + "'", "SalesWarehouseSecurityU", 1)
             LabelUsernameLoginID.Text = ID_Spv
             MultiViewListIzin.ActiveViewIndex = 2 'view bawahan spv
@@ -115,6 +115,11 @@ ErrHand:
         SMTP.Port = "587"
         SMTP.Send(pesan)
     End Function
+
+    'Function emailNotifikasi(isiPesan As String, staffEmailnotif As String) As Byte
+    '    Response.Write("<script>alert('Berhasil Email')</script>")
+    'End Function
+    '==+++++++++++++++++++++++++++++++++++++++++++++
 
     'fungsi get jenis izin
     Public izin_jenisApv As String

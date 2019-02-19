@@ -45,6 +45,9 @@
                 <br />
 		            <h3 style="font-family:Blunter;"><span class="glyphicon glyphicon-user"></span> Table Data List Izin Sales</h3>
 	            <br />
+                    <div>
+                    <asp:SiteMapPath ID="SiteMapPath1" runat="server"></asp:SiteMapPath><br />
+                    </div>
                 <div runat="server" visible="true">
                         <table class="table table-borderless" align="left">
                             <tr>

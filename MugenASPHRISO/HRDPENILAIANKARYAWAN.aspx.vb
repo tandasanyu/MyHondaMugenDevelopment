@@ -47,12 +47,15 @@ Partial Class HRDPENILAIANKARYAWAN
 
             'Jika user mempunyai akses login HRD
             If GetData_UserSecurity("SELECT * FROM tb_userutility WHERE username = '" & LblUserName.Text & "' and hakakses = 'PENILAIAN KARYAWAN -- VIEW PK'") = 1 Then
+                'Hak akses bu Octa
                 If GetData_UserSecurity("SELECT * FROM tb_userutility WHERE username = '" & LblUserName.Text & "' and hakakses = 'PENILAIAN KARYAWAN -- STAFF HRD EDIT'") = 1 And subJabatan.Text = "0" Or subJabatan.Text = "2" Or TxtNama.Text = TxtStaffNama.Text Then
                     Call HakLihatPK()
                 End If
+                'Hak Akses Bu Fia
                 If GetData_UserSecurity("SELECT * FROM tb_userutility WHERE username = '" & LblUserName.Text & "' and hakakses = 'PENILAIAN KARYAWAN -- SPV HRD EDIT'") = 1 And subJabatan.Text = "1" Or subJabatan.Text = "3" Then
                     Call HakLihatPK()
                 End If
+                'Hak Akses Bu Tini
                 If GetData_UserSecurity("SELECT * FROM tb_userutility WHERE username = '" & LblUserName.Text & "' and hakakses = 'PENILAIAN KARYAWAN -- HRD HEAD EDIT'") = 1 Then
                     Call HakLihatPK()
                 End If

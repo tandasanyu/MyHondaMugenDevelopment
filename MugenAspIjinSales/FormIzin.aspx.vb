@@ -748,7 +748,7 @@ ErrHand:
                             'jika arr_notpc = 0 
                             If arr_temp.Count > 0 And arr_notpc.Count = 0 Then
                                 'input tgl arr_temp ke arr_notpc sebanyak jml saldo tahunan, di validasi dulu apakah arr_temp lebih besar = dari saldo tahunan
-                                If arr_temp.Count >= saldo_tahunan Then
+                                If arr_temp.Count <= saldo_tahunan Then
                                     For a As Integer = 0 To saldo_tahunan - 1
                                         arr_notpc.Add(arr_temp(a))
                                     Next
@@ -770,7 +770,7 @@ ErrHand:
                             '*********************test case
                             '***coreprocess
                             'validasi apakah arr_pc = saldo pc dan arr_npc = saldo_thn
-                            If arr_pc.Count = saldo_pending And arr_notpc.Count = saldo_tahunan Then
+                            If arr_pc.Count <= saldo_pending And arr_notpc.Count <= saldo_tahunan Then
                                 '******proses insert data pengajuan***************************************************
                                 '2 variabel mewakili jml saldo izin tahunan dan saldo pending cuti. untuk dikurangi dengan saldo yg berjalan di database
                                 Dim saldo_tahunanfinal As Integer

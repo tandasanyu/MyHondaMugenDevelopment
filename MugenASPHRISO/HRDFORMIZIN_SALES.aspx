@@ -581,7 +581,14 @@ WHERE  ([izin_tgldetail] between ? and ?)"
                         <td class="col-md-2">
                             <asp:Label ID="Label28" runat="server" Text="Nama"></asp:Label></td>
                         <td class="col-md-4">
-                            <asp:TextBox ID="TxtDetailStaffCancelNama" Visible="true" runat="server" class="form-control required"></asp:TextBox></td><td></td>
+                            <asp:TextBox ID="TxtDetailStaffCancelNama" Visible="true" runat="server" class="form-control required"></asp:TextBox></td>
+                        <td class="col-md-2">
+                           <asp:Label ID="Label64" runat="server" Text="Tanggal Pengajuan Keseluruhan"></asp:Label></td>                       
+                        <td class="col-md-4">
+                            <!-- Penambahan Code Baru -->
+                            <asp:CheckBoxList ID="CheckBoxList1" runat="server"></asp:CheckBoxList>
+                        </td>
+                    
                     </tr>
                     <tr >
                         <td class="col-md-2">
@@ -617,13 +624,17 @@ WHERE  ([izin_tgldetail] between ? and ?)"
                             <br />
                         </td>
                         <td>
-                            <asp:Button ID="BtnDetailStaffHRDCancelTahunan" visible="True" runat="server" Text="Cancel Data Pengajuan Tahunan" class="btn btn-danger" /> 
+                            <asp:Button ID="BtnDetailStaffHRDCancelTahunan" visible="false" runat="server" Text="Cancel Data Pengajuan Tahunan" class="btn btn-danger" /> 
                             <br />
                         </td>
                         <td>
-                            <asp:Button ID="BtnDetailStaffHRDCancelPending" visible="True" runat="server" Text="Cancel Data Pengajuan Pending" class="btn btn-danger" /> 
+                            <asp:Button ID="BtnDetailStaffHRDCancelPending" visible="false" runat="server" Text="Cancel Data Pengajuan Pending" class="btn btn-danger" /> 
                             <br />
                         </td>
+                        <td>
+                            <asp:Button ID="Button2" visible="True" runat="server" Text="Batalkan Tanggal Terpilih" class="btn btn-danger" /> 
+                            <br />
+                        </td>              
                     </tr>
                 </table>
             </asp:View><!--  Detail Staff Cancel Izin -->

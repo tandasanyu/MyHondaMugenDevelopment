@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+    <siteMapNode url="Home.aspx" title="Home"  description=""><!--root-->
+    <siteMapNode url="FormIzin.aspx" title="Pengajuan Izin"  description=""><!--parent-->
+    </siteMapNode>
+    <siteMapNode url="ListIzin.aspx" title="List Izin"  description=""><!--parent-->
+    </siteMapNode>
+    <siteMapNode url="LihatIzin.aspx" title="Lihat Status Izin"  description=""><!--parent-->
+    </siteMapNode>
+        <!--<siteMapNode url="" title=""  description="" />
+        <siteMapNode url="" title=""  description="" />-->
+    </siteMapNode>
+</siteMap>
