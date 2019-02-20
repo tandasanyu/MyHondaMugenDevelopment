@@ -7,14 +7,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <asp:MultiView ID="MultiViewHRD" runat="server">
         <asp:View ID="View0" runat="server"><!-- -->
-            <div style="margin-left:17%;">
+            <div >
                 <br />
 		            <h3 style="font-family:Blunter;"><span ></span> Data Pelamar Baru </h3>
 	            <br />
             </div>
         </asp:View>
         <asp:View ID="View1" runat="server">
-            <div style="margin-left:17%;">
+            <div >
                 <br />
 		            <h3 style="font-family:Blunter;"><span ></span> Data Lowongan Kerja </h3>
 	            <br />
@@ -32,7 +32,7 @@
             </div>
         </asp:View>
         <asp:View ID="View2" runat="server">
-            <div style="margin-left:17%;">
+            <div >
                 <br />
 		            <h3 style="font-family:Blunter;"><span ></span> Data Pelamar</h3>
 	            <br />

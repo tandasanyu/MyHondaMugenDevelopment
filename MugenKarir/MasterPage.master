@@ -51,15 +51,18 @@
               <li><a href="HomeHRD.aspx?Menu=1">Lowongan Kerja</a></li>
               <li><a href="HomeHRD.aspx?Menu=2">Data Pelamar</a></li>
               <li style="margin-top:200%; margin-left:25%">
-                  <asp:Image ID="Image1" runat="server"  ImageUrl="~/img/cropped-honda-icon.png" Width="90" Height="90" />
+                  <asp:Image ID="Image1" runat="server" ImageUrl="img/cropped-honda-icon.png"  Width="90" Height="90" /><br />
+                  
               </li>
             </ul>
         </div>
 
-    <div>
+    <div style="margin-left:17%;">
+        <br />
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
+        
     </div>
     </form>
 </body>

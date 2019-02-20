@@ -11,18 +11,24 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
     {
         string val1;
         val1 = Request.QueryString["Menu"];
-        if (val1=="0") {
+        if (val1 == null ) {
             MultiViewHRD.ActiveViewIndex = 0;
         }
-        else if (val1=="1")
-        {
-            MultiViewHRD.ActiveViewIndex = 1;
+        else {
+            if (val1 == "0")
+            {
+                MultiViewHRD.ActiveViewIndex = 0;
+            }
+            else if (val1 == "1")
+            {
+                MultiViewHRD.ActiveViewIndex = 1;
+            }
+            else if (val1 == "2")
+            {
+                MultiViewHRD.ActiveViewIndex = 2;
+            }
         }
-        else if (val1=="2")
-        {
-            MultiViewHRD.ActiveViewIndex = 2;
-        }
-        
+       
     }
     protected void GetTime(object sender, EventArgs e)
     {
