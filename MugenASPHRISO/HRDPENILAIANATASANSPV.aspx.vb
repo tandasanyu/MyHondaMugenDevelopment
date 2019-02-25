@@ -27,9 +27,9 @@ Partial Class HRDPENILAIANATASANSPV
             LblUserName.Text = x.ToString
 
             Call GetData_STAFF2("SELECT * FROM TB_USER WHERE username='" & LblUserName.Text & "'")
-            Call GetData_STAFF("SELECT * FROM DATA_STAFF WHERE STAFF_NIK='" & TxtStaffNIK.Text & "'")
-            Call GetData_UserHead(" Select KPIH_APPVHEAD from TRXN_KPIH where KPIH_NIK='" & TxtStaffNIK.Text & "' AND KPIH_TAHUN='" & TahunPenilaian.Text & "'")
-            Call GetData_UserHead2(" Select NAMAKARYAWAN from TB_USER where username='" & TxtHead2.Text & "'")
+            Call GetData_STAFF("SELECT * FROM DATA_STAFF WHERE STAFF_NIK='" & TxtStaffNIK.Text & "'") 'TahunPenilaian.Text = datetime.now-1
+            Call GetData_UserHead(" Select KPIH_APPVHEAD from TRXN_KPIH where KPIH_NIK='" & TxtStaffNIK.Text & "' AND KPIH_TAHUN='" & TahunPenilaian.Text & "'") 'TxtHead2.Text = nSr(MyRecReadA("KPIH_APPVHEAD"))
+            Call GetData_UserHead2(" Select NAMAKARYAWAN from TB_USER where username='" & TxtHead2.Text & "'") 'TxtHead.Text = nSr(MyRecReadA("NAMAKARYAWAN")) // lblAtasan.Text = nSr(MyRecReadA("NAMAKARYAWAN"))
 
             If GetData_UserSecurity("SELECT * FROM tb_userutility WHERE username = '" & LblUserName.Text & "' And hakakses = 'PENILAIAN KARYAWAN -- PENILAIAN BAWAHAN KE ATASAN (SPV)'") = 1 Then
                 MultiViewAkses.ActiveViewIndex = 0

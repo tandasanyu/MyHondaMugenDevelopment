@@ -15,6 +15,7 @@
 				top.style.width = bottom.offsetWidth + 'px';
 			}
 		}
+
     </script> 
   	
 	<style>
@@ -344,6 +345,7 @@
 						                <td class="col-md-2"><asp:Label ID="Label47" runat="server" Text="Alasan Keluar"></asp:Label></td>
 						                <td class="col-md-4"><asp:Label ID="TxtStatusKerjaAlasan" runat="server" MaxLength="50" class="form-control required" Text =""></asp:Label></td>
                                     </tr>
+
 				                </table>      
                             </div>
 

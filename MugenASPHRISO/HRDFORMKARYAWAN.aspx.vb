@@ -93,6 +93,7 @@ Partial Class HRDFORMKARYAWAN
 
         Call UpdateData_Server(EditDataStaff2, "A1")
         Call UpdateData_Server(EditDataPendidikanLanjutan("L"), "A112")
+
         Response.Write("<script>alert('Data Karyawan Berhasil Diperbarui!')</script>")
         Response.Write("<script>window.location.href='HRDFORMKARYAWAN.aspx?no=" + TxtStaffNIK.Text + "';</script>")
     End Sub
@@ -972,18 +973,13 @@ ErrHand:
         End Try
     End Function
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    Protected Sub BtnUpdateTglKeluar_Click(sender As Object, e As EventArgs) Handles BtnUpdateTglKeluar.Click
+        Dim var1 As String = ""
+        Dim var2 As String = ""
+        Dim query_update_recall As String = " update DATA_STAFF set STAFF_STATUSKERJATGLKELUAR=NULL,STAFF_STATUSKERJAALSKELUAR='" + var2 + "'  where staff_nik = '" & TxtStaffNIK.Text & "'"
+        If UpdateData_Server(query_update_recall, "A1") = 1 Then
+            Response.Write("<script>alert('Anda Recall Karyawan !')</script>")
+            Response.Write("<script>window.location.href='HRDKARYAWAN.aspx';</script>")
+        End If
+    End Sub
 End Class

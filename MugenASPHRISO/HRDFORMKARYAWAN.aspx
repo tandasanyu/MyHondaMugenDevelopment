@@ -16,9 +16,11 @@
 				top.style.width = bottom.offsetWidth + 'px';
 			}
 		}
+
     </script> 
     <script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/custom.js"></script>
+    <script src="js/jquery-1.12.js"></script>
 	<style>
         .table-borderless > tbody > tr > td,
         .table-borderless > tbody > tr > th,
@@ -561,6 +563,11 @@
 					<tr>
 						<td style="width:10%"><asp:Label ID="Label47" runat="server" Text="Alasan Keluar"></asp:Label></td>
 						<td class="col-md-4"><asp:TextBox ID="TxtStatusKerjaAlasan" runat="server" MaxLength="50" class="form-control required" Text =""></asp:TextBox></td>
+                    </tr>
+                    <tr>
+                        <td> 
+                          <asp:Button ID="BtnUpdateTglKeluar" runat="server" class="btn btn-success" Text="ReCall" />
+                        </td>
                     </tr>
 				</table>        
                 </div>
