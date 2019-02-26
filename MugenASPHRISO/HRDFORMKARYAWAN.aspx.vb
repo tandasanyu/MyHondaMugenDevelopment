@@ -50,10 +50,17 @@ Partial Class HRDFORMKARYAWAN
             If GetData_UserSecurity("SELECT * FROM tb_userutility WHERE username = '" & LblUserName.Text & "' and hakakses = 'DATABASE KARYAWAN -- VIEW DATA'") = 1 Then
                 data_kerja.Visible = True
                 data_akun.Visible = True
-				ButtonA1Save.Visible = True
-				ButtonKaryawan.Visible = False
+                ButtonA1Save.Visible = True
+                ButtonKaryawan.Visible = False
+            End If
+            '//mengatur visibilitas button recall 
+            If TxtStatusKerjaKeluar.Text = "" Then
+                BtnUpdateTglKeluar.Visible = False
+            Else
+                BtnUpdateTglKeluar.Visible = True
             End If
         End If
+
     End Sub
 
     Protected Sub ButtonA1Save_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles ButtonA1Save.Click

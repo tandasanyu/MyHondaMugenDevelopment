@@ -1151,7 +1151,7 @@ data_staff
 left join data_izin_header on data_staff.staff_nik = 
 data_izin_header.izin_nik
 left join DATA_IZIN_SALDO_PENDINGCUTI on data_staff.staff_nik = DATA_IZIN_SALDO_PENDINGCUTI .izin_nik
-left join DATA_IZIN_SALDO_HUTANGCUTI on data_staff.staff_nik = DATA_IZIN_SALDO_HUTANGCUTI .izin_nik
+left join DATA_IZIN_SALDO_HUTANGCUTI on data_staff.staff_nik = DATA_IZIN_SALDO_HUTANGCUTI .izin_nik where STAFF_STATUSKERJATGLKELUAR IS  null and STAFF_STATUSKERJAALSKELUAR is  null
 "
 					        ProviderName="<%$ ConnectionStrings:MyConnCloudDnet2.ProviderName %>">
 				        </asp:SqlDataSource>   

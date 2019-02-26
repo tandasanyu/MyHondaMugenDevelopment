@@ -3482,7 +3482,7 @@ ErrHand:
                             Dim izin_saldo_berlaku As DateTime = tahun_saldo_berlaku + date_izin_saldo_berlaku
 
                             Response.Write("<script>alert('data tidak di temukan di table data izin, membuat data baru')</script>")
-                            If UpdateData_Server("insert into data_izin_header (izin_nik, izin_nama, izin_saldo, izin_tahun, izin_nik_appvspv, izin_nik_appvmng, izin_saldo_cuti_tahunan_berlaku, IZIN_SALDO_AWAL, , izin_saldo_pc, izin_saldo_hc) values ('" & item & "','" & TxtHRDFormIzin_Nama.Text & "','" & TxtHRDFormIzin_OperasiSaldo.Text & "','" & TxtHRDFormIzinTahun.Text & "', '" & nik_atasan1 & "','--', '" & izin_saldo_berlaku & "','" & TxtHRDFormIzin_OperasiSaldo.Text & "', '0','0') ", "") = 1 Then
+                            If UpdateData_Server("insert into data_izin_header (izin_nik, izin_nama, izin_saldo, izin_tahun, izin_nik_appvspv, izin_nik_appvmng, izin_saldo_cuti_tahunan_berlaku, IZIN_SALDO_AWAL , izin_saldo_pc, izin_saldo_hc) values ('" & item & "','" & TxtHRDFormIzin_Nama.Text & "','" & TxtHRDFormIzin_OperasiSaldo.Text & "','" & TxtHRDFormIzinTahun.Text & "', '" & nik_atasan1 & "','--', '" & izin_saldo_berlaku & "','" & TxtHRDFormIzin_OperasiSaldo.Text & "', '0','0') ", "") = 1 Then
                                 If datesvhrd <> 0 Then 'history saldo : data_izin_saldo [ketika operasi saldo terjadi di bulan 12 maka otomatis akan masuk ke kondisi dibawah]
                                     'response.write("<script>alert('bulan desember')</script>")
                                     'nominal awal untuk saldo awal pertahun, nominal akhir hasil kalkulasi dari pengurangan nominal awal -apprv izin
@@ -5434,7 +5434,7 @@ ErrHand:
         'insert data izin saldo
         Call UpdateData_Server("INSERT INTO data_izin_saldo (nik, NOMINAL_AWAL, NOMINAL_AKHIR, TAHUN, KET, TGL) SELECT IZIN_NIK, '-7', IZIN_SALDO, IZIN_TAHUN,'Input Saldo Awal tahun','" & dateshrt & "' FROM data_izin_header", "")
         'update data izin header
-        If UpdateData_Server("update data_izin_header set izin_saldo = '" & saldosemua & "',izin_saldo_CUTI_TAHUNAN_BERLAKU = '" & izin_saldo_berlaku & "', izin_tahun = '" & tahunsemua & "' ", "") = 1 Then
+        If UpdateData_Server("update data_izin_header set izin_saldo = '" & saldosemua & "',izin_saldo_awal='" & saldosemua & "',izin_saldo_CUTI_TAHUNAN_BERLAKU = '" & izin_saldo_berlaku & "', izin_tahun = '" & tahunsemua & "' ", "") = 1 Then
             Response.Write("<script>alert('Berhasil Update Seluruh Saldo Izin Staff!')</script>")
             Response.Write("<script>window.location.href='HRDFORMIZIN.aspx';</script>")
         Else
