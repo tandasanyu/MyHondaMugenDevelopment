@@ -1,17 +1,21 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="PageUser_Register.aspx.cs" Inherits="PagesUser_PageUser_Register" %>
-
+<%--<%@ Register Assembly="MSCaptcha" Namespace="MSCaptcha" TagPrefix="cc1" %>--%>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Daftar Akun</title>
 <style>
+    #BtnDaftar {
+    margin-left:20px;
+    margin-top:10px;
+    }
 #rcorners4 {
   border-radius: 15px;
   background: #cacaca;
   padding: 20px; 
   width: 600px;
-  height: 800px; 
+  height: 900px; 
 } 
 #container2 {
 width: 960px; 
@@ -24,6 +28,8 @@ line-height: 1.4em;
     #container2 { width: 90%; }
 }
 </style>
+    <!-- Untuk Captcha -->
+    <script type="text/javascript" src='https://www.google.com/recaptcha/api.js'></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -46,7 +52,7 @@ line-height: 1.4em;
                             <asp:Label ID="Label1" runat="server" Text="Posisi : "></asp:Label></td>
                         <td>
                             <br />
-                            <asp:TextBox ID="TxtPosisi" class="form-control" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="TxtPosisi" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" 
                                 runat="server" 
                                 ErrorMessage="Posisi Tidak Boleh Kosong"
@@ -59,7 +65,7 @@ line-height: 1.4em;
                         <td><asp:Label ID="Label2" runat="server" Text="Nama Lengkap : "></asp:Label></td>
                         <td>
                             <br />
-                            <asp:TextBox ID="TxtNama" class="form-control" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="TxtNama" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" 
                                 runat="server" 
                                 ErrorMessage="Nama Wajib di Isi"
@@ -79,7 +85,7 @@ line-height: 1.4em;
                         <td><asp:Label ID="Label3" runat="server" Text="Username : "></asp:Label></td>
                         <td>
                             <br />
-                            <asp:TextBox ID="TxtUsername" class="form-control" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="TxtUsername" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" 
                                 runat="server" 
                                 ErrorMessage="Username Wajib Di Isi"
@@ -92,7 +98,7 @@ line-height: 1.4em;
                         <td><asp:Label ID="Label4" runat="server" Text="Password : "></asp:Label></td>
                         <td>
                             <br />
-                            <asp:TextBox ID="TxtPswd" class="form-control" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="TxtPswd" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" 
                                 runat="server" 
                                 ErrorMessage="Password Wajib di Isi"
@@ -105,7 +111,7 @@ line-height: 1.4em;
                         <td><asp:Label ID="Label5" runat="server" Text="Email : "></asp:Label></td>
                         <td>
                             <br />
-                            <asp:TextBox ID="TxtEmail" class="form-control" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="TxtEmail" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" 
                                 runat="server" 
                                 ErrorMessage="Email Wajib di Isi"
@@ -123,9 +129,22 @@ line-height: 1.4em;
                     </tr>
                     <tr>
                         <td>
+                            
                             <br />
                             <br />
-                            <asp:Button ID="BtnDaftar"  runat="server" Text="Simpan" class="btn btn-danger"/></td>
+                                                   
+                        </td>
+                        <td>
+                            <div class="g-recaptcha" data-sitekey="6LfYd5QUAAAAAAMCRbYOO11f_BFGJesn7DZR-WJB"></div>
+                            <br />
+                            <asp:Label ID="lblmsg" runat="server" Text="Label" Visible="false"></asp:Label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br />
+                            <br />
+                            <asp:Button ID="BtnDaftar"  runat="server" Text="Simpan" class="btn btn-danger" OnClick="BtnDaftar_Click"/></td>
                     </tr>
                 </table>
             </div>

@@ -41,23 +41,54 @@ h2.FormUploadFoto {
     <script src="js/bootstrap.min.js"></script>
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
 <script type="text/javascript">
+    var validFiles = ["jpg", "jpeg"];
     function setUploadButtonState() {
-
-        var maxFileSize = 1048576; // 4MB -> 4 * 1024 * 1024
-        var fileUpload = $('#FileUpload1');
-
-        if (fileUpload.val() == '') {
-            return false;
-        }
-        else {
-            if (fileUpload[0].files[0].size < maxFileSize) {
-                
-                return true;
-            } else {
-                alert("File Terlalu Besar, Lebih dari 1 MB");
+        var obj = document.getElementById("<%=FileUpload1.ClientID%>");
+          var source=obj.value;
+          var ext=source.substring(source.lastIndexOf(".")+1,source.length).toLowerCase();
+          for (var i=0; i<validFiles.length; i++)
+          {
+              if (validFiles[i]==ext)
+                    break;
+          }
+              if (i>=validFiles.length)
+              {
+                  alert("File Harus di Pilih / File yang Dapat Di Upload Hanya Jenis :\n" + validFiles.join(", "));
                 return false;
-            }
-        }
+              }
+            //BARU-------------
+              var maxFileSize = 1048576; // 4MB -> 4 * 1024 * 1024
+              var fileUpload = $('#FileUpload1');
+
+              if (fileUpload.val() == '') {
+                  return false;
+              }
+              else {
+                  if (fileUpload[0].files[0].size < maxFileSize) {
+
+                      return true;
+                  } else {
+                      alert("File Terlalu Besar, Lebih dari 1 MB");
+                      return false;
+                  }
+              }
+          //return true;
+        //var maxFileSize = 1048576; // 4MB -> 4 * 1024 * 1024
+        //var fileUpload = $('#FileUpload1');
+
+        //if (fileUpload.val() == '') {
+        //    return false;
+        //}
+        //else {
+        //    if (fileUpload[0].files[0].size < maxFileSize) {
+                
+        //        return true;
+        //    } else {
+        //        alert("File Terlalu Besar, Lebih dari 1 MB");
+        //        return false;
+        //    }
+        //}
+
     }
 </script>
 </head>
@@ -76,20 +107,25 @@ h2.FormUploadFoto {
                                  <div style="margin-left:1%" >
                                     <asp:Label ID="Label1" runat="server" Text="Upload File Foto Anda" Font-Bold="true"></asp:Label>
                                  <asp:FileUpload ID="FileUpload1" runat="server" /><br />
-                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" 
+<%--                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" 
                                          runat="server" 
                                          ErrorMessage="File Wajib di Upload"
                                          ForeColor="Red"
                                          ControlToValidate="FileUpload1"
-                                         ></asp:RequiredFieldValidator>
-                                 <asp:RegularExpressionValidator ID="FileTypeValidator"  
+                                         ></asp:RequiredFieldValidator>--%>
+<%--                                 <asp:RegularExpressionValidator ID="FileTypeValidator"  
                                      runat="server" 
                                      ErrorMessage="Hanya bisa upload File .JPG / .Jpeg" 
                                      ForeColor="red"
-                                     ValidationExpression="(.*jpg$)|(.*jpeg$)" ControlToValidate="FileUpload1"></asp:RegularExpressionValidator>
+                                     ValidationExpression="(.*jpg$)|(.*jpeg$)" ControlToValidate="FileUpload1"></asp:RegularExpressionValidator>--%>
+                                 <div style="margin-top:5px;margin-bottom:10px" class="row">
+                                     <asp:Label ID="Label3" runat="server" Text="*File Wajib Format .JPG / .JPEG" ForeColor="red"></asp:Label>
+                                     <asp:Label ID="Label4" runat="server" Text="*File Maksimal 1 MB untuk di Upload" ForeColor="red"></asp:Label>
+                                 </div>                                     
                                  </div>
-                                <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
-                                <asp:Button ID="SubmitFoto" runat="server" Text="Upload File" OnClick="SubmitFoto_Click" OnClientClick="return setUploadButtonState();"  />
+
+                                <asp:Label ID="Label2" runat="server" Text="Label" Visible="false"></asp:Label><br />
+                                <asp:Button ID="SubmitFoto" class="btn btn-secondary" runat="server" Text="Upload File" OnClick="SubmitFoto_Click" OnClientClick="return setUploadButtonState();"  />
                             </div>
                   </div>
                 </div>
