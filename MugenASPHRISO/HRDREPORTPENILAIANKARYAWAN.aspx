@@ -58,6 +58,17 @@
 			});
 	    });
     </script>
+    <script type="text/javascript">
+    function Validate() {
+        var ddlFruits = document.getElementById("<%=TxtAtasanLangsung.ClientID %>");
+        if (ddlFruits.value == "") {
+            //If the "Please Select" option is selected display error.
+            alert("Atasan Langsung tidak boleh Kosong");
+            return false;
+        }
+        return true;
+    }
+</script>
     <asp:Label ID="LblUserName" Style="display:none" runat="server"></asp:Label>
     <asp:Label ID="lblAkses" Style="display:none" runat="server"></asp:Label>
     <asp:Label ID="lblArea1" Style="display:none" runat="server"></asp:Label>
@@ -428,7 +439,9 @@
                                         <asp:ListItem>WAHYU</asp:ListItem>
                                         <asp:ListItem>YUSUF</asp:ListItem>
 										<asp:ListItem>SUTRIANINGSIH</asp:ListItem>
-                                    </asp:DropDownList></td>
+                                    </asp:DropDownList>
+
+                                </td>
                                 <td class="col-md-2"></td>
                             </tr>
                             <tr> 
@@ -469,7 +482,7 @@
                             </tr>
                         </table> 
                         <center>
-                            <asp:Button ID="BtnStandardSave" runat="server" Text="Simpan" class="btn btn-success" />
+                            <asp:Button ID="BtnStandardSave" OnClientClick="return Validate()" runat="server" Text="Simpan" class="btn btn-success" />
                         </center>
                         <br /><br />
                     </div>

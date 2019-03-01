@@ -109,12 +109,15 @@ Partial Class HRDREPORTPENILAIANKARYAWAN
     End Function
 
     Protected Sub BtnStandardSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BtnStandardSave.Click
-        Call UpdateData_Server(EditDataNilaiSTANDARD)
-        ListView1.DataBind()
-        ListView2.DataBind()
-        ListView3.DataBind()
-        ListView4.DataBind()
-        Response.Write("<script>alert('Anda telah sukses melakukan perubahan data Atasan!')</script>")
+
+        'Call UpdateData_Server(EditDataNilaiSTANDARD)
+        'ListView1.DataBind()
+        'ListView2.DataBind()
+        'ListView3.DataBind()
+        'ListView4.DataBind()
+        'Response.Write("<script>alert('Anda telah sukses melakukan perubahan data Atasan!')</script>")
+
+
         Response.Write("<script>window.location.href='HRDREPORTPENILAIANKARYAWAN.aspx';</script>")
 
     End Sub
