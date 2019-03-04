@@ -7,6 +7,10 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+//ADO NET NAME SPACE
+using System.Data;
+using System.Data.SqlClient;
+using System.Web.Configuration;
 
 public partial class PagesUser_PageUser_Register : System.Web.UI.Page
 {
