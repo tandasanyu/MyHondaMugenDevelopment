@@ -28,6 +28,7 @@ line-height: 1.4em;
     #container2 { width: 90%; }
 }
 </style>
+
     <!-- Untuk Captcha -->
     <script type="text/javascript" src='https://www.google.com/recaptcha/api.js'></script>
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -98,13 +99,14 @@ line-height: 1.4em;
                         <td><asp:Label ID="Label4" runat="server" Text="Password : "></asp:Label></td>
                         <td>
                             <br />
-                            <asp:TextBox ID="TxtPswd" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
+                            <asp:TextBox ID="TxtPswd" TextMode = "Password" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" 
                                 runat="server" 
                                 ErrorMessage="Password Wajib di Isi"
                                 ForeColor="Red"
                                 ControlToValidate="TxtPswd"
                                 ></asp:RequiredFieldValidator>
+
                         </td>
                     </tr>
                     <tr>

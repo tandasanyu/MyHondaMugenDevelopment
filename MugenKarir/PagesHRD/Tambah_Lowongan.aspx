@@ -28,7 +28,7 @@
     <div >
         <div class="form-group">
             <div class="col-sm-8" style="margin-bottom:4%;margin-top:1%">
-                <h2 >Form Tambah lowongan Pekerjaan</h2>
+                <h2 >Form Tambah Lowongan Pekerjaan</h2>
             </div>
         </div>
         <div class="form-group">

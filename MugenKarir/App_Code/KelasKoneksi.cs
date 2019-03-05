@@ -48,7 +48,7 @@ public class KelasKoneksi
         }
     }
 
-
+    /*Below Main Working Code*/
     //fungsi untuk insert
     public string KelasKoneksi_Insert(string SqlCmd) {
         String strconn = WebConfigurationManager.ConnectionStrings["MugenKarirConnection"].ConnectionString;
@@ -63,7 +63,7 @@ public class KelasKoneksi
         }
         catch (SqlException sqlEx)
         {
-            status_hasil = "Terjadi error: " + sqlEx.Message;
+            status_hasil = "Terjadi error Ketika Insert: " + sqlEx.Message;
         }
         finally {
             cmd.Dispose();
@@ -89,15 +89,38 @@ public class KelasKoneksi
         }
         catch (SqlException sqlEx)
         {
-            status_hasil = "Terjadi error: " + sqlEx.Message;
+            status_hasil = "Terjadi error Ketika Update: " + sqlEx.Message;
         }
         finally
         {
             cmd.Dispose();
             conn.Close();
         }
+        return status_hasil;
+    }
 
-
+    //Kelas Koneksi Delete
+    public string KelasKoneksi_Delete(string SqlCmd) {
+        String strconn = WebConfigurationManager.ConnectionStrings["MugenKarirConnection"].ConnectionString;
+        conn = new SqlConnection(strconn);
+        string sql = SqlCmd;
+        cmd = new SqlCommand(sql, conn);
+        try
+        {
+            conn.Open();
+            //cmd.ExecuteScalar();
+            cmd.ExecuteNonQuery();
+            status_hasil = "1";
+        }
+        catch (SqlException sqlEx)
+        {
+            status_hasil = "Terjadi error Ketika Delete: " + sqlEx.Message;
+        }
+        finally
+        {
+            cmd.Dispose();
+            conn.Close();
+        }
         return status_hasil;
     }
 }

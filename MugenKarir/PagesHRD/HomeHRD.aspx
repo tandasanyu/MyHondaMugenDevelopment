@@ -47,6 +47,15 @@
           width:35%;
           border:1px solid black;
         }
+#outer
+{
+    width:100%;
+    text-align: center;
+}
+.inner
+{
+    display: inline-block;
+}
     </style>
     <asp:MultiView ID="MultiViewHRD" runat="server">
         <asp:View ID="View0" runat="server"><!-- -->
@@ -66,11 +75,11 @@
                 <asp:SqlDataSource ID="SqlDataSourceViewListLowongan" 
                     runat="server"
                     ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
-                    SelectCommand="select * from List_Lowongan where Status_Lowongan=1"
+                    SelectCommand="select * from List_Lowongan"
 					ProviderName="<%$ ConnectionStrings:MugenKarirConnection.ProviderName %>"                   
                     ></asp:SqlDataSource>
                     <br />
-                    <input id="SearchLowongan"  type="text" placeholder="Ketik Nama yang akan di Cari!" class="form-control required" autocomplete="off"/>
+                    <input id="SearchLowongan"  type="text" placeholder="Ketik Posisi yang akan di Cari!" class="form-control required" autocomplete="off"/>
                     <br />  
                     <div class="table-responsive">
                         <div id="table-wrapper">
@@ -104,7 +113,7 @@
                                           <td><%#Eval("id_lowongan")%></td>
                                           <td><%#Eval("Posisi")%></td>
                                           <td><%#Eval("Kualifikasi")%></td>
-                                          <td>Aktif</td>
+                                          <td><%# Eval("Status_Lowongan").ToString() == "1" ? "Aktif" : "NonAktif" %></td>
                                           <td><%#Eval("Tgl_post")%></td>
                                     </tr>
                                 </ItemTemplate>
@@ -118,11 +127,15 @@
                         </div>
                     </div>
                     <br />
-                    <div class="form-group" id="Button">
-                        <asp:Button ID="BtnHapus" runat="server" Text="Hapus Lowongan" class="btn btn-danger" OnClick="BtnHapus_Click" />
-                        <br /><br />
-                        <asp:Button ID="BtnNonAktif" runat="server" Text="NonAktifkan Lowongan" class="btn btn-warning" OnClick="BtnNonAktif_Click" />
-                    </div>
+            <div id="outer">
+                    <div class="inner">
+                        <asp:Button ID="BtnHapus" runat="server" Text="Hapus Lowongan" class="btn btn-danger" OnClick="BtnHapus_Click" /></div>
+                    <div class="inner">
+                        <asp:Button ID="BtnNonAktif" runat="server" Text="NonAktifkan Lowongan" class="btn btn-warning" OnClick="BtnNonAktif_Click" /></div>
+                    <div class="inner">
+                        <asp:Button ID="BtnAktif" runat="server" Text="Aktifkan Lowongan" class="btn btn-success" OnClick="BtnAktif_Click"/></div>
+            </div> 
+
             <br />
             </div>
         </asp:View>

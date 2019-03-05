@@ -16,7 +16,9 @@ public partial class PagesUser_PageUser_Register : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        string posisi = Request.QueryString["Posisi"];
+        TxtPosisi.Text = posisi;
+        TxtPosisi.ReadOnly = true;
     }
     //untuk fungsi pendukung captcha
     public class MyObject
@@ -59,14 +61,14 @@ public partial class PagesUser_PageUser_Register : System.Web.UI.Page
         //validasi captcha
         if (Validate())
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Berhasil Login')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Lamaran Anda Telah di Simpan !')", true);
             //lblmsg.Text = "Valid Recaptcha";
             //lblmsg.ForeColor = System.Drawing.Color.Green;
         }
 
         else
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Gagal Login, Harap centang Captcha')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Gagal menyimpan, Harap Centang Captcha !')", true);
             //lblmsg.Text = "Not Valid Recaptcha";
             //lblmsg.ForeColor = System.Drawing.Color.Red;
         }
