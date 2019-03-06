@@ -80,6 +80,9 @@ table, td {
               <a class="nav-link" href="#section2" style="color:red;font-weight:bold">Awali Karir Anda di Sini!</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="#section21" style="color:red;font-weight:bold">Unduh Brosur</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="#section3" style="color:red;font-weight:bold">Peluang Karir</a>
             </li> <!-- section42 -->
             <li class="nav-item">
@@ -100,9 +103,9 @@ table, td {
         <div id="section2" class="container-fluid bg-light" style="padding-top:70px;padding-bottom:70px;">
           <h1>Awali Karir Anda Bersama Kami !</h1>
           <div style="text-align:justify; text-justify:inter-word">Honda Mugen adalah perwakilan dealer resmi mobil Honda dengan 
-                skala 3S (Sales, Service, Spare Part) yang bernaung di bawah PT. Mitrausaha Gentaniaga. 
+                skala 3S (Sales, Service, Spare Part) yang bernaung di bawah PT. Mitrausaha Gentaniaga.
                 Honda Mugen berlokasi di Pasar Minggu, Jakarta Selatan dan telah melayani dan memenuhi 
-                kebutuhan pelanggan sejak tahun 1991. Seiring dengan pesatnya perkembangan perusahaan, 
+                kebutuhan pelanggan sejak tahun 1991.Seiring dengan pesatnya perkembangan perusahaan, 
                 pada tahun 2008 dibuka cabang baru di Puri Kembangan, Jakarta Barat. Dan saat ini, kami 
                 membuka kesempatan bagi anda untuk bergabung menjadi bagian dari perjalanan kami menjadi 
                 dealer resmi Honda nomor 1 di Indonesia.<br /><br /><br /><br />
@@ -113,13 +116,28 @@ table, td {
           </div>
         </div>
         <div id="section21" class="container-fluid bg-light" style="padding-top:70px;padding-bottom:70px;">
+            <h1>Unduh Brosur Di Sini !</h1>
+            <p>
+                Ingin Membeli Mobil Honda? Melihat Spesifikasi nya secara Detail?
+                 atau Ingin Mengetahui Kemewahan Produk Mobil Honda? 
+                Kalian Bisa Unduh Semua Brosurnya di Bawah Sini !
+            </p>
             <button type="button" id="show_hide" class="btn">Unduh Brosur</button>
             
             <div class="slidingDiv container-fluid bg-light" style="margin-top:10px">
               <ul class="list-group" style="width:300px">
-                <li class="list-group-item">Accord</li>
-                <li class="list-group-item">Brio</li>
-                <li class="list-group-item">City</li>
+                <li class="list-group-item bg-light"><a style="text-decoration:none" href="http://www.hondamugen.co.id/brosur/Accord.pdf">Accord</a></li>
+                <li class="list-group-item bg-light"><a style="text-decoration:none" href="http://www.hondamugen.co.id/brosur/Brio.pdf">Brio</a></li>
+                <li class="list-group-item bg-light"><a style="text-decoration:none" href="http://www.hondamugen.co.id/brosur/BRV.pdf">BRV</a></li>
+                <li class="list-group-item bg-light"><a style="text-decoration:none" href="http://www.hondamugen.co.id/brosur/City.pdf">City</a></li>
+                <li class="list-group-item bg-light"><a style="text-decoration:none" href="http://www.hondamugen.co.id/brosur/Civic.pdf">Civic</a></li>
+                <li class="list-group-item bg-light"><a style="text-decoration:none" href="http://www.hondamugen.co.id/brosur/Civic.pdf">Civic HatchBack</a></li>
+                <li class="list-group-item bg-light"><a style="text-decoration:none" href="http://www.hondamugen.co.id/brosur/CRV.pdf">CR-V</a></li>
+                <li class="list-group-item bg-light"><a style="text-decoration:none" href="http://www.hondamugen.co.id/brosur/HRV.pdf">HR-V</a></li>
+                <li class="list-group-item bg-light"><a style="text-decoration:none" href="http://www.hondamugen.co.id/brosur/Jazz.pdf">Jazz</a></li>
+                <li class="list-group-item bg-light"><a style="text-decoration:none" href="http://www.hondamugen.co.id/brosur/Mobilio.pdf">Mobilio</a></li>
+                <li class="list-group-item bg-light"><a style="text-decoration:none" href="http://www.hondamugen.co.id/brosur/Odyssey.pdf">Odyssey</a></li>
+                <li class="list-group-item bg-light"><a style="text-decoration:none" href="http://www.hondamugen.co.id/brosur/Civic.pdf">Civic Type R</a></li>
               </ul>
             </div>
         </div>

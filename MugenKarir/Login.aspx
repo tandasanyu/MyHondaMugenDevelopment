@@ -13,7 +13,81 @@
   width: 300px;
   height: 500px;  
 }
+body {
+    font-family: "Lato", sans-serif;
+}
 
+
+
+.main-head{
+    height: 150px;
+    background: #FFF;
+   
+}
+
+.sidenav {
+    height: 100%;
+    background-color: dimgrey;
+    overflow-x: hidden;
+    padding-top: 100px;
+}
+
+
+.main {
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+}
+
+@media screen and (max-width: 450px) {
+    .login-form{
+        margin-top: 10%;
+    }
+
+    .register-form{
+        margin-top: 10%;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .main{
+        margin-left: 40%; 
+    }
+
+    .sidenav{
+        width: 40%;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+    }
+
+    .login-form{
+        margin-top: 50%;
+    }
+
+    .register-form{
+        margin-top: 20%;
+    }
+}
+
+
+.login-main-text{
+    margin-top: 20%;
+    padding: 60px;
+    color: #fff;
+}
+
+.login-main-text h2{
+    font-weight: 300;
+}
+
+.btn-black{
+    background-color: red !important;
+    color: #fff;
+}
 
 </style>
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -23,61 +97,30 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div style="margin-left:37%; margin-top:5%" >
-        <div id="rcorners2">
-            <div style="margin-left:25%" >
-                <table>
-                    <tr>
-                        <td class="col-sm-4">
-                            <asp:Image ID="Image1" runat="server" ImageUrl="~/img/cropped-honda-icon.png" Height="100px" Width="100px" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-sm-4">
-                            <asp:Image ID="Image2" runat="server" ImageUrl="~/img/honda-3-logo-png-transparent.png" Height="100px" Width="100px" />
-                        </td>
-                    </tr>
-                </table>             
+      <div class="sidenav">
+         <div class="login-main-text">
+            <h2>Honda Mugen<br/> Login Page</h2>
+            <p>Silahkan Login untuk akses Menu</p>
+         </div>
+      </div>
+      <div class="main">
+         <div class="col-md-6 ">
+            <div class="login-form">
+                  <div class="form-group">
+                    <img src="img/logo2.png" /><br /><br />
+                     <label>User Name</label>
+                            <asp:TextBox ID="TxtUsername" class="form-control" runat="server"></asp:TextBox>
+                     <%--<input type="text" class="form-control" placeholder="User Name">--%>
+                  </div>
+                  <div class="form-group">
+                     <label>Password</label>
+                            <asp:TextBox ID="TxtPswd" runat="server" TextMode="Password" class="form-control"></asp:TextBox>
+                    <%-- <input type="password" class="form-control" placeholder="Password">--%>
+                  </div>
+                    <asp:Button ID="BtnLogin"  class="btn btn-black" runat="server" Text="Login" OnClick="BtnLogin_Click" />
             </div>
-           
-            <table>
-                <tr>
-                    <td>
-                        <asp:Label ID="Username" class="display-8" runat="server" Text="Username:"></asp:Label></td>
-                    <td>
-                        <br />
-                        <asp:TextBox ID="TxtUsername"  class="form-control" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" 
-                        runat="server" 
-                        ErrorMessage="Username Wajib Di Isi"
-                        ControlToValidate="TxtUsername"
-                        ForeColor="Red"
-                        ></asp:RequiredFieldValidator></td>
-                </tr>
-                <tr>
-                    <td>
-
-                        <asp:Label ID="Password" class="display-8" runat="server" Text="Password:"></asp:Label></td>
-                    <td>
-                        <br />
-                        <asp:TextBox ID="TxtPas"  class="form-control" runat="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" 
-                        runat="server" 
-                        ErrorMessage="Password Wajib di Isi"
-                        ControlToValidate="TxtPas"
-                            ForeColor="Red"
-                        ></asp:RequiredFieldValidator>
-                    </td>
-               
-                     </tr>
-                <tr>
-                    <td>
-                    <br />
-                        <asp:Button ID="BtnLoginHRD" class="btn btn-danger" runat="server" Text="Login" /></td>
-                </tr>
-            </table>
-        </div>
-    </div>
+         </div>
+      </div>
     </form>
 </body>
 </html>
