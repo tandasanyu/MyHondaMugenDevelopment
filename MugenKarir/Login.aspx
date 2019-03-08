@@ -109,12 +109,12 @@ body {
                   <div class="form-group">
                     <img src="img/logo2.png" /><br /><br />
                      <label>User Name</label>
-                            <asp:TextBox ID="TxtUsername" class="form-control" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="TxtUsername" class="form-control" runat="server" AutoComplete="off"></asp:TextBox>
                      <%--<input type="text" class="form-control" placeholder="User Name">--%>
                   </div>
                   <div class="form-group">
                      <label>Password</label>
-                            <asp:TextBox ID="TxtPswd" runat="server" TextMode="Password" class="form-control"></asp:TextBox>
+                            <asp:TextBox ID="TxtPswd" runat="server" TextMode="Password" class="form-control"  AutoComplete="off"></asp:TextBox>
                     <%-- <input type="password" class="form-control" placeholder="Password">--%>
                   </div>
                     <asp:Button ID="BtnLogin"  class="btn btn-black" runat="server" Text="Login" OnClick="BtnLogin_Click" />

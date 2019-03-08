@@ -193,7 +193,8 @@ div.content {
           <a href="HomeHRD.aspx?Menu=1">List Lowongan Kerja</a>
           <a href="Tambah_Lowongan.aspx">Tambah Lowongan Kerja</a>
           <a href="HomeHRD.aspx?Menu=2">Data Pelamar</a>   
-          <a href="#">Logout</a>  
+          <a >
+              <asp:Button ID="BtnLogout" runat="server" class="btn btn-dark" Text="Logout" OnClick="BtnLogout_Click" /></a>  
         </div>
         <!-- Page Content  -->
         <div id="content">

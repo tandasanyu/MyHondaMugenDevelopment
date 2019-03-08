@@ -86,7 +86,7 @@ line-height: 1.4em;
                         <td><asp:Label ID="Label3" runat="server" Text="Username : "></asp:Label></td>
                         <td>
                             <br />
-                            <asp:TextBox ID="TxtUsername" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
+                            <asp:TextBox ID="TxtUsername" class="form-control" runat="server" onkeyup="this.value=this.value.toLowerCase()" autocomplete="off"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" 
                                 runat="server" 
                                 ErrorMessage="Username Wajib Di Isi"
@@ -99,7 +99,7 @@ line-height: 1.4em;
                         <td><asp:Label ID="Label4" runat="server" Text="Password : "></asp:Label></td>
                         <td>
                             <br />
-                            <asp:TextBox ID="TxtPswd" TextMode = "Password" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
+                            <asp:TextBox ID="TxtPswd" TextMode = "Password" class="form-control" onkeyup="this.value=this.value.toLowerCase()" runat="server" autocomplete="off"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" 
                                 runat="server" 
                                 ErrorMessage="Password Wajib di Isi"
