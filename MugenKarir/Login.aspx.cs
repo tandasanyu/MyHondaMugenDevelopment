@@ -24,16 +24,36 @@ public partial class Login : System.Web.UI.Page
         KelasKoneksi cn = new KelasKoneksi();
         List<String> aL = cn.KelasKoneksi_Login(SqlCmd);
         //Response.Write("<script>alert('Value : " + aL[0].ToString() + "')</script>");
-        if (aL[2].ToString() == "1") {
-            if (aL[3].ToString() == "HRD") {
-                Session["Logged"] = "Yes";
-                Session["User"] = username;
-                Response.Redirect("~/PagesHRD/HomeHRD.aspx");
+        if (aL.Count > 1) {
+            if (aL[2].ToString() == "1")
+            {
+                if (aL[3].ToString() == "HRD")
+                {
+                    Session["Logged"] = "Yes";
+                    Session["User"] = username;
+                    Response.Redirect("~/PagesHRD/HomeHRD.aspx");
+                }
+                else if (aL[3].ToString() == "Pelamar")
+                {
+                    if (pswd == aL[0].ToString() && username == aL[4].ToString())
+                    {
+                        Session["Logged"] = "Yes";
+                        Session["User"] = username;
+                        Response.Redirect("~/PageUser/PageUser_HomePelamar.aspx");
+                    }
+                    else
+                    {
+                        Response.Write("<script language=javascript>alert('Username dan Password anda Tidak Match');</script>");
+                    }
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('User anda tidak aktif di sistem.')</script>");
             }
         }
         else {
-            Response.Write("<script>alert('User anda tidak aktif di sistem.')</script>");
+            Response.Write("<script>alert('Username Tidak Di Temukan. Harap Hubungi Departemen IT')</script>");
         }
-
     }
 }

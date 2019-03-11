@@ -90,7 +90,57 @@ public class KelasKoneksi
 
 
     /*Below Main Working Code*/
-    //fungsi email 
+
+    //fungsi select global dengan arraylist
+    public List<String> GlobalAr = new List<String>();
+    public List<String> KelasKoneksi_SelectGlobal(string SqlCmd, string sub) {
+        String strconn = WebConfigurationManager.ConnectionStrings["MugenKarirConnection"].ConnectionString;
+        conn = new SqlConnection(strconn);
+        string sql = SqlCmd;
+        cmd = new SqlCommand(sql, conn);
+        SqlDataReader reader; //Menggunakan data reader untuk select dan mengambil value nya 
+
+
+            GlobalAr.Clear();
+            try
+            {
+                conn.Open();
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (sub == "1")
+                    {
+                        GlobalAr.Add(reader["Id_Lamaran"].ToString()); //0
+                    }
+                    else if (sub == "2")
+                    {
+                        GlobalAr.Add(reader["user_nama_login"].ToString()); //0
+                    }
+                    else if (sub == "3")
+                    {
+                        GlobalAr.Add(reader["id_lamaran"].ToString()); //0
+                        GlobalAr.Add(reader["user_posisi"].ToString()); //0
+                    }
+                }
+                //status_hasil = "1";
+
+            }
+            catch (SqlException ex)
+            {
+                status_hasil = "Terjadi error Ketika Select: " + ex.Message;
+                GlobalAr.Clear();
+                // return ArrayLogin;
+
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+            }
+
+            return GlobalAr;
+
+    }
     //fungsi email 
     public string email_otomatis(string e, string pesan)
     {
@@ -103,7 +153,6 @@ public class KelasKoneksi
         client.Port = 587;
         client.DeliveryMethod = SmtpDeliveryMethod.Network;
         client.UseDefaultCredentials = false;
-
         try
         {
             System.Net.NetworkCredential credentials =
@@ -115,7 +164,6 @@ public class KelasKoneksi
         {
             Console.WriteLine(ex.Message);
         }
-
         //Creates a new message
         try
         {
@@ -123,18 +171,13 @@ public class KelasKoneksi
             mail.Subject = subject;
             mail.IsBodyHtml = true;
             mail.Body = body;
-
             client.Send(mail);
         }
         //Failing to deliver the message or to authentication will throw an exception
         catch (Exception ex)
         {
-
             hasil = "Terdapat error Ketika Mengirim Email : " + ex.Message;
         }
-
-
-
         return hasil;
     }
 
@@ -157,6 +200,7 @@ public class KelasKoneksi
                 ArrayLogin.Add(reader["User_Posisi"].ToString()); //1
                 ArrayLogin.Add(reader["User_Status"].ToString()); //2
                 ArrayLogin.Add(reader["User_Level"].ToString()); //3
+                ArrayLogin.Add(reader["Username_Login"].ToString()); //4
             }
             //status_hasil = "1";
             return ArrayLogin;

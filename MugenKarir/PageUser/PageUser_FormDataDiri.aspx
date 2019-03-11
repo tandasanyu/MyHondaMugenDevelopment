@@ -146,12 +146,12 @@ $(function() {
                           <asp:Label ID="Label11" CssClass="col-sm-4" runat="server" Font-Bold="true" Text="Telepon Rumah"></asp:Label>
                           <div class="col-sm-8">
                               <asp:TextBox ID="TxtTeleponRumah" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
-                              <asp:RequiredFieldValidator ID="RequiredFieldValidator7" 
+<%--                              <asp:RequiredFieldValidator ID="RequiredFieldValidator7" 
                                   runat="server" 
                                   ErrorMessage="Telpon Rumah Wajib Di Isi"
                                   ForeColor="Red"
                                   ControlToValidate="TxtTeleponRumah"
-                                  ></asp:RequiredFieldValidator>
+                                  ></asp:RequiredFieldValidator>--%>
                               <asp:RegularExpressionValidator ID="RegularExpressionValidator3"
                                    runat="server" 
                                   ErrorMessage="Wajib Angka"
@@ -202,12 +202,12 @@ $(function() {
                               </asp:RadioButtonList>
                               <asp:Label ID="Label20" runat="server" Text="Nomor SIM" Font-Bold="true"></asp:Label>
                               <asp:TextBox ID="TxtNomorSIM" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
-                              <asp:RequiredFieldValidator ID="RequiredFieldValidator15" 
+<%--                              <asp:RequiredFieldValidator ID="RequiredFieldValidator15" 
                                   runat="server" 
                                   ErrorMessage="Kepemilikan SIM Wajib Di Isi"
                                   ForeColor="Red"
                                   ControlToValidate="RadioButtonListSIM"
-                                  ></asp:RequiredFieldValidator>
+                                  ></asp:RequiredFieldValidator>--%>
                               <asp:RegularExpressionValidator ID="RegularExpressionValidator9"
                                    runat="server" 
                                   ErrorMessage="Wajib Angka"
@@ -370,7 +370,7 @@ $(function() {
                                   ></asp:RegularExpressionValidator>
                           </div>                         
                       </div>
-
+                        <asp:Label ID="LblUserNama" runat="server" Text="Label"></asp:Label>
                     </div>
                       <div class="form-group"><!-- Button -->
                           <div class="col-sm-8">
