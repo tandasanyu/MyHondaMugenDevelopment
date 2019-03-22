@@ -214,7 +214,7 @@ h2.FormDataDiri {
                         </table>
                         </div>
                         <div class="form-group" id="Sarjana1">
-                        <asp:Label ID="Label6" runat="server" Text="Jenjang Sarjana  :" Font-Bold="true"></asp:Label>
+                        <asp:Label ID="Label6" runat="server" Text="Jenjang Sarjana :" Font-Bold="true"></asp:Label>
                         <table class="table table-bordered">
                             <thead>
                               <tr>
@@ -224,7 +224,7 @@ h2.FormDataDiri {
                                 <th>Tahun Masuk</th>
                                 <th>Tahun Keluar</th>
                                 <th>Status Kelulusan</th>
-                                <th>Status Kelulusan</th>
+                                <th>Jurusan</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -248,7 +248,41 @@ h2.FormDataDiri {
                             </tbody>
                         </table>
                         </div>
-                        
+                        <div class="form-group" id="Sarjana2">
+                        <asp:Label ID="Label7" runat="server" Text="Jenjang Magister  :" Font-Bold="true"></asp:Label>
+                        <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th>Jenjang</th>
+                                <th>Nama Instansi</th>
+                                <th>Kota</th>
+                                <th>Tahun Masuk</th>
+                                <th>Tahun Keluar</th>
+                                <th>Status Kelulusan</th>
+                                <th>Jurusan</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <asp:TextBox ID="TxtJenjangPendidikanSarjana2" class="form-control" runat="server" Text="Magister" ReadOnly="true"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="TxtNamaInstansiSarjana2" class="form-control" runat="server"></asp:TextBox></td>
+                                    <td><asp:TextBox ID="TxtKotaSarjana2" class="form-control" runat="server"></asp:TextBox></td>
+                                    <td><asp:TextBox ID="TxtTahunMasukSarjana2" class="form-control" runat="server"></asp:TextBox></td>
+                                    <td><asp:TextBox ID="TxtTahunKeluarSarjana2" class="form-control" runat="server"></asp:TextBox></td>
+                                    <td>
+                                        <asp:DropDownList ID="DropDownListStatusKelulusanSarjana2" class="form-control" runat="server">
+                                            <asp:ListItem Value="1">Lulus</asp:ListItem>
+                                            <asp:ListItem Value="2">Tidak Lulus</asp:ListItem>
+                                        </asp:DropDownList>                                        
+                                    </td>
+                                    <td><asp:TextBox ID="TxtJurusanSarjana2" class="form-control" runat="server"></asp:TextBox></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
                         <!-- Jenjang Pendidikan Non Formal -->
                         <div class="form-group" id="JenjangPendidikanNon">
                           <asp:Label ID="Label8" runat="server" Text="Pilih Jumlah Pendidikan Non Formal Anda :" Font-Bold="true"></asp:Label>
@@ -402,7 +436,7 @@ h2.FormDataDiri {
 
                         <div class="form-group"><!-- Button -->
                           <div class="col-sm-8">
-                              <asp:Button ID="BtnSubmitRiwayatPendidikan" runat="server" Text="Simpan Data" class="btn btn-danger"  />
+                              <asp:Button ID="BtnSubmitRiwayatPendidikan" runat="server" Text="Simpan Data" class="btn btn-danger" OnClick="BtnSubmitRiwayatPendidikan_Click"  />
                           </div>                        
                         </div>
                     </div>

@@ -48,10 +48,10 @@ h2.FormDataDiri {
                 <table class="table table-bordered" >
                   <thead>
                     <tr>
-                      <th scope="col">No</th>
-                      <th scope="col">Dokumen</th>
-                      <th scope="col">Keterangan</th>
-                      <th scope="col">Aksi</th>
+                      <th scope="col"><center>No</center></th>
+                      <th scope="col"><center>Dokumen</center></th>
+                      <th scope="col"><center>Keterangan</center></th>
+                      <th scope="col"><center>Aksi</center></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -59,27 +59,125 @@ h2.FormDataDiri {
                       <th scope="row">1</th>
                       <td style="width: 300px">Data Diri</td>
                       <td>Wajib Di Isi</td>
-                      <td><asp:Button ID="Button1" runat="server" Text="Isi Data" class="btn btn-info" OnClick="Button1_Click"/></td>
+                      <td style="width: 300px"><asp:Button ID="Button1" runat="server" Text="Isi Data" class="btn btn-info" OnClick="Button1_Click"/><asp:Label ID="LblBtnDataDiri" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
                     </tr>
                     <tr>
                       <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
+                      <td style="width: 300px">Data Keluarga</td>
+                      <td>Wajib Di Isi</td>
+                      <td><asp:Button ID="BtnDataKeluarga" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnDataKeluarga_Click" /><asp:Label ID="LblBtnDataKel" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
                     </tr>
                     <tr>
                       <th scope="row">3</th>
                       <%--<td colspan="2">Larry the Bird</td>--%>
+                        <td style="width: 300px">
+                            Riwayat Pendidikan</td>
+                        <td>Wajib Di Isi</td>
+                      <td><asp:Button ID="BtnRiwayatPendidikan" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnRiwayatPendidikan_Click"  /><asp:Label ID="LblBtnRP" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">4</th>
+                      <%--<td colspan="2">Larry the Bird</td>--%>
                         <td>
-                            @twitter</td>
-                        <td>@twitter</td>
-                      <td style="width: 150px">@twitter</td>
+                            Pengalaman Organisasi & Memimpin</td>
+                        <td style="color:green;font-weight:bold">Tidak Wajib</td>
+                      <td><asp:Button ID="BtnPengalaman" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnPengalaman_Click" /><asp:Label ID="LblBtnPengalaman" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5</th>
+                      <%--<td colspan="2">Larry the Bird</td>--%>
+                        <td>
+                            Riwayat Pekerjaan & Referensi</td>
+                        <td>Wajib Di Isi</td>
+                       <td><asp:Button ID="BtnPkjRef" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnPkjRef_Click"  /><asp:Label ID="LblBtnPkjRef" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">6</th>
+                      <%--<td colspan="2">Larry the Bird</td>--%>
+                        <td>
+                            Pertanyaan</td>
+                        <td>Wajib Di Isi</td>
+                      <td ><asp:Button ID="BtnPertanyaan" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnPertanyaan_Click"  /><asp:Label ID="LblBtnPertanyaan" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">7</th>
+                      <%--<td colspan="2">Larry the Bird</td>--%>
+                        <td>
+                            Unggah Foto</td>
+                        <td>Wajib Di Isi</td>
+                      <td ><asp:Button ID="BtnFoto" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnFoto_Click"   /><asp:Label ID="LblBtnFoto" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">8</th>
+                      <%--<td colspan="2">Larry the Bird</td>--%>
+                        <td>
+                            Unggah KTP</td>
+                        <td>Wajib Di Isi</td>
+                      <td ><asp:Button ID="BtnKtp" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnKtp_Click"   /><asp:Label ID="LblBtnKtp" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">9</th>
+                      <%--<td colspan="2">Larry the Bird</td>--%>
+                        <td>
+                            Unggah NPWP</td>
+                        <td style="color:green;font-weight:bold">Tidak Wajib</td>
+                      <td ><asp:Button ID="BtnNpwp" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnNpwp_Click"   /><asp:Label ID="LblBtnNpwp" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">10</th>
+                      <%--<td colspan="2">Larry the Bird</td>--%>
+                        <td>
+                            Unggah Kartu Keluarga</td>
+                        <td>Wajib Di Isi</td>
+                      <td ><asp:Button ID="BtnKK" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnKK_Click"   /><asp:Label ID="LblBtnKK" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">11</th>
+                      <%--<td colspan="2">Larry the Bird</td>--%>
+                        <td>
+                            Unggah Ijazah</td>
+                        <td>Wajib Di Isi</td>
+                      <td ><asp:Button ID="BtnIjz" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnIjz_Click"   /><asp:Label ID="LblBtnIjz" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">12</th>
+                      <%--<td colspan="2">Larry the Bird</td>--%>
+                        <td>
+                            Unggah Transkrip Nilai</td>
+                        <td>Wajib Di Isi</td>
+                      <td ><asp:Button ID="BtnNilai" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnNilai_Click"   /><asp:Label ID="LblBtnNilai" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">13</th>
+                      <%--<td colspan="2">Larry the Bird</td>--%>
+                        <td>
+                            Unggah Surat Lamaran</td>
+                        <td>Wajib Di Isi</td>
+                      <td ><asp:Button ID="BtnLamar" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnLamar_Click"   /><asp:Label ID="LblBtnLamar" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">14</th>
+                      <%--<td colspan="2">Larry the Bird</td>--%>
+                        <td>
+                            Unggah CV</td>
+                        <td>Wajib Di Isi</td>
+                      <td ><asp:Button ID="BtnCV" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnCV_Click"   /><asp:Label ID="LblBtnCV" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
                     </tr>
                   </tbody>
                 </table>                    
                 </div>
                 <div class="form-group">
+                    <div style="  float: left;
+                                  width: 500px;
+                                  height: 100px;
+                                  margin: 1em;"
+                        >
                     <asp:Button ID="BtnLogout" runat="server" Text="Logout"  class="btn btn-danger" OnClick="BtnLogout_Click"/>
+                    <asp:Button ID="BtnKirimLamaran" runat="server" Text="Kirim Lamaran Anda"  class="btn btn-success" OnClick="BtnKirimLamaran_Click" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <br />
                 </div>
             </div>   
         </div>

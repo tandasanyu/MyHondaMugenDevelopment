@@ -187,7 +187,7 @@ div.content {
           <a href="HomeHRD.aspx?Menu=1">Lowongan Kerja</a>
           <a href="HomeHRD.aspx?Menu=2">Data Pelamar</a>         
         </div>--%>
-
+        
         <div class="sidebar">
           <a href="HomeHRD.aspx?Menu=0">Home</a>
           <a href="HomeHRD.aspx?Menu=1">List Lowongan Kerja</a>
@@ -196,14 +196,18 @@ div.content {
           <a >
               <asp:Button ID="BtnLogout" runat="server" class="btn btn-dark" Text="Logout" OnClick="BtnLogout_Click" /></a>  
         </div>
+        <div class="container">
         <!-- Page Content  -->
-        <div id="content">
-            <div style="margin-left:15%;"><!--  -->
+        <div id="content" >
+            <div style="margin-left:10px;"><!--  -->
                 <br />
+                
                 <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">      
-                </asp:ContentPlaceHolder>        
+                </asp:ContentPlaceHolder>  
+                
             </div>
         </div>
+    </div>
     </form>
 </body>
 </html>

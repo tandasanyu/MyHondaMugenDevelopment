@@ -156,7 +156,7 @@ h2.FormOrganisasiMemimpin {
                         </div>
                         <div class="form-group"><!-- Button -->
                           <div class="col-sm-8">
-                              <asp:Button ID="BtnSubmitOrganisasiMemimpin" runat="server" Text="Simpan Data" class="btn btn-danger"  />
+                              <asp:Button ID="BtnSubmitOrganisasiMemimpin" runat="server" Text="Simpan Data" class="btn btn-danger" OnClick="BtnSubmitOrganisasiMemimpin_Click"  />
                           </div>                        
                         </div>
                     </div>

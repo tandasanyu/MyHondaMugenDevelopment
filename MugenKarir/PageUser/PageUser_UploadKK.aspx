@@ -13,7 +13,7 @@
     <script src="js/bootstrap.min.js"></script>
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
     <script type ="text/javascript">
-        var validFiles=["jpg","jpeg"];
+        var validFiles=["jpg","jpeg", "pdf"];
         function OnUpload()
         {
           var obj = document.getElementById("<%=FileUpload1.ClientID%>");
@@ -93,10 +93,10 @@ h2.FormUploadFoto {
                                      <asp:Label ID="Label1" runat="server"  Text="Upload File Foto Kartu Keluarga Anda" Font-Bold="true"></asp:Label>
                                      <asp:FileUpload ID="FileUpload1" class="form-control-file" runat="server" /><br />
                                  <div style="margin-top:5px;margin-bottom:10px" class="row">
-                                     <asp:Label ID="Label2" runat="server" Text="*File Wajib Format .JPG / .JPEG" ForeColor="red"></asp:Label>
+                                     <asp:Label ID="Label2" runat="server" Text="*File Wajib Format .JPG / .JPEG / .PDF" ForeColor="red"></asp:Label>
                                      <asp:Label ID="Label3" runat="server" Text="*File Maksimal 1 MB untuk di Upload" ForeColor="red"></asp:Label>
                                  </div>    
-                                 </div><asp:Button ID="BtnSubmitKK" OnClientClick ="return OnUpload();" runat="server" Text="Upload File" class="btn btn-secondary"/>
+                                 </div><asp:Button ID="BtnSubmitKK" OnClientClick ="return OnUpload();" runat="server" Text="Upload File" class="btn btn-secondary" OnClick="BtnSubmitKK_Click"/>
                                  </div>
                             </div>
                   </div>

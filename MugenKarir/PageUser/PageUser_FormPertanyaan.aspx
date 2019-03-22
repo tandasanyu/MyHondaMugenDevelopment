@@ -220,7 +220,7 @@ h2.FormPertanyaan {
                         </div>
                         <div class="form-group"><!-- Button -->
                           <div class="col-sm-8">
-                              <asp:Button ID="BtnSubmitPertanyaan" runat="server" Text="Simpan Data" class="btn btn-danger"  />
+                              <asp:Button ID="BtnSubmitPertanyaan" runat="server" Text="Simpan Data" class="btn btn-danger" OnClick="BtnSubmitPertanyaan_Click"  />
                           </div>                        
                         </div>
                     </div>

@@ -19,15 +19,15 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
             }
             else
             {
-                if (val1 == "0")
+                if (val1 == "0") // MENU HOME
                 {
                     MultiViewHRD.ActiveViewIndex = 0;
                 }
-                else if (val1 == "1")
+                else if (val1 == "1") // MENU LIST LOWONGAN KERJA
                 {
                     MultiViewHRD.ActiveViewIndex = 1;
                 }
-                else if (val1 == "2")
+                else if (val1 == "2") // DATA PELAMAR (YANG SUDAH DI TERIMA)
                 {
                     MultiViewHRD.ActiveViewIndex = 2;
                 }
@@ -38,7 +38,70 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         }
        
     }
+    ////btn download foto
+    //protected void linkbuttonFoto_Click(object sender, EventArgs e)
+    //{
 
+    //    ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+    //    "alert('Download FOTO'); window.location='" +
+    //    Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx?Menu=0';", true);
+    //}
+    //list string ID Lowongan
+    //KUMPULAN FUNGSI DOWNLOAD BY BUTTON
+    //***
+    protected void LinkButtonForm_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = LvPelamarBaru.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString(); ///PagesHRD/FormPelamar.aspx
+        ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        "window.location='" +
+        Request.ApplicationPath + "../PagesHRD/FormPelamar.aspx?Id=6';", true);
+    }
+    protected void LinkButtonFoto_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = LvPelamarBaru.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('Photo ID : "+ DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        path = "~/UploadFile/Foto/" + DataKeyvalue + ".jpg";
+        Response.ContentType = "application/octet-stream";
+        Response.AppendHeader("content-disposition", "filename = " + DataKeyvalue + ".jpg");
+        Response.TransmitFile(Server.MapPath(path));
+        Response.End();
+    }
+    protected void LinkButtonKTP_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = LvPelamarBaru.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        path = "~/UploadFile/KTP/" + DataKeyvalue + ".jpg";
+        Response.ContentType = "application/octet-stream";
+        Response.AppendHeader("content-disposition", "filename = " + DataKeyvalue + ".jpg");
+        Response.TransmitFile(Server.MapPath(path));
+        Response.End();
+    }
+    //***
+
+    //fungsi download foto ***************************************************
 
     protected void BtnCoba_Click(object sender, EventArgs e)
     {
@@ -206,4 +269,8 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         }
         LvListLowongan.DataBind();
     }
+
+    public string val1;
+
+
 }

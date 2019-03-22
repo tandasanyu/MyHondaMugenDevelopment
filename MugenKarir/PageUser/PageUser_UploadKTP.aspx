@@ -93,10 +93,11 @@ h2.FormUploadFoto {
                                      <asp:Label ID="Label1" runat="server" Text="Upload File Foto KTP Anda" Font-Bold="true"></asp:Label>
                                      <asp:FileUpload ID="FileUpload1" class="form-control-file"  runat="server" /><br />
                                  <div style="margin-top:5px;margin-bottom:10px" class="row">
-                                     <asp:Label ID="Label2" runat="server" Text="*File Wajib Format .JPG / .JPEG" ForeColor="red"></asp:Label>
+                                     <asp:Label ID="Label22" runat="server" Text="*File Wajib Format .JPG / .JPEG" ForeColor="red"></asp:Label>
                                      <asp:Label ID="Label3" runat="server" Text="*File Maksimal 1 MB untuk di Upload" ForeColor="red"></asp:Label>
-                                 </div>                                         
-                                     <asp:Button ID="BtnSubmitKTP" OnClientClick ="return OnUpload();" runat="server" Text="Upload File" class="btn btn-secondary"/>
+                                 </div>           
+                                     <asp:Label ID="Label2" runat="server" Text="Label" Visible="false"></asp:Label><br />                              
+                                     <asp:Button ID="BtnSubmitKTP" OnClientClick ="return OnUpload();" runat="server" Text="Upload File" class="btn btn-secondary" OnClick="BtnSubmitKTP_Click"/>
                                  
                                  </div>
                             </div>

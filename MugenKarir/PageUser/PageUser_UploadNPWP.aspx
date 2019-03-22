@@ -92,8 +92,10 @@ h2.FormUploadFoto {
                                  <div style="margin-left:1%" >
                                      <asp:Label ID="Label1" runat="server" Text="Upload File Foto NPWP Anda" Font-Bold="true"></asp:Label>
                                      <asp:FileUpload ID="FileUpload1" class="form-control-file"  runat="server" /><br />                                     
-                                     <div style="margin-bottom:20px"><asp:Label ID="Label2" runat="server" Text="*Anda Tidak Wajib Upload NPWP, Jika Belum Memilikinya. Silahkan Lewati Menu Ini Jika Belum Memiliki NPWP" ForeColor="Red" Font-Size="Medium"></asp:Label>
-                                     </div><asp:Button ID="BtnSubmitNPWP" OnClientClick ="return OnUpload();" runat="server" Text="Upload File" class="btn btn-secondary"/>
+                                     <div style="margin-bottom:20px"><asp:Label ID="Label22" runat="server" Text="*Anda Tidak Wajib Upload NPWP, Jika Belum Memilikinya. Silahkan Lewati Menu Ini Jika Belum Memiliki NPWP. Menu ini hanya menerima file .JPG /.JPEG" ForeColor="Red" Font-Size="Medium"></asp:Label>
+                                     </div>
+                                     <asp:Label ID="Label2" runat="server" Text="Label" Visible="false"></asp:Label><br />       
+                                     <asp:Button ID="BtnSubmitNPWP" OnClientClick ="return OnUpload();" runat="server" Text="Upload File" class="btn btn-secondary" OnClick="BtnSubmitNPWP_Click"/>
                                  </div>
                             </div>
                   </div>

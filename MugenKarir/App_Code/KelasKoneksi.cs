@@ -19,10 +19,11 @@ public class KelasKoneksi
     SqlCommand cmd;
     SqlDataReader reader;
     public string status_hasil;
+    /*Below Testing Code*/
     //fungsi coba coba 
     public string KelasKoneksi_Open()
     {
-        
+
         String strconn = WebConfigurationManager.ConnectionStrings["MugenKarirConnection"].ConnectionString;
         conn = new SqlConnection(strconn);
         conn.Open();
@@ -33,7 +34,7 @@ public class KelasKoneksi
         }
         else
         {
-             status_hasil = "0";
+            status_hasil = "0";
             return status_hasil;
         }
     }
@@ -58,7 +59,7 @@ public class KelasKoneksi
         String strconn = WebConfigurationManager.ConnectionStrings["MugenKarirConnection"].ConnectionString;
         conn = new SqlConnection(strconn);
         string sql = "";
-        sql= SqlCmd;
+        sql = SqlCmd;
         cmd = new SqlCommand(sql, conn);
 
 
@@ -68,7 +69,7 @@ public class KelasKoneksi
             reader = cmd.ExecuteReader(); //Menggunakan data reader untuk select dan mengambil value nya 
             while (reader.Read())
             {
-                status_hasil=reader.GetValue(1).ToString();
+                status_hasil = reader.GetValue(1).ToString();
 
 
             }
@@ -87,7 +88,39 @@ public class KelasKoneksi
         }
 
     }
+    //coba boolean function 
+    public bool KelasKoneksi_CheckData(string sqlcmd) {
+        String strconn = WebConfigurationManager.ConnectionStrings["MugenKarirConnection"].ConnectionString;
+        conn = new SqlConnection(strconn);
+        string sql = string.Empty;
+        sql = sqlcmd;
+        cmd = new SqlCommand(sql, conn);
+        try
+        {
+            conn.Open();
+            reader = cmd.ExecuteReader(); //Menggunakan data reader untuk select dan mengambil value nya 
+            if (reader.HasRows)
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
+            
+        }
+        catch (SqlException ex)
+        {
+            status_hasil = "Terjadi error Ketika Test: " + ex.Message;
+            return false;
+        }
+        finally
+        {
+            cmd.Dispose();
+            conn.Close();
+        }
 
+        
+    }
 
     /*Below Main Working Code*/
 
@@ -119,8 +152,32 @@ public class KelasKoneksi
                     else if (sub == "3")
                     {
                         GlobalAr.Add(reader["id_lamaran"].ToString()); //0
-                        GlobalAr.Add(reader["user_posisi"].ToString()); //0
+                        GlobalAr.Add(reader["user_posisi"].ToString()); //1
                     }
+                    else if (sub == "4") {
+                        GlobalAr.Add(reader["id_login"].ToString()); //0
+                    } else if (sub == "5") {
+                        GlobalAr.Add(reader["Path_Foto"].ToString()); //0
+                    } else if (sub == "6") {
+                        GlobalAr.Add(reader["Nama_Lengkap"].ToString()); //0
+                        GlobalAr.Add(reader["Nama_Panggilan"].ToString()); //1
+                    GlobalAr.Add(reader["Tempat_Lahir"].ToString()); //2
+                    GlobalAr.Add(reader["Tgl_Lahir"].ToString()); //3
+                    GlobalAr.Add(reader["Jenkel"].ToString()); //4
+                    GlobalAr.Add(reader["Agama"].ToString()); //5
+                    GlobalAr.Add(reader["Alamat_KTP"].ToString()); //6
+                    GlobalAr.Add(reader["Alamat_Tinggal"].ToString()); //7
+                    GlobalAr.Add(reader["No_Telp"].ToString()); //8
+                    GlobalAr.Add(reader["No_HP"].ToString()); //9
+                    GlobalAr.Add(reader["email"].ToString()); //10
+                    GlobalAr.Add(reader["hobi"].ToString()); //11
+                    GlobalAr.Add(reader["No_KTP"].ToString()); //12
+                    GlobalAr.Add(reader["No_NPWP"].ToString()); //13
+                    GlobalAr.Add(reader["No_Jamsos"].ToString()); //0
+                    GlobalAr.Add(reader["Jensim"].ToString()); //0
+                    GlobalAr.Add(reader["No_Sim"].ToString()); //0
+                    GlobalAr.Add(reader["NoRekbca"].ToString()); //0
+                }
                 }
                 //status_hasil = "1";
 

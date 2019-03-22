@@ -8,6 +8,16 @@ using System.Web.UI.WebControls;
 public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
 {
     public string IdLamar;
+    public string rbList_JenKels = string.Empty;
+    public string rbList_Agama = string.Empty;
+    public string rbList_JenSIM = string.Empty;
+    public string selectedValue;
+    public string TTL_KTP;
+    public string Alamat;
+    public string telp_rumah;
+    public int nosim;
+    public string rek;
+    //public DateTime dateLahir = DateTime.ParseExact(TxtTglLahir.Text, "dd/MM/yyyy", null);
     protected void Page_Load(object sender, EventArgs e)
     {
         //cek sesi
@@ -17,30 +27,40 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
         }
         //get url param       
          IdLamar= Request.QueryString["IdLamaran"];
-        Response.Write("<script language=javascript>alert('Value : "+IdLamar+"');</script>");
+        //Response.Write("<script language=javascript>alert('Value : "+IdLamar+"');</script>");
     }
     //method untuk insert
     public string InsertDataDiri() {
         string Hasil = string.Empty;
+        Alamat = TextAreaAlamatKTP.InnerText;
         //proses insert ke table data_diri*********** di buat method 
-        
-        return Hasil ="OK";
+        KelasKoneksi kn = new KelasKoneksi();
+        string SqlCmd = "Insert into Data_Diri (Id_lamaran, Nama_Lengkap, Nama_Panggilan, Tempat_Lahir, Tgl_Lahir, JenKel, Agama, Alamat_KTP, Alamat_Tinggal, No_Telp, No_HP, Email, Hobi, No_KTP, No_NPWP, No_Jamsos, Jen_SIM, No_SIM, NoRekBCA) values (" + Convert.ToInt32(IdLamar)+", '"+TxtNamaLengkap.Text+"', '"+TxtNamaPanggilan.Text+"', '"+TxtTempatLahir.Text+ "', convert(date,'"+TxtTglLahir.Text+"',105), " + Convert.ToInt32(rbList_JenKels) +",  " + Convert.ToInt32(rbList_Agama) + ",'"+ Alamat + "', '"+TTL_KTP+"', '"+telp_rumah +"', '"+TxtHandphone.Text+"', '"+TxtEmail.Text+"', '"+TxtHobi.Text+"', '"+TxtNoKTP.Text+"', '"+TxtNPWP.Text+"', '"+TxtJamsos.Text+"', "+Convert.ToInt32(rbList_JenSIM) +", "+nosim+", "+rek+")";
+        string Hasil_Insert = kn.KelasKoneksi_Insert(SqlCmd);
+        if (Hasil_Insert == "1")
+        {
+            Hasil = "OK";
+        }
+        else {
+            Hasil = Hasil_Insert;
+        }
+        return Hasil;
     }
     //BIG NOTE*****
     //telpon rumah tidak wajib di isi
     //validasi jika rbList Jenis alamat dipilih Berbeda dengan KTP maka text area bisa di isi dan di validasi tidak bole kosong
     public int s1, s2, s3,s4;
-    public int nosim;
+    
     protected void BtnSubmitFormDataDiri_Click(object sender, EventArgs e)
     {
         //validasi TTL berbeda / sama dengan KTP
         string nama = TxtNamaLengkap.Text;
         string tempatlahir = TxtTempatLahir.Text;
-        string selectedValue = RadioButtonListAlamatTinggal.SelectedValue;
-        string TTL_KTP;
-        DateTime dateLahir = DateTime.ParseExact(TxtTglLahir.Text, "dd/MM/yyyy", null);
-        string telp_rumah = TxtTeleponRumah.Text;
-        string rek = TxtRekBca.Text;
+        selectedValue = RadioButtonListAlamatTinggal.SelectedValue;
+        
+        
+        telp_rumah = TxtTeleponRumah.Text;
+         rek = TxtRekBca.Text;
         //validasi rek bca
         if (rek == "")
         {
@@ -113,7 +133,7 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
         if (s1==1 && s2==1 && s4==1 && s3 == 1) {
             //***validasi data sebelum insert
             //******validasi data jenkel
-            string rbList_JenKels = string.Empty;
+
             foreach (ListItem i in RadioButtonListJenisKelamin.Items) {
                 if (i.Selected == true)
                 {
@@ -127,7 +147,7 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
                 rbList_JenKels = "2";
             }
             //** validasi jenis sim  RadioButtonListSIM
-            string rbList_JenSIM = string.Empty;
+            
            
             foreach (ListItem i in RadioButtonListSIM.Items)
             {
@@ -151,7 +171,7 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
                 nosim  = 0;
             }
             //***validasi agama RadioButtonListAgama
-            string rbList_Agama = string.Empty;
+
             foreach (ListItem i in RadioButtonListAgama.Items)
             {
                 if (i.Selected == true)
@@ -167,36 +187,73 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
                     Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
                 }
                 else {
-                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : "+Hasil+"');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
                 }
-               
-                //Response.Redirect("~/PageUser/PageUser_HomePelamar.aspx");
-
             }
             else if (rbList_Agama == "Kristen")
             {
                 rbList_Agama = "2";
-                InsertDataDiri();
+                string Hasil = InsertDataDiri();
+                if (Hasil == "OK")
+                {
+                    Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
+                else
+                {
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
             }
             else if (rbList_Agama == "Katolik")
             {
                 rbList_Agama = "3";
-                InsertDataDiri();
+                string Hasil = InsertDataDiri();
+                if (Hasil == "OK")
+                {
+                    Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
+                else
+                {
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
             }
             else if (rbList_Agama == "Hindu")
             {
                 rbList_Agama = "4";
-                InsertDataDiri();
+                string Hasil = InsertDataDiri();
+                if (Hasil == "OK")
+                {
+                    Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
+                else
+                {
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
             }
             else if (rbList_Agama == "Budha")
             {
                 rbList_Agama = "5";
-                InsertDataDiri();
+                string Hasil = InsertDataDiri();
+                if (Hasil == "OK")
+                {
+                    Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
+                else
+                {
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
             }
             else if (rbList_Agama == "Konghucu")
             {
                 rbList_Agama = "6";
-                InsertDataDiri();
+                string Hasil = InsertDataDiri();
+                if (Hasil == "OK")
+                {
+                    Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
+                else
+                {
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
             }
 
         } else {

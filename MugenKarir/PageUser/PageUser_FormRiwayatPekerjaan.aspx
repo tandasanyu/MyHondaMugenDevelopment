@@ -18,43 +18,86 @@
     <script src="js/bootstrap.min.js"></script>
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
     <script type="text/javascript">
+        function validate(s, args) {
+        //var rad = document.getElementById('<%=RadioButtonListRiwayatPekerjaan.ClientID %>');
+        //var radio = rad.getElementsByTagName("input");
+        //for (var i=0;i<radio.length;i++){
+               //if (radio[i].checked)
+               //{
+                   //your Code goes here....
+                   //if (radio[i].value == "1") {
+                       //ValidatorEnable(document.getElementById("RequiredFieldValidatorPT1"), true);
+                   //}
+                   //else {
+                       //ValidatorEnable(document.getElementById("RequiredFieldValidatorPT1"), false);
+                   //}
+                   //alert("SelectedValue = " + radio[i].value);
+               //}
+            //}
+            var list = document.getElementById('<%=RadioButtonListRiwayatPekerjaan.ClientID %>'); //Client ID of the radiolist
+            var inputs = list.getElementsByTagName("input");
+            var selected;
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].checked) {
+                    selected = inputs[i];
+                    break;
+                }
+            }
+            if (selected == "Tidak Ada") {
+                args.IsValid = false;
+            }else if (selected =="1"){
+                args.IsValid = true;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+      //Code to allow only Integers in a textbox Using Javascript
+      function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : evt.keyCode;
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;    
+         return true;
+      }
+   </script>
+    <script type="text/javascript">
       $( function() {
           $("#<%= TxtWaktuMasuk1.ClientID %>").datepicker({
               changeMonth: true,
               changeYear: true,
-              dateFormat: "dd/mm/yy",
+              dateFormat: "yy-mm-dd",
               yearRange: "-90:+00"
           });
           $("#<%= TxtWaktuKeluar1.ClientID %>").datepicker({
               changeMonth: true,
               changeYear: true,
-              dateFormat: "dd/mm/yy",
+              dateFormat: "yy-mm-dd",
               yearRange: "-90:+00"
           });
           //2
           $("#<%= TxtWaktuMasuk2.ClientID %>").datepicker({
               changeMonth: true,
               changeYear: true,
-              dateFormat: "dd/mm/yy",
+              dateFormat: "yy-mm-dd",
               yearRange: "-90:+00"
           });
           $("#<%= TxtWaktuKeluar2.ClientID %>").datepicker({
               changeMonth: true,
               changeYear: true,
-              dateFormat: "dd/mm/yy",
+              dateFormat: "yy-mm-dd",
               yearRange: "-90:+00"
           });
           //3
           $("#<%= TxtWaktuMasuk3.ClientID %>").datepicker({
               changeMonth: true,
               changeYear: true,
-              dateFormat: "dd/mm/yy",
+              dateFormat: "yy-mm-dd",
               yearRange: "-90:+00"
           });
           $("#<%= TxtWaktuKeluar3.ClientID %>").datepicker({
               changeMonth: true,
               changeYear: true,
-              dateFormat: "dd/mm/yy",
+              dateFormat: "yy-mm-dd",
               yearRange: "-90:+00"
           });
       }); 
@@ -148,18 +191,18 @@
                                 ></asp:RequiredFieldValidator>
                         </div>
                         <!-- Detail Riwayat Pekerjaan 1-->
-                        <div class="form-group" id="DetailRiwayatPekerjaan1" style="background:">
+                        <div class="form-group" id="DetailRiwayatPekerjaan1" >
                           <h3 ><small>Detail Riwayat Pekerjaan 1: </small></h3>
                           <div class="row">
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label4" runat="server" Text="Nama Perusahaan :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtNamaPerusahaan1" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtNamaPerusahaan1" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label1" runat="server" Text="Tanggal Masuk :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtWaktuMasuk1" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtWaktuMasuk1" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -169,42 +212,42 @@
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label3" runat="server" Text="Tanggal Keluar :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtWaktuKeluar1" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtWaktuKeluar1" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label5" runat="server" Text="Telpon Kantor :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtTelpKantor1" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtTelpKantor1" autocomplete="off" class="form-control" runat="server" onkeypress="return isNumberKey(event)"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label8" runat="server" Text="Jabatan :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtJabatan1" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtJabatan1" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label9" runat="server" Text="Nama Atasan :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtNamaAtasan1" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtNamaAtasan1" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label10" runat="server" Text="Job Desk :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtJobDesk1" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtJobDesk1" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label11" runat="server" Text="Gaji Awal :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtGajiAwal1" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtGajiAwal1" autocomplete="off" class="form-control" runat="server" onkeypress="return isNumberKey(event)"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
-                                <asp:Label ID="Label12" runat="server" Text="Gaji Akhri :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtGajiAkhir1" class="form-control" runat="server"></asp:TextBox>
+                                <asp:Label ID="Label12" runat="server" Text="Gaji Akhir :" Font-Bold="true"></asp:Label>
+                                <asp:TextBox ID="TxtGajiAkhir1" autocomplete="off" class="form-control" runat="server" onkeypress="return isNumberKey(event)"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label13" runat="server" Text="Alasan Keluar :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtAlasanKeluar1" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtAlasanKeluar1" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                           </div>                       
                         </div>
@@ -214,57 +257,57 @@
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label14" runat="server" Text="Nama Perusahaan :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtNamaPerusahaan2" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtNamaPerusahaan2" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label15" runat="server" Text="Tanggal Masuk :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtWaktuMasuk2" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtWaktuMasuk2" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label16" runat="server" Text="Alamat Perusahaan :" Font-Bold="true"></asp:Label>
-                                <textarea id="TxtAlamatPerusahaan2" cols="20" rows="2" runat="server" class="form-control" autocomplete="off"></textarea>                             
+                                <textarea id="TxtAlamatPerusahaan2"  cols="20" rows="2" runat="server" class="form-control" autocomplete="off"></textarea>                             
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label17" runat="server" Text="Tanggal Keluar :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtWaktuKeluar2" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtWaktuKeluar2" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label18" runat="server" Text="Telpon Kantor :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtTelpKantor2" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtTelpKantor2" autocomplete="off" class="form-control" runat="server" onkeypress="return isNumberKey(event)"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label19" runat="server" Text="Jabatan :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtJabatan2" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtJabatan2" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label20" runat="server" Text="Nama Atasan :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtNamaAtasan2" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtNamaAtasan2" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label21" runat="server" Text="Job Desk :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtJobDesk2" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtJobDesk2" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label22" runat="server" Text="Gaji Awal :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtGajiAwal2" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtGajiAwal2" autocomplete="off" class="form-control" runat="server" onkeypress="return isNumberKey(event)"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
-                                <asp:Label ID="Label23" runat="server" Text="Gaji Akhri :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtGajiAkhir2" class="form-control" runat="server"></asp:TextBox>
+                                <asp:Label ID="Label23" runat="server" Text="Gaji Akhir :" Font-Bold="true"></asp:Label>
+                                <asp:TextBox ID="TxtGajiAkhir2" autocomplete="off" class="form-control" runat="server" onkeypress="return isNumberKey(event)"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label24" runat="server" Text="Alasan Keluar :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtAlasanKeluar2" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtAlasanKeluar2" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                           </div>                       
                         </div>
@@ -274,63 +317,63 @@
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label25" runat="server" Text="Nama Perusahaan :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtNamaPerusahaan3" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtNamaPerusahaan3" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label26" runat="server" Text="Tanggal Masuk :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtWaktuMasuk3" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtWaktuMasuk3" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label27" runat="server" Text="Alamat Perusahaan :" Font-Bold="true"></asp:Label>
-                                <textarea id="TxtAlamatPerusahaan3" cols="20" rows="2" runat="server" class="form-control" autocomplete="off"></textarea>                             
+                                <textarea id="TxtAlamatPerusahaan3"  cols="20" rows="2" runat="server" class="form-control" autocomplete="off"></textarea>                             
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label28" runat="server" Text="Tanggal Keluar :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtWaktuKeluar3" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtWaktuKeluar3" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label29" runat="server" Text="Telpon Kantor :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtTelpKantor3" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtTelpKantor3" autocomplete="off" class="form-control" runat="server" onkeypress="return isNumberKey(event)"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label30" runat="server" Text="Jabatan :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtJabatan3" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtJabatan3" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label31" runat="server" Text="Nama Atasan :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtNamaAtasan3" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtNamaAtasan3" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label32" runat="server" Text="Job Desk :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtJobDesk3" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtJobDesk3" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label33" runat="server" Text="Gaji Awal :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtGajiAwal3" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtGajiAwal3" autocomplete="off" class="form-control" runat="server" onkeypress="return isNumberKey(event)"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
-                                <asp:Label ID="Label34" runat="server" Text="Gaji Akhri :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtGajiAkhir3" class="form-control" runat="server"></asp:TextBox>
+                                <asp:Label ID="Label34" runat="server" Text="Gaji Akhir :" Font-Bold="true"></asp:Label>
+                                <asp:TextBox ID="TxtGajiAkhir3" autocomplete="off" class="form-control" runat="server" onkeypress="return isNumberKey(event)"></asp:TextBox>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label35" runat="server" Text="Alasan Keluar :" Font-Bold="true"></asp:Label>
-                                <asp:TextBox ID="TxtAlasanKeluar3" class="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtAlasanKeluar3" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
                             </div>
                           </div>                       
                         </div>
                         <!-- Referensi Pekerjaan -->
                         <div class="form-group" id="ReferensiPekerjaan">
-                            <h2 ><small>Referesi (Seseorang yang Dapat memberikan Keterangan tentang Anda): </small></h2>
+                            <h2 ><small>Referensi (Seseorang yang Dapat memberikan Keterangan tentang Anda): </small></h2>
                             <asp:RadioButtonList ID="RadioButtonListReferensi" runat="server" RepeatDirection="Horizontal"  CellPadding="5">
                                 <asp:ListItem>1</asp:ListItem>
                                 <asp:ListItem>2</asp:ListItem>
@@ -358,13 +401,13 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <asp:TextBox ID="TxtNamaReferensi1" class="form-control" runat="server" ></asp:TextBox>
+                                            <asp:TextBox ID="TxtNamaReferensi1" autocomplete="off" class="form-control" runat="server" ></asp:TextBox>
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TxtAlamatReferensi1" class="form-control" runat="server" ></asp:TextBox>
+                                            <asp:TextBox ID="TxtAlamatReferensi1" autocomplete="off" class="form-control" runat="server" ></asp:TextBox>
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TxtNoTelpReferensi1" class="form-control" runat="server" ></asp:TextBox>
+                                            <asp:TextBox ID="TxtNoTelpReferensi1" autocomplete="off" class="form-control" runat="server" onkeypress="return isNumberKey(event)"></asp:TextBox>
                                         </td>
                                         <td>
                                         <asp:DropDownList ID="DropDownListPekerjaan1" class="form-control" runat="server">
@@ -389,7 +432,7 @@
                             </table>
                         </div>
                         <div class="form-group" id="DetailReferensiPekerjaan2">
-                            <asp:Label ID="Label37" runat="server" Text="Referensi Pekerjaan 1 :" Font-Bold="true"></asp:Label>
+                            <asp:Label ID="Label37" runat="server" Text="Referensi Pekerjaan 2 :" Font-Bold="true"></asp:Label>
                             <table class="table table-bordered">
                                 <thead>
                                   <tr>
@@ -403,13 +446,13 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <asp:TextBox ID="TxtNamaReferensi2" class="form-control" runat="server" ></asp:TextBox>
+                                            <asp:TextBox ID="TxtNamaReferensi2" autocomplete="off" class="form-control" runat="server" ></asp:TextBox>
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TxtAlamatReferensi2" class="form-control" runat="server" ></asp:TextBox>
+                                            <asp:TextBox ID="TxtAlamatReferensi2" autocomplete="off" class="form-control" runat="server" ></asp:TextBox>
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TxtNoTelpReferensi2" class="form-control" runat="server" ></asp:TextBox>
+                                            <asp:TextBox ID="TxtNoTelpReferensi2" autocomplete="off" class="form-control" runat="server" onkeypress="return isNumberKey(event)"></asp:TextBox>
                                         </td>
                                         <td>
                                         <asp:DropDownList ID="DropDownListPekerjaan2" class="form-control" runat="server">
@@ -435,7 +478,7 @@
                         </div>
                         <!-- Button -->
                         <div class="form-group" id="Button">
-                            <asp:Button ID="Button1" runat="server" Text="Simpan" class="btn btn-danger"/>
+                            <asp:Button ID="Button1" runat="server" Text="Simpan" class="btn btn-danger" OnClick="Button1_Click"/>
                         </div>
                     </div>
                 </div>

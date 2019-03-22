@@ -33,7 +33,7 @@ public partial class Login : System.Web.UI.Page
                     Session["User"] = username;
                     Response.Redirect("~/PagesHRD/HomeHRD.aspx");
                 }
-                else if (aL[3].ToString() == "Pelamar")
+                else if (aL[3].ToString() == "Pelamar" && aL[2] != "0")
                 {
                     if (pswd == aL[0].ToString() && username == aL[4].ToString())
                     {
@@ -45,6 +45,9 @@ public partial class Login : System.Web.UI.Page
                     {
                         Response.Write("<script language=javascript>alert('Username dan Password anda Tidak Match');</script>");
                     }
+                }
+                else {
+                    Response.Write("<script language=javascript>alert('Username Anda Sudah Tidak Berlaku');</script>");
                 }
             }
             else

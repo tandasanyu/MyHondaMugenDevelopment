@@ -133,7 +133,7 @@ $(function() {
                       <div class="form-group"><!-- Alamat KTP -->
                           <asp:Label ID="Label9" CssClass="col-sm-4" runat="server" Font-Bold="true" Text="Alamat Sesuai KTP" ></asp:Label>
                           <div class="col-sm-8">
-                              <textarea id="TextAreaAlamatKTP" cols="20" rows="2" runat="server" class="form-control" autocomplete="off"></textarea>
+                              <textarea id="TextAreaAlamatKTP" name="TextAreaAlamatKTP" cols="20" rows="2" runat="server" class="form-control" autocomplete="off"></textarea>
                               <asp:RequiredFieldValidator ID="RequiredFieldValidator6" 
                                   runat="server" 
                                   ErrorMessage="Alamat Wajib Di Isi"
@@ -278,7 +278,7 @@ $(function() {
                                   <asp:ListItem>Sesuai KTP</asp:ListItem>
                                   <asp:ListItem>Berbeda dengan KTP</asp:ListItem>
                               </asp:RadioButtonList>
-                              <textarea id="TextAreaAamatKTP" cols="20" rows="2" runat="server" class="form-control" autocomplete="off"></textarea>
+                              <textarea id="TextAreaAamatKTP" name="TextAreaAamatKTP" cols="20" rows="2" runat="server" class="form-control" autocomplete="off"></textarea>
                               <asp:RequiredFieldValidator ID="RequiredFieldValidator8" 
                                   runat="server" 
                                   ErrorMessage="Wajib Di pilih Jenis Alamat Anda"
@@ -370,7 +370,7 @@ $(function() {
                                   ></asp:RegularExpressionValidator>
                           </div>                         
                       </div>
-                        <asp:Label ID="LblUserNama" runat="server" Text="Label"></asp:Label>
+                        <asp:Label ID="LblUserNama" runat="server" Text="Label" Visible="false"></asp:Label>
                     </div>
                       <div class="form-group"><!-- Button -->
                           <div class="col-sm-8">

@@ -221,12 +221,22 @@ h2.FormDataDiri {
                             <td>Ayah</td>
                             <td>
                                 <asp:TextBox ID="TxtNamaAyah" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" 
+                                    runat="server" 
+                                    ErrorMessage="Wajib Di Isi"
+                                    ControlToValidate="TxtNamaAyah"
+                                    ForeColor="red"></asp:RequiredFieldValidator>
                             </td>
                             <td>
                                 <asp:Label ID="LblJenkelAyah" runat="server" Text="Pria"></asp:Label>
                             </td>
                             <td>
                                 <asp:TextBox ID="TxtUsiaAyah" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" 
+                                    runat="server" 
+                                    ErrorMessage="Wajib Di Isi"
+                                    ControlToValidate="TxtUsiaAyah"
+                                    ForeColor="red"></asp:RequiredFieldValidator>
                             </td>
                             <td>
                                 <asp:DropDownList ID="DropDownListPendidikanAyah" class="form-control" runat="server">
@@ -236,6 +246,12 @@ h2.FormDataDiri {
                                     <asp:ListItem Value="3">S1</asp:ListItem>
                                     <asp:ListItem Value="4">S2</asp:ListItem>
                                 </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" 
+                                    runat="server" 
+                                    ErrorMessage="Wajib Di Isi"
+                                    ControlToValidate="DropDownListPendidikanAyah"
+                                    InitialValue="0"
+                                    ForeColor="red"></asp:RequiredFieldValidator>
                             </td>
                             <td>
                                 <asp:DropDownList ID="DropDownListPekerjaanAyah" class="form-control" runat="server">
@@ -246,18 +262,34 @@ h2.FormDataDiri {
                                     <asp:ListItem Value="4">Pensiun</asp:ListItem>
                                     <asp:ListItem Value="5">Tidak Bekerja</asp:ListItem>
                                 </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" 
+                                    runat="server" 
+                                    ErrorMessage="Wajib Di Isi"
+                                    ControlToValidate="DropDownListPekerjaanAyah"
+                                    InitialValue="0"
+                                    ForeColor="red"></asp:RequiredFieldValidator>
                             </td>
                           </tr>
                           <tr>
                             <td>Ibu</td>
                             <td>
                                 <asp:TextBox ID="TxtNamaIbu" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator7" 
+                                    runat="server" 
+                                    ErrorMessage="Wajib Di Isi"
+                                    ControlToValidate="TxtNamaIbu"
+                                    ForeColor="red"></asp:RequiredFieldValidator>
                             </td>
                             <td>
                                 <asp:Label ID="LblJenkelIbu" runat="server" Text="Wanita"></asp:Label>
                             </td>
                             <td>
                                 <asp:TextBox ID="TxtUsiaIbu" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator8" 
+                                    runat="server" 
+                                    ErrorMessage="Wajib Di Isi"
+                                    ControlToValidate="TxtUsiaIbu"
+                                    ForeColor="red"></asp:RequiredFieldValidator>
                             </td>
                             <td>
                                 <asp:DropDownList ID="DropDownListPendidikanIbu" class="form-control" runat="server">
@@ -267,6 +299,12 @@ h2.FormDataDiri {
                                     <asp:ListItem Value="3">S1</asp:ListItem>
                                     <asp:ListItem Value="4">S2</asp:ListItem>
                                 </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator9" 
+                                    runat="server" 
+                                    ErrorMessage="Wajib Di Isi"
+                                    ControlToValidate="DropDownListPendidikanIbu"
+                                    InitialValue="0"
+                                    ForeColor="red"></asp:RequiredFieldValidator>
                             </td>
                             <td>
                                 <asp:DropDownList ID="DropDownListPekerjaanIbu" class="form-control" runat="server">
@@ -277,6 +315,12 @@ h2.FormDataDiri {
                                     <asp:ListItem Value="4">Pensiun</asp:ListItem>
                                     <asp:ListItem Value="5">Tidak Bekerja</asp:ListItem>
                                 </asp:DropDownList>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator10" 
+                                    runat="server" 
+                                    ErrorMessage="Wajib Di Isi"
+                                    ControlToValidate="DropDownListPekerjaanIbu"
+                                    InitialValue="0"
+                                    ForeColor="red"></asp:RequiredFieldValidator>
                             </td>
                           </tr>
                         </tbody>
@@ -647,7 +691,7 @@ h2.FormDataDiri {
                                             </asp:DropDownList>                                            
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TextBox12" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="TxtUsiaSK7" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK7" class="form-control" runat="server">
@@ -937,7 +981,7 @@ h2.FormDataDiri {
                             </table>
                         </div>
                         <div class="form-group"><!-- Button -->
-                            <asp:Button ID="BtnSubmitFormDataKeluarga" runat="server" class="btn btn-danger"  Text="Simpan Data" />
+                            <asp:Button ID="BtnSubmitFormDataKeluarga" runat="server" class="btn btn-danger"  Text="Simpan Data" OnClick="BtnSubmitFormDataKeluarga_Click" />
                         </div>                      
                     </div>
                 </div>

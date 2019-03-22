@@ -93,7 +93,7 @@ h2.FormUploadFoto {
                                      <asp:Label ID="Label1" runat="server" Text="Upload File Transkrip Anda" Font-Bold="true"></asp:Label>
                                      <asp:FileUpload ID="FileUpload1" class="form-control-file"  runat="server" /><br />                                     
                                      <div style="margin-bottom:20px"><asp:Label ID="Label2" runat="server" Text="File yang Dapat di Upload (.PDF, .JPG, .JPEG)" ForeColor="Red" Font-Size="Medium"></asp:Label>
-                                     </div><asp:Button ID="BtnSubmitNilai" OnClientClick ="return OnUpload();" runat="server" Text="Upload File" class="btn btn-secondary"/>
+                                     </div><asp:Button ID="BtnSubmitNilai" OnClientClick ="return OnUpload();" runat="server" Text="Upload File" class="btn btn-secondary" OnClick="BtnSubmitNilai_Click"/>
                                  </div>
                             </div>
                   </div>

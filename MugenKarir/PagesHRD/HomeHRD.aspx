@@ -55,17 +55,71 @@
 .inner
 {
     display: inline-block;
+    margin: 1em;
+}
+.btn-mybutton {
+  color: #000;
+  background-color: #cccccc;
+  border-color: #cccccc;
 }
     </style>
     <asp:MultiView ID="MultiViewHRD" runat="server">
         <asp:View ID="View0" runat="server"><!-- -->
-        <div class="form-group">
-            <div class="col-sm-8" style="margin-bottom:4%;margin-top:1%">
-                <br />
-		            <h2 style="font-family:Blunter;"><span ></span> Data Pelamar Baru </h2>
-	            <br />
+            <div class="form-group">
+                <div class="col-sm-8" style="margin-bottom:4%;margin-top:1%">
+                    <br />
+		                <h2 style="font-family:Blunter;"><span ></span> Data Pelamar Baru </h2>
+	                <br />
                 </div>
             </div>
+            <div class="row">
+                <div class="col-9" style="overflow:auto">
+                    <div class="form-group">
+                        <div class="col" style="margin-bottom:4%;margin-top:1%">
+                    	        <asp:SqlDataSource ID="SqlPelamarBaru" runat="server"
+					                ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+					                SelectCommand="select Id_lamaran, User_nama, User_Posisi from Data_Lamaran where status_lamaran = 1  order by Tgl_Lamar DESC"
+					                ProviderName="<%$ ConnectionStrings:MugenKarirConnection.ProviderName %>">
+				                </asp:SqlDataSource>   
+                            <asp:ListView ID="LvPelamarBaru" runat="server" DataSourceID="SqlPelamarBaru" DataKeyNames ="Id_lamaran" enableviewstate="false"  >
+                                <LayoutTemplate>
+                                    <table class="table table-bordered striped data" align="left">
+                                        <thead>
+                                            <th style="text-align:center; color:red; background-color:#a9a9a9">No</th>
+                                            <th style="text-align:center; color:red; background-color:#a9a9a9">ID Lamaran</th>
+                                            <th style="text-align:center; color:red; background-color:#a9a9a9">Nama Pelamar</th>
+                                            <th style="text-align:center; color:red; background-color:#a9a9a9">Posisi</th>
+                                            <th style="text-align:center; color:red; background-color:#a9a9a9">Form</th>
+                                            <th style="text-align:center; color:red; background-color:#a9a9a9">Download Photo</th>
+                                            <th style="text-align:center; color:red; background-color:#a9a9a9">Download ID Card</th>
+                                        </thead>
+                                        <asp:PlaceHolder ID="itemPlaceHolder" runat="server" />
+                                    </table>
+                                </LayoutTemplate>
+                                <ItemTemplate>
+                                    <tr>
+                                        <td align="center"><p class="small"><%#Container.DataItemIndex + 1 %></p></td>
+                                        <td><%#Eval("Id_Lamaran")%>
+                                        </td>
+                                        <td><%#Eval("User_nama")%></td>
+                                        <td><%#Eval("User_posisi")%></td>
+                                        <td>
+                                            <asp:LinkButton ID="LinkButtonForm" class="btn btn-mybutton" runat="server" OnClick="LinkButtonForm_Click">Lihat Form</asp:LinkButton>
+                                        </td>
+                                        <td>
+                                            <asp:LinkButton ID="LinkButtonFoto" class="btn btn-mybutton" runat="server" OnClick="LinkButtonFoto_Click">Download Photo</asp:LinkButton>
+                                        </td>
+                                        <td>
+                                            <asp:LinkButton ID="LinkButtonKTP" class="btn btn-mybutton" runat="server" OnClick="LinkButtonKTP_Click">Download KTP</asp:LinkButton>
+                                        </td>
+                                    </tr>
+                                </ItemTemplate>
+                            </asp:ListView>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </asp:View>
         <asp:View ID="View1" runat="server">
             <div >
@@ -79,7 +133,7 @@
 					ProviderName="<%$ ConnectionStrings:MugenKarirConnection.ProviderName %>"                   
                     ></asp:SqlDataSource>
                     <br />
-                    <input id="SearchLowongan"  type="text" placeholder="Ketik Posisi yang akan di Cari!" class="form-control required" autocomplete="off"/>
+                    <input id="SearchLowongan"  type="text" placeholder="Ketik Posisi yang akan di Cari!" class="form-control required" autocomplete="off" style="width:300px"/>
                     <br />  
                     <div class="table-responsive">
                         <div id="table-wrapper">
@@ -123,6 +177,7 @@
                             </asp:ListView>
                         </tbody>
                     </table>
+                            </div>
                             </div>
                         </div>
                     </div>

@@ -33,10 +33,22 @@ create table Data_Lamaran (
     Status_Lamaran int DEFAULT 0 NOT NULL, -- diterima / ditolak [1/0]
     Status_Undangan int DEFAULT 0 NOT NULL --di undang interview/ tidak di undang interview [1/0] 
 )
+/*
+ketika kirim lamaran (Halaman Home Pelamar), Update Data_lamaran -> Status_Lamaran = 1, Status_Undangan = 0
+dan Login_User-> User_Status = 0
+*/
+
+/*
+Data lamaran yang di tampilkan di menu hrd adalah yg Status_Lamaran = 1  
+DATA PELAMAR (dATA YG SUDAH DI TERIMA)
+HOME (DATA YG BARU / BELUM DI TERIMA)
+*/
+
+
 /*Tb.Data Diri*/ -- hanya rekBCA yg bisa Null
 create table Data_Diri (
     Id_DataDiri int IDENTITY (1,1) PRIMARY KEY, 
-    Id_Lamaran int NOT NULL, -- fk relasi ke tb.Data_lamaran [Id_Lamaran] + unique
+    Id_Lamaran int UNIQUE NOT NULL, -- fk relasi ke tb.Data_lamaran [Id_Lamaran] + unique
     Nama_Lengkap varchar (255) NOT NULL, 
     Nama_Panggilan varchar (255) NOT NULL, 
     Tempat_Lahir varchar (100) NOT NULL, 
@@ -45,16 +57,135 @@ create table Data_Diri (
     Agama int NOT NULL, -- 1= islam, 2=kristen, 3=katolik, 4=hindu, 5=budha, 6=konghucu
     Alamat_KTP varchar (255) NOT NULL, 
     Alamat_Tinggal varchar (255) NOT NULL, 
-    No_Telp int NOT NULL, 
-    No_HP int NOT NULL, 
+    No_Telp varchar (100) NOT  NULL, 
+    No_HP varchar (100) NOT NULL, 
     Email varchar(100), 
     Hobi varchar (100), 
-    No_KTP int NOT NULL, 
-    No_NPWP int NOT NULL, 
-    No_Jamsos int not null, 
+    No_KTP varchar (100) NOT NULL, 
+    No_NPWP varchar (100) NOT NULL, 
+    No_Jamsos varchar (100) not null, 
     Jen_SIM int NOT NULL, 
-    No_SIM int NOT NULL, 
-    NoRekBCA int  NULL
+    No_SIM varchar (100) NOT NULL, 
+    NoRekBCA varchar (100)  NULL
+)
+
+/*Tb.Data Keluarga mempunyai beberapa table 
+1.Data_Keluarga (isinya ayah ibu)
+2.Data_Saudara (isinya saudara kandung // jika ada)
+3.Data_Pasangan (isinya istri / suami // jika ada)
+4.Data_Anak (isinya anak // jika ada)
+*/
+--**Tb data_keluarga
+create table Data_Keluarga (
+    Id_Keluarga int IDENTITY (1,1) PRIMARY KEY, 
+    Id_Lamaran int UNIQUE NOT NULL, -- fk relasi ke tb.Data_lamaran [Id_Lamaran] + unique
+    Nm_Ayah varchar (100) NOT NULL, 
+    Nm_Ibu varchar (100) NOT NULL, 
+    Pendidikan_Ayah int NOT NULL,
+    Usia_Ayah int NOT NULL, 
+    Pekerjaan_Ayah int NOT NULL, 
+    Pendidikan_Ibu int NOT NULL,
+    Usia_Ibu int NOT NULL, 
+    Pekerjaan_Ibu int NOT NULL
+)
+
+--** Tb data_Saudara
+create table Data_Saudara(
+    Id_Saudara int IDENTITY (1,1) PRIMARY KEY, 
+    Id_Lamaran int NOT NULL, -- fk relasi ke tb.Data_lamaran [Id_Lamaran] 
+    Nm_Saudara VARCHAR (100) NOT NULL, 
+    JenKel_Saudara int NOT NULL, 
+    Usia_Saudara Int NOT NULL, 
+    Pendidikan_Saudara Int NOT NULL, 
+    Pekerjaan_Saudara Int NOT NULL
+)
+
+--**Tb Pasangan
+create table Data_Pasangan (
+    Id_pasangan int IDENTITY (1,1) PRIMARY KEY, 
+    Id_lamaran INT UNIQUE NOT NULL, 
+    Nm_pasangan varchar (100) NOT NULL, 
+    Usia_Pasangan INT NOT NULL,
+    Pendidikan_Pasangan INT NOT NULL, 
+    Pekerjaan_Pasangan INT NOT NULL
+)
+
+--**Tb Data_Anak
+create table Data_Anak (
+    Id_Anak int IDENTITY (1,1) PRIMARY KEY, 
+    Id_lamaran INT NOT NULL, 
+    Nm_Anak varchar (100) NOT NULL, 
+    JenKel_Anak int NOT NULL,
+    Usia_Anak int NOT NULL, 
+    Pendidikan_Anak int NOT NULL,
+    Pekerjaan_Anak int NOT NULL
+)
+
+--Tb Pertanyaan
+create table Data_Pertanyaan (
+    Id_Pertanyaan int IDENTITY (1,1) PRIMARY KEY, 
+    Id_lamaran INT NOT NULL, 
+    Desc_Sakit varchar (100) , 
+    Kelebihan varchar (100) NOT NULL, 
+    Kekurangan varchar (100) NOT NULL, 
+    Keahlian varchar (100) NOT NULL, 
+    JobDesc varchar (100) NOT NULL, 
+    HarapGaji money NOT NULL, 
+    Tunjangan varchar (100) NOT NULL, 
+    SiapBekerja int NOT NULL, 
+    Penempatan int NOT NULL, 
+    AlasanBergabung varchar (100) NOT NULL, 
+    TentangMugen varchar (100) NOT NULL, 
+    LingkunganKerja INT NOT NULL
+)
+
+--TB UploadFoto
+create table Data_UploadFoto (
+    Id_Foto int IDENTITY (1,1) PRIMARY KEY, 
+    Id_lamaran int not null, 
+    Path_Foto varchar (50) not null
+)
+--TB UploadKTP
+create table Data_UploadKTP (
+    Id_Ktp int IDENTITY (1,1) PRIMARY KEY, 
+    Id_lamaran int not null, 
+    Path_Foto varchar (50) not null
+)
+--TB UploadNPWP
+create table Data_UploadNPWP (
+    Id_Npwp int IDENTITY (1,1) PRIMARY KEY, 
+    Id_lamaran int not null, 
+    Path_Foto varchar (50) not null
+)
+--TB UploadKK
+create table Data_UploadKK (
+    Id_KK int IDENTITY (1,1) PRIMARY KEY, 
+    Id_lamaran int not null, 
+    Path_Foto varchar (50) not null
+)
+--TB UploadNPWP
+create table Data_UploadIjazah (
+    Id_Ijazah int IDENTITY (1,1) PRIMARY KEY, 
+    Id_lamaran int not null, 
+    Path_Foto varchar (50) not null
+)
+--TB UploadNPWP
+create table Data_UploadTranskrip (
+    Id_Transkrip int IDENTITY (1,1) PRIMARY KEY, 
+    Id_lamaran int not null, 
+    Path_Foto varchar (50) not null
+)
+--TB UploadNPWP
+create table Data_UploadSLamaran (
+    Id_SLamaran int IDENTITY (1,1) PRIMARY KEY, 
+    Id_lamaran int not null, 
+    Path_Foto varchar (50) not null
+)
+--TB UploadNPWP
+create table Data_UploadCV (
+    Id_CV int IDENTITY (1,1) PRIMARY KEY, 
+    Id_lamaran int not null, 
+    Path_Foto varchar (50) not null
 )
 
 --case ketika registrasi******************************************
