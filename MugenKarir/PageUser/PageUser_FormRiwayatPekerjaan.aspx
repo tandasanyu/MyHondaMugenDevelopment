@@ -424,7 +424,7 @@
                                                 <asp:ListItem Value="0">Pilih Hubungan</asp:ListItem>
                                                 <asp:ListItem Value="1">Atasan</asp:ListItem>
                                                 <asp:ListItem Value="2">Rekan kerja</asp:ListItem>
-                                                <asp:ListItem Value="2">Teman</asp:ListItem>
+                                                <asp:ListItem Value="3">Teman</asp:ListItem>
                                             </asp:DropDownList>
                                         </td>
                                     </tr>

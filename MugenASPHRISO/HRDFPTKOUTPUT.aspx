@@ -12,8 +12,19 @@
         .table-borderless > thead > tr > th {
             border: none;
         }
-    </style>    
-    
+    </style>
+<script type="text/javascript">
+      $( function() {
+          $("#<%= form_datetime.ClientID %>").datepicker({
+              //changeMonth: true,
+              //changeYear: true,
+              //dateFormat: "YY-MM-DD",
+              //yearRange: "-90:+00"
+          });
+
+      } );
+</script>
+
 
     <asp:Label ID="LblUserName" Style="display:none" runat="server"></asp:Label>
     <asp:Label ID="lblAkses" Style="display:none" runat="server"></asp:Label>
@@ -216,13 +227,30 @@
                                     <td class="col-md-2"></td>
                                 </tr>
                             </table>
-                
+                            
                             <center>
                                 <asp:Label ID="Label21" runat="server" Text="" ForeColor="Red"></asp:Label>
                                 <asp:Button ID="BtnNilaiSMSave3" runat="server" Text="Simpan" class="btn btn-success" />  
                             </center>
                         </div>
                     </div>
+                   <div class="panel panel-default" style="margin-left:-25px">
+                        <div class="panel-heading" style="background-color:#2277B5"><span style="color:#ffffff" class="glyphicon glyphicon-duplicate"></span> &nbsp <font style="color:#ffffff">Form Data MPP</font></div>
+                        <div class="panel-body">
+                            <center>
+                                <h3 style="font-family:Georgia;">Update Tanggal di Butuhkan</h3>
+                            </center>
+                            <center>
+                                No PTK : <asp:Label ID="LblNoPTK" runat="server" Text="Label"></asp:Label>
+                            </center>
+                            <center>
+                                <asp:TextBox ID="form_datetime" class="form-control" runat="server" Width="500px"></asp:TextBox><br />
+                            </center>
+                            <center>
+                                <asp:Button ID="BtnUpdateTgldibutuhkan" runat="server" Text="Simpan" class="btn btn-success" /> 
+                            </center>
+                        </div>
+                   </div>
                 </div>
                 <br />
             </asp:View>

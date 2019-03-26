@@ -17,6 +17,7 @@ public partial class PagesHRD_FormPelamar : System.Web.UI.Page
         }
         //get url param       
         IdLamar = Request.QueryString["Id"];
+        LblIdLamaran.Text = IdLamar;
         KelasKoneksi cn = new KelasKoneksi();
 
         //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
@@ -26,10 +27,11 @@ public partial class PagesHRD_FormPelamar : System.Web.UI.Page
         List<String> hasil_dataDiri = cn.KelasKoneksi_SelectGlobal(sql_datadiri, "6");
         if (hasil_dataDiri.Count != 0)
         {
-            DPNama.Text = hasil_dataDiri[0];
-            DPPanggil.Text = hasil_dataDiri[1];
-            DPTTL.Text = hasil_dataDiri[2]+"/"+hasil_dataDiri[3];
-            if (hasil_dataDiri[3] == "1") { DPJenkel.Text = "Pria"; } else { DPJenkel.Text = "Wanita"; };
+            //DPNama.Text = hasil_dataDiri[0];
+            //DPPanggil.Text = hasil_dataDiri[1];
+            //DPTTL.Text = hasil_dataDiri[2]+"/"+hasil_dataDiri[3];
+            //if (hasil_dataDiri[3] == "1") { DPJenkel.Text = "Pria"; } else { DPJenkel.Text = "Wanita"; };
+
 
         }
         //**get photo pelamar

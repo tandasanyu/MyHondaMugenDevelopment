@@ -82,6 +82,9 @@ Partial Class HRDFPTKOUTPUT
         Call UpdateData_Server(mSqlTxt)
         'Call KirimPesanSDR()
         Response.Write("<script>alert('Tabel MPP berhasil diperbarui')</script>")
+
+
+
         Response.Write("<script>window.location.href='HRDFPTK.aspx';</script>")
     End Sub
 
@@ -103,6 +106,7 @@ Partial Class HRDFPTKOUTPUT
             If MyRecReadA.HasRows = True Then
                 MyRecReadA.Read()
                 ptk_id.Text = nSr(MyRecReadA("ptk_id"))
+                LblNoPTK.Text = nSr(MyRecReadA("ptk_id"))
                 ptk_pemohon.Text = nSr(MyRecReadA("ptk_pemohon"))
                 lbl_tglmohon.Text = nSr(MyRecReadA("ptk_tglmohon"))
                 ptk_tglmohon.Text = nSr(MyRecReadA("ptk_tglmohon"))
@@ -464,4 +468,11 @@ ErrHand:
         SMTP.Send(pesan)
     End Sub
 
+    Protected Sub BtnUpdateTgldibutuhkan_Click(sender As Object, e As EventArgs) Handles BtnUpdateTgldibutuhkan.Click
+        Dim mSqlTxt As String = "UPDATE TRXN_PTK SET PTK_TGLBUTUH='" & form_datetime.Text & "' WHERE PTK_ID='" & LblNoPTK.Text & "'"
+        If UpdateData_Server(mSqlTxt) = 1 Then
+            Response.Write("<script>alert('Anda berhasil melakukan Pembaruan Tgl Butuh pada PTK dengan tgl butuh " + form_datetime.Text + " dengan ID : " + LblNoPTK.Text + "')</script>")
+            Response.Write("<script>window.location.href='HRDFPTK.aspx';</script>")
+        End If
+    End Sub
 End Class

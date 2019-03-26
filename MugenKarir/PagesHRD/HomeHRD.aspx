@@ -34,11 +34,6 @@
           width:100%;
         
         }
-        #table-wrapper table * {
-          
-          /*color:black;*/
-         
-        }
         #table-wrapper table thead th .text {
           position:absolute;   
           top:-20px;
@@ -68,11 +63,11 @@
             <div class="form-group">
                 <div class="col-sm-8" style="margin-bottom:4%;margin-top:1%">
                     <br />
-		                <h2 style="font-family:Blunter;"><span ></span> Data Pelamar Baru </h2>
+		                <h2 class="display-4"><span ></span> Data Pelamar Baru </h2>
 	                <br />
                 </div>
             </div>
-            <div class="row">
+            <%--<div class="row">--%>
                 <div class="col-9" style="overflow:auto">
                     <div class="form-group">
                         <div class="col" style="margin-bottom:4%;margin-top:1%">
@@ -118,15 +113,15 @@
                         </div>
                     </div>
                 </div>
-            </div>
+           <%-- </div>--%>
 
         </asp:View>
         <asp:View ID="View1" runat="server">
-            <div >
+            <div>
                 <br />
-		            <h2 style="font-family:Blunter;"><span ></span> Data Lowongan Kerja </h2>
+		            <h2  class="display-4"><span ></span> Data Lowongan Kerja </h2>
 	            <br />
-                <asp:SqlDataSource ID="SqlDataSourceViewListLowongan" 
+                    <asp:SqlDataSource ID="SqlDataSourceViewListLowongan" 
                     runat="server"
                     ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
                     SelectCommand="select * from List_Lowongan"
@@ -138,21 +133,20 @@
                     <div class="table-responsive">
                         <div id="table-wrapper">
                             <div id="table-scroll">
-                    <table id="ListLowongan" align="left" class="table" style="width:1300px">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Check</th>
-                               <th scope="col">ID Lowongan</th>
-                               <th scope="col">Posisi</th>
-                                <th scope="col">Kualifikasi</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Tanggal Posting</th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <asp:ListView ID="LvListLowongan" 
+                            <table id="ListLowongan" align="left" class="table table-hover" style="width:1300px">
+                                <thead style="color:#f1f1f1;">
+                                    <tr>
+                                        <th style="color:red" scope="col">Check</th>
+                                        <th style="color:red" scope="col">ID Lowongan</th>
+                                        <th style="color:red" scope="col">Posisi</th>
+                                        <th style="color:red" scope="col">Kualifikasi</th>
+                                        <th style="color:red" scope="col">Status</th>
+                                        <th style="color:red" scope="col">Tanggal Posting</th>
+                               
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <asp:ListView ID="LvListLowongan" 
                                 DataSourceID="SqlDataSourceViewListLowongan" 
                                 DataKeyNames="Id_Lowongan"
                                 runat="server">
@@ -175,29 +169,27 @@
                                     Data List Lowongan Tidak Di temukan
                                 </EmptyDataTemplate>
                             </asp:ListView>
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
                             </div>
                             </div>
                         </div>
-                    </div>
                     <br />
-            <div id="outer">
-                    <div class="inner">
-                        <asp:Button ID="BtnHapus" runat="server" Text="Hapus Lowongan" class="btn btn-danger" OnClick="BtnHapus_Click" /></div>
-                    <div class="inner">
-                        <asp:Button ID="BtnNonAktif" runat="server" Text="NonAktifkan Lowongan" class="btn btn-warning" OnClick="BtnNonAktif_Click" /></div>
-                    <div class="inner">
-                        <asp:Button ID="BtnAktif" runat="server" Text="Aktifkan Lowongan" class="btn btn-success" OnClick="BtnAktif_Click"/></div>
-            </div> 
-
-            <br />
+                    <div id="outer">
+                            <div class="inner">
+                                <asp:Button ID="BtnHapus" runat="server" Text="Hapus Lowongan" class="btn btn-danger" OnClick="BtnHapus_Click" /></div>
+                            <div class="inner">
+                                <asp:Button ID="BtnNonAktif" runat="server" Text="NonAktifkan Lowongan" class="btn btn-warning" OnClick="BtnNonAktif_Click" /></div>
+                            <div class="inner">
+                                <asp:Button ID="BtnAktif" runat="server" Text="Aktifkan Lowongan" class="btn btn-success" OnClick="BtnAktif_Click"/></div>
+                    </div> 
+                    <br />
             </div>
         </asp:View>
         <asp:View ID="View2" runat="server">
             <div >
                 <br />
-		            <h2 style="font-family:Blunter;"><span ></span> Data Pelamar</h2>
+		            <h2 class="display-4"><span ></span> Data Pelamar</h2>
 	            <br />
             </div>
         </asp:View>

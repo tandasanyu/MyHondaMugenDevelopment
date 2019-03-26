@@ -7,8 +7,8 @@
     <title></title>
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<%--<style>
 body {
   margin: 0;
   font-family: "Lato", sans-serif;
@@ -56,8 +56,8 @@ div.content {
   .sidebar {
     width: 100%;
     height: auto;
-    position: relative;
-     text-decoration: none;
+    position:relative;
+    text-decoration: none;
   }
   .sidebar a {float: left; text-decoration: none;}
   div.content {margin-left: 0; text-decoration: none;}
@@ -70,103 +70,24 @@ div.content {
      text-decoration: none;
   }
 }
-</style>
-    <style>
-        /*body {
-            margin: 0;
-        }*/
-/*CSS Ditunda -- start*/
-/* The side navigation menu */
-/*.sidebar {
-  margin: 0;
-  padding: 0;
-  width: 200px;
+</style>--%>
+<style>
+#sidebar {
+
   background-color: #f1f1f1;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-}*/
-
-/* Sidebar links */
-/*.sidebar a {
-  display: block;
-  color: black;
-  padding: 16px;
-  text-decoration: none;
-  text-decoration:none;
-}*/
-
-/* Active/current link */
-/*.sidebar a.active {
-  background-color: #4CAF50;
-  color: white;
-  text-decoration:none;
-}*/
-
-/* Links on mouse-over */
-/*.sidebar a:hover:not(.active) {
-  background-color: #555;
-  color: white;
-  text-decoration:none;
-}*/
-
-/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
-/*div.content {
-  margin-left: 200px;
-  padding: 1px 16px;
-  height: 1000px;
-}*/
-
-/* On screens that are less than 700px wide, make the sidebar into a topbar */
-/*@media screen and (max-width: 700px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-  .sidebar a {float: left;text-decoration:none;}
-  div.content {margin-left: 0;}
-}*/
-
-/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
-/*@media screen and (max-width: 400px) {
-  .sidebar a {
-    text-align: center;
-    float: none;
-    text-decoration:none;
-  }
-}*/
-/*CSS Ditunda -- end*/
-    /*ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      width: 15%;
-      background-color: dimgrey;
-      position: fixed;
-      height: 100%;
-      overflow: auto;
-    }
-
-    li a {
-      display: block;
-      color: white;
-      padding: 8px 16px;
-      text-decoration: none;
-    }
-
-    li a.active {
-      background-color: #ff0000;
-      color: white;
-    }
-
-    li a:hover:not(.active) {
-      background-color: #f73333;
-      color: white;
-    }*/
-
-    </style>
-
+   
+}
+#sidebar a {
+    text-decoration: none;
+    color:red;
+}
+.navbar .navbar-brand {
+  padding-top: 0px;
+}
+.navbar .navbar-brand img {
+  height: 50px;
+}
+</style>
 </head>
 <body>
             <!-- Bootstrap -->
@@ -187,27 +108,34 @@ div.content {
           <a href="HomeHRD.aspx?Menu=1">Lowongan Kerja</a>
           <a href="HomeHRD.aspx?Menu=2">Data Pelamar</a>         
         </div>--%>
-        
-        <div class="sidebar">
-          <a href="HomeHRD.aspx?Menu=0">Home</a>
-          <a href="HomeHRD.aspx?Menu=1">List Lowongan Kerja</a>
-          <a href="Tambah_Lowongan.aspx">Tambah Lowongan Kerja</a>
-          <a href="HomeHRD.aspx?Menu=2">Data Pelamar</a>   
-          <a >
-              <asp:Button ID="BtnLogout" runat="server" class="btn btn-dark" Text="Logout" OnClick="BtnLogout_Click" /></a>  
+        <!-- **WORKING SIDEBAR -->
+        <nav class="navbar navbar-expand-sm " id="sidebar">
+          <!-- Brand/logo -->
+          <a class="navbar-brand" >
+              <asp:Image ID="Image1" class="rounded float-left" runat="server" ImageUrl="/img/cropped-honda-icon.png"  />
+          </a>
+          <!-- Links -->
+          <ul class="navbar-nav ml-auto">
+            <li style="margin-left:5px;margin-top:3px;" class="nav-item">
+              <a class="nav-link" href="HomeHRD.aspx?Menu=0">Data Pelamar Baru</a>
+            </li>
+            <li style="margin-left:5px;margin-top:3px;" class="nav-item">
+              <a class="nav-link" href="HomeHRD.aspx?Menu=1">List Lowongan Kerja</a>
+            </li>
+            <li style="margin-left:5px;margin-top:3px;" class="nav-item">
+              <a class="nav-link" href="Tambah_Lowongan.aspx">Tambah Lowongan Kerja</a>
+            </li>
+            <li style="margin-left:5px;margin-top:3px;" class="nav-item">
+              <a class="nav-link" href="HomeHRD.aspx?Menu=2">Data Pelamar</a>   
+            </li>
+            <li style="margin-left:5px;margin-bottom:5px" class="nav-item">
+              <a class="nav-link" ><asp:Button ID="BtnLogout" runat="server" class="btn btn-dark" Text="Logout" OnClick="BtnLogout_Click" /></a> 
+            </li>
+          </ul>
+        </nav>
+        <div class="container-fluid">
+            <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
         </div>
-        <div class="container">
-        <!-- Page Content  -->
-        <div id="content" >
-            <div style="margin-left:10px;"><!--  -->
-                <br />
-                
-                <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">      
-                </asp:ContentPlaceHolder>  
-                
-            </div>
-        </div>
-    </div>
     </form>
 </body>
 </html>

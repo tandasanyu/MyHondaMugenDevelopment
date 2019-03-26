@@ -49,12 +49,13 @@
         .button4:hover {
             background-color: #0071BB;
             color: white;
-        }
+        } 
     </style>    
     <script type="text/javascript">
-	    $(document).ready(function(){
-	        $('.data').DataTable();
-	        $('.data2').DataTable();
+        $(document).ready(function () {
+            $('#table-a').DataTable();
+	        //$('.data').DataTable();
+	        //$('.data2').DataTable();
 	    });
 
 	    tinymce.init({
@@ -66,6 +67,18 @@
 	    });
 
     </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            $("#myInputBawahan").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#table-ax tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+
 
     <asp:Label ID="LblUserName" Style="display:none" runat="server"></asp:Label>
     <asp:Label ID="lblAkses" Style="display:none" runat="server"></asp:Label>
@@ -100,14 +113,19 @@
             <asp:View ID="View1Akses" runat="server">
                 <asp:SqlDataSource ID="SqlDataMutuMaster" runat="server"
                     ConnectionString="<%$ ConnectionStrings:MyConnCloudDnet2 %>"
-                    SelectCommand="SELECT [PTK_ID], [PTK_JABATAN], [PTK_DEPT], [PTK_CABANG], [PTK_PEMOHON], [PTK_DIKETAHUI], [PTK_TGLDIKETAHUI],  [PTK_TGLDISETUJUI], [PTK_DISETUJUI], [PTK_MPP], [PTK_AKTUAL], [PTK_KURANG] FROM [TRXN_PTK]"
+                    SelectCommand="SELECT [PTK_ID], [PTK_JABATAN], [PTK_DEPT], [PTK_CABANG], [PTK_PEMOHON], [PTK_DIKETAHUI], [PTK_TGLDIKETAHUI],  [PTK_TGLDISETUJUI], [PTK_DISETUJUI], [PTK_MPP], [PTK_AKTUAL], [PTK_KURANG] FROM [TRXN_PTK] order by PTK_TGLMOHON DESC"
                     ProviderName="<%$ ConnectionStrings:MyConnCloudDnet2.ProviderName %>">
-                </asp:SqlDataSource>                                             
+                </asp:SqlDataSource>    
+                <br />
+                 <input id="myInputBawahan"  type="text" placeholder="Ketik yang akan di Cari!" style="width:900px;" class="form-control required" autocomplete="off">
+                <br />                                         
                 <asp:ListView ID="LvDetailMaster" runat="server" DataSourceID="SqlDataMutuMaster" DataKeyNames ="PTK_ID">
                     <LayoutTemplate>
-                        <table id="table-a"  class="table table-bordered table-striped data">
+                    <div style="width:1100px; height:900px; overflow:auto;">
+                        <table id="table-ax"  class="table table-bordered table-striped data">
                             <thead style="background-color:#4877CF">
                                 <th style="text-align:center; color:white">No.</th>
+                                <th style="text-align:center; color:white">Check</th>
                                 <th style="text-align:center; color:white">ID</th>
                                 <th style="text-align:center; color:white">Posisi Yang Dibutuhkan</th>
                                 <th style="text-align:center; color:white">Pemohon</th>
@@ -120,11 +138,12 @@
                                 <th style="text-align:center; color:white" class="col-md-1"></th>
                             </thead>
                             <asp:PlaceHolder ID="itemPlaceHolder" runat="server" />
-                        </table>
+                        </table></div>
                     </LayoutTemplate>
                     <ItemTemplate>
                         <tr>
                             <td align="center"><p class="small"><%#Container.DataItemIndex + 1 %></p></td>
+                            <td><asp:CheckBox ID="CheckBox112" runat="server" value='<%# Eval("PTK_ID") %>' class="checkboxAO"/></td>
                             <td><p class="small"><%#Eval("PTK_ID")%></p></td>
                             <td><p class="small"><%#Eval("PTK_JABATAN")%><br />
                            <%#Eval("PTK_DEPT")%><br />
@@ -144,6 +163,9 @@
                     <EmptyDataTemplate>Data PTK Tidak diketemukan</EmptyDataTemplate> 
                     <EmptyItemTemplate>Data PTK Mutu Tidak diketemukan</EmptyItemTemplate>              
                 </asp:ListView>
+                <br />
+                <asp:Button ID="BtnDelete" runat="server" Text="Delete Data" class="btn btn-danger" />
+                <br />
                 <br />
             </asp:View> 
         </asp:MultiView> 

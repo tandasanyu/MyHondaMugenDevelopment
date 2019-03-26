@@ -10,10 +10,21 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .TableDataDiri {
+        border-collapse: separate;
+        border-left: 0;
+        border-radius: 4px;
+        border-spacing: 0px;
+        background-color:#f1f1f1;
+        table-layout:fixed;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
     <div class="container">
+        <asp:Label ID="LblIdLamaran" runat="server" Text="Label" Visible="false"></asp:Label>
         <div id="Header" class="form-group" style="margin-top:5%; margin-bottom:6%">
             <div class="row">
                 <div class="col-sm">
@@ -29,92 +40,702 @@
         </div>
         <div id="DataPribadi" class="form-group">
             <h4><asp:Label ID="LblDataPribadi" runat="server" Text="Data Pribadi"></asp:Label></h4>
-                        <div class="row">
-                            <div class="col-4">Nama : </div>
-                            <div class="col-8"><asp:Label ID="DPNama" runat="server" Text="Nama"></asp:Label></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">Tempat/Tanggal Lahir : </div>
-                            <div class="col-8"><asp:Label ID="DPTTL" runat="server" Text="Nama"></asp:Label></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">Jenis Kelamin : </div>
-                            <div class="col-8"><asp:Label ID="DPJenkel" runat="server" Text="Nama"></asp:Label></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">Agama : </div>
-                            <div class="col-8"><asp:Label ID="DPAgama" runat="server" Text="Nama"></asp:Label></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">NPWP : </div>
-                            <div class="col-8"><asp:Label ID="DPNPWP" runat="server" Text="Nama"></asp:Label></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">Jamsostek : </div>
-                            <div class="col-8"><asp:Label ID="DPJamsos" runat="server" Text="Nama"></asp:Label></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">Alamat Tinggal : </div>
-                            <div class="col-8"><asp:Label ID="DPAlm" runat="server" Text="Nama"></asp:Label></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">Alamat Sesuai KTP : </div>
-                            <div class="col-8"><asp:Label ID="DPKTPAla" runat="server" Text="Nama"></asp:Label></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">Telpon Rumah : </div>
-                            <div class="col-8"><asp:Label ID="DPTelpon" runat="server" Text="Nama"></asp:Label></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">Panggilan : </div>
-                            <div class="col-8"><asp:Label ID="DPPanggil" runat="server" Text="Nama"></asp:Label></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">Usia : </div>
-                            <div class="col-8"><asp:Label ID="DPUsia" runat="server" Text="Nama"></asp:Label></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">No. KTP : </div>
-                            <div class="col-8"><asp:Label ID="DPKTP" runat="server" Text="Nama"></asp:Label></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-4">No.SIM : </div>
-                            <div class="col-8"><asp:Label ID="DPNoSIM" runat="server" Text="Nama"></asp:Label><br />
-                                <asp:Label ID="DPJenSim" runat="server" Text="Nama"></asp:Label>
-                            </div>
-                        </div>
-            <div class="row">
-                <div class="col-4">No. Rek. BCA : </div>
-                <div class="col-8"><asp:Label ID="DPRek" runat="server" Text="Nama"></asp:Label></div>
-            </div>
-            <div class="row">
-                <div class="col-4">Handphone : </div>
-                <div class="col-8"><asp:Label ID="DPHp" runat="server" Text="Nama"></asp:Label></div>
-            </div>
+            <asp:SqlDataSource ID="SqlDataSourceDataPribadi" runat="server"
+				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+				SelectCommand="SELECT Id_DataDiri, Id_Lamaran, Nama_Lengkap, Nama_Panggilan, Tempat_Lahir, Tgl_Lahir, JenKel, Agama, Alamat_KTP, Alamat_Tinggal, No_Telp, No_HP, Email, Hobi, No_KTP, No_NPWP, No_Jamsos, Jen_SIM, No_SIM, NoRekBCA FROM Data_Diri WHERE (Id_Lamaran = @Param1)">
+				<SelectParameters>
+                    <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
+                </SelectParameters>
+			</asp:SqlDataSource>   
+            <asp:ListView ID="ListViewDataDiri" DataSourceID="SqlDataSourceDataPribadi" runat="server" DataKeyNames="Id_DataDiri">
+                <LayoutTemplate>
+                    <div id="itemPlaceholderContainer" runat="server" style="">
+                        <span runat="server" id="itemPlaceholder" />
+                    </div>
+                    <div style="">
+                    </div>
+                </LayoutTemplate>
+                <EmptyDataTemplate>
+                    <span>Data Tidak Di Temukan</span>
+                </EmptyDataTemplate>
+                <ItemTemplate>
+                    <table class="TableDataDiri">
+                        <tr>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Nama : </div>
+                                    <div class=""><asp:Label ID="DPNama" runat="server" Text='<%# Eval("Nama_Lengkap") !=null ? Eval("Nama_Lengkap"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                                 <div class="col">
+                                    <div class="" style="font-weight:bold">Nama Panggilan : </div>
+                                    <div class=""><asp:Label ID="DPPanggilan" runat="server" Text='<%# Eval("Nama_Panggilan") %>'></asp:Label></div>
+                                </div>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Tempat / Tanggal Lahir : </div>
+                                    <div class=""><asp:Label ID="DPTglLahir" runat="server" Text='<%# String.Format("{0} - {1}", Eval("Tempat_Lahir"), (Eval("Tgl_Lahir") != null ? Eval("Tgl_Lahir","{0:dd/MM/yyyy}") : "Not Available")) %>'></asp:Label></div>
+                                </div>
+                                 <div class="col">
+                                    <div class="" style="font-weight:bold">Jenis Kelamin : </div>
+                                    <div class=""><asp:Label ID="DPJenkel" runat="server" Text='<%# (int)Eval("JenKel") ==1 ? "Pria" :"Wanita"%>'></asp:Label></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">No HP : </div>
+                                    <div class=""><asp:Label ID="No_HPLabel" runat="server" Text='<%# Eval("No_HP") !=null ? Eval("No_HP"): "Data Tidak Ada" %>'  /></div>
+                                </div>
+                                 <div class="col">
+                                    <div class="" style="font-weight:bold">Email : </div>
+                                    <div class=""><asp:Label ID="EmailLabel" runat="server" Text='<%# Eval("Email") !=null ? Eval("Email"): "Data Tidak Ada"  %>' /></div>
+                                </div>
+                                 <div class="col">
+                                    <div class="" style="font-weight:bold">Hobi : </div>
+                                    <div class=""><asp:Label ID="HobiLabel" runat="server" Text='<%# Eval("Hobi") !=null ? Eval("Hobi"): "Data Tidak Ada" %>' /></div>
+                                </div>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">No KTP : </div>
+                                    <div class=""><asp:Label ID="No_KTPLabel" runat="server" Text='<%# Eval("No_KTP") !=null ? Eval("No_KTP"): "Data Tidak Ada" %>' /></div>
+                                </div>
+                            </td>
+                            <td>
+                                 <div class="col">
+                                    <div class="" style="font-weight:bold">No NPWP : </div>
+                                    <div class=""><asp:Label ID="No_NPWPLabel" runat="server" Text='<%# Eval("No_NPWP") !=null ? Eval("No_NPWP"): "Data Tidak Ada" %>' /></div>
+                                </div>
+                                 <div class="col" >
+                                    <div class="" style="font-weight:bold">No Jamsostek : </div>
+                                    <div class=""><asp:Label ID="No_JamsosLabel" runat="server" Text='<%# Eval("No_Jamsos") !=null ? Eval("No_Jamsos"): "Data Tidak Ada" %>' /></div>
+                                </div>
+                                 <div class="col">
+                                    <div class="" style="font-weight:bold">SIM : </div>
+                                    <div class=""><asp:Label ID="Jen_SIMLabel" runat="server" Text='<%# Eval("Jen_sim")  !=null ? (int)Eval("Jen_sim")==1?"Sim A ":"Sim B ": "Data Tidak Ada" %>' /><br />
+                                        <asp:Label ID="Label9" runat="server" Text='<%# Eval("No_SIM") !=null ? Eval("No_SIM"): "Data Tidak Ada"  %>'></asp:Label>
+                                    </div>
+                                </div>
+                                 <div class="col">
+                                    <div class="" style="font-weight:bold">No Rek BCA : </div>
+                                    <div class=""><asp:Label ID="Label1" runat="server" Text='<%# (string)Eval("NoRekBCA") =="0" ? "Tidak Memiliki Rek BCA" : Eval("NoRekBCA") %>' /></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </ItemTemplate>
+            </asp:ListView>
         </div>
         <div id="LatarBelakangKeluarga" class="form-group">
             <h4><asp:Label ID="LblLatarBelakangKeluarga" runat="server" Text="Latar Belakang Keluarga"></asp:Label></h4>
+            <p><em>Data Orangtua</em></p>
+            <asp:SqlDataSource ID="SqlDataSourceLBKel" runat="server"
+				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+				SelectCommand="SELECT* FROM Data_Keluarga WHERE (Id_Lamaran = @Param1)">
+				<SelectParameters>
+                    <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
+                </SelectParameters>
+			</asp:SqlDataSource>
+            <asp:ListView ID="ListViewLBKel" DataSourceID="SqlDataSourceLBKel" runat="server" DataKeyNames="Id_Keluarga" >
+                <LayoutTemplate>
+                    <div id="itemPlaceholderContainer" runat="server" style="">
+                        <span runat="server" id="itemPlaceholder" />
+                    </div>
+                    <div style="">
+                    </div>
+                </LayoutTemplate>
+                <EmptyDataTemplate>
+                    <span>Data Tidak Di Temukan</span>
+                </EmptyDataTemplate>
+                <ItemTemplate>
+                    <table class="TableDataDiri">
+                        <tr>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Nama Ayah : </div>
+                                    <div class=""><asp:Label ID="DPNama" runat="server" Text='<%# Eval("Nm_Ayah") !=null ? Eval("Nm_Ayah"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Nama Ibu : </div>
+                                    <div class=""><asp:Label ID="Label2" runat="server" Text='<%# Eval("Nm_Ibu") !=null ? Eval("Nm_Ibu"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Pekerjaan Ayah : </div>
+                                    <div class=""><asp:Label ID="Label5" runat="server" Text='<%# (int)Eval("Pekerjaan_Ayah")==1?"PNS":(int)Eval("Pekerjaan_Ayah")==2?"Pegawai Swasta":(int)Eval("Pekerjaan_Ayah")==3?"Wira Usaha":(int)Eval("Pekerjaan_Ayah")==4?"Pensiun":(int)Eval("Pekerjaan_Ayah")==5?"Tidak Bekerja":"Tidak Ada Data" %>'></asp:Label></div>
+                                </div>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Pekerjaan Ibu : </div>
+                                    <div class=""><asp:Label ID="Label8" runat="server" Text='<%# (int)Eval("Pekerjaan_Ibu")==1?"PNS":(int)Eval("Pekerjaan_Ibu")==2?"Pegawai Swasta":(int)Eval("Pekerjaan_Ibu")==3?"Wira Usaha":(int)Eval("Pekerjaan_Ibu")==4?"Pensiun":(int)Eval("Pekerjaan_Ibu")==5?"Tidak Bekerja":"Tidak Ada Data" %>'></asp:Label></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Pendidikan Ayah : </div>
+                                    <div class=""><asp:Label ID="Label3" runat="server" Text='<%# (int)Eval("Pendidikan_Ayah") !=0 ? (int)Eval("Pendidikan_Ayah")==1?"SMP":(int)Eval("Pendidikan_Ayah")==2?"SMA":(int)Eval("Pendidikan_Ayah")==3?"Sarjana": "SMA":(int)Eval("Pendidikan_Ayah")==4?"Magister": "Tidak Ada Data" %>'></asp:Label></div>
+                                </div>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Pendidikan Ibu : </div>
+                                    <div class=""><asp:Label ID="Label7" runat="server" Text='<%# (int)Eval("Pendidikan_Ibu") !=0 ? (int)Eval("Pendidikan_Ibu")==1?"SMP":(int)Eval("Pendidikan_Ibu")==2?"SMA":(int)Eval("Pendidikan_Ibu")==3?"Sarjana": "SMA":(int)Eval("Pendidikan_Ibu")==4?"Magister": "Tidak Ada Data" %>'></asp:Label></div>                                   
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Usia Ayah : </div>
+                                    <div class=""><asp:Label ID="Label4" runat="server" Text='<%# (int)Eval("Usia_Ayah") !=0 ? Eval("Usia_Ayah") :"Tidak Ada Data"%>'></asp:Label></div>
+                                </div>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Usia Ibu : </div>
+                                    <div class=""><asp:Label ID="Label6" runat="server" Text='<%# (int)Eval("Usia_Ibu") !=0 ? Eval("Usia_Ibu") :"Tidak Ada Data"%>'></asp:Label></div>                                  
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </ItemTemplate>
+            </asp:ListView>
+            <br />
+            <p><em>Data Saudara Kandung</em></p>
+            <asp:SqlDataSource ID="SqlDataSourceSaudaraKandung" runat="server"
+				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+				SelectCommand="SELECT* FROM data_Saudara WHERE (Id_Lamaran = @Param1)">
+				<SelectParameters>
+                    <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
+                </SelectParameters>
+			</asp:SqlDataSource>
+            <asp:ListView ID="ListViewDataSaudaraKandung" DataSourceID="SqlDataSourceSaudaraKandung" runat="server">
+                <LayoutTemplate>
+                    <div id="itemPlaceholderContainer" runat="server" style="">
+                        <span runat="server" id="itemPlaceholder" />
+                    </div>
+                    <div style="">
+                    </div>
+                </LayoutTemplate>
+                <EmptyDataTemplate>
+                    <span>Data Tidak Di Temukan</span>
+                </EmptyDataTemplate>
+                <ItemTemplate>
+                    <table class="TableDataDiri">
+                        <tr>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Nama Saudara : </div>
+                                    <div class=""><asp:Label ID="DPNama" runat="server" Text='<%# Eval("Nm_Saudara") !=null ? Eval("Nm_Saudara"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">jenis Kelamin : </div>
+                                    <div class=""><asp:Label ID="Label10" runat="server" Text='<%# (int)Eval("Jenkel_Saudara") !=0 ? (int)Eval("Jenkel_Saudara")==1?"Pria":"Wanita": "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Usia : </div>
+                                    <div class=""><asp:Label ID="Label11" runat="server" Text='<%# (int)Eval("Usia_Saudara") !=0 ? Eval("Usia_Saudara") :"Tidak Ada Data"%>'></asp:Label></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Pendidikan : </div>
+                                    <div class=""><asp:Label ID="Label12" runat="server" Text='<%# (int)Eval("Pendidikan_Saudara") !=0 ? (int)Eval("Pendidikan_Saudara")==1?"SMP":(int)Eval("Pendidikan_Saudara")==2?"SMA":(int)Eval("Pendidikan_Saudara")==3?"Sarjana": "SMA":(int)Eval("Pendidikan_Saudara")==4?"Magister": "Tidak Ada Data" %>'></asp:Label></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Pekerjaan : </div>
+                                    <div class=""><asp:Label ID="Label13" runat="server" Text='<%# (int)Eval("Pekerjaan_Saudara")==1?"PNS":(int)Eval("Pekerjaan_Saudara")==2?"Pegawai Swasta":(int)Eval("Pekerjaan_Saudara")==3?"Wira Usaha":(int)Eval("Pekerjaan_Saudara")==4?"Pensiun":(int)Eval("Pekerjaan_Saudara")==5?"Tidak Bekerja":"Tidak Ada Data" %>'></asp:Label></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </ItemTemplate>
+            </asp:ListView>
         </div>
         <div id="StatusPerkawinan" class="form-group">
             <h4><asp:Label ID="LblStatusPerkawinan" runat="server" Text="Status Perkawinan"></asp:Label></h4>
+             <p><em>Data Pasangan</em></p>
+            <asp:SqlDataSource ID="SqlDataSourceStatusPerkawinan" runat="server"
+				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+				SelectCommand="SELECT* FROM Data_Pasangan WHERE (Id_Lamaran = @Param1)">
+				<SelectParameters>
+                    <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
+                </SelectParameters>
+			</asp:SqlDataSource>
+            <asp:ListView ID="ListViewDataPasangan" DataSourceID="SqlDataSourceStatusPerkawinan" runat="server">
+                <LayoutTemplate>
+                    <div id="itemPlaceholderContainer" runat="server" style="">
+                        <span runat="server" id="itemPlaceholder" />
+                    </div>
+                    <div style="">
+                    </div>
+                </LayoutTemplate>
+                <EmptyDataTemplate>
+                    <p><em>Belum Menikah</em></p>
+                </EmptyDataTemplate>
+                <ItemTemplate>
+                    <table class="TableDataDiri">
+                        <tr>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Nama Pasangan : </div>
+                                    <div class=""><asp:Label ID="DPNama" runat="server" Text='<%# Eval("Nm_Pasangan") !=null ? Eval("Nm_Pasangan"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Usia : </div>
+                                    <div class=""><asp:Label ID="Label14" runat="server" Text='<%# Eval("usia_Pasangan") !=null ? Eval("usia_Pasangan"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Pendidikan : </div>
+                                    <div class=""><asp:Label ID="Label15" runat="server" Text='<%# (int)Eval("Pendidikan_Pasangan") !=0 ? (int)Eval("Pendidikan_Pasangan")==1?"SMP":(int)Eval("Pendidikan_Pasangan")==2?"SMA":(int)Eval("Pendidikan_Pasangan")==3?"Sarjana": "SMA":(int)Eval("Pendidikan_Pasangan")==4?"Magister": "Tidak Ada Data" %>'></asp:Label></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Pekerjaan : </div>
+                                    <div class=""><asp:Label ID="Label16" runat="server" Text='<%# (int)Eval("Pekerjaan_Pasangan")==1?"PNS":(int)Eval("Pekerjaan_Pasangan")==2?"Pegawai Swasta":(int)Eval("Pekerjaan_Pasangan")==3?"Wira Usaha":(int)Eval("Pekerjaan_Pasangan")==4?"Pensiun":(int)Eval("Pekerjaan_Pasangan")==5?"Tidak Bekerja":"Tidak Ada Data" %>'></asp:Label></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </ItemTemplate>
+            </asp:ListView>
+            <br />
+            <p><em>Data Anak</em></p>
+            <asp:SqlDataSource ID="SqlDataSourceDataAnak" runat="server"
+				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+				SelectCommand="SELECT* FROM Data_Anak WHERE (Id_Lamaran = @Param1)">
+				<SelectParameters>
+                    <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
+                </SelectParameters>
+			</asp:SqlDataSource>
+            <asp:ListView ID="ListViewDataAnak" DataSourceID="SqlDataSourceDataAnak" runat="server">
+                <LayoutTemplate>
+                    <div id="itemPlaceholderContainer" runat="server" style="">
+                        <span runat="server" id="itemPlaceholder" />
+                    </div>
+                    <div style="">
+                    </div>
+                </LayoutTemplate>
+                <EmptyDataTemplate>
+                    <p><em>Belum Memiliki Anak</em></p>
+                </EmptyDataTemplate>
+                <ItemTemplate>
+                    <table class="TableDataDiri">
+                        <tr>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Nama Anak : </div>
+                                    <div class=""><asp:Label ID="DPNama" runat="server" Text='<%# Eval("Nm_Anak") !=null ? Eval("Nm_Anak"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Jenis Kelamin : </div>
+                                    <div class=""><asp:Label ID="Label17" runat="server" Text='<%# (int)Eval("Jenkel_anak") !=0 ? (int)Eval("Jenkel_anak")==1?"Pria":"Wanita": "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Usia : </div>
+                                    <div class=""><asp:Label ID="Label18" runat="server" Text='<%# (int)Eval("Usia_anak") !=0 ? Eval("Usia_anak") :"Tidak Ada Data"%>'></asp:Label></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Pendidikan : </div>
+                                    <div class=""><asp:Label ID="Label19" runat="server" Text='<%# (int)Eval("Pendidikan_anak") !=0 ? (int)Eval("Pendidikan_anak")==1?"SMP":(int)Eval("Pendidikan_anak")==2?"SMA":(int)Eval("Pendidikan_anak")==3?"Sarjana": "SMA":(int)Eval("Pendidikan_anak")==4?"Magister": "Tidak Ada Data" %>'></asp:Label></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col">
+                                    <div class="" style="font-weight:bold">Pekerjaan  : </div>
+                                    <div class=""><asp:Label ID="Label20" runat="server" Text='<%# (int)Eval("Pekerjaan_anak")==1?"PNS":(int)Eval("Pekerjaan_anak")==2?"Pegawai Swasta":(int)Eval("Pekerjaan_anak")==3?"Wira Usaha":(int)Eval("Pekerjaan_anak")==4?"Pensiun":(int)Eval("Pekerjaan_anak")==5?"Tidak Bekerja":"Tidak Ada Data" %>'></asp:Label></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </ItemTemplate>
+             </asp:ListView>
         </div>
         <div id="PendidikanFormal" class="form-group">
             <h4><asp:Label ID="LblPenFor" runat="server" Text="Pendidikan Formal"></asp:Label></h4>
+            <asp:SqlDataSource ID="SqlDataSourcePenFor" runat="server"
+				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+				SelectCommand="SELECT* FROM Data_PenFormal WHERE (Id_Lamaran = @Param1)">
+				<SelectParameters>
+                    <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
+                </SelectParameters>
+			</asp:SqlDataSource>
+            <asp:ListView ID="ListView1" DataSourceID="SqlDataSourcePenFor" runat="server">
+                <LayoutTemplate>
+                    <div id="itemPlaceholderContainer" runat="server" style="">
+                        <span runat="server" id="itemPlaceholder" />
+                    </div>
+                    <div style="">
+                    </div>
+                </LayoutTemplate>
+                <EmptyDataTemplate>
+                    <p><em>Data Pendidikan Formal Tidak Ada</em></p>
+                </EmptyDataTemplate>
+                <ItemTemplate>
+                    <table class="TableDataDiri table-hover">
+                        <thead>
+                            <tr>
+                                <td style="padding:10px"><div class="" style="font-weight:bold">Jenjang</div></td>
+                                <td  style="padding:10px"><div class="" style="font-weight:bold">Nama Instansi</div></td>
+                                <td  style="padding:10px"><div class="" style="font-weight:bold">Kota</div></td>
+                                <td  style="padding:10px" colspan="2"><center><div class="" style="font-weight:bold">Tahun</div></center></td>
+                                <td  style="padding:10px"><div class="" style="font-weight:bold">Status Kelulusan</div></td>
+                                <td  style="padding:10px"><div class="" style="font-weight:bold">Jurusan</div></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td  style="padding:10px"><div class="" style="font-weight:bold">Masuk</div></td>
+                                <td  style="padding:10px"><div class="" style="font-weight:bold">Keluar</div></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td  style="padding:10px">
+                                <div class="col">
+                                    <div class=""><asp:Label ID="DPNama" runat="server" Text='<%# Eval("Jenjang") !=null ? Eval("Jenjang"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                                </td>
+                                <td  style="padding:10px">
+                                <div class="col">
+                                    <div class=""><asp:Label ID="Label21" runat="server" Text='<%# Eval("Nama_Instansi") !=null ? Eval("Nama_Instansi"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                                </td>
+                                <td  style="padding:10px">
+                                <div class="col">
+                                    <div class=""><asp:Label ID="Label22" runat="server" Text='<%# Eval("Kota") !=null ? Eval("Kota"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                                </td>
+                                <td  style="padding:10px">
+                                <div class="col">
+                                    <div class=""><asp:Label ID="Label23" runat="server" Text='<%# (int)Eval("Thn_masuk") !=0 ? Eval("Thn_masuk"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                                </td>
+                                <td  style="padding:10px">
+                                <div class="col">
+                                    <div class=""><asp:Label ID="Label24" runat="server" Text='<%# (int)Eval("thn_kel") !=0 ? Eval("thn_kel"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                                </td>
+                                <td  style="padding:10px">
+                                    <center>
+                                        <div class="col"><!-- harusnya Int -->
+                                            <div class=""><asp:Label ID="Label25" runat="server" Text='<%# (string)Eval("Status_kel") == "1" ? "Lulus": "Tidak Lulus" %>'></asp:Label></div>
+                                        </div>
+                                    </center></td>
+                                <td  style="padding:10px">
+                                        <div class="col">
+                                            <div class=""><asp:Label ID="Label26" runat="server" Text='<%# Eval("Jurusan") !=null ? Eval("Jurusan"): "Data Tidak Ada" %>'></asp:Label></div>
+                                        </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>                  
+                </ItemTemplate>
+            </asp:ListView>
         </div>
         <div id="PendidikanNon" class="form-group">
             <h4><asp:Label ID="LblPenNon" runat="server" Text="Pendidikan NonFormal"></asp:Label></h4>
+            <asp:SqlDataSource ID="SqlDataSourcePenNon" runat="server"
+				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+				SelectCommand="SELECT* FROM Data_PenNon WHERE (Id_Lamaran = @Param1)">
+				<SelectParameters>
+                    <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
+                </SelectParameters>
+			</asp:SqlDataSource>
+            <asp:ListView ID="ListView2" DataSourceID="SqlDataSourcePenNon" runat="server">
+                <LayoutTemplate>
+                    <div id="itemPlaceholderContainer" runat="server" style="">
+                        <span runat="server" id="itemPlaceholder" />
+                    </div>
+                    <div style="">
+                    </div>
+                </LayoutTemplate>
+                <EmptyDataTemplate>
+                    <p><em>Data Pendidikan Non Formal Tidak Ada</em></p>
+                </EmptyDataTemplate>
+                <ItemTemplate>
+                    <table class="TableDataDiri table-hover">
+                        <thead>
+                            <tr>
+                                <td style="padding:10px"><div class="" style="font-weight:bold">Nama Instansi </div></td>
+                                <td style="padding:10px"><div class="" style="font-weight:bold">Tahun </div></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:10px">
+                                    <div class=""><asp:Label ID="Label18" runat="server" Text='<%# (string)Eval("Nama_instansi") !=null ? Eval("Nama_instansi") :"Tidak Ada Data"%>'></asp:Label></div>
+                                </td>
+                                <td style="padding:10px">
+                                    <div class=""><asp:Label ID="Label27" runat="server" Text='<%# (int)Eval("Tahun") !=0 ? Eval("tahun") :"Tidak Ada Data"%>'></asp:Label></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ItemTemplate>
+            </asp:ListView>
         </div>
         <div id="BahasaAsing" class="form-group">
             <h4><asp:Label ID="LblBahasaA" runat="server" Text="Bahasa Asing"></asp:Label></h4>
+            <asp:SqlDataSource ID="SqlDataSourceBahasa" runat="server"
+				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+				SelectCommand="SELECT* FROM Data_Bahasa WHERE (Id_Lamaran = @Param1)">
+				<SelectParameters>
+                    <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
+                </SelectParameters>
+			</asp:SqlDataSource>
+            <asp:ListView ID="ListViewBahasaAsing" DataSourceID="SqlDataSourceBahasa" runat="server">
+                <LayoutTemplate>
+                    <div id="itemPlaceholderContainer" runat="server" style="">
+                        <span runat="server" id="itemPlaceholder" />
+                    </div>
+                    <div style="">
+                    </div>
+                </LayoutTemplate>
+                <EmptyDataTemplate>
+                    <p><em>Data Tidak Ada</em></p>
+                </EmptyDataTemplate>
+                <ItemTemplate>
+                    <table class="TableDataDiri">
+                        <thead>
+                            <tr>
+                                <td style="padding:10px"><div class="" style="font-weight:bold">Jenis Bahasa</div></td>
+                                <td style="padding:10px"><div class="" style="font-weight:bold">Penguasaan </div></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:10px">
+                                    <div class=""><asp:Label ID="Label18" runat="server" Text='<%# (string)Eval("Jenis_bahasa") !=null ? Eval("Jenis_bahasa") :"Tidak Ada Data"%>'></asp:Label></div>
+                                </td>
+                                <td style="padding:10px"><!-- Seharusnya Int -->
+                                    <div class=""><asp:Label ID="Label27" runat="server" Text='<%# (string)Eval("Penguasaan") !="0" ? (string)Eval("Penguasaan") == "1"?"Baik":(string)Eval("Penguasaan") == "2"?"Cukup":(string)Eval("Penguasaan") == "3"?"Kurang":"Tidak Ada Data":"Tidak Ada Data"%>'></asp:Label></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ItemTemplate>
+            </asp:ListView>
         </div>
         <div id="PengalamanOrg" class="form-group">
             <h4><asp:Label ID="LblOrg" runat="server" Text="Pengalaman Organisasi"></asp:Label></h4>
+            <asp:SqlDataSource ID="SqlDataSourcePengalamanOrg" runat="server"
+				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+				SelectCommand="SELECT* FROM Data_Organisasi WHERE (Id_Lamaran = @Param1)">
+				<SelectParameters>
+                    <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
+                </SelectParameters>
+			</asp:SqlDataSource>
+            <asp:ListView ID="ListViewOrg" DataSourceID="SqlDataSourcePengalamanOrg" runat="server">
+                <LayoutTemplate>
+                    <div id="itemPlaceholderContainer" runat="server" style="">
+                        <span runat="server" id="itemPlaceholder" />
+                    </div>
+                    <div style="">
+                    </div>
+                </LayoutTemplate>
+                <EmptyDataTemplate>
+                    <p><em>Data Tidak Ada</em></p>
+                </EmptyDataTemplate>
+                <ItemTemplate>
+                    <table class="TableDataDiri">
+                        <thead>
+                            <tr>
+                                <td style="padding:10px"><div class="" style="font-weight:bold">Nama Organisasi</div></td>
+                                <td style="padding:10px"><div class="" style="font-weight:bold">Tahun </div></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding:10px">
+                                    <div class=""><asp:Label ID="Label18" runat="server" Text='<%# (string)Eval("Nama_org") !=null ? Eval("Nama_org") :"Tidak Ada Data"%>'></asp:Label></div>
+                                </td>
+                                <td style="padding:10px"><!-- Seharusnya Int -->
+                                    <div class=""><asp:Label ID="Label27" runat="server" Text='<%# (int)Eval("Tahun") !=0 ? Eval("Tahun"):"Tidak Ada Data"%>'></asp:Label></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ItemTemplate>
+            </asp:ListView><br />
+            <p><em>Data Pengalaman Memimpin</em></p>
+            <asp:SqlDataSource ID="SqlDataSourceLeader" runat="server"
+				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+				SelectCommand="SELECT* FROM Data_Leader WHERE (Id_Lamaran = @Param1)">
+				<SelectParameters>
+                    <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
+                </SelectParameters>
+			</asp:SqlDataSource>
+            <asp:ListView ID="ListViewLeader" DataSourceID="SqlDataSourceLeader" runat="server">
+                <LayoutTemplate>
+                    <div id="itemPlaceholderContainer" runat="server" style="">
+                        <span runat="server" id="itemPlaceholder" />
+                    </div>
+                    <div style="">
+                    </div>
+                </LayoutTemplate>
+                <EmptyDataTemplate>
+                    <p><em>Data Tidak Ada</em></p>
+                </EmptyDataTemplate>
+                <ItemTemplate>
+                    <table class="TableDataDiri">
+                            <tr>
+                                <td style="padding:10px"><!-- Seharusnya Int -->
+                                    <div class=""><asp:Label ID="Label27" runat="server" Text='<%# (string)Eval("Pengalaman") !=null ? Eval("Pengalaman"):"Tidak Ada Data"%>'></asp:Label></div>
+                                </td>
+                            </tr>
+                    </table>
+                </ItemTemplate>
+            </asp:ListView><br />
         </div>
         <div id="RiwayatPekerjaan" class="form-group">
             <h4><asp:Label ID="LblRiwPek" runat="server" Text="Riwayat Pekerjaan"></asp:Label></h4>
+            <asp:SqlDataSource ID="SqlDataSourcePekerjaan" runat="server"
+				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+				SelectCommand="SELECT* FROM Data_Pekerjaan WHERE (Id_Lamaran = @Param1)">
+				<SelectParameters>
+                    <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
+                </SelectParameters>
+			</asp:SqlDataSource>
+            <asp:ListView ID="ListView3" DataSourceID="SqlDataSourcePekerjaan" runat="server">
+                <LayoutTemplate>
+                    <div id="itemPlaceholderContainer" runat="server" style="">
+                        <span runat="server" id="itemPlaceholder" />
+                    </div>
+                    <div style="">
+                    </div>
+                </LayoutTemplate>
+                <EmptyDataTemplate>
+                    <p><em>Data Tidak Ada</em></p>
+                </EmptyDataTemplate>
+                <ItemTemplate>
+                    <table class="TableDataDiri table-borderles">
+                        <thead>
+                            <tr>
+                                <td style="padding:10px"><div class="" style="font-weight:bold"><center>Detail Perusahaan</center></div></td>
+                                <td  style="padding:10px"><div class="" style="font-weight:bold"><center>Atasan & Jabatan</center></div></td>
+                                <td  style="padding:10px" colspan="2"><center><div class="" style="font-weight:bold">Gaji</div></center></td>
+                                <td  style="padding:10px" colspan="2"><center><div class="" style="font-weight:bold">Waktu</div></center></td>
+                                <td  style="padding:10px"><div class="" style="font-weight:bold"><center>Alasan Keluar</center></div></td>
+                                <td  style="padding:10px" colspan="3"><center><div class="" style="font-weight:bold">JobDesk</div></center></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td  style="padding:10px"><div class="" style="font-weight:bold">Awal</div></td>
+                                <td  style="padding:10px"><div class="" style="font-weight:bold">Akhir</div></td>
+                                <td  style="padding:10px"><div class="" style="font-weight:bold">Masuk</div></td>
+                                <td  style="padding:10px"><div class="" style="font-weight:bold">Keluar</div></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td  style="padding:10px">
+                                <div class="col">
+                                    <div class="">
+                                        <div class="" style="font-weight:bold">Nama Perusahaan : </div>
+                                        <asp:Label ID="NamaPerusahaan" runat="server" Text='<%# Eval("Nama_Perusahaan") !=null ? Eval("Nama_Perusahaan"): "Data Tidak Ada" %>'></asp:Label></div><br />
+                                    <div class="">
+                                        <div class="" style="font-weight:bold">Alamat : </div>
+                                        <asp:Label ID="Label28" runat="server" Text='<%# Eval("Alamat_Perusahaan") !=null ? Eval("Alamat_Perusahaan"): "Data Tidak Ada" %>'></asp:Label></div>
+                                    <div class="">
+                                        <div class="" style="font-weight:bold">Telpon : </div>
+                                        <asp:Label ID="Label37" runat="server" Text='<%# Eval("Telp_Perusahaan") !=null ? Eval("Telp_Perusahaan"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                                </td>
+                                <td  style="padding:10px">
+                                <div class="col">
+                                    <div class=""><asp:Label ID="Label35" runat="server" Text='<%# Eval("Nama_Atasan") !=null ? Eval("Nama_Atasan"): "Data Tidak Ada" %>'></asp:Label></div><br />
+                                    <div class=""><asp:Label ID="Label31" runat="server" Text='<%# Eval("Jabatan") !=null ? Eval("Jabatan"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div>
+                                </td>
+                                <td  style="padding:10px">
+                                    <div class=""><asp:Label ID="Label29" runat="server" Text='<%# Eval("Gaji_Awal") !=null ? Eval("Gaji_Awal", "{0:0,00}"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </td>
+                                <td  style="padding:10px">
+                                    <div class=""><asp:Label ID="Label30" runat="server" Text='<%# Eval("Gaji_Akhir") !=null ? Eval("Gaji_Akhir", "{0:0,00}"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </td>
+                                <td  style="padding:10px">
+                                    <div class=""><asp:Label ID="Label32" runat="server" Text='<%# Eval("Tgl_Masuk") !=null ? Eval("Tgl_Masuk", "{0:d}"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </td>
+                                <td  style="padding:10px">
+                                    <div class=""><asp:Label ID="Label33" runat="server" Text='<%# Eval("Tgl_Keluar") !=null ? Eval("Tgl_Keluar", "{0:d}"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </td>
+                                <td  style="padding:10px">
+                                     <div class=""><asp:Label ID="Label34" runat="server" Text='<%# Eval("Alasan_Keluar") !=null ? Eval("Alasan_Keluar"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </td>
+                                <td><div class="" style="padding:1px"><asp:Label ID="Label36" runat="server" Text='<%# Eval("Jobdesk") !=null ? Eval("Jobdesk"): "Data Tidak Ada" %>'></asp:Label></div></td>
+                            </tr>
+                        </tbody>
+                    </table><br />
+                </ItemTemplate>
+            </asp:ListView>
         </div>
         <div id="Referensi" class="form-group">
             <h4><asp:Label ID="LblReferensi" runat="server" Text="Referensi"></asp:Label></h4>
+            <asp:SqlDataSource ID="SqlDataSourceReferensi" runat="server"
+				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+				SelectCommand="SELECT* FROM Data_Referensi WHERE (Id_Lamaran = @Param1)">
+				<SelectParameters>
+                    <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
+                </SelectParameters>
+			</asp:SqlDataSource>
+            <asp:ListView ID="ListView4" DataSourceID="SqlDataSourceReferensi" runat="server">
+                <LayoutTemplate>
+                    <div id="itemPlaceholderContainer" runat="server" style="">
+                        <span runat="server" id="itemPlaceholder" />
+                    </div>
+                    <div style="">
+                    </div>
+                </LayoutTemplate>
+                <EmptyDataTemplate>
+                    <p><em>Data Tidak Ada</em></p>
+                </EmptyDataTemplate>
+                <ItemTemplate>
+                    <table class="TableDataDiri">
+                        <thead>
+                            <tr>
+                                <td style="padding:10px"><div class="" style="font-weight:bold"><center>Nama</center></div></td>
+                                <td style="padding:10px"><div class="" style="font-weight:bold"><center>Alamat</center></div></td>
+                                <td style="padding:10px"><div class="" style="font-weight:bold"><center>Pekerjaan</center></div></td>
+                                <td style="padding:10px"><div class="" style="font-weight:bold"><center>Hubungan</center></div></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                <div class="col">
+                                    <div class="" style="padding:10px"><asp:Label ID="DPNama" runat="server" Text='<%# Eval("Nama_Referensi") !=null ? Eval("Nama_Referensi"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div></td>
+                                <td>
+                                <div class="col">
+                                    <div class="" style="padding:10px"><asp:Label ID="Label38" runat="server" Text='<%# Eval("Alamat_Referensi") !=null ? Eval("Alamat_Referensi"): "Data Tidak Ada" %>'></asp:Label></div>
+                                </div></td>
+                                <td>
+                                <div class="col">
+                                    <div class="" style="padding:10px"><asp:Label ID="Label5" runat="server" Text='<%# (string)Eval("Pekerjaan_Referensi")=="1"?"PNS":(string)Eval("Pekerjaan_Referensi")=="2"?"Pegawai Swasta":(string)Eval("Pekerjaan_Referensi")=="3"?"Wira Usaha":(string)Eval("Pekerjaan_Referensi")=="4"?"Pensiun":(string)Eval("Pekerjaan_Referensi")=="5"?"Tidak Bekerja":"Tidak Ada Data" %>'></asp:Label></div>
+                                </div></td>
+                                <td>
+                                <div class="col">
+                                    <div class="" style="padding:10px"><asp:Label ID="Label39" runat="server" Text='<%# (int)Eval("Hubungan_Referensi") !=0 ? (int)Eval("Hubungan_Referensi")==1?"Atasan":(int)Eval("Hubungan_Referensi")==2?"Rekan Kerja":(int)Eval("Hubungan_Referensi")==3?"Teman":"Tidak Ada Data": "Tidak Ada Data" %>'></asp:Label></div>
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ItemTemplate>
+            </asp:ListView>
         </div>
         <div id="Pertanyaan" class="form-group">
             <h4><asp:Label ID="LblPertanyaan" runat="server" Text="Pertanyaan"></asp:Label></h4>

@@ -49,6 +49,7 @@ Partial Class HRDFPTK
 
     'Event ketika menekan tombol tambah data
     Protected Sub BtnMasterTabel_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BtnMasterTabel.Click
+        Dim ptk_idx As String = String.Empty
         MultiViewNilaiProgressEntry.ActiveViewIndex = 0
         MultiViewAkses.ActiveViewIndex = -1
         MultiViewAkses2.ActiveViewIndex = -1
@@ -56,9 +57,86 @@ Partial Class HRDFPTK
         Call ClearPermintaan()
         If ptk_id.Text = "" Then
             ptk_id.Text = GetData_SearchNomor()
+            'Tambahkan Fungsi cek PTK_ID apakah sudah ada atau belum di database
+            '**cek apakah ptk_id tsb ada di database 
+            '**********
+            Dim ptk_yes As String = GetData_SearchPTKID(ptk_id.Text, 2)
+            Select Case ptk_yes
+                Case "FOUND"
+                    ptk_id.Text = "PTK" + manipulation_ptk(ptk_id.Text)
+                    Exit Select
+                Case "NO FOUND"
+                    ptk_id.Text = GetData_SearchNomor()
+                    Exit Select
+            End Select
+            Response.Write("<script>alert('PTKID : " + ptk_id.Text + "')</script>")
         End If
     End Sub
+    'fungsi manipulasi ptkid
+    Function manipulation_ptk(ByVal user_ptk As String) As String
+        Dim hasil As String = String.Empty
+        Dim ptk_idx As String = String.Empty
+        hasil = user_ptk.Remove(0, 3) '--hanya angka saja
+        ptk_idx = Convert.ToInt32(hasil) + 1
+        manipulation_ptk = ptk_idx
+        '****
+    End Function
+    'fungsi select ptk id berdasarkan input ptki id yg di berikan 
+    Function GetData_SearchPTKID(ByVal user_ptk As String, ByVal cab As Integer) As String
+        Dim strconn As String = WebConfigurationManager.ConnectionStrings("MyConnCloudDnet2").ConnectionString
 
+        Dim cnn As OleDbConnection
+        Dim cmd As OleDbCommand
+        Dim mSqlCommadstring As String
+        Dim mFind As String
+        Call Msg_err("")
+        GetData_SearchPTKID = ""
+        Dim var1 As String
+
+        If cab = 1 Then
+            mSqlCommadstring = "select ptk_id from TRXN_PTK where ptk_id ='" + user_ptk + "'"
+            cnn = New OleDbConnection(strconn)
+            Try
+                cnn.Open()
+                cmd = New OleDbCommand(mSqlCommadstring, cnn)
+                MyRecReadA = cmd.ExecuteReader()
+                mFind = IIf(MyRecReadA.HasRows = True, 1, 0)
+                If mFind = 0 Then
+                    GetData_SearchPTKID = "NO FOUND"
+                Else
+                    MyRecReadA.Read()
+                    var1 = nSr(MyRecReadA("ptk_id"))
+                    'pecah ptk dan nomornya
+                    GetData_SearchPTKID = var1
+                End If
+                MyRecReadA.Close()
+                cmd.Dispose()
+                cnn.Close()
+            Catch ex As Exception
+                Call Msg_err(ex.Message)
+            End Try
+        ElseIf cab = 2 Then
+            mSqlCommadstring = "select ptk_id from TRXN_PTK where ptk_id ='" + user_ptk + "'"
+            cnn = New OleDbConnection(strconn)
+            Try
+                cnn.Open()
+                cmd = New OleDbCommand(mSqlCommadstring, cnn)
+                MyRecReadA = cmd.ExecuteReader()
+                mFind = IIf(MyRecReadA.HasRows = True, 1, 0)
+                If mFind = 0 Then
+                    GetData_SearchPTKID = "NO FOUND"
+                Else
+                    GetData_SearchPTKID = "FOUND"
+                End If
+                MyRecReadA.Close()
+                cmd.Dispose()
+                cnn.Close()
+            Catch ex As Exception
+                Call Msg_err(ex.Message)
+            End Try
+        End If
+    End Function
+    '
     'Event  ketika simpan data SDR
     Protected Sub BtnNilaiSMSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BtnNilaiSMSave.Click
         If ptk_id.Text = "" Then
@@ -401,6 +479,39 @@ ErrHand:
             sarancalon.Attributes("style") = "display:block"
         Else
             sarancalon.Attributes("style") = "display:none"
+        End If
+    End Sub
+    'Penambahan Fungsi Baru [14/3/19]
+    Private ReadOnly Property ID_S() As List(Of String)
+        Get
+            If Me.ViewState("ID_S") Is Nothing Then
+                Me.ViewState("ID_S") = New List(Of String)()
+            End If
+            Return CType(Me.ViewState("ID_S"), List(Of String))
+        End Get
+    End Property
+    Protected Sub BtnDelete_Click(sender As Object, e As EventArgs) Handles BtnDelete.Click
+        'Get checked data
+        For Each item As ListViewDataItem In LvDetailMaster.Items
+            Dim chkSelect As CheckBox = CType(item.FindControl("CheckBox112"), CheckBox)
+            If chkSelect IsNot Nothing Then
+                Dim ID As String = Convert.ToString(chkSelect.Attributes("value"))
+                If chkSelect.Checked AndAlso Not Me.ID_S.Contains(ID) Then
+                    Me.ID_S.Add(ID)
+                ElseIf Not chkSelect.Checked AndAlso Me.ID_S.Contains(ID) Then
+                    Me.ID_S.Remove(ID)
+                End If
+            End If
+        Next
+        ''
+        If (ID_S IsNot Nothing AndAlso ID_S.Count > 0) Then
+            For Each item As String In ID_S
+                'delete trxn_ptl berdasarkan PTK_ID
+                If UpdateData_Server("delete from trxn_ptk where PTK_ID ='" + item + "'") = 1 Then
+                    LvDetailMaster.DataBind()
+                    Response.Write("<script>alert('Berhasil Menghapus Data dengan ID : " + item + "!')</script>")
+                End If
+            Next
         End If
     End Sub
 End Class

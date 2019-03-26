@@ -174,7 +174,7 @@ public class KelasKoneksi
                     GlobalAr.Add(reader["No_KTP"].ToString()); //12
                     GlobalAr.Add(reader["No_NPWP"].ToString()); //13
                     GlobalAr.Add(reader["No_Jamsos"].ToString()); //0
-                    GlobalAr.Add(reader["Jensim"].ToString()); //0
+                    GlobalAr.Add(reader["Jen_SIM"].ToString()); //0
                     GlobalAr.Add(reader["No_Sim"].ToString()); //0
                     GlobalAr.Add(reader["NoRekbca"].ToString()); //0
                 }
