@@ -183,10 +183,12 @@ create table Data_UploadSLamaran (
     Path_Foto varchar (50) not null
 )
 --TB UploadNPWP
+
 create table Data_UploadCV (
     Id_CV int IDENTITY (1,1) PRIMARY KEY, 
     Id_lamaran int not null, 
-    Path_Foto varchar (50) not null
+    Path_Foto varchar (50) not null,
+	Date_Upload smalldatetime default getdate()
 )
 
 --case ketika registrasi******************************************

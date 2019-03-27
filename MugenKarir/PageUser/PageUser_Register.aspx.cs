@@ -95,10 +95,18 @@ public partial class PagesUser_PageUser_Register : System.Web.UI.Page
                 }
                 else
                 {
-                    Response.Write("<script>alert('Terdapat Error Ketika Insert Data Lamaran : " + hasil_Data_Lamaran + "')</script>");
+                    // ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Terdapat Error Ketika Insert Data Lamaran : " + hasil_Data_Lamaran + "')", true);
+                    //Response.Write("<script>alert('Terdapat Error Ketika Insert Data Lamaran : " + hasil_Data_Lamaran + "')</script>");
+                   // Response.Write("<script>alert('" + " Terdapat Error Ketika Insert Data Lamaran : " + hasil_Data_Lamaran + " " + "') ; location.href='Login.aspx'</script>");
+                    lblmsg.Visible = true;
+                    lblmsg.Text = " Terdapat Error Ketika Insert Data Lamaran : " + hasil_Data_Lamaran + " ";
                 }
             } else {
-                Response.Write("<script>alert('Terdapat Error Ketika Insert Data Register Akun : "+ hasil_Login_User + "')</script>");
+                //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Terdapat Error Ketika Insert Data Register Akun : " + hasil_Login_User + "')", true);
+                //Response.Write("<script>alert('Terdapat Error Ketika Insert Data Register Akun : "+ hasil_Login_User + "')</script>");
+               // Response.Write("<script>alert('" + " Terdapat Error Ketika Insert Data Register Akun : " + hasil_Login_User + " " + "') ; location.href='Login.aspx'</script>");
+                lblmsg.Visible = true;
+                lblmsg.Text = "Terdapat Error Ketika Insert Data Register Akun : " + hasil_Login_User + " ";
             }
         }
 

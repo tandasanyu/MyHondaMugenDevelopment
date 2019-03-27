@@ -23,17 +23,17 @@ public partial class PagesHRD_FormPelamar : System.Web.UI.Page
         //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
         //"alert('Id : "+IdLamar+"'); ", true);
         //**get data_diri
-        string sql_datadiri = "select * from Data_Diri where id_lamaran = " + Convert.ToInt32(IdLamar) + "";
+        string sql_datadiri = "select Nama_Lengkap from Data_Diri where id_lamaran = " + Convert.ToInt32(IdLamar) + "";
+        //string sql_datadiri = "select * from data_diri b inner join Data_UploadCV a on b.Id_lamaran = a.Id_lamaran where where b.id_lamaran = " + Convert.ToInt32(IdLamar) + "";
         List<String> hasil_dataDiri = cn.KelasKoneksi_SelectGlobal(sql_datadiri, "6");
+        
         if (hasil_dataDiri.Count != 0)
         {
-            //DPNama.Text = hasil_dataDiri[0];
-            //DPPanggil.Text = hasil_dataDiri[1];
-            //DPTTL.Text = hasil_dataDiri[2]+"/"+hasil_dataDiri[3];
-            //if (hasil_dataDiri[3] == "1") { DPJenkel.Text = "Pria"; } else { DPJenkel.Text = "Wanita"; };
-
-
+            LblTTD.Text = hasil_dataDiri[0];      
         }
+        //get 
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto, Date_Upload from Data_UploadCV where Id_lamaran = " + Convert.ToInt32(IdLamar) + "", "7");
+        LblDate.Text = Path_Foto[1];
         //**get photo pelamar
         string sql = "select Path_Foto from Data_UploadFoto where id_lamaran = "+Convert.ToInt32(IdLamar) +"";
         List<String> hasil = cn.KelasKoneksi_SelectGlobal(sql, "5");

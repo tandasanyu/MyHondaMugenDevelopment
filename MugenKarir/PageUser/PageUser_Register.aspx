@@ -139,7 +139,7 @@ line-height: 1.4em;
                         <td>
                             <div class="g-recaptcha" data-sitekey="6LfYd5QUAAAAAAMCRbYOO11f_BFGJesn7DZR-WJB"></div>
                             <br />
-                            <asp:Label ID="lblmsg" runat="server" Text="Label" Visible="false"></asp:Label>
+                            <asp:Label ID="lblmsg" runat="server" Text="Label" Visible="false" ForeColor="Red"></asp:Label>
                         </td>
                     </tr>
                     <tr>

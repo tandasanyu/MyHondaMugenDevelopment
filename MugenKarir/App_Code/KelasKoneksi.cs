@@ -141,42 +141,52 @@ public class KelasKoneksi
                 reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    if (sub == "1")
-                    {
-                        GlobalAr.Add(reader["Id_Lamaran"].ToString()); //0
-                    }
-                    else if (sub == "2")
-                    {
-                        GlobalAr.Add(reader["user_nama_login"].ToString()); //0
-                    }
-                    else if (sub == "3")
-                    {
-                        GlobalAr.Add(reader["id_lamaran"].ToString()); //0
-                        GlobalAr.Add(reader["user_posisi"].ToString()); //1
-                    }
-                    else if (sub == "4") {
-                        GlobalAr.Add(reader["id_login"].ToString()); //0
-                    } else if (sub == "5") {
-                        GlobalAr.Add(reader["Path_Foto"].ToString()); //0
-                    } else if (sub == "6") {
-                        GlobalAr.Add(reader["Nama_Lengkap"].ToString()); //0
-                        GlobalAr.Add(reader["Nama_Panggilan"].ToString()); //1
-                    GlobalAr.Add(reader["Tempat_Lahir"].ToString()); //2
-                    GlobalAr.Add(reader["Tgl_Lahir"].ToString()); //3
-                    GlobalAr.Add(reader["Jenkel"].ToString()); //4
-                    GlobalAr.Add(reader["Agama"].ToString()); //5
-                    GlobalAr.Add(reader["Alamat_KTP"].ToString()); //6
-                    GlobalAr.Add(reader["Alamat_Tinggal"].ToString()); //7
-                    GlobalAr.Add(reader["No_Telp"].ToString()); //8
-                    GlobalAr.Add(reader["No_HP"].ToString()); //9
-                    GlobalAr.Add(reader["email"].ToString()); //10
-                    GlobalAr.Add(reader["hobi"].ToString()); //11
-                    GlobalAr.Add(reader["No_KTP"].ToString()); //12
-                    GlobalAr.Add(reader["No_NPWP"].ToString()); //13
-                    GlobalAr.Add(reader["No_Jamsos"].ToString()); //0
-                    GlobalAr.Add(reader["Jen_SIM"].ToString()); //0
-                    GlobalAr.Add(reader["No_Sim"].ToString()); //0
-                    GlobalAr.Add(reader["NoRekbca"].ToString()); //0
+                if (sub == "1")
+                {
+                    GlobalAr.Add(reader["Id_Lamaran"].ToString()); //0
+                }
+                else if (sub == "2")
+                {
+                    GlobalAr.Add(reader["user_nama_login"].ToString()); //0
+                }
+                else if (sub == "3")
+                {
+                    GlobalAr.Add(reader["id_lamaran"].ToString()); //0
+                    GlobalAr.Add(reader["user_posisi"].ToString()); //1
+                }
+                else if (sub == "4")
+                {
+                    GlobalAr.Add(reader["id_login"].ToString()); //0
+                }
+                else if (sub == "5")
+                {
+                    GlobalAr.Add(reader["Path_Foto"].ToString()); //0
+                }
+                else if (sub == "6")
+                {
+                    GlobalAr.Add(reader["Nama_Lengkap"].ToString()); //0
+                    //GlobalAr.Add(reader["Nama_Panggilan"].ToString()); //1
+                    //GlobalAr.Add(reader["Tempat_Lahir"].ToString()); //2
+                    //GlobalAr.Add(reader["Tgl_Lahir"].ToString()); //3
+                    //GlobalAr.Add(reader["Jenkel"].ToString()); //4
+                    //GlobalAr.Add(reader["Agama"].ToString()); //5
+                    //GlobalAr.Add(reader["Alamat_KTP"].ToString()); //6
+                    //GlobalAr.Add(reader["Alamat_Tinggal"].ToString()); //7
+                    //GlobalAr.Add(reader["No_Telp"].ToString()); //8
+                    //GlobalAr.Add(reader["No_HP"].ToString()); //9
+                    //GlobalAr.Add(reader["email"].ToString()); //10
+                    //GlobalAr.Add(reader["hobi"].ToString()); //11
+                    //GlobalAr.Add(reader["No_KTP"].ToString()); //12
+                    //GlobalAr.Add(reader["No_NPWP"].ToString()); //13
+                    //GlobalAr.Add(reader["No_Jamsos"].ToString()); //14
+                    //GlobalAr.Add(reader["Jen_SIM"].ToString()); //15
+                    //GlobalAr.Add(reader["No_Sim"].ToString()); //16
+                    //GlobalAr.Add(reader["NoRekbca"].ToString()); //17
+                   
+                }
+                else if (sub == "7") {
+                    GlobalAr.Add(reader["Path_Foto"].ToString()); //0
+                    GlobalAr.Add(reader["Date_upload"].ToString()); //18
                 }
                 }
                 //status_hasil = "1";

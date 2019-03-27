@@ -19,22 +19,57 @@
         background-color:#f1f1f1;
         table-layout:fixed;
         }
+.box {
+    background-color: none;
+    width: 30%;
+    display:inline-block;
+    margin:1px 0;
+    border-radius:1px;
+}
+/*.text {
+    padding: 10px 0;
+    color:white;
+    font-weight:bold;
+    text-align:center;
+}*/
+.xx {
+    background-color: none;
+    white-space:nowrap;
+    text-align:center;
+}
+.b {
+    background-color: none;
+    width: 30%;
+    display:inline-block;
+    margin:1px 0;
+    border-radius:1px;
+}
+.t {
+    
+    color:black;
+    
+    text-align:right;
+}
+.c {
+    white-space:nowrap;
+    text-align:center;
+}
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
     <div class="container">
         <asp:Label ID="LblIdLamaran" runat="server" Text="Label" Visible="false"></asp:Label>
-        <div id="Header" class="form-group" style="margin-top:5%; margin-bottom:6%">
-            <div class="row">
-                <div class="col-sm">
-                    <asp:Image ID="ImageIcon" runat="server" src="../img/cropped-honda-icon.png" Height="200px" Width="200px" />
+        <div id="Header" class="form-group" style="margin-top:5%; margin-bottom:6%" >
+            <div class="xx">
+                <div class="box" style="padding-right:150px">
+                    <asp:Image ID="ImageIcon" runat="server" src="../img/cropped-honda-icon - Copy.png" Height="200px" Width="200px" />
                 </div>
-                <div class="col-sm" style="text-align:center">
-                    <h3><asp:Label ID="JudulForm" runat="server" Text="PT. MITRAUSAHA GENTANIAGA</br>(HONDA MUGEN)"></asp:Label></h3>
+                <div class="box">
+                    <h3><asp:Label ID="JudulForm" runat="server" Text="PT. MITRAUSAHA GENTANIAGA</br>(HONDA MUGEN)" Font-Size="large"></asp:Label></h3>
                 </div>
-                <div class="col-sm">
-                    <asp:Image ID="ImagePelamar" runat="server"  Height="200px" Width="200px" />
+                <div class="box" style="padding-left:100px">
+                    <asp:Image ID="ImagePelamar" runat="server"  Height="200px" Width="180px" />
                 </div>
             </div>
         </div>
@@ -758,66 +793,86 @@
                     <p><em>Data Tidak Ada</em></p>
                 </EmptyDataTemplate>
                 <ItemTemplate>
-                    <p><em>1. Apakah anda pernah sakit yang membutuhkan perawatan di rumah sakit?</em></p>
+                    <b><p><em>1. Apakah anda pernah sakit yang membutuhkan perawatan di rumah sakit?</em></p></b>
                     <div class="" style="padding:10px"><asp:Label ID="Label39" runat="server" 
                         Text='<%# Eval("Desc_Sakit") !=null ? Eval("Desc_Sakit"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
-                    <p><em>2. Sebutkan kelebihan diri anda!</em></p>
+                    <b><p><em>2. Sebutkan kelebihan diri anda!</em></p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label40" runat="server" 
                         Text='<%# Eval("Kelebihan") !=null ? Eval("Kelebihan"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
-                    <p><em>3. Sebutkan kekurangan diri anda!</em></p>
+                    <b><p><em>3. Sebutkan kekurangan diri anda!</em></p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label41" runat="server" 
                         Text='<%# Eval("Kekurangan") !=null ? Eval("Kekurangan"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
-                    <p><em>4. Keahlian apa saja yang anda miliki?</em></p>
+                    <b><p><em>4. Keahlian apa saja yang anda miliki?</em></p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label42" runat="server" 
                         Text='<%# Eval("Keahlian") !=null ? Eval("Keahlian"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
-                    <p><em>5. Apa yang anda ketahui mengenai "Job Description" dari pekerjaan yang anda lamar ini?</em></p>
+                    <b><p><em>5. Apa yang anda ketahui mengenai "Job Description" dari pekerjaan yang anda lamar ini?</em></p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label43" runat="server" 
                         Text='<%# Eval("JobDesc") !=null ? Eval("JobDesc"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
-                    <p><em>6. Berapa gaji yang anda harapkan? </em></p>
+                    <b><p><em>6. Berapa gaji yang anda harapkan? </em></p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label44" runat="server" 
-                        Text='<%# Eval("HarapanGaji") !=null ? Eval("HarapanGaji", "{0:0,00}"): "Data Tidak Ada" %>'></asp:Label>
+                        Text='<%# Eval("HarapGaji") !=null ? Eval("HarapGaji", "{0:0,00}"): "Data Tidak Ada" %>'></asp:Label>
                     </div><br />
-                    <p><em>7. Sebutkan tunjangan/fasilitas yang anda inginkan! </em></p>
+                    <b><p><em>7. Sebutkan tunjangan/fasilitas yang anda inginkan! </em></p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label45" runat="server" 
                         Text='<%# Eval("Tunjangan") !=null ? Eval("Tunjangan"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
-                    <p><em>8. Bila anda diterima, kapan anda siap bekerja di Honda Mugen? </em></p>
+                    <b><p><em>8. Bila anda diterima, kapan anda siap bekerja di Honda Mugen? </em></p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label46" runat="server" 
                         Text='<%# Eval("SiapBekerja") !=null ? (int)Eval("SiapBekerja")==0?"Secepatnya":(int)Eval("SiapBekerja")==1?"1 Bulan Notifikasi":(int)Eval("SiapBekerja")==2?"1 Minggu Notifikasi":(int)Eval("SiapBekerja")==3?"2 Minggu Notifikasi":"Tidak Ada Data": "Tidak Ada Data" %>'></asp:Label>
                     </div>
                     <br />
-                    <p><em>9. Apakah anda bersedia ditempatkan dimana saja sesuai dengan kebutuhan perusahaan?</em></p>
+                    <b><p><em>9. Apakah anda bersedia ditempatkan dimana saja sesuai dengan kebutuhan perusahaan?</em></p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label47" runat="server" 
                         Text='<%# Eval("Penempatan") !=null ? (int)Eval("Penempatan")==1?"Ya":(int)Eval("Penempatan")==2?"Tidak":"Tidak Ada Data": "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
-                    <p><em>10. Mengapa anda ingin bergabung dengan Honda Mugen?</em></p>
+                    <b><p><em>10. Mengapa anda ingin bergabung dengan Honda Mugen?</em></p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label48" runat="server" 
                         Text='<%# Eval("AlasanBergabung") !=null ? Eval("AlasanBergabung"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
-                    <p><em>11. Apa yang anda ketahui tentang Honda Mugen?</em></p>
+                    <b><p><em>11. Apa yang anda ketahui tentang Honda Mugen?</em></p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label49" runat="server" 
                         Text='<%# Eval("tentangmugen") !=null ? Eval("tentangmugen"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
-                    <p><em>12. Anda senang bekerja pada lingkungan: </em></p>
+                    <b><p><em>12. Anda senang bekerja pada lingkungan: </em></p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label50" runat="server" 
-                        Text='<%# (string)Eval("Penempatan") !="3" ? (string)Eval("Penempatan")=="0"?"Di Dalam Kantor":(string)Eval("Penempatan")=="1"?"Di Luar Kantor":(string)Eval("Penempatan")=="2"?"Di Dalam Bengkel":"":"Data Tidak Ada" %>'></asp:Label>
+                        Text='<%# (string)Eval("LingkunganKerja") !="3" ? (string)Eval("LingkunganKerja")=="0"?"Di Dalam Kantor":(string)Eval("LingkunganKerja")=="1"?"Di Luar Kantor":(string)Eval("LingkunganKerja")=="2"?"Di Dalam Bengkel":"Lainya":"Data Tidak Ada" %>'></asp:Label><br />
                         <asp:Label ID="Label51" runat="server" Text='<%# Eval("LingkunganKerja") !=null ? Eval("LingkunganKerja"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
                 </ItemTemplate>
             </asp:ListView>
+        </div>
+        <div class="c">
+            <div class="b">
+                <div class="t"></div>
+            </div>
+            <div class="b">
+                <div class="t" ></div>
+            </div>
+            <div class="b">
+                <div class="t" >
+                    <asp:Label ID="Label52" runat="server" Text="Saya menyatakan apa yang ditulis adalah benar <br /> dan dapat di pertanggungjawabkan"></asp:Label>
+                    <br />
+                    <br />
+                    <br />
+                    <asp:Label ID="LblTTD" runat="server" Text="Tidak Ada Data"></asp:Label>
+                    <br />
+                    <br />
+                    <asp:Label ID="LblDate" runat="server" Text="Tidak Ada Data"></asp:Label>
+                </div>
+            </div>
         </div>
     </div>
     </form>

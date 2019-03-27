@@ -87,6 +87,9 @@ div.content {
 .navbar .navbar-brand img {
   height: 50px;
 }
+.nav > li > a:hover{
+    background-color:#FCC;
+}
 </style>
 </head>
 <body>

@@ -48,6 +48,260 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
     //}
     //list string ID Lowongan
     //KUMPULAN FUNGSI DOWNLOAD BY BUTTON
+    //*****  ListViewPelamarTerproses
+    protected void LinkButtonForm2_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = ListViewPelamarTerproses.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString(); ///PagesHRD/FormPelamar.aspx
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/FormPelamar.aspx?Id="+ DataKeyvalue + "';", true);
+        Response.Write("<script language='javascript'>{window.open('../PagesHRD/FormPelamar.aspx?Id=" + DataKeyvalue + "');}</script>");
+    }
+    protected void LinkButtonFoto2_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = ListViewPelamarTerproses.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('Photo ID : "+ DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadFoto where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/Foto/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
+    protected void LinkButtonKTP2_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = ListViewPelamarTerproses.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadKTP where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/KTP/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
+    protected void LinkButtonNPWP2_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = ListViewPelamarTerproses.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadNPWP where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/NPWP/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
+    protected void LinkButtonKK2_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = ListViewPelamarTerproses.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadKK where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/KK/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
+    protected void LinkButtonIjazah2_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = ListViewPelamarTerproses.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadIjazah where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/Ijazah/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
+    protected void LinkButtonNilai2_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = ListViewPelamarTerproses.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadTranskrip where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/Transkrip/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
+    protected void LinkButtonLamaran2_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = ListViewPelamarTerproses.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadSLamaran where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/Lamaran/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
+    protected void LinkButtonCV2_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = ListViewPelamarTerproses.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadCV where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/CV/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
     //***
     protected void LinkButtonForm_Click(object sender, EventArgs e)
     {
@@ -57,9 +311,10 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         // Get the datakey from listview
         // Change the listview id and datakey name here
         string DataKeyvalue = LvPelamarBaru.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString(); ///PagesHRD/FormPelamar.aspx
-        ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
-        "window.location='" +
-        Request.ApplicationPath + "../PagesHRD/FormPelamar.aspx?Id=6';", true);
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/FormPelamar.aspx?Id="+ DataKeyvalue + "';", true);
+        Response.Write("<script language='javascript'>{window.open('../PagesHRD/FormPelamar.aspx?Id=" + DataKeyvalue + "');}</script>");
     }
     protected void LinkButtonFoto_Click(object sender, EventArgs e)
     {
@@ -74,11 +329,21 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         //"alert('Photo ID : "+ DataKeyvalue + "');window.location='" +
         //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
         string path = string.Empty;
-        path = "~/UploadFile/Foto/" + DataKeyvalue + ".jpg";
-        Response.ContentType = "application/octet-stream";
-        Response.AppendHeader("content-disposition", "filename = " + DataKeyvalue + ".jpg");
-        Response.TransmitFile(Server.MapPath(path));
-        Response.End();
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadFoto where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/Foto/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
     }
     protected void LinkButtonKTP_Click(object sender, EventArgs e)
     {
@@ -93,15 +358,250 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
         //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
         string path = string.Empty;
-        path = "~/UploadFile/KTP/" + DataKeyvalue + ".jpg";
-        Response.ContentType = "application/octet-stream";
-        Response.AppendHeader("content-disposition", "filename = " + DataKeyvalue + ".jpg");
-        Response.TransmitFile(Server.MapPath(path));
-        Response.End();
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadKTP where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/KTP/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
+    protected void LinkButtonNPWP_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = LvPelamarBaru.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadNPWP where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/NPWP/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
+    protected void LinkButtonKK_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = LvPelamarBaru.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadKK where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/KK/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
+    protected void LinkButtonIjazah_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = LvPelamarBaru.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadIjazah where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/Ijazah/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
+    protected void LinkButtonNilai_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = LvPelamarBaru.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadTranskrip where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/Transkrip/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
+    protected void LinkButtonLamaran_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = LvPelamarBaru.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadSLamaran where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/Lamaran/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
+    protected void LinkButtonCV_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = LvPelamarBaru.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
+        //"alert('KTP ID : " + DataKeyvalue + "');window.location='" +
+        //Request.ApplicationPath + "../PagesHRD/HomeHRD.aspx';", true);
+        string path = string.Empty;
+        string filename = string.Empty;
+        //open con
+        KelasKoneksi cn = new KelasKoneksi();
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto from Data_UploadCV where Id_lamaran = " + Convert.ToInt32(DataKeyvalue) + "", "7");
+        if (Path_Foto.Count > 0)
+        {
+            path = "~/UploadFile/CV/" + Path_Foto[0] + "";
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            Response.TransmitFile(Server.MapPath(path));
+            Response.End();
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
+        }
+    }
+    protected void LinkButtonProses_Click(object sender, EventArgs e) // status undangan = 1  jika di undang
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = LvPelamarBaru.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('"+DataKeyvalue+"')", true);
+        KelasKoneksi cn = new KelasKoneksi();
+        string Hasil = cn.KelasKoneksi_Update("Update Data_Lamaran set status_Undangan = 1 where Id_Lamaran ="+ DataKeyvalue + " ");
+        if (Hasil == "1") {
+            LvPelamarBaru.DataBind();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Sukses Memproses Pelamar, Silahkan Cek di Menu Pelamar untuk Detailnya')", true);
+        } else {
+            LvPelamarBaru.DataBind();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Gagal Memproses Pelamar, terdapat Error : "+ Hasil + "')", true);
+        }
+    }
+    protected void LinkButtonTolak_Click(object sender, EventArgs e) // status lamaran = 2 maka data di tolak
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = LvPelamarBaru.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('" + DataKeyvalue + "')", true);
+        KelasKoneksi cn = new KelasKoneksi();
+        string Hasil = cn.KelasKoneksi_Update("Update Data_Lamaran set status_Lamaran = 2 where Id_Lamaran =" + DataKeyvalue + " ");
+        if (Hasil == "1")
+        {
+            LvPelamarBaru.DataBind();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Sukses Menolak Pelamar, Silahkan Cek di Menu Pelamar untuk Detailnya')", true);
+            
+        }
+        else
+        {
+            LvPelamarBaru.DataBind();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Gagal Menolak Pelamar, terdapat Error : " + Hasil + "')", true);
+        }
     }
     //***
 
-    //fungsi download foto ***************************************************
+        //fungsi download foto ***************************************************
 
     protected void BtnCoba_Click(object sender, EventArgs e)
     {

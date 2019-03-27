@@ -49,7 +49,7 @@ public partial class PageUser_PageUser_UploadCV : System.Web.UI.Page
             {
                 string Hasil;
                 KelasKoneksi cn = new KelasKoneksi();
-                Hasil = cn.KelasKoneksi_Insert("Insert into Data_UploadCV values (" + Convert.ToInt32(IdLamar) + ",'" + nama + extension + "' )");
+                Hasil = cn.KelasKoneksi_Insert("Insert into Data_UploadCV (Id_lamaran, Path_Foto) values (" + Convert.ToInt32(IdLamar) + ",'" + nama + extension + "' )");
                 if (Hasil == "1")
                 {
                     //Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "Alert", "alert('')", true);

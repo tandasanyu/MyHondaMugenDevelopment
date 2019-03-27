@@ -24,13 +24,13 @@ public partial class PageUser_PageUser_FormPertanyaan : System.Web.UI.Page
         string Hasil = string.Empty;
         if (HarapGaji != 0  && DescSakit != "" && Keleb != "" && Kekur != "" && Keahli != "" && Keahli != "" && JobDesc!="" && Tunjangan!="" && SiapKerja != "" && Penempatan != "" && AlasanGabung !="" && TtgNMugen!="" && LingkunganKerja!= "")
         {
-            if (Convert.ToInt32(LingkunganKerja) == 3) {
+            if (LingkunganKerja == "3") {
                 LingkunganKerja = TextAreaLingkunganKerja.InnerText;
             }
 
             KelasKoneksi kn = new KelasKoneksi();
             int idLamaran = Convert.ToInt32(IdLamar);
-            string SqlCmd = "insert into Data_Pertanyaan values ("+ idLamaran + ", '"+DescSakit+"', '"+Keleb+"', '"+Kekur+"', '"+Keahli+"', '"+JobDesc+"', "+HarapGaji+", '"+Tunjangan+"', "+Convert.ToInt32(SiapKerja)+", "+ Convert.ToInt32(Penempatan)+", '"+AlasanGabung+"', '"+TtgNMugen+"', "+Convert.ToInt32(LingkunganKerja)+")";
+            string SqlCmd = "insert into Data_Pertanyaan values ("+ idLamaran + ", '"+DescSakit+"', '"+Keleb+"', '"+Kekur+"', '"+Keahli+"', '"+JobDesc+"', "+HarapGaji+", '"+Tunjangan+"', "+Convert.ToInt32(SiapKerja)+", "+ Convert.ToInt32(Penempatan)+", '"+AlasanGabung+"', '"+TtgNMugen+"', '"+LingkunganKerja+"')";
             string Hasil_Insert = kn.KelasKoneksi_Insert(SqlCmd);
             if (Hasil_Insert == "1")
             {
@@ -47,14 +47,31 @@ public partial class PageUser_PageUser_FormPertanyaan : System.Web.UI.Page
         }
         return Hasil;
     }
+    public int stats;
     protected void BtnSubmitPertanyaan_Click(object sender, EventArgs e)
     {
         string Hasil = string.Empty;
-        if (RadioButtonListSakit.SelectedValue == "Ya") {
-             Hasil = InsertData_Pertanyaan(TxtAreaSakit.InnerText, TxtAreaKelebihan.InnerText, TxtAreaKekurangan.InnerText, TxtAreaKeahlian.InnerText, TxtAreaJobDesc.InnerText, Convert.ToInt32(TxtGaji.Text), TextareaTunjangan.InnerText, Convert.ToString(RadioButtonListSiapBekerja.SelectedIndex), Convert.ToString(RadioButtonListPenempatan.SelectedIndex), TxtAreaAlasanBergabung.InnerText, TxtAreaPengetahuanHonda.InnerText, Convert.ToString(RadioButtonListLingkunganKerja.SelectedIndex));
-        } else if (RadioButtonListSakit.SelectedValue == "Tidak") {
-             Hasil = InsertData_Pertanyaan("--", TxtAreaKelebihan.InnerText, TxtAreaKekurangan.InnerText, TxtAreaKeahlian.InnerText, TxtAreaJobDesc.InnerText, Convert.ToInt32(TxtGaji.Text), TextareaTunjangan.InnerText, Convert.ToString(RadioButtonListSiapBekerja.SelectedIndex), Convert.ToString(RadioButtonListPenempatan.SelectedIndex), TxtAreaAlasanBergabung.InnerText, TxtAreaPengetahuanHonda.InnerText, Convert.ToString(RadioButtonListLingkunganKerja.SelectedIndex));
+        
+        string LingKerja = Convert.ToString(RadioButtonListLingkunganKerja.SelectedIndex);
+        stats = 0;
+        if (LingKerja == "3" && TextAreaLingkunganKerja.InnerText == "") {
+            stats = 1;
         }
+        if (stats == 0)
+        {
+            if (RadioButtonListSakit.SelectedValue == "Ya")
+            {
+                Hasil = InsertData_Pertanyaan(TxtAreaSakit.InnerText, TxtAreaKelebihan.InnerText, TxtAreaKekurangan.InnerText, TxtAreaKeahlian.InnerText, TxtAreaJobDesc.InnerText, Convert.ToInt32(TxtGaji.Text), TextareaTunjangan.InnerText, Convert.ToString(RadioButtonListSiapBekerja.SelectedIndex), Convert.ToString(RadioButtonListPenempatan.SelectedIndex), TxtAreaAlasanBergabung.InnerText, TxtAreaPengetahuanHonda.InnerText, LingKerja);
+            }
+            else if (RadioButtonListSakit.SelectedValue == "Tidak")
+            {
+                Hasil = InsertData_Pertanyaan("--", TxtAreaKelebihan.InnerText, TxtAreaKekurangan.InnerText, TxtAreaKeahlian.InnerText, TxtAreaJobDesc.InnerText, Convert.ToInt32(TxtGaji.Text), TextareaTunjangan.InnerText, Convert.ToString(RadioButtonListSiapBekerja.SelectedIndex), Convert.ToString(RadioButtonListPenempatan.SelectedIndex), TxtAreaAlasanBergabung.InnerText, TxtAreaPengetahuanHonda.InnerText, LingKerja);
+            }
+        }
+        else {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Gagal Menyimpan data, Harap Isi Text Lingkungan Kerja jika anda memilih poin Lainya')", true);
+        }
+
         if (Hasil == "OK") {
             Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
         } else {
