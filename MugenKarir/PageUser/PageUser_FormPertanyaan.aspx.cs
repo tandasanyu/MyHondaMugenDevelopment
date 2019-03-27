@@ -24,6 +24,10 @@ public partial class PageUser_PageUser_FormPertanyaan : System.Web.UI.Page
         string Hasil = string.Empty;
         if (HarapGaji != 0  && DescSakit != "" && Keleb != "" && Kekur != "" && Keahli != "" && Keahli != "" && JobDesc!="" && Tunjangan!="" && SiapKerja != "" && Penempatan != "" && AlasanGabung !="" && TtgNMugen!="" && LingkunganKerja!= "")
         {
+            if (Convert.ToInt32(LingkunganKerja) == 3) {
+                LingkunganKerja = TextAreaLingkunganKerja.InnerText;
+            }
+
             KelasKoneksi kn = new KelasKoneksi();
             int idLamaran = Convert.ToInt32(IdLamar);
             string SqlCmd = "insert into Data_Pertanyaan values ("+ idLamaran + ", '"+DescSakit+"', '"+Keleb+"', '"+Kekur+"', '"+Keahli+"', '"+JobDesc+"', "+HarapGaji+", '"+Tunjangan+"', "+Convert.ToInt32(SiapKerja)+", "+ Convert.ToInt32(Penempatan)+", '"+AlasanGabung+"', '"+TtgNMugen+"', "+Convert.ToInt32(LingkunganKerja)+")";

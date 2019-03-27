@@ -739,6 +739,85 @@
         </div>
         <div id="Pertanyaan" class="form-group">
             <h4><asp:Label ID="LblPertanyaan" runat="server" Text="Pertanyaan"></asp:Label></h4>
+            <asp:SqlDataSource ID="SqlDataSourceDataPertanyan" runat="server"
+				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+				SelectCommand="SELECT* FROM Data_Pertanyaan WHERE (Id_Lamaran = @Param1)">
+				<SelectParameters>
+                    <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
+                </SelectParameters>
+			</asp:SqlDataSource>
+            <asp:ListView ID="ListViewDataPertanyaan" DataSourceID="SqlDataSourceDataPertanyan" runat="server">
+                <LayoutTemplate>
+                    <div id="itemPlaceholderContainer" runat="server" style="">
+                        <span runat="server" id="itemPlaceholder" />
+                    </div>
+                    <div style="">
+                    </div>
+                </LayoutTemplate>
+                <EmptyDataTemplate>
+                    <p><em>Data Tidak Ada</em></p>
+                </EmptyDataTemplate>
+                <ItemTemplate>
+                    <p><em>1. Apakah anda pernah sakit yang membutuhkan perawatan di rumah sakit?</em></p>
+                    <div class="" style="padding:10px"><asp:Label ID="Label39" runat="server" 
+                        Text='<%# Eval("Desc_Sakit") !=null ? Eval("Desc_Sakit"): "Data Tidak Ada" %>'></asp:Label>
+                    </div>
+                    <br />
+                    <p><em>2. Sebutkan kelebihan diri anda!</em></p>
+                        <div class="" style="padding:10px"><asp:Label ID="Label40" runat="server" 
+                        Text='<%# Eval("Kelebihan") !=null ? Eval("Kelebihan"): "Data Tidak Ada" %>'></asp:Label>
+                    </div>
+                    <br />
+                    <p><em>3. Sebutkan kekurangan diri anda!</em></p>
+                        <div class="" style="padding:10px"><asp:Label ID="Label41" runat="server" 
+                        Text='<%# Eval("Kekurangan") !=null ? Eval("Kekurangan"): "Data Tidak Ada" %>'></asp:Label>
+                    </div>
+                    <br />
+                    <p><em>4. Keahlian apa saja yang anda miliki?</em></p>
+                        <div class="" style="padding:10px"><asp:Label ID="Label42" runat="server" 
+                        Text='<%# Eval("Keahlian") !=null ? Eval("Keahlian"): "Data Tidak Ada" %>'></asp:Label>
+                    </div>
+                    <br />
+                    <p><em>5. Apa yang anda ketahui mengenai "Job Description" dari pekerjaan yang anda lamar ini?</em></p>
+                        <div class="" style="padding:10px"><asp:Label ID="Label43" runat="server" 
+                        Text='<%# Eval("JobDesc") !=null ? Eval("JobDesc"): "Data Tidak Ada" %>'></asp:Label>
+                    </div>
+                    <br />
+                    <p><em>6. Berapa gaji yang anda harapkan? </em></p>
+                        <div class="" style="padding:10px"><asp:Label ID="Label44" runat="server" 
+                        Text='<%# Eval("HarapanGaji") !=null ? Eval("HarapanGaji", "{0:0,00}"): "Data Tidak Ada" %>'></asp:Label>
+                    </div><br />
+                    <p><em>7. Sebutkan tunjangan/fasilitas yang anda inginkan! </em></p>
+                        <div class="" style="padding:10px"><asp:Label ID="Label45" runat="server" 
+                        Text='<%# Eval("Tunjangan") !=null ? Eval("Tunjangan"): "Data Tidak Ada" %>'></asp:Label>
+                    </div>
+                    <br />
+                    <p><em>8. Bila anda diterima, kapan anda siap bekerja di Honda Mugen? </em></p>
+                        <div class="" style="padding:10px"><asp:Label ID="Label46" runat="server" 
+                        Text='<%# Eval("SiapBekerja") !=null ? (int)Eval("SiapBekerja")==0?"Secepatnya":(int)Eval("SiapBekerja")==1?"1 Bulan Notifikasi":(int)Eval("SiapBekerja")==2?"1 Minggu Notifikasi":(int)Eval("SiapBekerja")==3?"2 Minggu Notifikasi":"Tidak Ada Data": "Tidak Ada Data" %>'></asp:Label>
+                    </div>
+                    <br />
+                    <p><em>9. Apakah anda bersedia ditempatkan dimana saja sesuai dengan kebutuhan perusahaan?</em></p>
+                        <div class="" style="padding:10px"><asp:Label ID="Label47" runat="server" 
+                        Text='<%# Eval("Penempatan") !=null ? (int)Eval("Penempatan")==1?"Ya":(int)Eval("Penempatan")==2?"Tidak":"Tidak Ada Data": "Data Tidak Ada" %>'></asp:Label>
+                    </div>
+                    <br />
+                    <p><em>10. Mengapa anda ingin bergabung dengan Honda Mugen?</em></p>
+                        <div class="" style="padding:10px"><asp:Label ID="Label48" runat="server" 
+                        Text='<%# Eval("AlasanBergabung") !=null ? Eval("AlasanBergabung"): "Data Tidak Ada" %>'></asp:Label>
+                    </div>
+                    <p><em>11. Apa yang anda ketahui tentang Honda Mugen?</em></p>
+                        <div class="" style="padding:10px"><asp:Label ID="Label49" runat="server" 
+                        Text='<%# Eval("tentangmugen") !=null ? Eval("tentangmugen"): "Data Tidak Ada" %>'></asp:Label>
+                    </div>
+                    <p><em>12. Anda senang bekerja pada lingkungan: </em></p>
+                        <div class="" style="padding:10px"><asp:Label ID="Label50" runat="server" 
+                        Text='<%# (string)Eval("Penempatan") !="3" ? (string)Eval("Penempatan")=="0"?"Di Dalam Kantor":(string)Eval("Penempatan")=="1"?"Di Luar Kantor":(string)Eval("Penempatan")=="2"?"Di Dalam Bengkel":"":"Data Tidak Ada" %>'></asp:Label>
+                        <asp:Label ID="Label51" runat="server" Text='<%# Eval("LingkunganKerja") !=null ? Eval("LingkunganKerja"): "Data Tidak Ada" %>'></asp:Label>
+                    </div>
+                    <br />
+                </ItemTemplate>
+            </asp:ListView>
         </div>
     </div>
     </form>

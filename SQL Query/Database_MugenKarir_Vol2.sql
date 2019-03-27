@@ -122,6 +122,7 @@ create table Data_Anak (
 )
 
 --Tb Pertanyaan
+
 create table Data_Pertanyaan (
     Id_Pertanyaan int IDENTITY (1,1) PRIMARY KEY, 
     Id_lamaran INT NOT NULL, 
@@ -136,7 +137,7 @@ create table Data_Pertanyaan (
     Penempatan int NOT NULL, 
     AlasanBergabung varchar (100) NOT NULL, 
     TentangMugen varchar (100) NOT NULL, 
-    LingkunganKerja INT NOT NULL
+    LingkunganKerja varchar(100) NOT NULL
 )
 
 --TB UploadFoto
