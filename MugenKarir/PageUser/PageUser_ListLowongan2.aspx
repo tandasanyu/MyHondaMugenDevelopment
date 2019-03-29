@@ -67,6 +67,7 @@ table, td {
   filter: alpha(opacity=100); /* For IE8 and earlier */
 }
   </style>
+
 </head>
 
 <body>

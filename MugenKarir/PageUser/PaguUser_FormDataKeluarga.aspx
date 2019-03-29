@@ -194,6 +194,18 @@ h2.FormDataDiri {
             });
         });        
     </script>
+   <script type="text/javascript">
+      <!--
+      function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+       //-->
+   </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -220,18 +232,26 @@ h2.FormDataDiri {
                           <tr>
                             <td>Ayah</td>
                             <td>
-                                <asp:TextBox ID="TxtNamaAyah" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtNamaAyah" class="form-control"  autocomplete="off" runat="server"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" 
                                     runat="server" 
                                     ErrorMessage="Wajib Di Isi"
                                     ControlToValidate="TxtNamaAyah"
                                     ForeColor="red"></asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator 
+                                    ID="RegularExpressionValidator1" 
+                                    runat="server" 
+                                    ErrorMessage="Wajib di Isi dengan Karakter!"
+                                    ValidationExpression="[a-zA-Z ]*$"
+                                    ControlToValidate="TxtNamaAyah"
+                                    ForeColor="Red"
+                                    ></asp:RegularExpressionValidator>
                             </td>
                             <td>
                                 <asp:Label ID="LblJenkelAyah" runat="server" Text="Pria"></asp:Label>
                             </td>
                             <td>
-                                <asp:TextBox ID="TxtUsiaAyah" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtUsiaAyah" onKeypress="return isNumberKey(event)" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" 
                                     runat="server" 
                                     ErrorMessage="Wajib Di Isi"
@@ -279,12 +299,20 @@ h2.FormDataDiri {
                                     ErrorMessage="Wajib Di Isi"
                                     ControlToValidate="TxtNamaIbu"
                                     ForeColor="red"></asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator 
+                                    ID="RegularExpressionValidator2" 
+                                    runat="server" 
+                                    ErrorMessage="Wajib di Isi dengan Karakter!"
+                                    ValidationExpression="[a-zA-Z ]*$"
+                                    ControlToValidate="TxtNamaIbu"
+                                    ForeColor="Red"
+                                    ></asp:RegularExpressionValidator>
                             </td>
                             <td>
                                 <asp:Label ID="LblJenkelIbu" runat="server" Text="Wanita"></asp:Label>
                             </td>
                             <td>
-                                <asp:TextBox ID="TxtUsiaIbu" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="TxtUsiaIbu" onKeypress="return isNumberKey(event)" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8" 
                                     runat="server" 
                                     ErrorMessage="Wajib Di Isi"

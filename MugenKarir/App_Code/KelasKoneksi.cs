@@ -148,6 +148,7 @@ public class KelasKoneksi
                 else if (sub == "2")
                 {
                     GlobalAr.Add(reader["user_nama_login"].ToString()); //0
+                    GlobalAr.Add(reader["id_login"].ToString()); //0
                 }
                 else if (sub == "3")
                 {

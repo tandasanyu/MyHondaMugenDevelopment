@@ -22,7 +22,7 @@ public partial class PageUser_PageUser_FormPertanyaan : System.Web.UI.Page
     public string InsertData_Pertanyaan(string DescSakit, string Keleb, string Kekur, string Keahli, string JobDesc, int HarapGaji, string Tunjangan, string SiapKerja, string Penempatan, string AlasanGabung, string TtgNMugen, string LingkunganKerja)
     {
         string Hasil = string.Empty;
-        if (HarapGaji != 0  && DescSakit != "" && Keleb != "" && Kekur != "" && Keahli != "" && Keahli != "" && JobDesc!="" && Tunjangan!="" && SiapKerja != "" && Penempatan != "" && AlasanGabung !="" && TtgNMugen!="" && LingkunganKerja!= "")
+        if (HarapGaji != 0  && DescSakit.Length != 0 && Keleb.Length != 0 && Kekur.Length != 0 && Keahli.Length != 0 && Keahli.Length != 0 && JobDesc.Length != 0 && Tunjangan.Length != 0 && SiapKerja.Length != 0 && Penempatan.Length != 0 && AlasanGabung.Length != 0 && TtgNMugen.Length != 0 && LingkunganKerja.Length != 0)
         {
             if (LingkunganKerja == "3") {
                 LingkunganKerja = TextAreaLingkunganKerja.InnerText;
@@ -62,21 +62,30 @@ public partial class PageUser_PageUser_FormPertanyaan : System.Web.UI.Page
             if (RadioButtonListSakit.SelectedValue == "Ya")
             {
                 Hasil = InsertData_Pertanyaan(TxtAreaSakit.InnerText, TxtAreaKelebihan.InnerText, TxtAreaKekurangan.InnerText, TxtAreaKeahlian.InnerText, TxtAreaJobDesc.InnerText, Convert.ToInt32(TxtGaji.Text), TextareaTunjangan.InnerText, Convert.ToString(RadioButtonListSiapBekerja.SelectedIndex), Convert.ToString(RadioButtonListPenempatan.SelectedIndex), TxtAreaAlasanBergabung.InnerText, TxtAreaPengetahuanHonda.InnerText, LingKerja);
+                if (Hasil == "OK")
+                {
+                    Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
+                else
+                {
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan Error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
             }
             else if (RadioButtonListSakit.SelectedValue == "Tidak")
             {
                 Hasil = InsertData_Pertanyaan("--", TxtAreaKelebihan.InnerText, TxtAreaKekurangan.InnerText, TxtAreaKeahlian.InnerText, TxtAreaJobDesc.InnerText, Convert.ToInt32(TxtGaji.Text), TextareaTunjangan.InnerText, Convert.ToString(RadioButtonListSiapBekerja.SelectedIndex), Convert.ToString(RadioButtonListPenempatan.SelectedIndex), TxtAreaAlasanBergabung.InnerText, TxtAreaPengetahuanHonda.InnerText, LingKerja);
+                if (Hasil == "OK")
+                {
+                    Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
+                else
+                {
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan Error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
             }
         }
         else {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Gagal Menyimpan data, Harap Isi Text Lingkungan Kerja jika anda memilih poin Lainya')", true);
-        }
-
-        if (Hasil == "OK") {
-            Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
-        } else {
-            Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan Error : "+Hasil+"');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
-        }
-        
+        }        
     }
 }

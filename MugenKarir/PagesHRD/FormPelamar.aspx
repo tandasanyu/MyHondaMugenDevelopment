@@ -135,15 +135,15 @@
                             <td>
                                  <div class="col">
                                     <div class="" style="font-weight:bold">No NPWP : </div>
-                                    <div class=""><asp:Label ID="No_NPWPLabel" runat="server" Text='<%# Eval("No_NPWP") !=null ? Eval("No_NPWP"): "Data Tidak Ada" %>' /></div>
+                                    <div class=""><asp:Label ID="No_NPWPLabel" runat="server" Text='<%#  (string)Eval("No_NPWP") =="0" ? "Tidak Memiliki NPWP" : Eval("No_NPWP") %>' /></div>
                                 </div>
                                  <div class="col" >
                                     <div class="" style="font-weight:bold">No Jamsostek : </div>
-                                    <div class=""><asp:Label ID="No_JamsosLabel" runat="server" Text='<%# Eval("No_Jamsos") !=null ? Eval("No_Jamsos"): "Data Tidak Ada" %>' /></div>
+                                    <div class=""><asp:Label ID="No_JamsosLabel" runat="server" Text='<%#  (string)Eval("No_jamsos") =="0" ? "Tidak Memiliki Jamsostek" : Eval("No_jamsos") %>' /></div>
                                 </div>
                                  <div class="col">
                                     <div class="" style="font-weight:bold">SIM : </div>
-                                    <div class=""><asp:Label ID="Jen_SIMLabel" runat="server" Text='<%# Eval("Jen_sim")  !=null ? (int)Eval("Jen_sim")==1?"Sim A ":"Sim B ": "Data Tidak Ada" %>' /><br />
+                                    <div class=""><asp:Label ID="Jen_SIMLabel" runat="server" Text='<%# Eval("Jen_sim")  !=null ? (int)Eval("Jen_sim")==1?"Sim A ":(int)Eval("Jen_sim")==2?"Sim B":"Tidak Ada Data": "Data Tidak Ada" %>' /><br />
                                         <asp:Label ID="Label9" runat="server" Text='<%# Eval("No_SIM") !=null ? Eval("No_SIM"): "Data Tidak Ada"  %>'></asp:Label>
                                     </div>
                                 </div>

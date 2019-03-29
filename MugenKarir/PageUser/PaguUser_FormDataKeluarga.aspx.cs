@@ -109,6 +109,7 @@ public partial class PageUser_PaguUser_FormDataKeluarga : System.Web.UI.Page
         if (RadioButtonListPunyaAnak.SelectedValue == "Tidak" && RadioButtonListStatusPerkawinan.SelectedValue == "Belum Menikah")
         {
             //Insert data Keluarga
+            //validasi insert data keluarga //DONE
             string SqlCmd = "insert into Data_Keluarga values (" + Convert.ToInt32(IdLamar) + ",'" + TxtNamaAyah.Text + "', '" + TxtNamaIbu.Text + "', " + Convert.ToInt32(DropDownListPendidikanAyah.SelectedIndex) + ", " + Convert.ToInt32(TxtUsiaAyah.Text) + ", " + Convert.ToInt32(DropDownListPekerjaanAyah.SelectedIndex) + ", " + Convert.ToInt32(DropDownListPendidikanIbu.SelectedIndex) + "," + Convert.ToInt32(TxtUsiaIbu.Text) + ", " + Convert.ToInt32(DropDownListPekerjaanIbu.SelectedIndex) + ")";
             string Hasil = InsertDataKeluarga(SqlCmd);
             if (Hasil == "OK")
@@ -123,6 +124,7 @@ public partial class PageUser_PaguUser_FormDataKeluarga : System.Web.UI.Page
         //***KONDISI KETIKA TIDAK PUNYA SAUDARA KANDUNG & SUDAH MENIKAH
         else if (RadioButtonListPunyaAnak.SelectedValue == "Tidak" && RadioButtonListStatusPerkawinan.SelectedValue == "Menikah") {
             //Insert data Keluarga -- YA
+            //validasi insert data keluarga //DONE
             string SqlCmd = "insert into Data_Keluarga values (" + Convert.ToInt32(IdLamar) + ",'" + TxtNamaAyah.Text + "', '" + TxtNamaIbu.Text + "', " + Convert.ToInt32(DropDownListPendidikanAyah.SelectedIndex) + ", " + Convert.ToInt32(TxtUsiaAyah.Text) + ", " + Convert.ToInt32(DropDownListPekerjaanAyah.SelectedIndex) + ", " + Convert.ToInt32(DropDownListPendidikanIbu.SelectedIndex) + "," + Convert.ToInt32(TxtUsiaIbu.Text) + ", " + Convert.ToInt32(DropDownListPekerjaanIbu.SelectedIndex) + ")";
             string Hasil = InsertDataKeluarga(SqlCmd);
             if (Hasil == "OK")

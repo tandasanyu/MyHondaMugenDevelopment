@@ -23,8 +23,8 @@ public partial class PageUser_PageUser_FormRiwayatPekerjaan : System.Web.UI.Page
         string AlasanK, string TglMasuk, string TglKeluar, string Jab, string JobDesk, string GajiAk)
     {
         string Hasil = string.Empty;
-        if (GajiAw != "" && GajiAk != "" && NamaPt !="" && AlamatPt != "" && TelpPt != "" && NamaAtasan != "" && AlasanK !=""
-            && TglMasuk != "" && TglKeluar != "" && Jab != "" && JobDesk != "" )
+        if (GajiAw.Length != 0 && GajiAk.Length != 0 && NamaPt.Length != 0 && AlamatPt.Length != 0 && TelpPt.Length != 0 && NamaAtasan.Length != 0 && AlasanK.Length != 0
+            && TglMasuk.Length != 0 && TglKeluar.Length != 0 && Jab.Length != 0 && JobDesk.Length != 0)
         {
             
             int idLamaran = Convert.ToInt32(IdLamar);
@@ -59,7 +59,7 @@ public partial class PageUser_PageUser_FormRiwayatPekerjaan : System.Web.UI.Page
     public string InsertData_Referensi(string NamaRef, string AlamatRef, string TelpRef, string PekerjaanRef, int Hub)
     {
         string Hasil = string.Empty;
-        if (Hub != 0 && NamaRef != "" && AlamatRef != "" && TelpRef != "" && PekerjaanRef != "")
+        if (Hub != 0 && NamaRef.Length != 0 && AlamatRef.Length != 0 && TelpRef.Length != 0 && PekerjaanRef.Length != 0)
         {
             KelasKoneksi kn = new KelasKoneksi();
             int idLamaran = Convert.ToInt32(IdLamar);

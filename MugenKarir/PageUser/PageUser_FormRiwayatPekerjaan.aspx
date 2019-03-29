@@ -198,6 +198,13 @@
                                 <br />
                                 <asp:Label ID="Label4" runat="server" Text="Nama Perusahaan :" Font-Bold="true"></asp:Label>
                                 <asp:TextBox ID="TxtNamaPerusahaan1" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
+                                  <asp:RegularExpressionValidator ID="RegularExpressionValidator2" 
+                                    runat="server" 
+                                    ErrorMessage="Nama Hanya boleh Huruf"
+                                    ForeColor="Red"
+                                    ControlToValidate="TxtNamaPerusahaan1"
+                                    ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                    ></asp:RegularExpressionValidator>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -208,6 +215,13 @@
                                 <br />
                                 <asp:Label ID="Label2" runat="server" Text="Alamat Perusahaan :" Font-Bold="true"></asp:Label>
                                 <textarea id="TxtAlamatPerusahaan1" cols="20" rows="2" runat="server" class="form-control" autocomplete="off"></textarea>                             
+                              <asp:RegularExpressionValidator ID="RegularExpressionValidator3" 
+                                runat="server" 
+                                ErrorMessage="Nama Hanya boleh Huruf"
+                                ForeColor="Red"
+                                ControlToValidate="TxtAlamatPerusahaan1"
+                                ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                ></asp:RegularExpressionValidator>                           
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -228,6 +242,13 @@
                                 <br />
                                 <asp:Label ID="Label9" runat="server" Text="Nama Atasan :" Font-Bold="true"></asp:Label>
                                 <asp:TextBox ID="TxtNamaAtasan1" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
+                              <asp:RegularExpressionValidator ID="RegularExpressionValidator4" 
+                                runat="server" 
+                                ErrorMessage="Nama Hanya boleh Huruf"
+                                ForeColor="Red"
+                                ControlToValidate="TxtAlamatPerusahaan1"
+                                ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                ></asp:RegularExpressionValidator>        
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -248,6 +269,13 @@
                                 <br />
                                 <asp:Label ID="Label13" runat="server" Text="Alasan Keluar :" Font-Bold="true"></asp:Label>
                                 <asp:TextBox ID="TxtAlasanKeluar1" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
+                              <asp:RegularExpressionValidator ID="RegularExpressionValidator5" 
+                                runat="server" 
+                                ErrorMessage="Nama Hanya boleh Huruf"
+                                ForeColor="Red"
+                                ControlToValidate="TxtAlamatPerusahaan1"
+                                ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                ></asp:RegularExpressionValidator>        
                             </div>
                           </div>                       
                         </div>
@@ -258,6 +286,13 @@
                                 <br />
                                 <asp:Label ID="Label14" runat="server" Text="Nama Perusahaan :" Font-Bold="true"></asp:Label>
                                 <asp:TextBox ID="TxtNamaPerusahaan2" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
+                                <asp:RegularExpressionValidator 
+                                    ID="RegularExpressionValidator1" 
+                                    runat="server" 
+                                    ErrorMessage="RegularExpressionValidator"
+                                    ValidationExpression="^([\sA-Za-z]+)$"
+                                    ControlToValidate="TxtNamaPerusahaan2"
+                                    ></asp:RegularExpressionValidator>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -268,6 +303,13 @@
                                 <br />
                                 <asp:Label ID="Label16" runat="server" Text="Alamat Perusahaan :" Font-Bold="true"></asp:Label>
                                 <textarea id="TxtAlamatPerusahaan2"  cols="20" rows="2" runat="server" class="form-control" autocomplete="off"></textarea>                             
+                               <asp:RegularExpressionValidator ID="RegularExpressionValidator6" 
+                                runat="server" 
+                                ErrorMessage="Nama Hanya boleh Huruf"
+                                ForeColor="Red"
+                                ControlToValidate="TxtAlamatPerusahaan2"
+                                ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                ></asp:RegularExpressionValidator>                                
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -288,6 +330,13 @@
                                 <br />
                                 <asp:Label ID="Label20" runat="server" Text="Nama Atasan :" Font-Bold="true"></asp:Label>
                                 <asp:TextBox ID="TxtNamaAtasan2" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
+                               <asp:RegularExpressionValidator ID="RegularExpressionValidator7" 
+                                runat="server" 
+                                ErrorMessage="Nama Hanya boleh Huruf"
+                                ForeColor="Red"
+                                ControlToValidate="TxtNamaAtasan2"
+                                ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                ></asp:RegularExpressionValidator>  
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -308,6 +357,13 @@
                                 <br />
                                 <asp:Label ID="Label24" runat="server" Text="Alasan Keluar :" Font-Bold="true"></asp:Label>
                                 <asp:TextBox ID="TxtAlasanKeluar2" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
+                               <asp:RegularExpressionValidator ID="RegularExpressionValidator8" 
+                                runat="server" 
+                                ErrorMessage="Nama Hanya boleh Huruf"
+                                ForeColor="Red"
+                                ControlToValidate="TxtAlasanKeluar2"
+                                ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                ></asp:RegularExpressionValidator>  
                             </div>
                           </div>                       
                         </div>
@@ -318,6 +374,13 @@
                                 <br />
                                 <asp:Label ID="Label25" runat="server" Text="Nama Perusahaan :" Font-Bold="true"></asp:Label>
                                 <asp:TextBox ID="TxtNamaPerusahaan3" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
+                               <asp:RegularExpressionValidator ID="RegularExpressionValidator9" 
+                                runat="server" 
+                                ErrorMessage="Nama Hanya boleh Huruf"
+                                ForeColor="Red"
+                                ControlToValidate="TxtNamaPerusahaan3"
+                                ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                ></asp:RegularExpressionValidator>  
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -348,6 +411,13 @@
                                 <br />
                                 <asp:Label ID="Label31" runat="server" Text="Nama Atasan :" Font-Bold="true"></asp:Label>
                                 <asp:TextBox ID="TxtNamaAtasan3" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
+                               <asp:RegularExpressionValidator ID="RegularExpressionValidator10" 
+                                runat="server" 
+                                ErrorMessage="Nama Hanya boleh Huruf"
+                                ForeColor="Red"
+                                ControlToValidate="TxtNamaAtasan3"
+                                ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                ></asp:RegularExpressionValidator>  
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -368,6 +438,13 @@
                                 <br />
                                 <asp:Label ID="Label35" runat="server" Text="Alasan Keluar :" Font-Bold="true"></asp:Label>
                                 <asp:TextBox ID="TxtAlasanKeluar3" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
+                               <asp:RegularExpressionValidator ID="RegularExpressionValidator11" 
+                                runat="server" 
+                                ErrorMessage="Nama Hanya boleh Huruf"
+                                ForeColor="Red"
+                                ControlToValidate="TxtAlasanKeluar3"
+                                ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                ></asp:RegularExpressionValidator>  
                             </div>
                           </div>                       
                         </div>
@@ -402,6 +479,13 @@
                                     <tr>
                                         <td>
                                             <asp:TextBox ID="TxtNamaReferensi1" autocomplete="off" class="form-control" runat="server" ></asp:TextBox>
+                                           <asp:RegularExpressionValidator ID="RegularExpressionValidator12" 
+                                            runat="server" 
+                                            ErrorMessage="Nama Hanya boleh Huruf"
+                                            ForeColor="Red"
+                                            ControlToValidate="TxtNamaReferensi1"
+                                            ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                            ></asp:RegularExpressionValidator>                                         
                                         </td>
                                         <td>
                                             <asp:TextBox ID="TxtAlamatReferensi1" autocomplete="off" class="form-control" runat="server" ></asp:TextBox>
@@ -447,6 +531,13 @@
                                     <tr>
                                         <td>
                                             <asp:TextBox ID="TxtNamaReferensi2" autocomplete="off" class="form-control" runat="server" ></asp:TextBox>
+                                           <asp:RegularExpressionValidator ID="RegularExpressionValidator13" 
+                                            runat="server" 
+                                            ErrorMessage="Nama Hanya boleh Huruf"
+                                            ForeColor="Red"
+                                            ControlToValidate="TxtNamaReferensi2"
+                                            ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                            ></asp:RegularExpressionValidator>                                               
                                         </td>
                                         <td>
                                             <asp:TextBox ID="TxtAlamatReferensi2" autocomplete="off" class="form-control" runat="server" ></asp:TextBox>

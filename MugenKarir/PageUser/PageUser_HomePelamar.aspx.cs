@@ -28,13 +28,15 @@ public partial class PageUser_PageUser_HomePelamar : System.Web.UI.Page
         username = Convert.ToString(Session["User"]); // berisi username dari tb.login
         //get user_nama_login
         string user_nama;
-        string sql = "select user_nama_login from Login_User where Username_Login = '" + username + "'";
+        int id_login;
+        string sql = "select user_nama_login, id_login from Login_User where Username_Login = '" + username + "'";
         KelasKoneksi cn = new KelasKoneksi();
         List<String> hasil = cn.KelasKoneksi_SelectGlobal(sql, "2");
         if (hasil.Count > 0)
         {
             user_nama = hasil[0];
-            string sql2 = "select id_lamaran, user_posisi from Data_Lamaran where user_nama = '" + user_nama + "'";
+            id_login = Convert.ToInt32(hasil[1]);
+            string sql2 = "select id_lamaran, user_posisi from Data_Lamaran where user_nama = '" + user_nama + "' and id_login ="+id_login+"";
             List<String> hasil2 = cn.KelasKoneksi_SelectGlobal(sql2, "3");
             if (hasil2.Count > 0)
             {

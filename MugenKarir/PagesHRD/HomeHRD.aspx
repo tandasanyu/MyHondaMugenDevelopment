@@ -117,7 +117,7 @@
                                 </LayoutTemplate>
                                 <EmptyDataTemplate>
                                     <%--<p><em>Data Tidak Ada</em></p>--%>
-                                    <div class="text-center" style="margin-left:35%">
+                                    <div class="text-center" style="margin-left:5%">
                                     <asp:Image ID="Image1" runat="server" ImageUrl="~/img/NoRecordFound.png"/>
                                     </div>                                  
                                 </EmptyDataTemplate>

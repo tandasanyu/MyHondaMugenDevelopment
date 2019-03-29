@@ -72,6 +72,33 @@ $(function() {
                     $("#TextAreaAamatKTP").css("display", "none");
                 }
             });
+            //untuk rb npwp
+            $('#RadioButtonListNPWP input').change(function () {
+                if ($(this).val() != "Tidak Ada") {
+                    $("#TxtNPWP").css("display", "block");
+                }
+                else {
+                    $("#TxtNPWP").css("display", "none");
+                }
+            });
+            //untuk rb jamoso
+            $('#RadioButtonListJamsostek input').change(function () {
+                if ($(this).val() != "Tidak Ada") {
+                    $("#TxtJamsos").css("display", "block");
+                }
+                else {
+                    $("#TxtJamsos").css("display", "none");
+                }
+            });
+            //untuk rb bca
+            $('#RadioButtonListBCA input').change(function () {
+                if ($(this).val() != "Tidak Ada") {
+                    $("#TxtRekBca").css("display", "block");
+                }
+                else {
+                    $("#TxtRekBca").css("display", "none");
+                }
+            });
         });
     </script>
 </head>
@@ -328,37 +355,50 @@ $(function() {
                       </div>
                       <div class="form-group"><!-- NPWP -->
                           <asp:Label ID="Label16" CssClass="col-sm-4" runat="server" Font-Bold="true" Text="NPWP"></asp:Label>
-                          <div class="col-sm-8">
-                              <asp:TextBox ID="TxtNPWP" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
-                              <asp:RequiredFieldValidator ID="RequiredFieldValidator13" 
+                              <asp:RadioButtonList ID="RadioButtonListNPWP" repeatdirection="Horizontal" TextAlign="Right" CellPadding="9"  runat="server">
+                                  <asp:ListItem>Ada</asp:ListItem>
+                                  <asp:ListItem>Tidak Ada</asp:ListItem>
+                              </asp:RadioButtonList>       
+                              <asp:RequiredFieldValidator ID="RequiredFieldValidator7" 
                                   runat="server" 
-                                  ErrorMessage="Nomor NPWP Wajib Di Isi"
+                                  ErrorMessage="Wajib Di Isi"
                                   ForeColor="Red"
-                                  ControlToValidate="TxtNPWP"
-                                  ></asp:RequiredFieldValidator>
+                                  ControlToValidate="RadioButtonListNPWP"
+                                  ></asp:RequiredFieldValidator>                                          
+                          <div class="col-sm-8">
+                              <p style="color:red">NPWP wajib 15 Angka</p>
+                              <asp:TextBox ID="TxtNPWP" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
                           </div>                         
                       </div>
                       <div class="form-group"><!-- Jamsostek -->
                           <asp:Label ID="Label17" CssClass="col-sm-4" runat="server" Font-Bold="true" Text="Nomor Jamsostek"></asp:Label>
-                          <div class="col-sm-8">
-                              <asp:TextBox ID="TxtJamsos" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
-                              <asp:RequiredFieldValidator ID="RequiredFieldValidator14" 
+                          <asp:RadioButtonList ID="RadioButtonListJamsostek" repeatdirection="Horizontal" TextAlign="Right" CellPadding="9"  runat="server">
+                                  <asp:ListItem>Ada</asp:ListItem>
+                                  <asp:ListItem>Tidak Ada</asp:ListItem>
+                          </asp:RadioButtonList>                     
+                              <asp:RequiredFieldValidator ID="RequiredFieldValidator13" 
                                   runat="server" 
-                                  ErrorMessage="Nomor Jamsostek Wajib Di Isi"
+                                  ErrorMessage="Wajib Di Isi"
                                   ForeColor="Red"
-                                  ControlToValidate="TxtJamsos"
-                                  ></asp:RequiredFieldValidator>
-                              <asp:RegularExpressionValidator ID="RegularExpressionValidator8"
-                                   runat="server" 
-                                  ErrorMessage="Wajib Angka"
-                                  ControlToValidate="TxtJamsos"
-                                  ForeColor="Red"
-                                  ValidationExpression="\d+"
-                                  ></asp:RegularExpressionValidator>
+                                  ControlToValidate="RadioButtonListJamsostek"
+                                  ></asp:RequiredFieldValidator>  
+                          <div class="col-sm-8">
+                              <p style="color:red">NPWP wajib 13 Angka</p>
+                              <asp:TextBox ID="TxtJamsos" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
                           </div>                         
                       </div>
                       <div class="form-group"><!-- REK BCA -->
                           <asp:Label ID="Label18" CssClass="col-sm-4" runat="server" Font-Bold="true" Text="Nomor Rek.BCA"></asp:Label>
+                          <asp:RadioButtonList ID="RadioButtonListBCA" repeatdirection="Horizontal" TextAlign="Right" CellPadding="9"  runat="server">
+                                  <asp:ListItem>Ada</asp:ListItem>
+                                  <asp:ListItem>Tidak Ada</asp:ListItem>
+                          </asp:RadioButtonList>            
+                               <asp:RequiredFieldValidator ID="RequiredFieldValidator14" 
+                                  runat="server" 
+                                  ErrorMessage="Wajib Di Isi"
+                                  ForeColor="Red"
+                                  ControlToValidate="RadioButtonListBCA"
+                                  ></asp:RequiredFieldValidator>          
                           <div class="col-sm-8">
                               <asp:TextBox ID="TxtRekBca" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
                               <asp:RegularExpressionValidator ID="RegularExpressionValidator7"

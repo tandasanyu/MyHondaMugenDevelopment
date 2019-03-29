@@ -17,6 +17,8 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
     public string telp_rumah;
     public int nosim;
     public string rek;
+    public string npwp;
+    public string jamsos;
     //public DateTime dateLahir = DateTime.ParseExact(TxtTglLahir.Text, "dd/MM/yyyy", null);
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -35,21 +37,30 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
         Alamat = TextAreaAlamatKTP.InnerText;
         //proses insert ke table data_diri*********** di buat method 
         KelasKoneksi kn = new KelasKoneksi();
-        string SqlCmd = "Insert into Data_Diri (Id_lamaran, Nama_Lengkap, Nama_Panggilan, Tempat_Lahir, Tgl_Lahir, JenKel, Agama, Alamat_KTP, Alamat_Tinggal, No_Telp, No_HP, Email, Hobi, No_KTP, No_NPWP, No_Jamsos, Jen_SIM, No_SIM, NoRekBCA) values (" + Convert.ToInt32(IdLamar)+", '"+TxtNamaLengkap.Text+"', '"+TxtNamaPanggilan.Text+"', '"+TxtTempatLahir.Text+ "', convert(date,'"+TxtTglLahir.Text+"',105), " + Convert.ToInt32(rbList_JenKels) +",  " + Convert.ToInt32(rbList_Agama) + ",'"+ Alamat + "', '"+TTL_KTP+"', '"+telp_rumah +"', '"+TxtHandphone.Text+"', '"+TxtEmail.Text+"', '"+TxtHobi.Text+"', '"+TxtNoKTP.Text+"', '"+TxtNPWP.Text+"', '"+TxtJamsos.Text+"', "+Convert.ToInt32(rbList_JenSIM) +", "+nosim+", "+rek+")";
-        string Hasil_Insert = kn.KelasKoneksi_Insert(SqlCmd);
-        if (Hasil_Insert == "1")
-        {
-            Hasil = "OK";
+        //tambah validasi npwp jika kosong
+        if (TxtNPWP.Text ==  String.Empty) {
+            TxtNPWP.Text = "--";
         }
-        else {
-            Hasil = Hasil_Insert;
+        if (jamsos.Length !=0 && rek.Length != 0 && npwp.Length !=0) {
+            string SqlCmd = "Insert into Data_Diri (Id_lamaran, Nama_Lengkap, Nama_Panggilan, Tempat_Lahir, Tgl_Lahir, JenKel, Agama, Alamat_KTP, Alamat_Tinggal, No_Telp, No_HP, Email, Hobi, No_KTP, No_NPWP, No_Jamsos, Jen_SIM, No_SIM, NoRekBCA) values (" + Convert.ToInt32(IdLamar) + ", '" + TxtNamaLengkap.Text + "', '" + TxtNamaPanggilan.Text + "', '" + TxtTempatLahir.Text + "', convert(date,'" + TxtTglLahir.Text + "',105), " + Convert.ToInt32(rbList_JenKels) + ",  " + Convert.ToInt32(rbList_Agama) + ",'" + Alamat + "', '" + TTL_KTP + "', '" + telp_rumah + "', '" + TxtHandphone.Text + "', '" + TxtEmail.Text + "', '" + TxtHobi.Text + "', '" + TxtNoKTP.Text + "', '" + npwp + "', '" + jamsos + "', " + Convert.ToInt32(rbList_JenSIM) + ", " + nosim + ", " + rek + ")";
+            string Hasil_Insert = kn.KelasKoneksi_Insert(SqlCmd);
+            if (Hasil_Insert == "1")
+            {
+                Hasil = "OK";
+            }
+            else
+            {
+                Hasil = Hasil_Insert;
+            }
+        } else {
+            Hasil = "Data anda kurang lengkap, cek kembali form isian anda";
         }
         return Hasil;
     }
     //BIG NOTE*****
     //telpon rumah tidak wajib di isi
     //validasi jika rbList Jenis alamat dipilih Berbeda dengan KTP maka text area bisa di isi dan di validasi tidak bole kosong
-    public int s1, s2, s3,s4;
+    public int s1, s2, s3,s4, s5;
     
     protected void BtnSubmitFormDataDiri_Click(object sender, EventArgs e)
     {
@@ -59,32 +70,76 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
         selectedValue = RadioButtonListAlamatTinggal.SelectedValue;
         
         
-        telp_rumah = TxtTeleponRumah.Text;
-         rek = TxtRekBca.Text;
-        //validasi rek bca
-        if (rek == "")
+        
+        //validasi npwp
+        if (RadioButtonListNPWP.SelectedIndex == 0)
         {
-            rek = "0";
-            s3 = 1;
+            if (npwp.Length != 0 )
+            {
+                if (npwp.Length == 15)
+                {
+                    npwp = TxtNPWP.Text;
+                    s5 = 1;
+                } else {
+                    s5 = 0;
+                }
+            } else {
+                s5 = 0;
+            }
         }
         else
         {
-            rek = TxtRekBca.Text;
+            npwp = "0";
+            s5 = 1;
+        }
+        //validasi jamsostek
+        if (RadioButtonListJamsostek.SelectedIndex == 0)
+        {
+            if (jamsos.Length !=0 ) {
+                if (jamsos.Length == 13)
+                {
+                    jamsos = TxtJamsos.Text;
+                    s4 = 1;
+                }
+                else
+                {
+                    s4 = 0;
+                }
+            } else {
+                s4 = 0;
+            }
+        }
+        else
+        {
+            jamsos = "0";
+            s4 = 1;
+        }
+        //validasi rek bca
+        if (RadioButtonListBCA.SelectedIndex==0) {
+            if (rek.Length !=0) {
+                rek = TxtRekBca.Text;
+                s3 = 1;
+            } else {
+                s3 = 0;
+            }
+        } else {
+            rek = "0";
             s3 = 1;
         }
         //validasi telp rumah
-        if (telp_rumah == "")
+        if (telp_rumah.Length == 0)
         {
             telp_rumah = "0";
             s1 = 1;
         }
         else {
+            telp_rumah = TxtTeleponRumah.Text;
             s1 = 1;
         }
         //validasi ktp
         if (selectedValue == "Berbeda dengan KTP") {         
             TTL_KTP = TextAreaAamatKTP.InnerText;
-            if (TTL_KTP == "")
+            if (TTL_KTP.Length == 0)
             {
                 s2 = 0;
                 Response.Write("<script language=javascript>alert('Alamat Berbeda dengan KTP Wajib di Isi');</script>");
@@ -96,7 +151,7 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
         }
         else {
             TTL_KTP = TextAreaAlamatKTP.InnerText;
-            if (TTL_KTP == "")
+            if (TTL_KTP.Length == 0)
             {
                 s2 = 0;
                 Response.Write("<script language=javascript>alert('Alamat Berbeda dengan KTP Wajib di Isi');</script>");
@@ -130,7 +185,7 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
         else {
             s4 = 1;
         }
-        if (s1==1 && s2==1 && s4==1 && s3 == 1) {
+        if (s1==1 && s2==1 && s4==1 && s3 == 1 && s4==1 && s5==1) {
             //***validasi data sebelum insert
             //******validasi data jenkel
 
