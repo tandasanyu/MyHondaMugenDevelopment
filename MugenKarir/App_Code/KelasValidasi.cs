@@ -9,14 +9,85 @@ using System.Web;
 /// </summary>
 public class KelasValidasi
 {
-    public bool validasi_riwayatPekerjaan(string var1, int sub)
+    //validasi data pasangan 
+    public bool validasi_DataPasangan(string var1,int var2,int sub)
     {
-        if (sub==1) {
-            //if (Regex.IsMatch(var1, "^([\sA-Za-z]+)$"))
-            //{
-            //    //Do stuff..
-            //}
+        bool status=false;
+        if (sub == 1) {//validasi idlamaran
+            if (var1.Length != 0)
+            {
+                status = true;
+            }
+            else {
+                status = false;
+            }
+        } else if (sub == 2) {
+            if (var2 != 0)
+            {
+                status = true;
+            }
+            else {
+                status = false;
+            }
         }
-        return true;
+        return status;
     }
+
+    //validasi data anak
+    public bool validasi_DataAnak(string var1, int var2, int sub)
+    {
+        bool status = false;
+        if (sub == 1)
+        {//validasi idlamaran
+            if (var1.Length != 0)
+            {
+                status = true;
+            }
+            else
+            {
+                status = false;
+            }
+        }
+        else if (sub == 2)
+        {
+            if (var2 != 0)
+            {
+                status = true;
+            }
+            else
+            {
+                status = false;
+            }
+        }
+        return status;
+    }
+
+    public bool validasi_DataSaudara(string var1, int var2, int sub)
+    {
+        bool status = false;
+        if (sub == 1)
+        {//validasi idlamaran
+            if (var1.Length != 0)
+            {
+                status = true;
+            }
+            else
+            {
+                status = false;
+            }
+        }
+        else if (sub == 2)
+        {
+            if (var2 != 0)
+            {
+                status = true;
+            }
+            else
+            {
+                status = false;
+            }
+        }
+        return status;
+    }
+
 }

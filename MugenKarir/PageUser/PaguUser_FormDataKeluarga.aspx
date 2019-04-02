@@ -398,6 +398,14 @@ h2.FormDataDiri {
                                         <td>Saudara Kandung Ke-1</td>
                                         <td>
                                             <asp:TextBox ID="TxtNamaSK1" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:RegularExpressionValidator 
+                                            ID="RegularExpressionValidator3" 
+                                            runat="server" 
+                                            ErrorMessage="Nama Hanya boleh Huruf" 
+                                            ForeColor="Red"
+                                            ControlToValidate="TxtNamaSK1"
+                                            ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                            ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListJenisKelaminSK1" class="form-control" runat="server">
@@ -407,7 +415,14 @@ h2.FormDataDiri {
                                             </asp:DropDownList>                                            
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TxtUsiaSK1" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="TxtUsiaSK1" onKeypress="return isNumberKey(event)" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                              <asp:RegularExpressionValidator ID="RegularExpressionValidator4"
+                                                   runat="server" 
+                                                  ErrorMessage="Wajib Angka"
+                                                  ControlToValidate="TxtUsiaSK1"
+                                                  ForeColor="Red"
+                                                  ValidationExpression="\d+"
+                                                  ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK1" class="form-control" runat="server">
@@ -450,6 +465,14 @@ h2.FormDataDiri {
                                         <td>Saudara Kandung Ke-2</td>
                                         <td>
                                             <asp:TextBox ID="TxtNamaSK2" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:RegularExpressionValidator 
+                                            ID="RegularExpressionValidator5" 
+                                            runat="server" 
+                                            ErrorMessage="Nama Hanya boleh Huruf" 
+                                            ForeColor="Red"
+                                            ControlToValidate="TxtNamaSK2"
+                                            ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                            ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListJenisKelaminSK2" class="form-control" runat="server">
@@ -459,7 +482,14 @@ h2.FormDataDiri {
                                             </asp:DropDownList>                                            
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TxtUsiaSK2" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="TxtUsiaSK2" onKeypress="return isNumberKey(event)" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                              <asp:RegularExpressionValidator ID="RegularExpressionValidator6"
+                                                   runat="server" 
+                                                  ErrorMessage="Wajib Angka"
+                                                  ControlToValidate="TxtUsiaSK2"
+                                                  ForeColor="Red"
+                                                  ValidationExpression="\d+"
+                                                  ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK2" class="form-control" runat="server">
@@ -501,7 +531,15 @@ h2.FormDataDiri {
                                     <tr>
                                         <td>Saudara Kandung Ke-3</td>
                                         <td>
-                                            <asp:TextBox ID="TxtNamaSK3" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="TxtNamaSK3"  class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:RegularExpressionValidator 
+                                            ID="RegularExpressionValidator7" 
+                                            runat="server" 
+                                            ErrorMessage="Nama Hanya boleh Huruf" 
+                                            ForeColor="Red"
+                                            ControlToValidate="TxtNamaSK3"
+                                            ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                            ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListJenisKelaminSK3" class="form-control" runat="server">
@@ -511,7 +549,14 @@ h2.FormDataDiri {
                                             </asp:DropDownList>                                            
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TxtUsiaSK3" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="TxtUsiaSK3" onKeypress="return isNumberKey(event)" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                          <asp:RegularExpressionValidator ID="RegularExpressionValidator8"
+                                               runat="server" 
+                                              ErrorMessage="Wajib Angka"
+                                              ControlToValidate="TxtUsiaSK3"
+                                              ForeColor="Red"
+                                              ValidationExpression="\d+"
+                                              ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK3" class="form-control" runat="server">
@@ -554,6 +599,14 @@ h2.FormDataDiri {
                                         <td>Saudara Kandung Ke-4</td>
                                         <td>
                                             <asp:TextBox ID="TxtNamaSK4" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:RegularExpressionValidator 
+                                            ID="RegularExpressionValidator9" 
+                                            runat="server" 
+                                            ErrorMessage="Nama Hanya boleh Huruf" 
+                                            ForeColor="Red"
+                                            ControlToValidate="TxtNamaSK4"
+                                            ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                            ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListJenisKelaminSK4" class="form-control" runat="server">
@@ -563,7 +616,14 @@ h2.FormDataDiri {
                                             </asp:DropDownList>                                            
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TxtUsiaSK4" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="TxtUsiaSK4" onKeypress="return isNumberKey(event)" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                          <asp:RegularExpressionValidator ID="RegularExpressionValidator10"
+                                               runat="server" 
+                                              ErrorMessage="Wajib Angka"
+                                              ControlToValidate="TxtUsiaSK4"
+                                              ForeColor="Red"
+                                              ValidationExpression="\d+"
+                                              ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK4" class="form-control" runat="server">
@@ -606,6 +666,14 @@ h2.FormDataDiri {
                                         <td>Saudara Kandung Ke-5</td>
                                         <td>
                                             <asp:TextBox ID="TxtNamaSK5" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                                <asp:RegularExpressionValidator 
+                                                ID="RegularExpressionValidator11" 
+                                                runat="server" 
+                                                ErrorMessage="Nama Hanya boleh Huruf" 
+                                                ForeColor="Red"
+                                                ControlToValidate="TxtNamaSK5"
+                                                ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                                ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListJenisKelaminSK5" class="form-control" runat="server">
@@ -615,7 +683,14 @@ h2.FormDataDiri {
                                             </asp:DropDownList>                                            
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TxtUsiaSK5" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="TxtUsiaSK5" onKeypress="return isNumberKey(event)" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                          <asp:RegularExpressionValidator ID="RegularExpressionValidator12"
+                                               runat="server" 
+                                              ErrorMessage="Wajib Angka"
+                                              ControlToValidate="TxtUsiaSK5"
+                                              ForeColor="Red"
+                                              ValidationExpression="\d+"
+                                              ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK5" class="form-control" runat="server">
@@ -658,6 +733,14 @@ h2.FormDataDiri {
                                         <td>Saudara Kandung Ke-6</td>
                                         <td>
                                             <asp:TextBox ID="TxtNamaSK6" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:RegularExpressionValidator 
+                                            ID="RegularExpressionValidator13" 
+                                            runat="server" 
+                                            ErrorMessage="Nama Hanya boleh Huruf" 
+                                            ForeColor="Red"
+                                            ControlToValidate="TxtNamaSK6"
+                                            ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                            ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListJenisKelaminSK6" class="form-control" runat="server">
@@ -667,7 +750,14 @@ h2.FormDataDiri {
                                             </asp:DropDownList>                                            
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TxtUsiaSK6" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="TxtUsiaSK6" onKeypress="return isNumberKey(event)" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                          <asp:RegularExpressionValidator ID="RegularExpressionValidator14"
+                                               runat="server" 
+                                              ErrorMessage="Wajib Angka"
+                                              ControlToValidate="TxtUsiaSK6"
+                                              ForeColor="Red"
+                                              ValidationExpression="\d+"
+                                              ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK6" class="form-control" runat="server">
@@ -710,6 +800,14 @@ h2.FormDataDiri {
                                         <td>Saudara Kandung Ke-7</td>
                                         <td>
                                             <asp:TextBox ID="TxtNamaSK7" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:RegularExpressionValidator 
+                                            ID="RegularExpressionValidator15" 
+                                            runat="server" 
+                                            ErrorMessage="Nama Hanya boleh Huruf" 
+                                            ForeColor="Red"
+                                            ControlToValidate="TxtNamaSK7"
+                                            ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                            ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListJenisKelaminSK7" class="form-control" runat="server">
@@ -719,7 +817,14 @@ h2.FormDataDiri {
                                             </asp:DropDownList>                                            
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TxtUsiaSK7" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="TxtUsiaSK7" onKeypress="return isNumberKey(event)" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                          <asp:RegularExpressionValidator ID="RegularExpressionValidator16"
+                                               runat="server" 
+                                              ErrorMessage="Wajib Angka"
+                                              ControlToValidate="TxtUsiaSK7"
+                                              ForeColor="Red"
+                                              ValidationExpression="\d+"
+                                              ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK7" class="form-control" runat="server">
@@ -762,6 +867,14 @@ h2.FormDataDiri {
                                         <td>Saudara Kandung Ke-8</td>
                                         <td>
                                             <asp:TextBox ID="TxtNamaSK8" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:RegularExpressionValidator 
+                                            ID="RegularExpressionValidator17" 
+                                            runat="server" 
+                                            ErrorMessage="Nama Hanya boleh Huruf" 
+                                            ForeColor="Red"
+                                            ControlToValidate="TxtNamaSK8"
+                                            ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                            ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListJenisKelaminSK8" class="form-control" runat="server">
@@ -771,7 +884,14 @@ h2.FormDataDiri {
                                             </asp:DropDownList>                                            
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="TxtUsiaSK8" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:TextBox ID="TxtUsiaSK8" onKeypress="return isNumberKey(event)" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                          <asp:RegularExpressionValidator ID="RegularExpressionValidator18"
+                                               runat="server" 
+                                              ErrorMessage="Wajib Angka"
+                                              ControlToValidate="TxtUsiaSK8"
+                                              ForeColor="Red"
+                                              ValidationExpression="\d+"
+                                              ></asp:RegularExpressionValidator>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK8" class="form-control" runat="server">
@@ -828,9 +948,24 @@ h2.FormDataDiri {
                                     <td>Suami / Istri</td>
                                     <td>
                                         <asp:TextBox ID="TxtNamaSuamiIstri" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                        <asp:RegularExpressionValidator 
+                                        ID="RegularExpressionValidator19" 
+                                        runat="server" 
+                                        ErrorMessage="Nama Hanya boleh Huruf" 
+                                        ForeColor="Red"
+                                        ControlToValidate="TxtNamaSuamiIstri"
+                                        ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                        ></asp:RegularExpressionValidator>
                                     </td>
                                     <td>
-                                      <asp:TextBox ID="TxtUsiaSuamiIstri" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                      <asp:TextBox ID="TxtUsiaSuamiIstri" onKeypress="return isNumberKey(event)" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                          <asp:RegularExpressionValidator ID="RegularExpressionValidator20"
+                                               runat="server" 
+                                              ErrorMessage="Wajib Angka"
+                                              ControlToValidate="TxtUsiaSuamiIstri"
+                                              ForeColor="Red"
+                                              ValidationExpression="\d+"
+                                              ></asp:RegularExpressionValidator>
                                     </td>
                                     <td>
                                         <asp:DropDownList ID="DropDownListPendidikanSuamiIstri" class="form-control" runat="server">
@@ -859,10 +994,10 @@ h2.FormDataDiri {
                             <br />
                             <asp:Label ID="Label14" runat="server" Text="Pilih Jumlah Anak Anda" Font-Bold="true"></asp:Label>
                             <asp:RadioButtonList ID="RadioButtonListJumlahAnakPerKawinan" runat="server">
-                              <asp:ListItem>1</asp:ListItem>
-                              <asp:ListItem>2</asp:ListItem>
-                              <asp:ListItem>3</asp:ListItem>
-                              <asp:ListItem>Tidak Ada</asp:ListItem>
+                              <asp:ListItem Value="1">1</asp:ListItem>
+                              <asp:ListItem Value="2">2</asp:ListItem>
+                              <asp:ListItem Value="3">3</asp:ListItem>
+                              <asp:ListItem Value ="0">Tidak Ada</asp:ListItem>
                             </asp:RadioButtonList>
                         </div>
                         <div class="form-group" id="DivDataAnak1"><!-- Data Anak -->
@@ -880,8 +1015,25 @@ h2.FormDataDiri {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><asp:TextBox ID="TxtNamaAnak1" class="form-control" autocomplete="off" runat="server"></asp:TextBox></td>
-                                        <td><asp:TextBox ID="TxtUsiaAnak1" class="form-control" autocomplete="off" runat="server"></asp:TextBox></td>
+                                        <td><asp:TextBox ID="TxtNamaAnak1" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:RegularExpressionValidator 
+                                            ID="RegularExpressionValidator21" 
+                                            runat="server" 
+                                            ErrorMessage="Nama Hanya boleh Huruf" 
+                                            ForeColor="Red"
+                                            ControlToValidate="TxtNamaAnak1"
+                                            ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                            ></asp:RegularExpressionValidator>
+                                        </td>
+                                        <td><asp:TextBox ID="TxtUsiaAnak1" onKeypress="return isNumberKey(event)" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                          <asp:RegularExpressionValidator ID="RegularExpressionValidator22"
+                                               runat="server" 
+                                              ErrorMessage="Wajib Angka"
+                                              ControlToValidate="TxtUsiaAnak1"
+                                              ForeColor="Red"
+                                              ValidationExpression="\d+"
+                                              ></asp:RegularExpressionValidator>
+                                        </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListJenisKelaminAnak1" class="form-control" runat="server">
                                                 <asp:ListItem Value="0">Pilih Jenis Kelamin</asp:ListItem>
@@ -928,8 +1080,25 @@ h2.FormDataDiri {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><asp:TextBox ID="TxtNamaAnak2" class="form-control" autocomplete="off" runat="server"></asp:TextBox></td>
-                                        <td><asp:TextBox ID="TxtUsiaAnak2" class="form-control" autocomplete="off" runat="server"></asp:TextBox></td>
+                                        <td><asp:TextBox ID="TxtNamaAnak2" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:RegularExpressionValidator 
+                                            ID="RegularExpressionValidator23" 
+                                            runat="server" 
+                                            ErrorMessage="Nama Hanya boleh Huruf" 
+                                            ForeColor="Red"
+                                            ControlToValidate="TxtNamaAnak2"
+                                            ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                            ></asp:RegularExpressionValidator>
+                                        </td>
+                                        <td><asp:TextBox ID="TxtUsiaAnak2" onKeypress="return isNumberKey(event)" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                          <asp:RegularExpressionValidator ID="RegularExpressionValidator24"
+                                               runat="server" 
+                                              ErrorMessage="Wajib Angka"
+                                              ControlToValidate="TxtUsiaAnak2"
+                                              ForeColor="Red"
+                                              ValidationExpression="\d+"
+                                              ></asp:RegularExpressionValidator>
+                                        </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListJenisKelaminAnak2" class="form-control" runat="server">
                                                 <asp:ListItem Value="0">Pilih Jenis Kelamin</asp:ListItem>
@@ -975,8 +1144,25 @@ h2.FormDataDiri {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><asp:TextBox ID="TxtNamaAnak3" class="form-control" autocomplete="off" runat="server"></asp:TextBox></td>
-                                        <td><asp:TextBox ID="TxtUsiaAnak3" class="form-control" autocomplete="off" runat="server"></asp:TextBox></td>
+                                        <td><asp:TextBox ID="TxtNamaAnak3" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                            <asp:RegularExpressionValidator 
+                                            ID="RegularExpressionValidator25" 
+                                            runat="server" 
+                                            ErrorMessage="Nama Hanya boleh Huruf" 
+                                            ForeColor="Red"
+                                            ControlToValidate="TxtNamaAnak3"
+                                            ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
+                                            ></asp:RegularExpressionValidator>
+                                        </td>
+                                        <td><asp:TextBox ID="TxtUsiaAnak3" onKeypress="return isNumberKey(event)" class="form-control" autocomplete="off" runat="server"></asp:TextBox>
+                                          <asp:RegularExpressionValidator ID="RegularExpressionValidator26"
+                                               runat="server" 
+                                              ErrorMessage="Wajib Angka"
+                                              ControlToValidate="TxtUsiaAnak3"
+                                              ForeColor="Red"
+                                              ValidationExpression="\d+"
+                                              ></asp:RegularExpressionValidator>
+                                        </td>
                                         <td>
                                             <asp:DropDownList ID="DropDownListJenisKelaminAnak3" class="form-control" runat="server">
                                                 <asp:ListItem Value="0">Pilih Jenis Kelamin</asp:ListItem>

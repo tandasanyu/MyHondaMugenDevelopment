@@ -950,6 +950,7 @@
                                         <th style="text-align:center; color:white">Persetujuan Atasan dari Atasan Langsung</th>
                                         <th style="text-align:center; color:white">Izin Status</th>
                                         <th style="text-align:center; color:white">Detail</th>
+                                        <th style="text-align:center; color:white">Action</th>
 							        </thead>
 							        <asp:PlaceHolder ID="itemPlaceHolder" runat="server" />
 						        </table>
@@ -973,7 +974,8 @@
                                     </td> 
                                     <td><%#Eval("IZIN_STATUS")%></td>                                
 							        <td style="text-align:center"><asp:LinkButton ID="lnkSelect" Text='DETAIL' CommandName="Select" runat="server" ><img src="img/detail.png" width="50px" height="50px" /></asp:LinkButton></td>
-						        </tr>
+						            <td></td>
+                                </tr>
 					        </ItemTemplate>
 					        <EmptyDataTemplate>Data Izin Karyawan Tidak diketemukan</EmptyDataTemplate> 
 					        <EmptyItemTemplate>Data Izin Karyawan Tidak diketemukan</EmptyItemTemplate>              
