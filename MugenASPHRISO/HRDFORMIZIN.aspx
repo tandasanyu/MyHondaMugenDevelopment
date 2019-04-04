@@ -15,9 +15,35 @@
 			}
 		}
     </script>
+    <script type="text/javascript">
 
+    </script>
     <script type="text/javascript" language="javascript">
         $(document).ready(function () {
+            //'daterange data table
+            $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                var min = $('#min').datepicker("getDate");
+                var max = $('#max').datepicker("getDate");
+                var startDate = new Date(data[4]);
+                if (min == null && max == null) { return true; }
+                if (min == null && startDate <= max) { return true; }
+                if (max == null && startDate >= min) { return true; }
+                if (startDate <= max && startDate >= min) { return true; }
+                return false;
+            }
+            );
+
+
+            $("#min").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+            $("#max").datepicker({ onSelect: function () { table.draw(); }, changeMonth: true, changeYear: true });
+            var table = $('#example').DataTable();
+
+            // Event listener to the two range filtering inputs to redraw on input
+            $('#min, #max').change(function () {
+                table.draw();
+            });
+            //end of date range data table 
             $('#staff').hide();
             $('#bawahan').hide();
             $('#btnstf').click(function () {
@@ -936,10 +962,23 @@
                                 <asp:ControlParameter ControlID="TxtStaffNIKMaster" Name="izin_nik_appvspv" PropertyName="Text" Type="String" />
                             </SelectParameters>
 				        </asp:SqlDataSource>   
-                        <!-- ListView Detali Staff  form Izin--> <br />                                  
+                        <!-- ListView Detali Staff  form Izin--> <br />      
+                       <table border="0" style="padding:10px">
+                            <tbody>
+                                <tr>
+                                    <td>Tanggal Awal :</td>
+                                    <td ><input name="min" id="min" type="text" autocomplete="off"><br /></td>
+                                </tr>
+                                <tr>
+                                    <td>Tanggal Akhir :</td>
+                                    <td><input name="max" id="max" type="text" autocomplete="off"></td>
+                                </tr>
+                            </tbody>
+                        </table>                   
+                        <br />                            
 				        <asp:ListView ID="LvDetailStaff" runat="server" DataSourceID="SqlDataIzin"  DataKeyNames ="IZIN_ID" enableviewstate="false">
 					        <LayoutTemplate>
-						        <table id="dataTable" class="table table-bordered striped data" align="left">
+						        <table id ="example" class="table table-bordered striped data" align="left">
 							        <thead style="background-color:#4877CF">
                                         <th style="text-align:center; color:white">Id Izin</th>                                       
 								        <th style="text-align:center; color:white">Nama</th>
@@ -950,7 +989,6 @@
                                         <th style="text-align:center; color:white">Persetujuan Atasan dari Atasan Langsung</th>
                                         <th style="text-align:center; color:white">Izin Status</th>
                                         <th style="text-align:center; color:white">Detail</th>
-                                        <th style="text-align:center; color:white">Action</th>
 							        </thead>
 							        <asp:PlaceHolder ID="itemPlaceHolder" runat="server" />
 						        </table>
@@ -959,11 +997,12 @@
 				
 					        <ItemTemplate>
 						        <tr> 
+
                                     <td><%#Eval("IZIN_ID")%></td>                                                                   
 							        <td><%#Eval("IZIN_NAMA")%></td>
                                     <td><%#Eval("IZIN_JENIS")%></td>   
                                     <td><%#Eval("IZIN_ALASAN")%></td> 
-                                    <td><%#Eval("IZIN_TGLPENGAJUAN", "{0:dd/MM/yyyy}")%></td>
+                                    <td><%#Eval("IZIN_TGLPENGAJUAN", "{0:MM/dd/yyyy}")%></td>
                                     <td>
                                         <p class="small"><%#Eval("IZIN_NIK_APPVSPV")%><br />
                                         <%#Eval("IZIN_TGLAPPVSPV")%></p>
@@ -974,7 +1013,6 @@
                                     </td> 
                                     <td><%#Eval("IZIN_STATUS")%></td>                                
 							        <td style="text-align:center"><asp:LinkButton ID="lnkSelect" Text='DETAIL' CommandName="Select" runat="server" ><img src="img/detail.png" width="50px" height="50px" /></asp:LinkButton></td>
-						            <td></td>
                                 </tr>
 					        </ItemTemplate>
 					        <EmptyDataTemplate>Data Izin Karyawan Tidak diketemukan</EmptyDataTemplate> 
