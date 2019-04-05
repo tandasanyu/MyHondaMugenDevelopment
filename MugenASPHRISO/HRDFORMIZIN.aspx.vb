@@ -868,15 +868,16 @@ ErrHand:
                                             Call GetData_IdIzinPengajuan("select top 1 IZIN_ID from DATA_IZIN_BODY order by izin_id desc")
                                             Response.Write("<script>alert('Value : " + idizin_pertama + "')</script>")
 
-                                            'insert data_izin_detail (list tanggal yang di ajkuan)
+                                            'insert data_izin_detail (list tanggal yang di ajkuan) //REVISI 5/4/2019
+                                            'INSERT KE TB GABUNGAN DATA_IZIN_TANGGAL
                                             If saldo_tahunanfinal <> 0 Then
                                                 For Each items As DateTime In arr_notpc
-                                                    Call UpdateData_Server("insert into DATA_IZIN_DETAIL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "')", "")
+                                                    Call UpdateData_Server("insert into DATA_IZIN_TANGGAL (IZIN_ID, izin_tgldetail, IZIN_NIK, izin_jamdetail, izin_tglstatus, izin_flag) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "', null, 'Pending', 1)", "")
                                                 Next
                                             End If
                                             If saldo_cutifinal <> 0 Then
                                                 For Each items As DateTime In arr_pc
-                                                    Call UpdateData_Server("insert into DATA_IZIN_DETAILPC (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "')", "")
+                                                    Call UpdateData_Server("insert into DATA_IZIN_TANGGAL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK, izin_jamdetail, izin_tglstatus, izin_flag) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "', null, 'Pending', 2)", "")
                                                 Next
                                             End If
                                             'For Each items As DateTime In dateListNotMinggu
@@ -925,7 +926,7 @@ ErrHand:
                                     Response.Write("<script>alert('Value : " + idizin_pertama + "')</script>")
                                     'insert data_izin_detail (list tanggal yang di ajkuan)
                                     For Each items As DateTime In dateListMelahirkan
-                                        Call UpdateData_Server("insert into DATA_IZIN_DETAIL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "')", "")
+                                        Call UpdateData_Server("insert into DATA_IZIN_TANGGAL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK, izin_jamdetail, izin_tglstatus) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "', null, 'Pending')", "")
                                     Next
 
                                     '================call function to email atasan
@@ -960,7 +961,7 @@ ErrHand:
                                         Response.Write("<script>alert('Value : " + idizin_pertama + "')</script>")
                                         'insert data_izin_detail (list tanggal yang di ajkuan)
                                         For Each items As DateTime In dateListNotMinggu
-                                            Call UpdateData_Server("insert into DATA_IZIN_DETAIL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "')", "")
+                                            Call UpdateData_Server("insert into DATA_IZIN_TANGGAL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK, izin_jamdetail, izin_tglstatus) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "', null, 'Pending')", "")
                                         Next
 
                                         '================call function to email atasan
@@ -994,7 +995,7 @@ ErrHand:
                                         Response.Write("<script>alert('Value : " + idizin_pertama + "')</script>")
                                         'insert data_izin_detail (list tanggal yang di ajkuan)
                                         For Each items As DateTime In dateListNotMinggu
-                                            Call UpdateData_Server("insert into DATA_IZIN_DETAIL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "')", "")
+                                            Call UpdateData_Server("insert into DATA_IZIN_TANGGAL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK, , izin_jamdetail, izin_tglstatus) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "', null, 'Pending')", "")
                                         Next
 
                                         '================call function to email atasan
@@ -1028,7 +1029,7 @@ ErrHand:
                                         Response.Write("<script>alert('Value : " + idizin_pertama + "')</script>")
                                         'insert data_izin_detail (list tanggal yang di ajkuan)
                                         For Each items As DateTime In dateListNotMinggu
-                                            Call UpdateData_Server("insert into DATA_IZIN_DETAIL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "')", "")
+                                            Call UpdateData_Server("insert into DATA_IZIN_TANGGAL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK, izin_jamdetail, izin_tglstatus) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "', null, 'Pending')", "")
                                         Next
 
                                         '================call function to email atasan
@@ -1062,7 +1063,7 @@ ErrHand:
                                         Response.Write("<script>alert('Value : " + idizin_pertama + "')</script>")
                                         'insert data_izin_detail (list tanggal yang di ajkuan)
                                         For Each items As DateTime In dateListNotMinggu
-                                            Call UpdateData_Server("insert into DATA_IZIN_DETAIL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "')", "")
+                                            Call UpdateData_Server("insert into DATA_IZIN_TANGAL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK, izin_jamdetail, izin_tglstatus) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "', null, 'Pending')", "")
                                         Next
 
                                         '================call function to email atasan
@@ -1096,7 +1097,7 @@ ErrHand:
                                         Response.Write("<script>alert('Value : " + idizin_pertama + "')</script>")
                                         'insert data_izin_detail (list tanggal yang di ajkuan)
                                         For Each items As DateTime In dateListNotMinggu
-                                            Call UpdateData_Server("insert into DATA_IZIN_DETAIL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "')", "")
+                                            Call UpdateData_Server("insert into DATA_IZIN_TANGGAL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK, izin_jamdetail, izin_tglstatus) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "', null, 'Pending')", "")
                                         Next
 
                                         '================call function to email atasan
@@ -1130,7 +1131,7 @@ ErrHand:
                                         Response.Write("<script>alert('Value : " + idizin_pertama + "')</script>")
                                         'insert data_izin_detail (list tanggal yang di ajkuan)
                                         For Each items As DateTime In dateListNotMinggu
-                                            Call UpdateData_Server("insert into DATA_IZIN_DETAIL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "')", "")
+                                            Call UpdateData_Server("insert into DATA_IZIN_TANGGAL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK, izin_jamdetail, izin_tglstatus) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "', null, 'Pending')", "")
                                         Next
 
                                         '================call function to email atasan
@@ -1302,7 +1303,7 @@ ErrHand:
                                     Response.Write("<script>alert('Value : " + idizin_pertama + "')</script>")
                                     'insert data_izin_detail (list tanggal yang di ajkuan)
                                     For Each items As DateTime In dateListNotMinggu
-                                        Call UpdateData_Server("insert into DATA_IZIN_DETAIL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "')", "")
+                                        Call UpdateData_Server("insert into DATA_IZIN_TANGGAL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK, izin_jamdetail, izin_tglstatus) values ('" & idizin_pertama & "','" & items & "', '" & TxtStaffNIKMaster.Text & "', null, 'Pending')", "")
                                     Next
                                     'insert data_izin_detail 
                                     'For i As Integer = 0 To x - 1
@@ -1424,7 +1425,8 @@ ErrHand:
                             EditDataStafffoto = "UPDATE DATA_IZIN_BODY SET IZIN_FILEDETAIL='" & filename & "' WHERE  IZIN_ID='" & idizin_pertama & "'"
                             Call UpdateData_Server(EditDataStafffoto, "")
                             'Dim fileuploadpath As String = "D:\Herlambang\Januari19_OnGoing\MugenASPHRISO_10_22_018_Backup\img\FileStaff"
-                            Dim fileuploadpath As String = "C:/inetpub/wwwroot/MugenASPHRISO/WEBDOWNLOAD/FOTOIZIN/"
+                            'Dim fileuploadpath As String = "C:/inetpub/wwwroot/MugenASPHRISO/WEBDOWNLOAD/FOTOIZIN/"
+                            Dim fileuploadpath As String = "C:/Users/mugen/Documents/GitHub/MyHondaMugenDevelopment/MugenASPHRISO/WEBDOWNLOAD/FOTOIZIN/"
                             'Dim Fileuploadpath As String = "D:/Herlambang/November-Ongoing - Revisi Input Data Izin (Table)/LiveMUGENASP/TestFromUpload/MugenASPHRISO_10_22_018/img/imgstaff"
                             FileUploadTerlambat.PostedFile.SaveAs(Path.Combine(fileuploadpath, filename))
                             'FileUpload1.SaveAs(Server.MapPath("~inetpub/wwwroot/MugenASPHRISO/WEBDOWNLOAD/FOTOIZIN") & filename)
@@ -1433,7 +1435,7 @@ ErrHand:
                             Call GetData_IdIzinPengajuan("select top 1 IZIN_ID from DATA_IZIN_BODY order by izin_id desc")
                             Response.Write("<script>alert('Value : " + idizin_pertama + "')</script>")
                             'insert data izin detail
-                            Call UpdateData_Server("insert into DATA_IZIN_DETAIL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK, IZIN_JAMDETAIL) values ('" & idizin_pertama & "','" & TxtIzinDatangTelat.Text & "', '" & lblNikPlgCepat.Text & "', '" & TxtIzinDatangTelatJam.Text & "')", "")
+                            Call UpdateData_Server("insert into DATA_IZIN_TANGGAL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK, IZIN_JAMDETAIL,  izin_tglstatus) values ('" & idizin_pertama & "','" & TxtIzinDatangTelat.Text & "', '" & lblNikPlgCepat.Text & "', '" & TxtIzinDatangTelatJam.Text & "', 'Pending')", "")
                             '================call function to email atasan
 
                             Call GetData_UserHead("select STAFF_EMAIL from DATA_STAFF where STAFF_NAMA ='" & lblAtasan.Text & "'", "5") 'get email atasan1 value dan menyimpan ke variabel : staffEmailnotif
@@ -1465,7 +1467,7 @@ ErrHand:
                     Call GetData_IdIzinPengajuan("select top 1 IZIN_ID from DATA_IZIN_BODY order by izin_id desc")
                     Response.Write("<script>alert('Value : " + idizin_pertama + "')</script>")
                     'insert data izin detail
-                    Call UpdateData_Server("insert into DATA_IZIN_DETAIL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK, IZIN_JAMDETAIL) values ('" & idizin_pertama & "','" & TxtIzinPulangCepat.Text & "', '" & lblNikPlgCepat.Text & "', '" & TxtIzinPulangCepatJam.Text & "')", "")
+                    Call UpdateData_Server("insert into DATA_IZIN_TANGGAL (IZIN_ID, IZIN_TGLDETAIL, IZIN_NIK, IZIN_JAMDETAIL,  izin_tglstatus) values ('" & idizin_pertama & "','" & TxtIzinPulangCepat.Text & "', '" & lblNikPlgCepat.Text & "', '" & TxtIzinPulangCepatJam.Text & "', 'Pending')", "")
 
                     '================call function to email atasan
 
