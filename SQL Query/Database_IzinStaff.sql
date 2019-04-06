@@ -23,3 +23,13 @@ CREATE TABLE DATA_IZIN_TANGGAL(
 )
 
 insert into DATA_IZIN_TANGGAL (IZIN_ID, izin_tgldetail, IZIN_NIK, izin_jamdetail, izin_tglstatus) values
+
+CREATE VIEW JoinDetailTgl AS
+select  t.id_tanggal as Id, t.izin_nik as NIK, h.IZIN_NAMA as Nama,t.izin_id as IzinID, t.izin_tgldetail as TglDet,
+ t.izin_jamdetail as JamDet, b.izin_alasan +'/'+ b.izin_alasan as Detail  ,
+h.izin_nik_appvmng as NIKMNG, h.izin_nik_appvspv as NIKSPV,
+b.izin_tglappvspv as SPV , b.izin_tglappvmng as MNG  , t.izin_tglstatus as Status  , b.izin_tglpengajuan as TglPeng
+from data_izin_tanggal t
+inner join data_izin_header h on h.izin_nik = t.izin_nik
+inner join DATA_IZIN_BODY b on t.izin_id=b.izin_id 
+ where h.izin_nama = 'HERLAMBANG RIZKY RAMADHAN'
