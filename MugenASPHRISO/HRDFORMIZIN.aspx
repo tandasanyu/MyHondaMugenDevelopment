@@ -962,19 +962,12 @@
                                 <asp:ControlParameter ControlID="TxtStaffNIKMaster" Name="izin_nik_appvspv" PropertyName="Text" Type="String" />
                             </SelectParameters>
 				        </asp:SqlDataSource>   
-                        <!-- ListView Detali Staff  form Izin--> <br />      
-                       <table border="0" style="padding:10px">
-                            <tbody>
-                                <tr>
-                                    <td>Tanggal Awal :</td>
-                                    <td ><input name="min" id="min" type="text" autocomplete="off"><br /></td>
-                                </tr>
-                                <tr>
-                                    <td>Tanggal Akhir :</td>
-                                    <td><input name="max" id="max" type="text" autocomplete="off"></td>
-                                </tr>
-                            </tbody>
-                        </table>                   
+                        <!-- ListView Detali Staff  form Izin--> <br />    
+                        <div class="row">
+                            <div class="col-sm-2">Masukan Range Tanggal: </div>
+                            <div class="col-sm-3"><input  name="min" id="min" class="form-control" type="text" autocomplete="off"><br /></div>
+                            <div class="col-sm-3"><input  name="max" id="max" class="form-control" type="text"  autocomplete="off"></div>       
+                        </div>             
                         <br />                            
 				        <asp:ListView ID="LvDetailStaff" runat="server" DataSourceID="SqlDataIzin"  DataKeyNames ="IZIN_ID" enableviewstate="false">
 					        <LayoutTemplate>
