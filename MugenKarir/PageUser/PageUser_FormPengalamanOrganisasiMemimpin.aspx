@@ -63,6 +63,18 @@ h2.FormOrganisasiMemimpin {
             });
         });        
     </script>
+   <script type="text/javascript">
+   
+      function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
+
+         return true;
+      }
+       //-->
+   </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -102,7 +114,7 @@ h2.FormOrganisasiMemimpin {
                                             <asp:TextBox ID="TxtNamaOrganisasi1" class="form-control" runat="server" ></asp:TextBox>
                                         </th>
                                         <th>
-                                            <asp:TextBox ID="TxtTahunOrganisasi1" class="form-control" runat="server" ></asp:TextBox>
+                                            <asp:TextBox ID="TxtTahunOrganisasi1" onKeypress="return isNumberKey(event)" class="form-control" runat="server" ></asp:TextBox>
                                         </th>
                                     </tr>
                                 </tbody>
@@ -123,7 +135,7 @@ h2.FormOrganisasiMemimpin {
                                             <asp:TextBox ID="TxtNamaOrganisasi2" class="form-control" runat="server" ></asp:TextBox>
                                         </th>
                                         <th>
-                                            <asp:TextBox ID="TxtTahunOrganisasi2" class="form-control" runat="server" ></asp:TextBox>
+                                            <asp:TextBox ID="TxtTahunOrganisasi2" onKeypress="return isNumberKey(event)" class="form-control" runat="server" ></asp:TextBox>
                                         </th>
                                     </tr>
                                 </tbody>

@@ -590,7 +590,7 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Hasil == "1")
         {
             LvPelamarBaru.DataBind();
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Sukses Menolak Pelamar, Silahkan Cek di Menu Pelamar untuk Detailnya')", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Sukses Menolak Pelamar!')", true);
             
         }
         else

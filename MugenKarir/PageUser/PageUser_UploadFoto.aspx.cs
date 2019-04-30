@@ -63,7 +63,7 @@ public partial class PageUser_PageUser_UploadFoto : System.Web.UI.Page
                 KelasKoneksi cn = new KelasKoneksi();
                 Hasil = cn.KelasKoneksi_Insert("Insert into Data_UploadFoto values ("+Convert.ToInt32(IdLamar) +",'"+nama+extension+"' )");
                 if (Hasil == "1") {
-                    Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "Alert", "alert('File Berhasil di Upload!')", true);
+                    Response.Write("<script language='javascript'>window.alert('File Berhasil di Upload!');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
                 }
                 else {
                     Label2.Text = "Terdapat Error! PESAN ERROR: " + Hasil + "";

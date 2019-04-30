@@ -88,6 +88,10 @@ public partial class PageUser_PageUser_FormRiwayatPendidikan : System.Web.UI.Pag
     {
         //cek Pen Form
         string rBList_Formal = string.Empty;
+        string skSMP = string.Empty;
+        string skSMA = string.Empty;
+        string skS1 = string.Empty;
+        string skS2 = string.Empty;
         foreach (ListItem i in RadioButtonListPendidikanFormal.Items)
         {
             if (i.Selected == true)
@@ -95,106 +99,175 @@ public partial class PageUser_PageUser_FormRiwayatPendidikan : System.Web.UI.Pag
                 rBList_Formal = i.Value;
             }
         }
+        if (DropDownListStatusKelulusanSMP.SelectedIndex == -1) {
+            skSMP = "NOT";
+        }
         if (rBList_Formal == "SMP") {
-            string Hasil = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSMP.Text, TxtNamaInstansiSMP.Text, TxtKotaSMP.Text, Convert.ToInt32(TxtTahunMasukSMP.Text), Convert.ToInt32(TxtTahunKeluarSMP.Text), DropDownListStatusKelulusanSMP.SelectedValue, TxtJurusanSMP.Text);
-            if (Hasil == "OK")
-            {
-                Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
-            }
-            else
-            {
-                Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
-            }
-        } else if (rBList_Formal == "SMA") {
-            string Hasil = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSMP.Text, TxtNamaInstansiSMP.Text, TxtKotaSMP.Text, Convert.ToInt32(TxtTahunMasukSMP.Text), Convert.ToInt32(TxtTahunKeluarSMP.Text), DropDownListStatusKelulusanSMP.SelectedValue, TxtJurusanSMP.Text);
-            if (Hasil == "OK")
-            {
-                string HasilSMA = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSMA.Text, TxtNamaInstansiSMA.Text, TxtKotaSMA.Text, Convert.ToInt32(TxtTahunMasukSMA.Text), Convert.ToInt32(TxtTahunKeluarSMA.Text), DropDownListStatusKelulusanSMA.SelectedValue, TxtJurusanSMA.Text);
-                if (HasilSMA == "OK")
+            //validasi input untuk SMP
+            if (TxtJenjangPendidikanSMP.Text == "" || TxtNamaInstansiSMP.Text == "" || TxtKotaSMP.Text == "" || TxtTahunMasukSMP.Text == "" || TxtTahunKeluarSMP.Text == "" || skSMP == "NOT" || TxtJurusanSMP.Text == "") {
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Pendidikan Formal SMP : Gagal Menyimpan Data, Masih Ada Data yang Belum lengkap');</script>");
+            } else {
+                string Hasil = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSMP.Text, TxtNamaInstansiSMP.Text, TxtKotaSMP.Text, Convert.ToInt32(TxtTahunMasukSMP.Text), Convert.ToInt32(TxtTahunKeluarSMP.Text), DropDownListStatusKelulusanSMP.SelectedValue, TxtJurusanSMP.Text);
+                if (Hasil == "OK")
                 {
-                    Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                    Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');</script>");
                 }
                 else
                 {
-                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                 }
-                //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
             }
-            else
+        } else if (rBList_Formal == "SMA") {
+            //validasi input untuk SMP dan SMA
+            if (DropDownListStatusKelulusanSMP.SelectedIndex == -1)
             {
-                Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                skSMP = "NOT";
             }
-
-        } else if (rBList_Formal == "S1") {
-            string Hasil = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSMP.Text, TxtNamaInstansiSMP.Text, TxtKotaSMP.Text, Convert.ToInt32(TxtTahunMasukSMP.Text), Convert.ToInt32(TxtTahunKeluarSMP.Text), DropDownListStatusKelulusanSMP.SelectedValue, TxtJurusanSMP.Text);
-            if (Hasil == "OK")
+            if (DropDownListStatusKelulusanSMA.SelectedIndex == -1)
             {
-                string HasilSMA = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSMA.Text, TxtNamaInstansiSMA.Text, TxtKotaSMA.Text, Convert.ToInt32(TxtTahunMasukSMA.Text), Convert.ToInt32(TxtTahunKeluarSMA.Text), DropDownListStatusKelulusanSMA.SelectedValue, TxtJurusanSMA.Text);
-                if (HasilSMA == "OK")
+                skSMA = "NOT";
+            }
+            if (TxtJenjangPendidikanSMP.Text == "" || TxtNamaInstansiSMP.Text == "" || TxtKotaSMP.Text == "" || TxtTahunMasukSMP.Text == "" || TxtTahunKeluarSMP.Text == "" || skSMP == "NOT" || TxtJurusanSMP.Text == "" || TxtJenjangPendidikanSMA.Text == "" || TxtNamaInstansiSMA.Text == "" || TxtKotaSMA.Text == "" || TxtTahunMasukSMA.Text == "" || TxtTahunKeluarSMA.Text == "" || skSMA == "NOT" || TxtJurusanSMA.Text == "")
+            {
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Pendidikan Formal SMP / SMA Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
+            }
+            else {
+                string Hasil = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSMP.Text, TxtNamaInstansiSMP.Text, TxtKotaSMP.Text, Convert.ToInt32(TxtTahunMasukSMP.Text), Convert.ToInt32(TxtTahunKeluarSMP.Text), DropDownListStatusKelulusanSMP.SelectedValue, TxtJurusanSMP.Text);
+                if (Hasil == "OK")
                 {
-                    string HasilS1 = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSarjana.Text, TxtNamaInstansiSarjana.Text, TxtKotaSarjana.Text, Convert.ToInt32(TxtTahunMasukSarjana.Text), Convert.ToInt32(TxtTahunKeluarSarjana.Text), DropDownListStatusKelulusanSarjana.SelectedValue, TxtJurusanSarjana.Text);
-                    if (HasilS1 == "OK")
+                    string HasilSMA = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSMA.Text, TxtNamaInstansiSMA.Text, TxtKotaSMA.Text, Convert.ToInt32(TxtTahunMasukSMA.Text), Convert.ToInt32(TxtTahunKeluarSMA.Text), DropDownListStatusKelulusanSMA.SelectedValue, TxtJurusanSMA.Text);
+                    if (HasilSMA == "OK")
                     {
-                        Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                        Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');</script>");
                     }
                     else
                     {
-                        Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                        Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                     }
                     //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
                 }
                 else
                 {
-                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                 }
-                //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
             }
-            else
+            // end of validasi input untuk SMP dan SMA
+        } else if (rBList_Formal == "S1") {
+            //validasi untuk smp & sma & s1
+            if (DropDownListStatusKelulusanSMP.SelectedIndex == -1)
             {
-                Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                skSMP = "NOT";
             }
-        } else if (rBList_Formal == "S2") {
-            string Hasil = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSMP.Text, TxtNamaInstansiSMP.Text, TxtKotaSMP.Text, Convert.ToInt32(TxtTahunMasukSMP.Text), Convert.ToInt32(TxtTahunKeluarSMP.Text), DropDownListStatusKelulusanSMP.SelectedValue, TxtJurusanSMP.Text);
-            if (Hasil == "OK")
+            if (DropDownListStatusKelulusanSMA.SelectedIndex == -1)
             {
-                string HasilSMA = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSMA.Text, TxtNamaInstansiSMA.Text, TxtKotaSMA.Text, Convert.ToInt32(TxtTahunMasukSMA.Text), Convert.ToInt32(TxtTahunKeluarSMA.Text), DropDownListStatusKelulusanSMA.SelectedValue, TxtJurusanSMA.Text);
-                if (HasilSMA == "OK")
+                skSMA = "NOT";
+            }
+            if (DropDownListStatusKelulusanSarjana.SelectedIndex == -1)
+            {
+                skS1 = "NOT";
+            }
+            //end of validasi untuk smp & sma & s1
+            if (TxtJenjangPendidikanSMP.Text == "" || TxtNamaInstansiSMP.Text == "" || TxtKotaSMP.Text == "" || TxtTahunMasukSMP.Text == "" || TxtTahunKeluarSMP.Text == "" || skSMP == "NOT" || TxtJurusanSMP.Text == "" || TxtJenjangPendidikanSMA.Text == "" || TxtNamaInstansiSMA.Text == "" || TxtKotaSMA.Text == "" || TxtTahunMasukSMA.Text == "" || TxtTahunKeluarSMA.Text == "" || skSMA == "NOT" || TxtJurusanSMA.Text == "" || TxtJenjangPendidikanSarjana.Text == "" || TxtNamaInstansiSarjana.Text == "" || TxtKotaSarjana.Text == "" || TxtTahunMasukSarjana.Text == "" || TxtTahunKeluarSarjana.Text == "" || skS1 == "NOT" || TxtJurusanSarjana.Text == "") {
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Pendidikan Formal SMP / SMA/ S1 Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
+            } else {
+                string Hasil = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSMP.Text, TxtNamaInstansiSMP.Text, TxtKotaSMP.Text, Convert.ToInt32(TxtTahunMasukSMP.Text), Convert.ToInt32(TxtTahunKeluarSMP.Text), DropDownListStatusKelulusanSMP.SelectedValue, TxtJurusanSMP.Text);
+                if (Hasil == "OK")
                 {
-                    string HasilS1 = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSarjana.Text, TxtNamaInstansiSarjana.Text, TxtKotaSarjana.Text, Convert.ToInt32(TxtTahunMasukSarjana.Text), Convert.ToInt32(TxtTahunKeluarSarjana.Text), DropDownListStatusKelulusanSarjana.SelectedValue, TxtJurusanSarjana.Text);
-                    if (HasilS1 == "OK")
+                    string HasilSMA = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSMA.Text, TxtNamaInstansiSMA.Text, TxtKotaSMA.Text, Convert.ToInt32(TxtTahunMasukSMA.Text), Convert.ToInt32(TxtTahunKeluarSMA.Text), DropDownListStatusKelulusanSMA.SelectedValue, TxtJurusanSMA.Text);
+                    if (HasilSMA == "OK")
                     {
-                        string HasilS2 = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSarjana2.Text, TxtNamaInstansiSarjana2.Text, TxtKotaSarjana2.Text, Convert.ToInt32(TxtTahunMasukSarjana2.Text), Convert.ToInt32(TxtTahunKeluarSarjana2.Text), DropDownListStatusKelulusanSarjana2.SelectedValue, TxtJurusanSarjana2.Text);
-                        if (HasilS2 == "OK")
+                        string HasilS1 = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSarjana.Text, TxtNamaInstansiSarjana.Text, TxtKotaSarjana.Text, Convert.ToInt32(TxtTahunMasukSarjana.Text), Convert.ToInt32(TxtTahunKeluarSarjana.Text), DropDownListStatusKelulusanSarjana.SelectedValue, TxtJurusanSarjana.Text);
+                        if (HasilS1 == "OK")
                         {
-                            Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                            Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');</script>");
                         }
                         else
                         {
-                            Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + HasilS2 + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                            Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                         }
                         //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
                     }
                     else
                     {
-                        Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + HasilS1 + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                        Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                     }
                     //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
                 }
                 else
                 {
-                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + HasilSMA + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                 }
-                //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
             }
-            else
+
+        } else if (rBList_Formal == "S2") {
+            //validasi untuk smp & sma & s1 & s2
+            if (DropDownListStatusKelulusanSMP.SelectedIndex == -1)
             {
-                Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                skSMP = "NOT";
+            }
+            if (DropDownListStatusKelulusanSMA.SelectedIndex == -1)
+            {
+                skSMA = "NOT";
+            }
+            if (DropDownListStatusKelulusanSarjana.SelectedIndex == -1)
+            {
+                skS1 = "NOT";
+            }
+            if (DropDownListStatusKelulusanSarjana2.SelectedIndex == -1)
+            {
+                skS2 = "NOT";
+            }
+            //end of validasi untuk smp & sma & s1 & s2
+            if (TxtJenjangPendidikanSMP.Text == "" || TxtNamaInstansiSMP.Text == "" || TxtKotaSMP.Text == "" || TxtTahunMasukSMP.Text == "" || TxtTahunKeluarSMP.Text == "" || skSMP == "NOT" || TxtJurusanSMP.Text == "" || TxtJenjangPendidikanSMA.Text == "" || TxtNamaInstansiSMA.Text == "" || TxtKotaSMA.Text == "" || TxtTahunMasukSMA.Text == "" || TxtTahunKeluarSMA.Text == "" || skSMA == "NOT" || TxtJurusanSMA.Text == "" || TxtJenjangPendidikanSarjana.Text == "" || TxtNamaInstansiSarjana.Text == "" || TxtKotaSarjana.Text == "" || TxtTahunMasukSarjana.Text == "" || TxtTahunKeluarSarjana.Text == "" || skS1 == "NOT" || TxtJurusanSarjana.Text == "" || TxtJenjangPendidikanSarjana2.Text == "" || TxtNamaInstansiSarjana2.Text == "" || TxtKotaSarjana2.Text == "" || TxtTahunMasukSarjana2.Text == "" || TxtTahunKeluarSarjana2.Text == "" || skS2 == "NOT" || TxtJurusanSarjana2.Text == "")
+            {
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Pendidikan Formal SMP / SMA / S1/ S2 Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
+            }
+            else {
+                string Hasil = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSMP.Text, TxtNamaInstansiSMP.Text, TxtKotaSMP.Text, Convert.ToInt32(TxtTahunMasukSMP.Text), Convert.ToInt32(TxtTahunKeluarSMP.Text), DropDownListStatusKelulusanSMP.SelectedValue, TxtJurusanSMP.Text);
+                if (Hasil == "OK")
+                {
+                    string HasilSMA = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSMA.Text, TxtNamaInstansiSMA.Text, TxtKotaSMA.Text, Convert.ToInt32(TxtTahunMasukSMA.Text), Convert.ToInt32(TxtTahunKeluarSMA.Text), DropDownListStatusKelulusanSMA.SelectedValue, TxtJurusanSMA.Text);
+                    if (HasilSMA == "OK")
+                    {
+                        string HasilS1 = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSarjana.Text, TxtNamaInstansiSarjana.Text, TxtKotaSarjana.Text, Convert.ToInt32(TxtTahunMasukSarjana.Text), Convert.ToInt32(TxtTahunKeluarSarjana.Text), DropDownListStatusKelulusanSarjana.SelectedValue, TxtJurusanSarjana.Text);
+                        if (HasilS1 == "OK")
+                        {
+                            string HasilS2 = InsertDataPenFormal(Convert.ToInt32(IdLamar), TxtJenjangPendidikanSarjana2.Text, TxtNamaInstansiSarjana2.Text, TxtKotaSarjana2.Text, Convert.ToInt32(TxtTahunMasukSarjana2.Text), Convert.ToInt32(TxtTahunKeluarSarjana2.Text), DropDownListStatusKelulusanSarjana2.SelectedValue, TxtJurusanSarjana2.Text);
+                            if (HasilS2 == "OK")
+                            {
+                                Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');</script>");
+                            }
+                            else
+                            {
+                                Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + HasilS2 + "');</script>");
+                            }
+                            //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                        }
+                        else
+                        {
+                            Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + HasilS1 + "');</script>");
+                        }
+                        //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                    }
+                    else
+                    {
+                        Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + HasilSMA + "');</script>");
+                    }
+                    //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
+                else
+                {
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
+                }
             }
         }
         // END OF PENDIDIKAN FORMAL
         // START OF NON FORMAL -- RadioButtonListPendidikanNon
         //cek pen non
         string rBList_NonFormal = string.Empty;
+        string status1 = string.Empty;
+        string status2 = string.Empty;
+        string status3 = string.Empty;
         foreach (ListItem i in RadioButtonListPendidikanNon.Items)
         {
             if (i.Selected == true)
@@ -204,61 +277,82 @@ public partial class PageUser_PageUser_FormRiwayatPendidikan : System.Web.UI.Pag
         }
         if (rBList_NonFormal == "1")
         {
-            string Hasil = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon1.Text, Convert.ToInt32(TxtTahunInstansiNon1.Text));
-            if (Hasil == "OK")
+            if (TxtNamaInstansiNon1.Text.Length != 0 || TxtTahunInstansiNon1.Text.Length != 0)
             {
-                Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Pendidikan NonFormal ke-1 : Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
             }
-            else
-            {
-                Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
-            }
-        } else if (rBList_NonFormal == "2") {
-            string Hasil = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon1.Text, Convert.ToInt32(TxtTahunInstansiNon1.Text));
-            if (Hasil == "OK")
-            {
-                string Hasil2 = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon2.Text, Convert.ToInt32(TxtTahunInstansiNon2.Text));
-                if (Hasil2 == "OK")
+            else {
+                string Hasil = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon1.Text, Convert.ToInt32(TxtTahunInstansiNon1.Text));
+                if (Hasil == "OK")
                 {
-                    //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                    Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');</script>");
                 }
                 else
                 {
-                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil2 + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                 }
-                //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+            }
+        }
+        else if (rBList_NonFormal == "2") {
+            if (TxtNamaInstansiNon1.Text.Length != 0 || TxtTahunInstansiNon1.Text.Length != 0 || TxtNamaInstansiNon2.Text.Length != 0 || TxtTahunInstansiNon2.Text.Length != 0)
+            {
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Pendidikan NonFormal ke-1 / ke-2 :Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
             }
             else
             {
-                Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
-            }
-        } else if ( rBList_NonFormal == "3") {
-            string Hasil = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon1.Text, Convert.ToInt32(TxtTahunInstansiNon1.Text));
-            if (Hasil == "OK")
-            {
-                string Hasil2 = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon2.Text, Convert.ToInt32(TxtTahunInstansiNon2.Text));
-                if (Hasil2 == "OK")
+                string Hasil = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon1.Text, Convert.ToInt32(TxtTahunInstansiNon1.Text));
+                if (Hasil == "OK")
                 {
-                    string Hasil3 = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon3.Text, Convert.ToInt32(TxtTahunInstansiNon3.Text));
-                    if (Hasil3 == "OK")
+                    string Hasil2 = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon2.Text, Convert.ToInt32(TxtTahunInstansiNon2.Text));
+                    if (Hasil2 == "OK")
                     {
-                        Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                        //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
                     }
                     else
                     {
-                        Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil3 + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                        Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil2 + "');</script>");
                     }
                     //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
                 }
                 else
                 {
-                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil2 + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                 }
-                //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+            }
+        } else if ( rBList_NonFormal == "3") {
+            if (TxtNamaInstansiNon1.Text.Length != 0 || TxtTahunInstansiNon1.Text.Length != 0 || TxtNamaInstansiNon2.Text.Length != 0 || TxtTahunInstansiNon2.Text.Length != 0 || TxtNamaInstansiNon3.Text.Length != 0 || TxtTahunInstansiNon3.Text.Length != 0)
+            {
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Pendidikan NonFormal ke-1 / ke-2 / ke-3 : Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
             }
             else
             {
-                Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                string Hasil = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon1.Text, Convert.ToInt32(TxtTahunInstansiNon1.Text));
+                if (Hasil == "OK")
+                {
+                    string Hasil2 = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon2.Text, Convert.ToInt32(TxtTahunInstansiNon2.Text));
+                    if (Hasil2 == "OK")
+                    {
+                        string Hasil3 = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon3.Text, Convert.ToInt32(TxtTahunInstansiNon3.Text));
+                        if (Hasil3 == "OK")
+                        {
+                            Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');</script>");
+                        }
+                        else
+                        {
+                            Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil3 + "');</script>");
+                        }
+                        //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                    }
+                    else
+                    {
+                        Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil2 + "');</script>");
+                    }
+                    //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
+                else
+                {
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
+                }
             }
         }
         // END OF PENDIDIKAN NO FORMAL
@@ -272,64 +366,92 @@ public partial class PageUser_PageUser_FormRiwayatPendidikan : System.Web.UI.Pag
             }
         }
         if (rBList_Bahasa == "1")
-        { //InsertDataBahasa
-            string Hasil = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa1.Text, DropDownListPenguasaanBahasa1.SelectedValue);
-            if (Hasil == "OK")
+        {
+            //validasi
+            if (TxtJenisBahasa1.Text.Length != 0 || DropDownListPenguasaanBahasa1.SelectedIndex != -1)
             {
-                Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Bahasa Asing Ke-1 :Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
             }
-            else
-            {
-                Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
-            }
-        } else if (rBList_Bahasa == "2") {
-            string Hasil = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa1.Text, DropDownListPenguasaanBahasa1.SelectedValue);
-            if (Hasil == "OK")
-            {
-                string Hasil2 = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa2.Text, DropDownListPenguasaanBahasa2.SelectedValue);
-                if (Hasil2 == "OK")
+            else {
+                //InsertDataBahasa
+                string Hasil = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa1.Text, DropDownListPenguasaanBahasa1.SelectedValue);
+                if (Hasil == "OK")
                 {
-                    Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                    Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');</script>");
                 }
                 else
                 {
-                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                 }
-                //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+            }
+            //validasi
+        } else if (rBList_Bahasa == "2") {
+            //validasi
+            if (TxtJenisBahasa1.Text.Length != 0 || DropDownListPenguasaanBahasa1.SelectedIndex != -1 || TxtJenisBahasa2.Text.Length != 0 || DropDownListPenguasaanBahasa2.SelectedIndex != -1)
+            {
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Bahasa Asing Ke-1 /  Ke-2 :Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
             }
             else
             {
-                Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
-            }
-
-        } else if (rBList_Bahasa == "3") {
-            string Hasil = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa1.Text, DropDownListPenguasaanBahasa1.SelectedValue);
-            if (Hasil == "OK")
-            {
-                string Hasil2 = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa2.Text, DropDownListPenguasaanBahasa2.SelectedValue);
-                if (Hasil2 == "OK")
+                //validasi 
+                string Hasil = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa1.Text, DropDownListPenguasaanBahasa1.SelectedValue);
+                if (Hasil == "OK")
                 {
-                    string Hasil3 = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa3.Text, DropDownListPenguasaanBahasa3.SelectedValue);
-                    if (Hasil3 == "OK")
+                    string Hasil2 = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa2.Text, DropDownListPenguasaanBahasa2.SelectedValue);
+                    if (Hasil2 == "OK")
                     {
-                        Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                        Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');</script>");
                     }
                     else
                     {
-                        Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                        Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                     }
                     //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
                 }
                 else
                 {
-                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                 }
-                //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+            }
+        } else if (rBList_Bahasa == "3") {
+            //validasi
+            if (TxtJenisBahasa1.Text.Length != 0 || DropDownListPenguasaanBahasa1.SelectedIndex != -1 || TxtJenisBahasa2.Text.Length != 0 || DropDownListPenguasaanBahasa2.SelectedIndex != -1 || TxtJenisBahasa3.Text.Length != 0 || DropDownListPenguasaanBahasa3.SelectedIndex != -1)
+            {
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Bahasa Asing Ke-1 /  Ke-2 / Ke-3 :Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
             }
             else
             {
-                Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                //validasi
+                string Hasil = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa1.Text, DropDownListPenguasaanBahasa1.SelectedValue);
+                if (Hasil == "OK")
+                {
+                    string Hasil2 = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa2.Text, DropDownListPenguasaanBahasa2.SelectedValue);
+                    if (Hasil2 == "OK")
+                    {
+                        string Hasil3 = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa3.Text, DropDownListPenguasaanBahasa3.SelectedValue);
+                        if (Hasil3 == "OK")
+                        {
+                            Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');</script>");
+                        }
+                        else
+                        {
+                            Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
+                        }
+                        //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                    }
+                    else
+                    {
+                        Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
+                    }
+                    //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
+                }
+                else
+                {
+                    Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
+                }
             }
         }
+        //
+        Response.Write("<script language='javascript'>window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
     }
 }

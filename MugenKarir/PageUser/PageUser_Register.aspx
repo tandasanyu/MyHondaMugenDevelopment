@@ -106,7 +106,6 @@ line-height: 1.4em;
                                 ForeColor="Red"
                                 ControlToValidate="TxtPswd"
                                 ></asp:RequiredFieldValidator>
-
                         </td>
                     </tr>
                     <tr>

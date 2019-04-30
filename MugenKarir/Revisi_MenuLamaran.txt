@@ -1,0 +1,6 @@
+Data pendidikan : SMA - s2 (d1,d2,d3) smp di delete
+unggah surat referensi kerja (Tidak Wajib)
+referensi kerja hanya 1 (Referensi hanya : Atasan dan Rekan Kerja)
+detail riwayat pekerjaan : + Note : di urutkan dari Pekerjaan Terakhir
+Layout Form pelamar sesuai ISO (Hard Copy) 
+Buat Halaman Notifikasi Undang Interview Di Data pelamar Baru. 

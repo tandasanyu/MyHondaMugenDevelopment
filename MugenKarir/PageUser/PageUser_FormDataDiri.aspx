@@ -171,7 +171,9 @@ $(function() {
                       </div>
                       <div class="form-group"><!-- Telfon Rumah -->
                           <asp:Label ID="Label11" CssClass="col-sm-4" runat="server" Font-Bold="true" Text="Telepon Rumah"></asp:Label>
+                          
                           <div class="col-sm-8">
+                               <p style="color:red">Jika Tidak Memiliki Telpon Rumah, Kosongkan</p>
                               <asp:TextBox ID="TxtTeleponRumah" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
 <%--                              <asp:RequiredFieldValidator ID="RequiredFieldValidator7" 
                                   runat="server" 

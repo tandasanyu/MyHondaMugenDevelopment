@@ -72,7 +72,7 @@ public partial class PageUser_PageUser_HomePelamar : System.Web.UI.Page
         string SqlCek3 = "select id_lamaran from Data_PenFormal where id_lamaran = " + Convert.ToInt32(LblIdLamaran.Text) + "";
         string SqlCek4 = "select id_lamaran from Data_PenNon where id_lamaran = " + Convert.ToInt32(LblIdLamaran.Text) + "";
         string SqlCek5 = "select id_lamaran from Data_Bahasa where id_lamaran = " + Convert.ToInt32(LblIdLamaran.Text) + "";
-        if (cn.KelasKoneksi_CheckData(SqlCek3) == true && cn.KelasKoneksi_CheckData(SqlCek4) == true && cn.KelasKoneksi_CheckData(SqlCek5) == true)
+        if (cn.KelasKoneksi_CheckData(SqlCek3) == true || cn.KelasKoneksi_CheckData(SqlCek4) == true || cn.KelasKoneksi_CheckData(SqlCek5) == true)
         {
             BtnRiwayatPendidikan.Visible = false;
             LblBtnRP.Visible = true;

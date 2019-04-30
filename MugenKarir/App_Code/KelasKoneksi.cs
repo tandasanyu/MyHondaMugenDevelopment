@@ -187,9 +187,14 @@ public class KelasKoneksi
                 }
                 else if (sub == "7") {
                     GlobalAr.Add(reader["Path_Foto"].ToString()); //0
+                    //GlobalAr.Add(reader["Date_upload"].ToString()); //18
+                }
+                else if (sub == "8")
+                {
+                    GlobalAr.Add(reader["Path_Foto"].ToString()); //0
                     GlobalAr.Add(reader["Date_upload"].ToString()); //18
                 }
-                }
+            }
                 //status_hasil = "1";
 
             }

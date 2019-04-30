@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 public partial class PagesHRD_FormPelamar : System.Web.UI.Page
 {
     public string IdLamar;
@@ -32,7 +33,7 @@ public partial class PagesHRD_FormPelamar : System.Web.UI.Page
             LblTTD.Text = hasil_dataDiri[0];      
         }
         //get 
-        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto, Date_Upload from Data_UploadCV where Id_lamaran = " + Convert.ToInt32(IdLamar) + "", "7");
+        List<String> Path_Foto = cn.KelasKoneksi_SelectGlobal("select Path_Foto, Date_Upload from Data_UploadCV where Id_lamaran = " + Convert.ToInt32(IdLamar) + "", "8");
         LblDate.Text = Path_Foto[1];
         //**get photo pelamar
         string sql = "select Path_Foto from Data_UploadFoto where id_lamaran = "+Convert.ToInt32(IdLamar) +"";
@@ -43,4 +44,5 @@ public partial class PagesHRD_FormPelamar : System.Web.UI.Page
         }
        
     }
+
 }

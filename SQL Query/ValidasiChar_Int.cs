@@ -16,3 +16,11 @@ ValidationExpression="([A-Za-z])+( [A-Za-z]+)*"
                                               ForeColor="Red"
                                               ValidationExpression="\d+"
                                               ></asp:RegularExpressionValidator>
+
+<!-- HO -->
+SelectCommand="select * from TRXN_KPIH, DATA_STAFF where KPIH_NIK = STAFF_NIK AND STAFF_STATUSKERJALOKASI='HO' and KPIH_TAHUN = ? order by STAFF_STATUSKERJADEPT ASC, STAFF_STATUSKERJAJABATAN ASC, STAFF_STATUSKERJALOKASI DESC " 
+
+<th style="text-align:center; color:white">Tahun PK</th>
+                                    <td>
+                                        <%#Eval("KPIH_TAHUN")%>
+                                    </td>

@@ -195,7 +195,7 @@ h2.FormDataDiri {
         });        
     </script>
    <script type="text/javascript">
-      <!--
+   
       function isNumberKey(evt)
       {
          var charCode = (evt.which) ? evt.which : event.keyCode

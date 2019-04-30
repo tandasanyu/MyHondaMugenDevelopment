@@ -1,0 +1,51 @@
+List Revisi Form Izin
+
+1)tampilan tetap , cuma ketika approve kembalikan sesuai state dia terakhir di staff / bawahan [SUDAH / BELUM DI TEST]
+
+2)pak santo approve tidak ada notif apa apa
+
+3)ubah kata kata atasan langsung / atasan 1tk lebih tinggi ketika approval selain cuti & cuti [SUDAH / BERDASARKAN VIEW - NAMUN DI ASP BELUM]
+
+4) ketika selesai approval panggil fungsi CallState_ListIzin (menampilkan sesuai state terakhir dia)
+
+5) sort by pending (List izin) [SUDAH  order by izin_status desc] // masih belum karena ke override oleh js datatable // solusi pake custom js untuk search
+tampilan staff / bawahan tidak di hide . di tampilkan atas bawah (fixed by point 4)
+6)di tampilkan table informasi , misalnya mekanik. izin by tanggal. dan statusnya <> 
+di batalkan staff / hrd / manajer / atasan
+
+[SUDAH TERCOVER OLEH VIEW SQL]
+=====nambah case ketika verifikasi di lvdatastaff2 & lvdatastaff 
+(Disetujui Atasan Langsung & bukan cuti // Hide approve )
+(Disetujui Atasan Langsung &  cuti // Hide approve )
+
+CASE Disetujui: 
+1.Disetujui Atasan 
+2.Disetujui Manajer
+
+CASE Disetujui Rev: 
+1.Disetujui Atasan Langsung
+2.Disetujui Atasan 1tk Lebih Tinggi
+
+CASE Dibatalkan:
+1.Dibatalkan Atasan Langsung
+2.Dibatalkan Atasan 1tk Lebih Tinggi
+3.Dibatalkan HRD
+4.Dibatalkan Staff
+
+CASE Dibatalkan Rev:
+1.Dibatalkan Atasan Langsung
+2.Dibatalkan Atasan 1tk Lebih Tinggi
+3.Dibatalkan HRD
+4.Dibatalkan Staff
+
+CASE Lain: 
+1.pending
+
+--testing : upload sakit surat dokter kadang bisa kadang tidak
+baru sampe sakit surat dokter
+2. izin terlambat (1451) - FIXED : COMMENT VALIDASI SALDO
+3. sukses izin keluar kantor
+4. MAU TEST CUTI BY AZIZ
+5. KAMIS COPY LOGIN + AUTOCOMPLETE OFF // test pengajuan cuti selain cuti biasa rule nya apakah memamng
+tidak bisa pengajuan ketika saldo 9 untuk selain cuti biasa
+

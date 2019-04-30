@@ -12,13 +12,13 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
     public string rbList_Agama = string.Empty;
     public string rbList_JenSIM = string.Empty;
     public string selectedValue;
-    public string TTL_KTP;
-    public string Alamat;
-    public string telp_rumah;
+    public string TTL_KTP= string.Empty;
+    public string Alamat= string.Empty;
+    public string telp_rumah = string.Empty;
     public int nosim;
-    public string rek;
-    public string npwp;
-    public string jamsos;
+    public string rek= string.Empty;
+    public string npwp= string.Empty;
+    public string jamsos= string.Empty;
     //public DateTime dateLahir = DateTime.ParseExact(TxtTglLahir.Text, "dd/MM/yyyy", null);
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -74,6 +74,7 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
         //validasi npwp
         if (RadioButtonListNPWP.SelectedIndex == 0)
         {
+            npwp = TxtNPWP.Text;
             if (npwp.Length != 0 )
             {
                 if (npwp.Length == 15)
@@ -95,6 +96,7 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
         //validasi jamsostek
         if (RadioButtonListJamsostek.SelectedIndex == 0)
         {
+            jamsos = TxtJamsos.Text;
             if (jamsos.Length !=0 ) {
                 if (jamsos.Length == 13)
                 {
@@ -116,8 +118,9 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
         }
         //validasi rek bca
         if (RadioButtonListBCA.SelectedIndex==0) {
+            rek = TxtRekBca.Text;
             if (rek.Length !=0) {
-                rek = TxtRekBca.Text;
+                
                 s3 = 1;
             } else {
                 s3 = 0;
@@ -127,7 +130,7 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
             s3 = 1;
         }
         //validasi telp rumah
-        if (telp_rumah.Length == 0)
+        if (telp_rumah.Length == 0 || string.IsNullOrEmpty(telp_rumah))
         {
             telp_rumah = "0";
             s1 = 1;

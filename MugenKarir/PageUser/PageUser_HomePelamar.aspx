@@ -31,7 +31,8 @@ h2.FormDataDiri {
     <form id="form1" runat="server">
         <div style="margin-bottom:100px">
             <div style="margin-left:1%">
-                <h2 class="FormDataDiri">Selamat Datang di Menu Pelamar</h2>
+                <h2 class="FormDataDiri">Selamat Datang di Menu Pelamar</h2><br />
+                <h3 class="FormDataDiri"><center>PT Mitra Usaha Gentaniaga</center></h3>
                 <br />
                 <br />
                 <div class="form-group">

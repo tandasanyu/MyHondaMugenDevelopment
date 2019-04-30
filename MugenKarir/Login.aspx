@@ -109,7 +109,7 @@ body {
                   <div class="form-group">
                     <img src="img/logo2.png" /><br /><br />
                      <label>User Name</label>
-                            <asp:TextBox ID="TxtUsername" class="form-control" runat="server" AutoComplete="off"></asp:TextBox>
+                            <asp:TextBox ID="TxtUsername" onkeyup="this.value=this.value.toLowerCase()" class="form-control" runat="server" AutoComplete="off"></asp:TextBox>
                      <%--<input type="text" class="form-control" placeholder="User Name">--%>
                   </div>
                   <div class="form-group">
