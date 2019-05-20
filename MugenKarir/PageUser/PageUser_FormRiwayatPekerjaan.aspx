@@ -176,7 +176,8 @@
                     <div class="col-lg-8">
                         <!-- Riwayat Pekerjaan -->
                         <div class="form-group" id="RiwayatPekerjaan">
-                            <h2 ><small>Detail Riwayat Pekerjaan : </small></h2>
+                            <h2 ><small>Detail Riwayat Pekerjaan : </small></h2><br />
+                            <h5 class="text-danger">*Di urutkan dari Pekerjaan Terakhir Anda</h5>
                             <asp:RadioButtonList ID="RadioButtonListRiwayatPekerjaan" runat="server" RepeatDirection="Horizontal"  CellPadding="5">
                                 <asp:ListItem>Tidak Ada</asp:ListItem>
                                 <asp:ListItem>1</asp:ListItem>
@@ -453,7 +454,6 @@
                             <h2 ><small>Referensi (Seseorang yang Dapat memberikan Keterangan tentang Anda): </small></h2>
                             <asp:RadioButtonList ID="RadioButtonListReferensi" runat="server" RepeatDirection="Horizontal"  CellPadding="5">
                                 <asp:ListItem>1</asp:ListItem>
-                                <asp:ListItem>2</asp:ListItem>
                             </asp:RadioButtonList>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" 
                                 runat="server" 
@@ -508,7 +508,6 @@
                                                 <asp:ListItem Value="0">Pilih Hubungan</asp:ListItem>
                                                 <asp:ListItem Value="1">Atasan</asp:ListItem>
                                                 <asp:ListItem Value="2">Rekan kerja</asp:ListItem>
-                                                <asp:ListItem Value="3">Teman</asp:ListItem>
                                             </asp:DropDownList>
                                         </td>
                                     </tr>

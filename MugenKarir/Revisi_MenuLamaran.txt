@@ -1,6 +1,28 @@
-Data pendidikan : SMA - s2 (d1,d2,d3) smp di delete
-unggah surat referensi kerja (Tidak Wajib)
-referensi kerja hanya 1 (Referensi hanya : Atasan dan Rekan Kerja)
-detail riwayat pekerjaan : + Note : di urutkan dari Pekerjaan Terakhir
+Data pendidikan : SMA - s2 (d1,d2,d3) smp di delete 
+// belum tau di mana 
+//akan pengaruh ke tampilan form pelamar
+////BARU DI UPDATE DI AYAH IBU DAN SUAMI ISTRI
+
+
+unggah surat referensi kerja (Tidak Wajib) //DONE
+
+
+referensi kerja hanya 1 (Referensi hanya : Atasan dan Rekan Kerja) // DONE BY DELETE RB 2 
+
+
+detail riwayat pekerjaan : + Note : di urutkan dari Pekerjaan Terakhir //DONE
+
+
 Layout Form pelamar sesuai ISO (Hard Copy) 
-Buat Halaman Notifikasi Undang Interview Di Data pelamar Baru. 
+
+
+Buat Halaman Notifikasi Undang Interview Di Data pelamar Baru. (By Email) // draft nya ada di D:/Herlambang/Dokumentasi/MugenKarir
+
+---- mugen app cpanel-----------
+
+1)input di cpanel mugen app dari 88 database master (aplikasi master sales ) - tipe kendaraan
+4124 mulainya  -- 0004133
+
+2)yang di insert concer type status 1
+
+

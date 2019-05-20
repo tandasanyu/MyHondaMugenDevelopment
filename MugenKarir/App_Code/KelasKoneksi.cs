@@ -9,6 +9,7 @@ using System.Web.Configuration;
 using System.Collections; //for array list
 using System.Net.Mail;
 using System.Net.Mime;
+using System.Net;
 
 /// <summary>
 /// Summary description for KelasKoneksi
@@ -123,7 +124,76 @@ public class KelasKoneksi
     }
 
     /*Below Main Working Code*/
+    //fungsi pull data to datatable
+    public DataTable PullData(string sql) {
+        DataTable ds = new DataTable();
+        String strconn = WebConfigurationManager.ConnectionStrings["MugenKarirConnection"].ConnectionString;
+        conn = new SqlConnection(strconn);
+        SqlDataAdapter da = new SqlDataAdapter(sql, conn);
+        try
+        {
+            conn.Open();
+            da.Fill(ds);
+        }
+        catch (Exception ex)
+        {
+            ds = null;
+        }
+        finally
+        {
+            conn.Close();
+            conn.Dispose();
+            da.Dispose();
+        }
 
+        return ds;
+    }
+    public DataTable PullData2(string sql)
+    {
+        DataTable ds = new DataTable();
+        String strconn = WebConfigurationManager.ConnectionStrings["MugenKarirConnection"].ConnectionString;
+        conn = new SqlConnection(strconn);
+        SqlDataAdapter da = new SqlDataAdapter(sql, conn);
+        try
+        {
+            conn.Open();
+            da.Fill(ds);
+        }
+        catch (Exception ex)
+        {
+            ds = null;
+        }
+        finally
+        {
+            conn.Close();
+            conn.Dispose();
+            da.Dispose();
+        }
+
+        return ds;
+    }
+    //dataset
+    //public DataSet getDataSet(string id)
+    //{
+    //    try
+    //    {
+    //        String strconn = WebConfigurationManager.ConnectionStrings["MugenKarirConnection"].ConnectionString;
+    //        DataSet dsReturn = new DataSet();
+    //        using (SqlConnection myConnection = new SqlConnection(strconn))
+    //        {
+    //            string query = "select * from data_keluarga where id_lamaran = "+id+";  select * from data_saudara where id_lamaran = "+id+"";
+    //            SqlCommand cmd = new SqlCommand(query, myConnection);
+    //            myConnection.Open();
+    //            SqlDataReader reader = cmd.ExecuteReader();
+    //            dsReturn.Load(reader, LoadOption.PreserveChanges, new string[] { "tableOne", "tableTwo" });
+    //            return dsReturn;
+    //        }
+    //    }
+    //    catch (Exception)
+    //    {
+    //        throw;
+    //    }
+    //}
     //fungsi select global dengan arraylist
     public List<String> GlobalAr = new List<String>();
     public List<String> KelasKoneksi_SelectGlobal(string SqlCmd, string sub) {
@@ -165,25 +235,7 @@ public class KelasKoneksi
                 }
                 else if (sub == "6")
                 {
-                    GlobalAr.Add(reader["Nama_Lengkap"].ToString()); //0
-                    //GlobalAr.Add(reader["Nama_Panggilan"].ToString()); //1
-                    //GlobalAr.Add(reader["Tempat_Lahir"].ToString()); //2
-                    //GlobalAr.Add(reader["Tgl_Lahir"].ToString()); //3
-                    //GlobalAr.Add(reader["Jenkel"].ToString()); //4
-                    //GlobalAr.Add(reader["Agama"].ToString()); //5
-                    //GlobalAr.Add(reader["Alamat_KTP"].ToString()); //6
-                    //GlobalAr.Add(reader["Alamat_Tinggal"].ToString()); //7
-                    //GlobalAr.Add(reader["No_Telp"].ToString()); //8
-                    //GlobalAr.Add(reader["No_HP"].ToString()); //9
-                    //GlobalAr.Add(reader["email"].ToString()); //10
-                    //GlobalAr.Add(reader["hobi"].ToString()); //11
-                    //GlobalAr.Add(reader["No_KTP"].ToString()); //12
-                    //GlobalAr.Add(reader["No_NPWP"].ToString()); //13
-                    //GlobalAr.Add(reader["No_Jamsos"].ToString()); //14
-                    //GlobalAr.Add(reader["Jen_SIM"].ToString()); //15
-                    //GlobalAr.Add(reader["No_Sim"].ToString()); //16
-                    //GlobalAr.Add(reader["NoRekbca"].ToString()); //17
-                   
+                    GlobalAr.Add(reader["Nama_Lengkap"].ToString()); //0                   
                 }
                 else if (sub == "7") {
                     GlobalAr.Add(reader["Path_Foto"].ToString()); //0
@@ -193,6 +245,16 @@ public class KelasKoneksi
                 {
                     GlobalAr.Add(reader["Path_Foto"].ToString()); //0
                     GlobalAr.Add(reader["Date_upload"].ToString()); //18
+                }
+                else if (sub == "9") {
+                    GlobalAr.Add(reader["User_Posisi"].ToString()); //0
+                    GlobalAr.Add(reader["id_login"].ToString()); //0
+                }
+                else if (sub == "10") {
+                    GlobalAr.Add(reader["user_email"].ToString()); //0
+                }
+                else if (sub == "11") {
+                    GlobalAr.Add(reader["status_pernikahan"].ToString()); //0
                 }
             }
                 //status_hasil = "1";
@@ -252,6 +314,53 @@ public class KelasKoneksi
             hasil = "Terdapat error Ketika Mengirim Email : " + ex.Message;
         }
         return hasil;
+    }
+
+    public string email_otomatis2(string e, string pesan, string subjectemail) // email by outlook
+    { //recruitment@hondamugen.co.id -- recruitmentmugen
+        string _smtpHostServer = "mail.hondamugen.co.id";
+        int _smtpHostPort=587; /// 25 /465
+        string _serveraddress= "recruitment@hondamugen.co.id";
+        string _serverpassword= "recruitmentmugen";
+        string subject = subjectemail;
+
+
+        ///----
+        //The smtp and port can be adjusted, deppending on the sender account
+        SmtpClient client = new SmtpClient(_smtpHostServer);
+        client.Port = _smtpHostPort;
+        client.DeliveryMethod = SmtpDeliveryMethod.Network;
+        client.UseDefaultCredentials = false;
+
+        try
+        {
+            System.Net.NetworkCredential credentials =
+                new System.Net.NetworkCredential(_serveraddress, _serverpassword);
+            client.EnableSsl = true;
+            client.Credentials = credentials;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+
+        //Creates a new message
+        try
+        {
+            var mail = new MailMessage(_serveraddress.Trim(), e.Trim());
+            mail.Subject = subject;
+            mail.IsBodyHtml = true;
+            mail.Body = pesan;
+
+            client.Send(mail);
+            status_hasil = "OK";
+        }
+        //Failing to deliver the message or to authentication will throw an exception
+        catch (Exception ex)
+        {
+            status_hasil = "error " + ex.Message;
+        }
+        return status_hasil;
     }
 
     //fungsi untuk search login user
@@ -399,6 +508,43 @@ public class KelasKoneksi
             conn.Close();
         }
         return status_hasil;
+    }
+    public string KelasKoneksi_UndangInterview(string e,string pesan) {
+        string hasil = "";
+        string subject = "PT. Mutra Usaha Gentaniaga (Honda Mugen) Email Notification"; ;
+        string body = pesan;
+
+        //****WORKING CODE**************************************************************
+        SmtpClient client = new SmtpClient("smtp.gmail.com");
+        client.Port = 587;
+        client.DeliveryMethod = SmtpDeliveryMethod.Network;
+        client.UseDefaultCredentials = false;
+        try
+        {
+            System.Net.NetworkCredential credentials =
+                new System.Net.NetworkCredential("hmugen1991@gmail.com", "112m128p");
+            client.EnableSsl = true;
+            client.Credentials = credentials;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        //Creates a new message
+        try
+        {
+            var mail = new MailMessage("hmugen1991@gmail.com", e);
+            mail.Subject = subject;
+            mail.IsBodyHtml = true;
+            mail.Body = body;
+            client.Send(mail);
+        }
+        //Failing to deliver the message or to authentication will throw an exception
+        catch (Exception ex)
+        {
+            hasil = "Terdapat error Ketika Mengirim Email : " + ex.Message;
+        }
+        return hasil;
     }
 }
 

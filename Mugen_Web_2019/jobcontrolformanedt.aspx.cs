@@ -128,62 +128,144 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
     }
     protected void btnProses_Click(object sender, EventArgs e)
     {
-        
-            try
+        string userAkses = (string)(Session["username"]);
+        if (userAkses == "MUCHLIS")
+        {
+            if (txtStatus.Text == "10" || txtStatus.Text == "11" || txtStatus.Text == "12" || txtStatus.Text == "13" || txtStatus.Text == "15" || txtStatus.Text == "14" || txtStatus.Text == "17")
             {
-                string filename = System.IO.Path.GetFileName(txtFoto.FileName);
-                string catatanBp = txtCatatan.Text;
-                string lokasiBp = txtLokasi.Text;
-                string statusBp = txtStatus.Text;
-                string woBp = Request.QueryString["qnowo"];
-                string user = (string)(Session["username"]);
-                DateTime toDay = DateTime.Now;
-                string hariIni = toDay.ToString("MM/dd/yyyy hh:mm:ss");
 
-                string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
-                SqlConnection con = new SqlConnection(cs);
-                SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "')", con);
-                SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
-                con.Open();
-                if (catatanBp == "")
+                try
                 {
-                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Catatan anda belum diisi.');</script>");
-                }
-                else if (lokasiBp == "")
-                {
-                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Lokasi Mobil belum anda isi.');</script>");
-                }
-                else if (statusBp == "")
-                {
-                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
-                }
-                else
-                {
+                    string filename = System.IO.Path.GetFileName(txtFoto.FileName);
+                    string catatanBp = txtCatatan.Text;
+                    string lokasiBp = txtLokasi.Text;
+                    string statusBp = txtStatus.Text;
+                    string woBp = Request.QueryString["qnowo"];
+                    string user = (string)(Session["username"]);
+                    DateTime toDay = DateTime.Now;
+                    string hariIni = toDay.ToString("MM/dd/yyyy hh:mm:ss");
 
-                    DataSet ds2 = new DataSet();
-
-                    SqlDataAdapter da2 = new SqlDataAdapter("SELECT * FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + woBp + "' AND CONTROLBR_TGLSELESAIA IS NULL", con);
-                    da2.Fill(ds2);
-                    int count2 = ds2.Tables[0].Rows.Count;
-                    if (count2 == 0)
+                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
+                    SqlConnection con = new SqlConnection(cs);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "')", con);
+                    SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
+                    con.Open();
+                    if (catatanBp == "")
                     {
-                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !');</script>");
+                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Catatan anda belum diisi.');</script>");
+                    }
+                    else if (lokasiBp == "")
+                    {
+                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Lokasi Mobil belum anda isi.');</script>");
+                    }
+                    else if (statusBp == "")
+                    {
+                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
                     }
                     else
                     {
-                        txtFoto.SaveAs(Server.MapPath("~/lamp/") + woBp + ".jpg");
-                        cmd.ExecuteNonQuery();
-                        cmd2.ExecuteNonQuery();
-                        Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
+
+                        DataSet ds2 = new DataSet();
+
+                        SqlDataAdapter da2 = new SqlDataAdapter("SELECT * FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + woBp + "' AND CONTROLBR_TGLSELESAIA IS NULL", con);
+                        da2.Fill(ds2);
+                        int count2 = ds2.Tables[0].Rows.Count;
+                        if (count2 == 0)
+                        {
+                            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !');</script>");
+                        }
+                        else
+                        {
+                            txtFoto.SaveAs(Server.MapPath("~/lamp/") + woBp + ".jpg");
+                            cmd.ExecuteNonQuery();
+                            cmd2.ExecuteNonQuery();
+                            Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
+                        }
                     }
+                    con.Close();
                 }
-                con.Close();
+                catch (Exception ex)
+                {
+                    btnProses.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+                }
+
             }
-            catch (Exception ex)
+            else
             {
-                btnProses.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. !');</script>");
+
             }
-       
+        }
+        else if (userAkses == "BUDI")
+        {
+            if (txtStatus.Text == "01" || txtStatus.Text == "02" || txtStatus.Text == "03" || txtStatus.Text == "04" || txtStatus.Text == "05" || txtStatus.Text == "06" || txtStatus.Text == "07" || txtStatus.Text == "08" || txtStatus.Text == "09" || txtStatus.Text == "16")
+            {
+
+                try
+                {
+                    string filename = System.IO.Path.GetFileName(txtFoto.FileName);
+                    string catatanBp = txtCatatan.Text;
+                    string lokasiBp = txtLokasi.Text;
+                    string statusBp = txtStatus.Text;
+                    string woBp = Request.QueryString["qnowo"];
+                    string user = (string)(Session["username"]);
+                    DateTime toDay = DateTime.Now;
+                    string hariIni = toDay.ToString("MM/dd/yyyy hh:mm:ss");
+
+                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
+                    SqlConnection con = new SqlConnection(cs);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "')", con);
+                    SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
+                    con.Open();
+                    if (catatanBp == "")
+                    {
+                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Catatan anda belum diisi.');</script>");
+                    }
+                    else if (lokasiBp == "")
+                    {
+                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Lokasi Mobil belum anda isi.');</script>");
+                    }
+                    else if (statusBp == "")
+                    {
+                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
+                    }
+                    else
+                    {
+
+                        DataSet ds2 = new DataSet();
+
+                        SqlDataAdapter da2 = new SqlDataAdapter("SELECT * FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + woBp + "' AND CONTROLBR_TGLSELESAIA IS NULL", con);
+                        da2.Fill(ds2);
+                        int count2 = ds2.Tables[0].Rows.Count;
+                        if (count2 == 0)
+                        {
+                            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !');</script>");
+                        }
+                        else
+                        {
+                            txtFoto.SaveAs(Server.MapPath("~/lamp/") + woBp + ".jpg");
+                            cmd.ExecuteNonQuery();
+                            cmd2.ExecuteNonQuery();
+                            Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
+                        }
+                    }
+                    con.Close();
+                }
+                catch (Exception ex)
+                {
+                    btnProses.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+                }
+
+            }
+            else
+            {
+                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. !');</script>");
+
+            }
+        }
+
+
+
     }
 
     protected void btnUnclosing_Click(object sender, EventArgs e)

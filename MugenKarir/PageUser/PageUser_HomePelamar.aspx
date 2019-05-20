@@ -164,6 +164,14 @@ h2.FormDataDiri {
                         <td>Wajib Di Isi</td>
                       <td ><asp:Button ID="BtnCV" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnCV_Click"   /><asp:Label ID="LblBtnCV" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label></td>
                     </tr>
+                    <tr>
+                        <th scope="row">15</th>
+                        <td>Unggah Surat Referensi</td>
+                        <td style="color:green;font-weight:bold">Tidak Wajib</td>
+                        <td>
+                            <asp:Button ID="BtnSuratRef" runat="server" Text="Isi Data" class="btn btn-info" OnClick="BtnSuratRef_Click" /><asp:Label ID="LblBtnSrt" runat="server" Text="Data Sudah Ada" Font-Bold="true" Visible="false"></asp:Label>
+                        </td>
+                    </tr>
                   </tbody>
                 </table>                    
                 </div>

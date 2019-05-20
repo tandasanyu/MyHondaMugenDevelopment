@@ -128,7 +128,8 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
     }
     protected void btnProses_Click(object sender, EventArgs e)
     {
-        
+        if (txtStatus.Text == "01" || txtStatus.Text == "02" || txtStatus.Text == "03" || txtStatus.Text == "13" || txtStatus.Text == "04" || txtStatus.Text == "05" || txtStatus.Text == "06" || txtStatus.Text == "07" || txtStatus.Text == "08" || txtStatus.Text == "09")
+        {
             try
             {
                 string filename = System.IO.Path.GetFileName(txtFoto.FileName);
@@ -183,6 +184,12 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
             {
                 btnProses.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
             }
+        }
+        else {
+            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. !');</script>");
+        }
+
+
        
     }
 

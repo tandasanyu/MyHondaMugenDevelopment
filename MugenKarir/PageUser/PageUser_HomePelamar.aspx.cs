@@ -168,6 +168,13 @@ public partial class PageUser_PageUser_HomePelamar : System.Web.UI.Page
             LblBtnCV.Visible = true;
             status_CV = 1;
         }
+        //cek uPLOAD Surat Ref
+        string SqlCek18 = "select id_lamaran from Data_UploadSurat where id_lamaran = " + Convert.ToInt32(LblIdLamaran.Text) + "";
+        if (cn.KelasKoneksi_CheckData(SqlCek18) == true)
+        {
+            BtnSuratRef.Visible = false;
+            LblBtnSrt.Visible = true;
+        }
 
     }
 
@@ -246,6 +253,10 @@ public partial class PageUser_PageUser_HomePelamar : System.Web.UI.Page
     {
         Response.Redirect("~/PageUser/PageUser_UploadCV.aspx?IdLamaran=" + LblIdLamaran.Text + "");
     }
+    protected void BtnSuratRef_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/PageUser/PageUser_UploadSurat.aspx?IdLamaran=" + LblIdLamaran.Text + "");
+    }
     //btn kirim lamaran 
     protected void BtnKirimLamaran_Click(object sender, EventArgs e)//status_PengalamanOrganisasi = 0; //tidak wajib //status_NPWP = 0;//tidak wajib
     {
@@ -279,4 +290,6 @@ public partial class PageUser_PageUser_HomePelamar : System.Web.UI.Page
             Response.Write("<script>alert('Data Anda Belum Lengkap, Silahkan Lengkapi !')</script>");
         }
     }
+
+
 }

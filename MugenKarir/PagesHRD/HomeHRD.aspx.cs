@@ -599,6 +599,33 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Gagal Menolak Pelamar, terdapat Error : " + Hasil + "')", true);
         }
     }
+    protected void LinkButtonUndang_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = LvPelamarBaru.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //Response.Write("<script>alert('"+DataKeyvalue+"')</script>");
+        Response.Redirect("Undang_Interview.aspx?idlamaran="+DataKeyvalue+"");
+        //get id login dari Data_Lamaran where id_lamaran dari listview values
+
+        //get email dari Login_User where id_login (user_email)
+    }
+    protected void LinkButtonUndangpsikotest_Click(object sender, EventArgs e)
+    {
+        var button = sender as LinkButton;
+
+        // Get the selected listview item
+        ListViewItem item = button.NamingContainer as ListViewItem;
+        // Get the datakey from listview
+        // Change the listview id and datakey name here
+        string DataKeyvalue = LvPelamarBaru.DataKeys[item.DataItemIndex].Values["Id_lamaran"].ToString();
+        //Response.Write("<script>alert('"+DataKeyvalue+"')</script>");
+        Response.Redirect("Undang_Psikotest.aspx?idlamaran=" + DataKeyvalue + "");
+    }
     //***
 
         //fungsi download foto ***************************************************

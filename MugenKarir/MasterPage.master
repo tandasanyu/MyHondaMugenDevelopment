@@ -98,6 +98,9 @@ div.content {
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Timepicker -->
+    <script src="js/jquery.timepicker.min.js"></script>
+    <link href="css/jquery.timepicker.min.css" rel="stylesheet" />
     <!-- Sidebar menu -->
 <%--    <script src="js/solid.js" ></script>
     <script src="js/fontawesome.js"></script>

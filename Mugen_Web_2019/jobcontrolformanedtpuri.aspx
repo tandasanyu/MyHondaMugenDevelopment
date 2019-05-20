@@ -164,7 +164,7 @@ opacity: 0.7;
           <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
          </asp:GridView>
          </td></tr></table>
-         <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:service128Connection %>" SelectCommand="SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL], [KERJABODY_USER], case [KERJABODY_STATUS] when 1 then 'DITERIMA' when 2 then 'BONGKAR' when 3 then 'KETOK' when 4 then 'DEMPUL' when 5 then 'CAT/OVEN' when 6 then 'POLES' when 7 then 'PEMASANGAN' when 8 then 'FINISHING' when 0 then 'CLOSING' when 9 then 'ANTRIAN' else 'UNCATEGORIZED' end AS statusval, case [KERJABODY_LOKASI] when 1 then 'lt. 1' when 2 then 'lt. 2' when 3 then 'lt. 3' when 4 then 'lt.4' when 5 then 'lt. 5' when 6 then 'lt. 6' when 7 then 'lt. 7' when 8 then 'lt. 8' when 9 then 'lt. 9' else '' END AS lokasimobil, [KERJABODY_CATATAN] FROM [TEMP_KERJABODY] WHERE ([KERJABODY_NOWO] = @KERJABODY_NOWO) ORDER BY KERJABODY_STATUS ASC">
+         <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:service128Connection %>" SelectCommand="SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL], [KERJABODY_USER], case [KERJABODY_STATUS] when 1 then 'DITERIMA' when 2 then 'BONGKAR' when 3 then 'KETOK' when 4 then 'DEMPUL' when 5 then 'CAT/OVEN' when 6 then 'POLES' when 7 then 'PEMASANGAN' when 8 then 'FINISHING' when 0 then 'CLOSING' when 9 then 'ANTRIAN' when 10 then 'PENILAIAN QC - OK' when 11 then 'PENILAIAN QC - REOWRK' when 12 then 'CATATAN' when 13 then 'PENYERAHAN UNIT KE QC' when 14 then 'PENERIMAAN UNIT OLEH QC'  else 'UNCATEGORIZED' end AS statusval, case [KERJABODY_LOKASI] when 1 then 'lt. 1' when 2 then 'lt. 2' when 3 then 'lt. 3' when 4 then 'lt.4' when 5 then 'lt. 5' when 6 then 'lt. 6' when 7 then 'lt. 7' when 8 then 'lt. 8' when 9 then 'lt. 9' else '' END AS lokasimobil, [KERJABODY_CATATAN] FROM [TEMP_KERJABODY] WHERE ([KERJABODY_NOWO] = @KERJABODY_NOWO) ORDER BY KERJABODY_STATUS ASC">
              <SelectParameters>
                  <asp:QueryStringParameter Name="KERJABODY_NOWO" QueryStringField="qnowo" Type="String" />
              </SelectParameters>
@@ -205,6 +205,11 @@ opacity: 0.7;
                   <asp:ListItem Value="07">PEMASANGAN</asp:ListItem>
                   <asp:ListItem Value="08">FINISHING</asp:ListItem>
                   <asp:ListItem Value="09">ANTRIAN</asp:ListItem>
+                  <asp:ListItem Value="10">PENILAIAN QC - OK</asp:ListItem>
+                  <asp:ListItem Value="11">PENILAIAN QC - REWORK</asp:ListItem>
+                  <asp:ListItem Value="12">CATATAN</asp:ListItem>
+                  <asp:ListItem Value="13">PENYERAHAN UNIT KE QC</asp:ListItem>
+                  <asp:ListItem Value="14">PENERIMAAN UNIT OLEH QC</asp:ListItem>
               </asp:DropDownList>
           </td></tr>
             <tr>

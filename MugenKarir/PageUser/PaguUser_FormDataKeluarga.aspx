@@ -261,9 +261,11 @@ h2.FormDataDiri {
                             <td>
                                 <asp:DropDownList ID="DropDownListPendidikanAyah" class="form-control" runat="server">
                                     <asp:ListItem Value="0">Pilih Jenis Pendidikan</asp:ListItem>
-                                    <asp:ListItem Value="1">SMP</asp:ListItem>
-                                    <asp:ListItem Value="2">SMA</asp:ListItem>
-                                    <asp:ListItem Value="3">S1</asp:ListItem>
+                                    <asp:ListItem Value="1">SMA</asp:ListItem>
+                                    <asp:ListItem Value="2">D1</asp:ListItem>
+                                    <asp:ListItem Value="3">D2</asp:ListItem>
+                                    <asp:ListItem Value="4">D3</asp:ListItem>
+                                    <asp:ListItem Value="4">S1</asp:ListItem>
                                     <asp:ListItem Value="4">S2</asp:ListItem>
                                 </asp:DropDownList>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" 
@@ -322,9 +324,11 @@ h2.FormDataDiri {
                             <td>
                                 <asp:DropDownList ID="DropDownListPendidikanIbu" class="form-control" runat="server">
                                     <asp:ListItem Value="0">Pilih Jenis Pendidikan</asp:ListItem>
-                                    <asp:ListItem Value="1">SMP</asp:ListItem>
-                                    <asp:ListItem Value="2">SMA</asp:ListItem>
-                                    <asp:ListItem Value="3">S1</asp:ListItem>
+                                    <asp:ListItem Value="1">SMA</asp:ListItem>
+                                    <asp:ListItem Value="2">D1</asp:ListItem>
+                                    <asp:ListItem Value="3">D2</asp:ListItem>
+                                    <asp:ListItem Value="4">D3</asp:ListItem>
+                                    <asp:ListItem Value="4">S1</asp:ListItem>
                                     <asp:ListItem Value="4">S2</asp:ListItem>
                                 </asp:DropDownList>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator9" 
@@ -427,10 +431,12 @@ h2.FormDataDiri {
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK1" class="form-control" runat="server">
                                                 <asp:ListItem Value="0">Pilih Jenis Pendidikan</asp:ListItem>
-                                                <asp:ListItem Value="1">SMP</asp:ListItem>
-                                                <asp:ListItem Value="2">SMA</asp:ListItem>
-                                                <asp:ListItem Value="3">S1</asp:ListItem>
-                                                <asp:ListItem Value="4">S2</asp:ListItem>
+                                                <asp:ListItem Value="1">SMA</asp:ListItem>
+                                                <asp:ListItem Value="2">D1</asp:ListItem>
+                                                <asp:ListItem Value="3">D2</asp:ListItem>
+                                                <asp:ListItem Value="4">D3</asp:ListItem>
+                                                <asp:ListItem Value="5">S1</asp:ListItem>
+                                                <asp:ListItem Value="6">S2</asp:ListItem>
                                             </asp:DropDownList>
                                         </td>
                                         <td>
@@ -494,9 +500,11 @@ h2.FormDataDiri {
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK2" class="form-control" runat="server">
                                                 <asp:ListItem Value="0">Pilih Jenis Pendidikan</asp:ListItem>
-                                                <asp:ListItem Value="1">SMP</asp:ListItem>
-                                                <asp:ListItem Value="2">SMA</asp:ListItem>
-                                                <asp:ListItem Value="3">S1</asp:ListItem>
+                                                <asp:ListItem Value="1">SMA</asp:ListItem>
+                                                <asp:ListItem Value="2">D1</asp:ListItem>
+                                                <asp:ListItem Value="3">D2</asp:ListItem>
+                                                <asp:ListItem Value="4">D3</asp:ListItem>
+                                                <asp:ListItem Value="4">S1</asp:ListItem>
                                                 <asp:ListItem Value="4">S2</asp:ListItem>
                                             </asp:DropDownList>
                                         </td>
@@ -561,9 +569,11 @@ h2.FormDataDiri {
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK3" class="form-control" runat="server">
                                                 <asp:ListItem Value="0">Pilih Jenis Pendidikan</asp:ListItem>
-                                                <asp:ListItem Value="1">SMP</asp:ListItem>
-                                                <asp:ListItem Value="2">SMA</asp:ListItem>
-                                                <asp:ListItem Value="3">S1</asp:ListItem>
+                                                <asp:ListItem Value="1">SMA</asp:ListItem>
+                                                <asp:ListItem Value="2">D1</asp:ListItem>
+                                                <asp:ListItem Value="3">D2</asp:ListItem>
+                                                <asp:ListItem Value="4">D3</asp:ListItem>
+                                                <asp:ListItem Value="4">S1</asp:ListItem>
                                                 <asp:ListItem Value="4">S2</asp:ListItem>
                                             </asp:DropDownList>
                                         </td>
@@ -628,9 +638,11 @@ h2.FormDataDiri {
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK4" class="form-control" runat="server">
                                                 <asp:ListItem Value="0">Pilih Jenis Pendidikan</asp:ListItem>
-                                                <asp:ListItem Value="1">SMP</asp:ListItem>
-                                                <asp:ListItem Value="2">SMA</asp:ListItem>
-                                                <asp:ListItem Value="3">S1</asp:ListItem>
+                                                <asp:ListItem Value="1">SMA</asp:ListItem>
+                                                <asp:ListItem Value="2">D1</asp:ListItem>
+                                                <asp:ListItem Value="3">D2</asp:ListItem>
+                                                <asp:ListItem Value="4">D3</asp:ListItem>
+                                                <asp:ListItem Value="4">S1</asp:ListItem>
                                                 <asp:ListItem Value="4">S2</asp:ListItem>
                                             </asp:DropDownList>
                                         </td>
@@ -695,9 +707,11 @@ h2.FormDataDiri {
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK5" class="form-control" runat="server">
                                                 <asp:ListItem Value="0">Pilih Jenis Pendidikan</asp:ListItem>
-                                                <asp:ListItem Value="1">SMP</asp:ListItem>
-                                                <asp:ListItem Value="2">SMA</asp:ListItem>
-                                                <asp:ListItem Value="3">S1</asp:ListItem>
+                                                <asp:ListItem Value="1">SMA</asp:ListItem>
+                                                <asp:ListItem Value="2">D1</asp:ListItem>
+                                                <asp:ListItem Value="3">D2</asp:ListItem>
+                                                <asp:ListItem Value="4">D3</asp:ListItem>
+                                                <asp:ListItem Value="4">S1</asp:ListItem>
                                                 <asp:ListItem Value="4">S2</asp:ListItem>
                                             </asp:DropDownList>
                                         </td>
@@ -762,9 +776,11 @@ h2.FormDataDiri {
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK6" class="form-control" runat="server">
                                                 <asp:ListItem Value="0">Pilih Jenis Pendidikan</asp:ListItem>
-                                                <asp:ListItem Value="1">SMP</asp:ListItem>
-                                                <asp:ListItem Value="2">SMA</asp:ListItem>
-                                                <asp:ListItem Value="3">S1</asp:ListItem>
+                                                <asp:ListItem Value="1">SMA</asp:ListItem>
+                                                <asp:ListItem Value="2">D1</asp:ListItem>
+                                                <asp:ListItem Value="3">D2</asp:ListItem>
+                                                <asp:ListItem Value="4">D3</asp:ListItem>
+                                                <asp:ListItem Value="4">S1</asp:ListItem>
                                                 <asp:ListItem Value="4">S2</asp:ListItem>
                                             </asp:DropDownList>
                                         </td>
@@ -829,9 +845,11 @@ h2.FormDataDiri {
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK7" class="form-control" runat="server">
                                                 <asp:ListItem Value="0">Pilih Jenis Pendidikan</asp:ListItem>
-                                                <asp:ListItem Value="1">SMP</asp:ListItem>
-                                                <asp:ListItem Value="2">SMA</asp:ListItem>
-                                                <asp:ListItem Value="3">S1</asp:ListItem>
+                                                <asp:ListItem Value="1">SMA</asp:ListItem>
+                                                <asp:ListItem Value="2">D1</asp:ListItem>
+                                                <asp:ListItem Value="3">D2</asp:ListItem>
+                                                <asp:ListItem Value="4">D3</asp:ListItem>
+                                                <asp:ListItem Value="4">S1</asp:ListItem>
                                                 <asp:ListItem Value="4">S2</asp:ListItem>
                                             </asp:DropDownList>
                                         </td>
@@ -896,9 +914,11 @@ h2.FormDataDiri {
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanSK8" class="form-control" runat="server">
                                                 <asp:ListItem Value="0">Pilih Jenis Pendidikan</asp:ListItem>
-                                                <asp:ListItem Value="1">SMP</asp:ListItem>
-                                                <asp:ListItem Value="2">SMA</asp:ListItem>
-                                                <asp:ListItem Value="3">S1</asp:ListItem>
+                                                <asp:ListItem Value="1">SMA</asp:ListItem>
+                                                <asp:ListItem Value="2">D1</asp:ListItem>
+                                                <asp:ListItem Value="3">D2</asp:ListItem>
+                                                <asp:ListItem Value="4">D3</asp:ListItem>
+                                                <asp:ListItem Value="4">S1</asp:ListItem>
                                                 <asp:ListItem Value="4">S2</asp:ListItem>
                                             </asp:DropDownList>
                                         </td>
@@ -970,9 +990,11 @@ h2.FormDataDiri {
                                     <td>
                                         <asp:DropDownList ID="DropDownListPendidikanSuamiIstri" class="form-control" runat="server">
                                             <asp:ListItem Value="0">Pilih Jenis Pendidikan</asp:ListItem>
-                                            <asp:ListItem Value="1">SMP</asp:ListItem>
-                                            <asp:ListItem Value="2">SMA</asp:ListItem>
-                                            <asp:ListItem Value="3">S1</asp:ListItem>
+                                            <asp:ListItem Value="1">SMA</asp:ListItem>
+                                            <asp:ListItem Value="2">D1</asp:ListItem>
+                                            <asp:ListItem Value="3">D2</asp:ListItem>
+                                            <asp:ListItem Value="4">D3</asp:ListItem>
+                                            <asp:ListItem Value="4">S1</asp:ListItem>
                                             <asp:ListItem Value="4">S2</asp:ListItem>
                                         </asp:DropDownList>                                
                                     </td>
@@ -1044,10 +1066,12 @@ h2.FormDataDiri {
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanAnak1" class="form-control" runat="server">
                                                 <asp:ListItem Value="0">Pilih Pendidikan</asp:ListItem>
-                                                <asp:ListItem Value="1">SD</asp:ListItem>
-                                                <asp:ListItem Value="2">SMP</asp:ListItem>
-                                                <asp:ListItem Value="3">SMA</asp:ListItem>
-                                                <asp:ListItem Value="4">Sarjana</asp:ListItem>
+                                                <asp:ListItem Value="1">SMA</asp:ListItem>
+                                                <asp:ListItem Value="2">D1</asp:ListItem>
+                                                <asp:ListItem Value="3">D2</asp:ListItem>
+                                                <asp:ListItem Value="4">D3</asp:ListItem>
+                                                <asp:ListItem Value="4">S1</asp:ListItem>
+                                                <asp:ListItem Value="4">S2</asp:ListItem>
                                             </asp:DropDownList>
                                         </td>
                                         <td>
@@ -1109,10 +1133,12 @@ h2.FormDataDiri {
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanAnak2" class="form-control" runat="server">
                                                 <asp:ListItem Value="0">Pilih Pendidikan</asp:ListItem>
-                                                <asp:ListItem Value="1">SD</asp:ListItem>
-                                                <asp:ListItem Value="2">SMP</asp:ListItem>
-                                                <asp:ListItem Value="3">SMA</asp:ListItem>
-                                                <asp:ListItem Value="4">Sarjana</asp:ListItem>
+                                                <asp:ListItem Value="1">SMA</asp:ListItem>
+                                                <asp:ListItem Value="2">D1</asp:ListItem>
+                                                <asp:ListItem Value="3">D2</asp:ListItem>
+                                                <asp:ListItem Value="4">D3</asp:ListItem>
+                                                <asp:ListItem Value="4">S1</asp:ListItem>
+                                                <asp:ListItem Value="4">S2</asp:ListItem>
                                             </asp:DropDownList>
                                         </td>
                                         <td>
@@ -1173,10 +1199,12 @@ h2.FormDataDiri {
                                         <td>
                                             <asp:DropDownList ID="DropDownListPendidikanAnak3" class="form-control" runat="server">
                                                 <asp:ListItem Value="0">Pilih Pendidikan</asp:ListItem>
-                                                <asp:ListItem Value="1">SD</asp:ListItem>
-                                                <asp:ListItem Value="2">SMP</asp:ListItem>
-                                                <asp:ListItem Value="3">SMA</asp:ListItem>
-                                                <asp:ListItem Value="4">Sarjana</asp:ListItem>
+                                                <asp:ListItem Value="1">SMA</asp:ListItem>
+                                                <asp:ListItem Value="2">D1</asp:ListItem>
+                                                <asp:ListItem Value="3">D2</asp:ListItem>
+                                                <asp:ListItem Value="4">D3</asp:ListItem>
+                                                <asp:ListItem Value="4">S1</asp:ListItem>
+                                                <asp:ListItem Value="4">S2</asp:ListItem>
                                             </asp:DropDownList>
                                         </td>
                                         <td>

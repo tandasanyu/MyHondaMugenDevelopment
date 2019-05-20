@@ -279,9 +279,6 @@ public partial class PageUser_PageUser_FormRiwayatPendidikan : System.Web.UI.Pag
         {
             if (TxtNamaInstansiNon1.Text.Length != 0 || TxtTahunInstansiNon1.Text.Length != 0)
             {
-                Response.Write("<script language='javascript'>window.alert('Pada Menu Pendidikan NonFormal ke-1 : Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
-            }
-            else {
                 string Hasil = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon1.Text, Convert.ToInt32(TxtTahunInstansiNon1.Text));
                 if (Hasil == "OK")
                 {
@@ -292,13 +289,13 @@ public partial class PageUser_PageUser_FormRiwayatPendidikan : System.Web.UI.Pag
                     Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                 }
             }
+            else
+            {
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Pendidikan NonFormal ke-1 : Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
+            }
         }
         else if (rBList_NonFormal == "2") {
             if (TxtNamaInstansiNon1.Text.Length != 0 || TxtTahunInstansiNon1.Text.Length != 0 || TxtNamaInstansiNon2.Text.Length != 0 || TxtTahunInstansiNon2.Text.Length != 0)
-            {
-                Response.Write("<script language='javascript'>window.alert('Pada Menu Pendidikan NonFormal ke-1 / ke-2 :Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
-            }
-            else
             {
                 string Hasil = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon1.Text, Convert.ToInt32(TxtTahunInstansiNon1.Text));
                 if (Hasil == "OK")
@@ -319,12 +316,12 @@ public partial class PageUser_PageUser_FormRiwayatPendidikan : System.Web.UI.Pag
                     Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                 }
             }
+            else
+            {
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Pendidikan NonFormal ke-1 / ke-2 :Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
+            }
         } else if ( rBList_NonFormal == "3") {
             if (TxtNamaInstansiNon1.Text.Length != 0 || TxtTahunInstansiNon1.Text.Length != 0 || TxtNamaInstansiNon2.Text.Length != 0 || TxtTahunInstansiNon2.Text.Length != 0 || TxtNamaInstansiNon3.Text.Length != 0 || TxtTahunInstansiNon3.Text.Length != 0)
-            {
-                Response.Write("<script language='javascript'>window.alert('Pada Menu Pendidikan NonFormal ke-1 / ke-2 / ke-3 : Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
-            }
-            else
             {
                 string Hasil = InsertDataPenNonFormal(Convert.ToInt32(IdLamar), TxtNamaInstansiNon1.Text, Convert.ToInt32(TxtTahunInstansiNon1.Text));
                 if (Hasil == "OK")
@@ -354,6 +351,10 @@ public partial class PageUser_PageUser_FormRiwayatPendidikan : System.Web.UI.Pag
                     Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                 }
             }
+            else
+            {
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Pendidikan NonFormal ke-1 / ke-2 / ke-3 : Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
+            }
         }
         // END OF PENDIDIKAN NO FORMAL
         // START OF Bahasa Asing --- RadioButtonListBahasa
@@ -370,9 +371,6 @@ public partial class PageUser_PageUser_FormRiwayatPendidikan : System.Web.UI.Pag
             //validasi
             if (TxtJenisBahasa1.Text.Length != 0 || DropDownListPenguasaanBahasa1.SelectedIndex != -1)
             {
-                Response.Write("<script language='javascript'>window.alert('Pada Menu Bahasa Asing Ke-1 :Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
-            }
-            else {
                 //InsertDataBahasa
                 string Hasil = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa1.Text, DropDownListPenguasaanBahasa1.SelectedValue);
                 if (Hasil == "OK")
@@ -384,14 +382,13 @@ public partial class PageUser_PageUser_FormRiwayatPendidikan : System.Web.UI.Pag
                     Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                 }
             }
+            else {
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Bahasa Asing Ke-1 :Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
+            }
             //validasi
         } else if (rBList_Bahasa == "2") {
             //validasi
             if (TxtJenisBahasa1.Text.Length != 0 || DropDownListPenguasaanBahasa1.SelectedIndex != -1 || TxtJenisBahasa2.Text.Length != 0 || DropDownListPenguasaanBahasa2.SelectedIndex != -1)
-            {
-                Response.Write("<script language='javascript'>window.alert('Pada Menu Bahasa Asing Ke-1 /  Ke-2 :Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
-            }
-            else
             {
                 //validasi 
                 string Hasil = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa1.Text, DropDownListPenguasaanBahasa1.SelectedValue);
@@ -413,13 +410,13 @@ public partial class PageUser_PageUser_FormRiwayatPendidikan : System.Web.UI.Pag
                     Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                 }
             }
+            else
+            {
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Bahasa Asing Ke-1 /  Ke-2 :Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
+            }
         } else if (rBList_Bahasa == "3") {
             //validasi
             if (TxtJenisBahasa1.Text.Length != 0 || DropDownListPenguasaanBahasa1.SelectedIndex != -1 || TxtJenisBahasa2.Text.Length != 0 || DropDownListPenguasaanBahasa2.SelectedIndex != -1 || TxtJenisBahasa3.Text.Length != 0 || DropDownListPenguasaanBahasa3.SelectedIndex != -1)
-            {
-                Response.Write("<script language='javascript'>window.alert('Pada Menu Bahasa Asing Ke-1 /  Ke-2 / Ke-3 :Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
-            }
-            else
             {
                 //validasi
                 string Hasil = InsertDataBahasa(Convert.ToInt32(IdLamar), TxtJenisBahasa1.Text, DropDownListPenguasaanBahasa1.SelectedValue);
@@ -449,6 +446,10 @@ public partial class PageUser_PageUser_FormRiwayatPendidikan : System.Web.UI.Pag
                 {
                     Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
                 }
+            }
+            else
+            {
+                Response.Write("<script language='javascript'>window.alert('Pada Menu Bahasa Asing Ke-1 /  Ke-2 / Ke-3 :Gagal Menyimpan Data, Masih ada Data yang Belum Lengkap');</script>");
             }
         }
         //

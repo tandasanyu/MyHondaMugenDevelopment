@@ -124,7 +124,7 @@
                                 <ItemTemplate>
                                     <tr>
                                         <td align="center" style="padding-top:40px"><p class="small"><%#Container.DataItemIndex + 1 %></p></td>
-                                        <td style="padding-top:40px"><center><%#Eval("Id_Lamaran")%></center>
+                                        <td style="padding-top:40px"><center>DFT - <%#Eval("Id_Lamaran")%></center>
                                         </td>
                                         <td style="padding-top:40px"><%#Eval("User_nama")%></td>
                                         <td style="padding-top:40px"><%#Eval("User_posisi")%></td>
@@ -157,7 +157,10 @@
                                         </td>
                                         <td><div style="padding:5px">
                                              <asp:LinkButton ID="LinkButtonProses" class="btn btn-success" runat="server" OnClick="LinkButtonProses_Click">Proses</asp:LinkButton><br /></div><div style="padding:5px">
-                                             <asp:LinkButton ID="LinkButtonTolak" class="btn btn-danger" runat="server" OnClick="LinkButtonTolak_Click">Tolak</asp:LinkButton></div>
+                                             <asp:LinkButton ID="LinkButtonTolak" class="btn btn-danger" runat="server" OnClick="LinkButtonTolak_Click">Tolak</asp:LinkButton></div><div style="padding:5px">
+                                            <asp:LinkButton ID="LinkButtonUndang" class="btn btn-dark" OnClick="LinkButtonUndang_Click" runat="server">Undang Interview</asp:LinkButton></div><div style="padding:5px">
+                                            <asp:LinkButton ID="LinkButtonUndangPsiko" class="btn btn-secondary" OnClick="LinkButtonUndangpsikotest_Click"  runat="server">Undang Psikotest</asp:LinkButton></div>
+                                                                                                                                                                                    
                                         </td>
                                     </tr>
                                 </ItemTemplate>
