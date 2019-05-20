@@ -47,5 +47,5 @@ baru sampe sakit surat dokter
 3. sukses izin keluar kantor
 4. MAU TEST CUTI BY AZIZ
 5. KAMIS COPY LOGIN + AUTOCOMPLETE OFF // test pengajuan cuti selain cuti biasa rule nya apakah memamng
-tidak bisa pengajuan ketika saldo 9 untuk selain cuti biasa
+tidak bisa pengajuan ketika saldo 0 untuk selain cuti biasa
 
