@@ -169,6 +169,7 @@ opacity: 0.7;
                  <asp:QueryStringParameter Name="KERJABODY_NOWO" QueryStringField="qnowo" Type="String" />
              </SelectParameters>
          </asp:SqlDataSource>
+        <asp:Button ID="BtnReportBPPuri" runat="server" CssClass="btn btn-danger" Text="Cetak Report" OnClick="BtnReportBPPuri_Click"  />
       <div id="addHistory" runat="server">
       <table style="width:100%;" id="inputHistory" runat="server">
           <tr>

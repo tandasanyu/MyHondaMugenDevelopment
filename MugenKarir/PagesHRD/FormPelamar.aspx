@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="FormPelamar.aspx.cs" Inherits="PagesHRD_FormPelamar" %>
 
-<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
+<%--<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>--%>
 
 <!DOCTYPE html>
 
@@ -83,8 +83,7 @@
 				<td width="600" align="center"><p style="font-size: 135%;"><b> &nbsp &nbsp &nbsp PT. MITRAUSAHA GENTANIAGA <br/>
 					&nbsp &nbsp &nbsp (HONDA MUGEN)<br/><br/>
 					&nbsp &nbsp &nbsp FORMULIR LAMARAN KERJA<br/>
-					&nbsp &nbsp &nbsp <?php echo $dataLamaran->posisi?></p><b/>
-					&nbsp &nbsp &nbsp 002 - FRM - HRD&GA R.2<br/></td>
+					&nbsp &nbsp &nbsp <asp:Label ID="LblPosisi" runat="server" Text="Label"></asp:Label><b/> <br />002 - FRM - HRD&GA R.2<br/></td>
 				<td width="300"> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp 
                     <asp:Image ID="ImagePelamar" runat="server"  Height="113px" Width="170px" />
                     <%--<img align="right" src="<?php if ($cekFoto==TRUE){ echo base_url().'lamaran/'.$dokumenFoto->pathFoto; } else { echo base_url().'lamaran/unnamed.png';}?>" width="113" height="170" alt="" />--%></td>		
@@ -868,7 +867,7 @@
                     <b><p><em>12. Anda senang bekerja pada lingkungan: </em></p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label50" runat="server" 
                         Text='<%# (string)Eval("LingkunganKerja") !="3" ? (string)Eval("LingkunganKerja")=="0"?"Di Dalam Kantor":(string)Eval("LingkunganKerja")=="1"?"Di Luar Kantor":(string)Eval("LingkunganKerja")=="2"?"Di Dalam Bengkel":"Lainya":"Data Tidak Ada" %>'></asp:Label><br />
-                        <asp:Label ID="Label51" runat="server" Text='<%# Eval("LingkunganKerja") !=null ? Eval("LingkunganKerja"): "Data Tidak Ada" %>'></asp:Label>
+                       <%-- <asp:Label ID="Label51" runat="server" Text='<%# Eval("LingkunganKerja") !=null ? Eval("LingkunganKerja"): "Data Tidak Ada" %>'></asp:Label>--%>
                     </div>
                     <br />
                 </ItemTemplate>

@@ -114,7 +114,7 @@ opacity: 0.7;
 <div id="show" style="border: 1px solid white; display: none; margin: 5px; padding: 2px; width: 98%;">
     <asp:Image ID="Image1" runat="server"  Style="width:600px;height:400px;"/>
 </div><div id="hide"></div></div>
-      
+
     
           <table style="font-size:0.85em;float:left;width:100%;"><tr><td><center style="background:#c0c0c0;">History Pengerjaan                                                            </center>
       <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource4" EnableModelValidation="True" class="table table-striped" AllowSorting="True" CellPadding="4" ForeColor="#333333" GridLines="None" style="width:100%;">
@@ -169,6 +169,7 @@ opacity: 0.7;
                  <asp:QueryStringParameter Name="KERJABODY_NOWO" QueryStringField="qnowo" Type="String" />
              </SelectParameters>
          </asp:SqlDataSource>
+                <asp:Button ID="BtnReportBPPsm" runat="server" CssClass="btn btn-danger" Text="Cetak Report" OnClick="BtnReportBPPsm_Click" />
       <div id="addHistory" runat="server">
       <table style="width:100%;" id="inputHistory" runat="server">
           <tr>

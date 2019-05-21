@@ -21,7 +21,10 @@ public partial class PagesHRD_FormPelamar : System.Web.UI.Page
         IdLamar = Request.QueryString["Id"];
         LblIdLamaran.Text = IdLamar;
         KelasKoneksi cn = new KelasKoneksi();
-
+        //get posisi
+        string sql_posisi = "select user_posisi, id_lamaran from data_lamaran where id_lamaran = "+IdLamar+"";
+        List<string> posisi = cn.KelasKoneksi_SelectGlobal(sql_posisi,"3");
+        LblPosisi.Text = posisi[1].ToString();
         //ScriptManager.RegisterStartupScript(this, this.GetType(), "redirect",
         //"alert('Id : "+IdLamar+"'); ", true);
         //**get data_diri

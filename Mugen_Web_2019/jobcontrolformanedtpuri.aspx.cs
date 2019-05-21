@@ -10,9 +10,10 @@ using System.Data.SqlClient;
 
 public partial class jobcontrolformanedtpuri : System.Web.UI.Page
 {
+    public string noWo;
     protected void Page_Load(object sender, EventArgs e)
     {
-        string noWo = Request.QueryString["qnowo"];
+        noWo = Request.QueryString["qnowo"];
         Image1.ImageUrl = "lamp/" + noWo + ".jpg";
         string userAkses = (string)(Session["username"]);
         string css = System.Configuration.ConfigurationManager.ConnectionStrings["setiawanConnectionString1"].ConnectionString;
@@ -221,5 +222,10 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
             Response.Redirect("jobcontrolformanedtpuri.aspx?qnowo=" + noWounClosing);
         }
         con.Close();
+    }
+
+    protected void BtnReportBPPuri_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Report_BP.aspx?qnowo=" + noWo + "");
     }
 }
