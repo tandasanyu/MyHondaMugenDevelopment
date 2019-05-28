@@ -88,6 +88,7 @@
                 <div class="col-12" style="overflow:auto">
                     <div class="form-group">
                         <div class="col" style="margin-bottom:4%;margin-top:1%">
+  <div class="col" style="margin-bottom:4%;margin-top:1%">
                     	        <asp:SqlDataSource ID="SqlPelamarBaru" runat="server"
 					                ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
 					                SelectCommand="select Id_lamaran, User_nama, User_Posisi from Data_Lamaran where status_lamaran = 1 and Status_undangan = 0  order by Tgl_Lamar DESC"

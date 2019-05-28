@@ -184,11 +184,11 @@
                                     <div class="col-sm-5" style="">No HP </div>
                                     <div class="col-sm-6">: <asp:Label ID="No_HPLabel" runat="server" Text='<%# Eval("No_HP") !=null ? Eval("No_HP"): "Data Tidak Ada" %>'  /></div>
                                 </div>
-                                 <div class="row">
+                                 <div class="row" style="display:none">
                                     <div class="col-sm-5" style="">Email </div>
                                     <div class="col-sm-6">: <asp:Label ID="EmailLabel" runat="server" Text='<%# Eval("Email") !=null ? Eval("Email"): "Data Tidak Ada"  %>' /></div>
                                 </div>
-                                 <div class="row">
+                                 <div class="row"  style="display:none">
                                     <div class="col-sm-5" style="">Hobi </div>
                                     <div class="col-sm-6">: <asp:Label ID="HobiLabel" runat="server" Text='<%# Eval("Hobi") !=null ? Eval("Hobi"): "Data Tidak Ada" %>' /></div>
                                 </div>
@@ -481,7 +481,7 @@
 			</asp:SqlDataSource>
             <asp:ListView ID="ListView1" DataSourceID="SqlDataSourcePenFor" runat="server">
                 <LayoutTemplate>
-                   <table class="table table-striped table-bordered table-hover" id="test">
+                   <table  class="table  table-bordered  table-hover" id="test">
 			            <thead>
                             <tr>
                                 <th align="center" rowspan="2"><b>Jenjang</b></th>
@@ -558,7 +558,7 @@
 			</asp:SqlDataSource>
             <asp:ListView ID="ListView2" DataSourceID="SqlDataSourcePenNon" runat="server">
                 <LayoutTemplate>
-                   <table class="table table-striped table-bordered table-hover" id="test">
+                   <table  class="table  table-bordered  table-hover" id="test">
                         <thead>
                             <tr>
                                 <td style="padding:10px"><div class="" style="font-weight:bold">Nama Instansi </div></td>
@@ -584,7 +584,7 @@
             </asp:ListView>
         </div>
         <div id="BahasaAsing" class="form-group">
-            <h4><asp:Label ID="LblBahasaA" runat="server" Text="Bahasa Asing"></asp:Label></h4>
+            <h4><asp:Label ID="LblBahasaA" runat="server" Text="Bahasa Asing yang Di Kuasai"></asp:Label></h4>
             <asp:SqlDataSource ID="SqlDataSourceBahasa" runat="server"
 				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
 				SelectCommand="SELECT* FROM Data_Bahasa WHERE (Id_Lamaran = @Param1)">
@@ -594,7 +594,7 @@
 			</asp:SqlDataSource>
             <asp:ListView ID="ListViewBahasaAsing" DataSourceID="SqlDataSourceBahasa" runat="server">
                 <LayoutTemplate>
-                   <table class="table table-striped table-bordered table-hover" id="test">
+                   <table  class="table  table-bordered  table-hover" id="test">
                         <thead>
                             <tr>
                                 <td align="center"><b>Jenis Bahasa</b></td>
@@ -620,7 +620,7 @@
             </asp:ListView>
         </div>
         <div id="PengalamanOrg" class="form-group">
-            <h4><asp:Label ID="LblOrg" runat="server" Text="Pengalaman Organisasi"></asp:Label></h4>
+            <h4><asp:Label ID="LblOrg" runat="server" Text="Organisasi yang Di Ikuti"></asp:Label></h4>
             <asp:SqlDataSource ID="SqlDataSourcePengalamanOrg" runat="server"
 				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
 				SelectCommand="SELECT* FROM Data_Organisasi WHERE (Id_Lamaran = @Param1)">
@@ -630,7 +630,7 @@
 			</asp:SqlDataSource>
             <asp:ListView ID="ListViewOrg" DataSourceID="SqlDataSourcePengalamanOrg" runat="server">
                 <LayoutTemplate>
-                   <table class="table table-striped table-bordered table-hover" id="test">
+                   <table  class="table  table-bordered  table-hover" id="test">
                         <thead>
                             <tr>
                                 <td align="center"><b>Nama Organisasi</b></td>
@@ -654,6 +654,35 @@
                             </tr>
                 </ItemTemplate>
             </asp:ListView><br />
+            <h4><asp:Label ID="Label3" runat="server" Text="Hobi"></asp:Label></h4>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server"
+				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
+				SelectCommand="SELECT*  ROM Data_Diri where (Id_Lamaran = @Param1)">
+				<SelectParameters>
+                    <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
+                </SelectParameters>
+			</asp:SqlDataSource>
+            <asp:ListView ID="ListView5" DataSourceID="SqlDataSourceLeader" runat="server">
+                <LayoutTemplate>
+                    <div id="itemPlaceholderContainer" runat="server" style="">
+                        <span runat="server" id="itemPlaceholder" />
+                    </div>
+                    <div style="">
+                    </div>
+                </LayoutTemplate>
+                <EmptyDataTemplate>
+                    <p><em>Data Tidak Ada</em></p>
+                </EmptyDataTemplate>
+                <ItemTemplate>
+                    <tableclass="table  table-bordered  table-hover">
+                            <tr>
+                                <td style="padding:10px"><!-- Seharusnya Int -->
+                                    <div class=""><asp:Label ID="Label27" runat="server" Text='<%# (string)Eval("Hobi") !=null ? Eval("hobi"):"Tidak Ada Data"%>'></asp:Label></div>
+                                </td>
+                            </tr>
+                    </table>
+                </ItemTemplate>
+            </asp:ListView><br />
             <h4><asp:Label ID="Label2" runat="server" Text="Pengalaman Memimpin"></asp:Label></h4>
             <asp:SqlDataSource ID="SqlDataSourceLeader" runat="server"
 				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
@@ -674,7 +703,7 @@
                     <p><em>Data Tidak Ada</em></p>
                 </EmptyDataTemplate>
                 <ItemTemplate>
-                    <table class="TableDataDiri">
+                    <table class="table  table-bordered  table-hover">
                             <tr>
                                 <td style="padding:10px"><!-- Seharusnya Int -->
                                     <div class=""><asp:Label ID="Label27" runat="server" Text='<%# (string)Eval("Pengalaman") !=null ? Eval("Pengalaman"):"Tidak Ada Data"%>'></asp:Label></div>
@@ -705,7 +734,7 @@
                     <p><em>Data Tidak Ada</em></p>
                 </EmptyDataTemplate>
                 <ItemTemplate>
-			          <table class="table table-striped table-bordered table-hover">
+			          <table  class="table  table-bordered  table-hover">
 				        <thead>
 					        <tr>
 						        <td align="center" rowspan="2"><b><u>Nama Perusahaan</u></b><br><br><asp:Label ID="NamaPerusahaan" runat="server" Text='<%# Eval("Nama_Perusahaan") !=null ? Eval("Nama_Perusahaan"): "Data Tidak Ada" %>'></asp:Label></td>
@@ -767,7 +796,7 @@
                     <p><em>Data Tidak Ada</em></p>
                 </EmptyDataTemplate>
                 <ItemTemplate>
-                    <table class="table table-striped table-bordered table-hover">
+                    <table  class="table  table-bordered  table-hover">
                         <thead>
                             <tr>
                                 <td align="center"><b>Nama</b></td>
@@ -812,59 +841,59 @@
                     <p><em>Data Tidak Ada</em></p>
                 </EmptyDataTemplate>
                 <ItemTemplate>
-                    <b><p><em>1. Apakah anda pernah sakit yang membutuhkan perawatan di rumah sakit?</em></p></b>
+                    <b><p>1. Apakah anda pernah sakit yang membutuhkan perawatan di rumah sakit?</p></b>
                     <div class="" style="padding:10px"><asp:Label ID="Label39" runat="server" 
                         Text='<%# Eval("Desc_Sakit") !=null ? Eval("Desc_Sakit"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
-                    <b><p><em>2. Sebutkan kelebihan diri anda!</em></p></b>
+                    <b><p>2. Sebutkan kelebihan diri anda!</p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label40" runat="server" 
                         Text='<%# Eval("Kelebihan") !=null ? Eval("Kelebihan"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
-                    <b><p><em>3. Sebutkan kekurangan diri anda!</em></p></b>
+                    <b><p>3. Sebutkan kekurangan diri anda!</p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label41" runat="server" 
                         Text='<%# Eval("Kekurangan") !=null ? Eval("Kekurangan"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
-                    <b><p><em>4. Keahlian apa saja yang anda miliki?</em></p></b>
+                    <b><p>4. Keahlian apa saja yang anda miliki?</p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label42" runat="server" 
                         Text='<%# Eval("Keahlian") !=null ? Eval("Keahlian"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
-                    <b><p><em>5. Apa yang anda ketahui mengenai "Job Description" dari pekerjaan yang anda lamar ini?</em></p></b>
+                    <b><p>5. Apa yang anda ketahui mengenai "Job Description" dari pekerjaan yang anda lamar ini?</p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label43" runat="server" 
                         Text='<%# Eval("JobDesc") !=null ? Eval("JobDesc"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
-                    <b><p><em>6. Berapa gaji yang anda harapkan? </em></p></b>
+                    <b><p>6. Berapa gaji yang anda harapkan?</p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label44" runat="server" 
                         Text='<%# Eval("HarapGaji") !=null ? Eval("HarapGaji", "{0:0,00}"): "Data Tidak Ada" %>'></asp:Label>
                     </div><br />
-                    <b><p><em>7. Sebutkan tunjangan/fasilitas yang anda inginkan! </em></p></b>
+                    <b><p>7. Sebutkan tunjangan/fasilitas yang anda inginkan! </p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label45" runat="server" 
                         Text='<%# Eval("Tunjangan") !=null ? Eval("Tunjangan"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
-                    <b><p><em>8. Bila anda diterima, kapan anda siap bekerja di Honda Mugen? </em></p></b>
+                    <b><p>8. Bila anda diterima, kapan anda siap bekerja di Honda Mugen? </p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label46" runat="server" 
                         Text='<%# Eval("SiapBekerja") !=null ? (int)Eval("SiapBekerja")==0?"Secepatnya":(int)Eval("SiapBekerja")==1?"1 Bulan Notifikasi":(int)Eval("SiapBekerja")==2?"1 Minggu Notifikasi":(int)Eval("SiapBekerja")==3?"2 Minggu Notifikasi":"Tidak Ada Data": "Tidak Ada Data" %>'></asp:Label>
                     </div>
                     <br />
-                    <b><p><em>9. Apakah anda bersedia ditempatkan dimana saja sesuai dengan kebutuhan perusahaan?</em></p></b>
+                    <b><p>9. Apakah anda bersedia ditempatkan dimana saja sesuai dengan kebutuhan perusahaan?</p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label47" runat="server" 
                         Text='<%# Eval("Penempatan") !=null ? (int)Eval("Penempatan")==1?"Ya":(int)Eval("Penempatan")==2?"Tidak":"Tidak Ada Data": "Data Tidak Ada" %>'></asp:Label>
                     </div>
                     <br />
-                    <b><p><em>10. Mengapa anda ingin bergabung dengan Honda Mugen?</em></p></b>
+                    <b><p>10. Mengapa anda ingin bergabung dengan Honda Mugen?</p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label48" runat="server" 
                         Text='<%# Eval("AlasanBergabung") !=null ? Eval("AlasanBergabung"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
-                    <b><p><em>11. Apa yang anda ketahui tentang Honda Mugen?</em></p></b>
+                    <b><p>11. Apa yang anda ketahui tentang Honda Mugen?</p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label49" runat="server" 
                         Text='<%# Eval("tentangmugen") !=null ? Eval("tentangmugen"): "Data Tidak Ada" %>'></asp:Label>
                     </div>
-                    <b><p><em>12. Anda senang bekerja pada lingkungan: </em></p></b>
+                    <b><p>12. Anda senang bekerja pada lingkungan: </p></b>
                         <div class="" style="padding:10px"><asp:Label ID="Label50" runat="server" 
                         Text='<%# (string)Eval("LingkunganKerja") !="3" ? (string)Eval("LingkunganKerja")=="0"?"Di Dalam Kantor":(string)Eval("LingkunganKerja")=="1"?"Di Luar Kantor":(string)Eval("LingkunganKerja")=="2"?"Di Dalam Bengkel":"Lainya":"Data Tidak Ada" %>'></asp:Label><br />
                        <%-- <asp:Label ID="Label51" runat="server" Text='<%# Eval("LingkunganKerja") !=null ? Eval("LingkunganKerja"): "Data Tidak Ada" %>'></asp:Label>--%>

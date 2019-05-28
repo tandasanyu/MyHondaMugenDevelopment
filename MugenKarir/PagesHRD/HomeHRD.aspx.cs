@@ -82,10 +82,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/Foto/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {
@@ -112,10 +113,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/KTP/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {
@@ -142,10 +144,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/NPWP/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {
@@ -172,10 +175,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/KK/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {
@@ -202,10 +206,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/Ijazah/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {
@@ -232,10 +237,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/Transkrip/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {
@@ -262,10 +268,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/Lamaran/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {
@@ -292,10 +299,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/CV/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {
@@ -336,10 +344,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/Foto/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Data Tidak Di Temukan')", true);
@@ -365,10 +374,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/KTP/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {
@@ -395,10 +405,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/NPWP/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {
@@ -425,10 +436,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/KK/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {
@@ -455,10 +467,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/Ijazah/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {
@@ -485,10 +498,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/Transkrip/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {
@@ -515,10 +529,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/Lamaran/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {
@@ -545,10 +560,11 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         if (Path_Foto.Count > 0)
         {
             path = "~/UploadFile/CV/" + Path_Foto[0] + "";
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
-            Response.TransmitFile(Server.MapPath(path));
-            Response.End();
+            Response.Redirect(path);
+            //Response.ContentType = "application/octet-stream";
+            //Response.AppendHeader("content-disposition", "filename = " + Path_Foto[0] + "");
+            //Response.TransmitFile(Server.MapPath(path));
+            //Response.End();
         }
         else
         {

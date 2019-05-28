@@ -280,7 +280,7 @@ public class KelasKoneksi
     public string email_otomatis(string e, string pesan)
     {
         string hasil = "";
-        string subject = "PT. Mutra Usaha Gentaniaga (Honda Mugen) Email Notification"; ;
+        string subject = "PT. Mitra Usaha Gentaniaga (Honda Mugen) Email Notification"; ;
         string body = pesan;
 
         //****WORKING CODE**************************************************************
