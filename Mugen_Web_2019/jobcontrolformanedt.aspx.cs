@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using System.Web.Configuration;
 
 public partial class jobcontrolformanedt : System.Web.UI.Page
 {
@@ -16,6 +17,21 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
          noWo = Request.QueryString["qnowo"];
         Image1.ImageUrl = "lamp/" + noWo + ".jpg";
         string userAkses = (string)(Session["username"]);
+        if (userAkses == "LINDA" || userAkses == "BUDI")
+        {
+            string hasil = Fungsi_GetValue("select KERJABODY_STATUS from TEMP_KERJABODY where KERJABODY_STATUS = 16 and KERJABODY_NOWO = "+noWo+"");
+            string.IsNullOrEmpty(hasil);
+            if (hasil == null || hasil == string.Empty ) {
+                BtnReportBPPsm.Visible = false;
+            } else {
+                BtnReportBPPsm.Visible = true;
+            }
+            
+        }
+        else
+        {
+            BtnReportBPPsm.Visible = false;
+        }
         string css = System.Configuration.ConfigurationManager.ConnectionStrings["setiawanConnectionString1"].ConnectionString;
         SqlConnection con2 = new SqlConnection(css);
         con2.Open();
@@ -96,6 +112,9 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
             inputHistory.Visible = true;
             btnUnclosing.Visible = false;
         }
+        //cek jika status sudah ada 16 maka tombol report muncul / sebaliknya jika belum
+
+        
     }
     protected void Button2_Click(object sender, EventArgs e)
     {
@@ -132,7 +151,7 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
         string userAkses = (string)(Session["username"]);
         if (userAkses == "MUCHLIS")
         {
-            if (txtStatus.Text == "10" || txtStatus.Text == "11" || txtStatus.Text == "12" || txtStatus.Text == "13" || txtStatus.Text == "15" || txtStatus.Text == "14" || txtStatus.Text == "17")
+            if (txtStatus.Text == "10" || txtStatus.Text == "11" || txtStatus.Text == "12" || txtStatus.Text == "13" || txtStatus.Text == "15" || txtStatus.Text == "14" || txtStatus.Text == "17" || txtStatus.Text == "18")
             {
 
                 try
@@ -301,6 +320,45 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
 
     protected void BtnReportBPPsm_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Report_BP.aspx?qnowo=" + noWo + "");
+        Response.Redirect("Report_BP.aspx?qnowo=" + noWo + "&cabang=112");
+    }
+    //FUNGSI KONEKSI HERLAMBANG
+    public string Fungsi_GetValue(string SqlCmd)
+    {
+        SqlConnection conn;
+        SqlCommand cmd;
+        SqlDataReader reader;
+        string status_hasil = string.Empty;
+        String strconn = WebConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
+        conn = new SqlConnection(strconn);
+        string sql =string.Empty;
+        sql = SqlCmd;
+        cmd = new SqlCommand(sql, conn);
+
+
+        try
+        {
+            conn.Open();
+            reader = cmd.ExecuteReader(); //Menggunakan data reader untuk select dan mengambil value nya 
+            while (reader.Read())
+            {
+                status_hasil = reader.GetValue(0).ToString();
+
+
+            }
+            //status_hasil = "1";
+            return status_hasil;
+        }
+        catch (SqlException ex)
+        {
+            status_hasil = "Terjadi error Ketika Mengambil Data: " + ex.Message;
+            return status_hasil;
+        }
+        finally
+        {
+            cmd.Dispose();
+            conn.Close();
+        }
+
     }
 }

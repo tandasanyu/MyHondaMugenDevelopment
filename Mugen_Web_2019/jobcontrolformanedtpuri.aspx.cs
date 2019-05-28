@@ -16,6 +16,13 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
         noWo = Request.QueryString["qnowo"];
         Image1.ImageUrl = "lamp/" + noWo + ".jpg";
         string userAkses = (string)(Session["username"]);
+        if (userAkses == "LINDA" || userAkses == "BUDI")
+        {
+            BtnReportBPPuri.Visible = true;
+        }
+        else {
+            BtnReportBPPuri.Visible = false;
+        }
         string css = System.Configuration.ConfigurationManager.ConnectionStrings["setiawanConnectionString1"].ConnectionString;
         SqlConnection con2 = new SqlConnection(css);
         con2.Open();
@@ -127,7 +134,7 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
         string noWo = Request.QueryString["qnowodel"];
         Response.Redirect("jobcontrolformanedtpuri.aspx?qnowo=" + noWo);
     }
-    protected void btnProses_Click(object sender, EventArgs e)
+    protected void btnProses_Click(object sender, EventArgs e) //VENDOR (BUDI) 1-9 & 16 --- QC (MUCHLIS) 10-15 & 17, 18
     {
         if (txtStatus.Text == "01" || txtStatus.Text == "02" || txtStatus.Text == "03" || txtStatus.Text == "13" || txtStatus.Text == "04" || txtStatus.Text == "05" || txtStatus.Text == "06" || txtStatus.Text == "07" || txtStatus.Text == "08" || txtStatus.Text == "09")
         {
@@ -226,6 +233,6 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
 
     protected void BtnReportBPPuri_Click(object sender, EventArgs e)
     {
-        Response.Redirect("Report_BP.aspx?qnowo=" + noWo + "");
+        Response.Redirect("Report_BP.aspx?qnowo=" + noWo + "&cabang=128");
     }
 }
