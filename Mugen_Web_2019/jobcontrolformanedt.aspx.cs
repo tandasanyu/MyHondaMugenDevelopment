@@ -17,7 +17,7 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
          noWo = Request.QueryString["qnowo"];
         Image1.ImageUrl = "lamp/" + noWo + ".jpg";
         string userAkses = (string)(Session["username"]);
-        if (userAkses == "LINDA" || userAkses == "BUDI")
+        if (userAkses == "LINDA" || userAkses == "MUCHLIS")
         {
             string hasil = Fungsi_GetValue("select KERJABODY_STATUS from TEMP_KERJABODY where KERJABODY_STATUS = 16 and KERJABODY_NOWO = "+noWo+"");
             string.IsNullOrEmpty(hasil);

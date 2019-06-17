@@ -17,11 +17,15 @@ using iTextSharp.text.html.simpleparser;
 using System.Data.SqlClient;
 using System.Net.Mail;
 using System.Net;
+using System.Web.Configuration;
 
 public partial class Report_BP : System.Web.UI.Page
 {
     public string wo;
     public string cabang;
+    SqlConnection conn;
+    SqlCommand cmd;
+    SqlDataReader reader;
     protected void Page_Load(object sender, EventArgs e)
     {
         wo = Request.QueryString["qnowo"];
@@ -34,13 +38,21 @@ public partial class Report_BP : System.Web.UI.Page
             Lbltelp.Text = "Telp : (021) 797 3000 (Show Room), 797 2000 (Bengkel)";
             LblFax.Text = "Fax : (021) 7973834";
             LblHttp.Text = "Web : www.hondamugen.co.id";
+            TxtEmailReciever.Text = "richard.nurtjahja@gmail.com";
+            TxtEmailReciever2.Text = "adm_bodyrepair@hondamugen.co.id";
+            TxtEmailReciever.ReadOnly = true;
+            TxtEmailReciever2.ReadOnly = true;
         }
         else
         {
-            LblAlamat.Text = "Jl. Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia";
-            Lbltelp.Text = "Telp : (021) 797 3000 (Show Room), 797 2000 (Bengkel)";
-            LblFax.Text = "Fax : (021) 7973834";
+            LblAlamat.Text = "Jl. Lingkar Luar Barat, Puri Kembangan Jakarta Barat 11610 - Indonesia";
+            Lbltelp.Text = "Telp : Showroom (021) 5835 8000, Bengkel (021) 5835 9000";
+            LblFax.Text = "Fax : (021) 5835 7942 ";
             LblHttp.Text = "Web : www.hondamugen.co.id";
+            TxtEmailReciever.Text = "richard.nurtjahja@gmail.com";
+            TxtEmailReciever2.Text = "Piutangservicepuri@hondamugen.co.id";
+            TxtEmailReciever.ReadOnly = true;
+            TxtEmailReciever2.ReadOnly = true;
         }
         LblAlamat.Visible = false;
         Lbltelp.Visible = false;
@@ -49,34 +61,49 @@ public partial class Report_BP : System.Web.UI.Page
         Label2.Visible = false;
         Label3.Visible = false;
         //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No Wo : "+wo+" -- Cabang "+cabang+"')", true);
-
+        if (cabang =="112") {
+            DataSet ds = new DataSet();
+            string sql = "SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL], [KERJABODY_USER], case [KERJABODY_STATUS] when 1 then 'DITERIMA' when 2 then 'BONGKAR' when 3 then 'KETOK' when 4 then 'DEMPUL' when 5 then 'CAT/OVEN' when 6 then 'POLES' when 7 then 'PEMASANGAN' when 8 then 'FINISHING'  when 9 then 'ANTRIAN' when 10 then 'PENILAIAN QC - OK' when 11 then 'PENILAIAN QC - REWORK' when 12 then 'PENILAIAN QC - HASIL REWORK -- GOOD' when 13 then 'PENILAIAN QC - HASIL REWORK -- NOT GOOD' when 14 then 'PENILAIAN QC - HASIL REWORK -- LAIN-LAIN' when 15 then 'PENILAIAN QC - HASIL REWORK -- CATATAN'  when 16 then 'PENYERAHAN UNIT VENDOR KE QC' when 17 then 'PENERIMAAN UNIT QC DARI VENDOR' when 18 then 'PENYERAHAN UNIT KE SA BP' else 'UNCATEGORIZED' end AS statusval, case [KERJABODY_LOKASI] when 1 then 'lt. 1' when 2 then 'lt. 2' when 3 then 'lt. 3' when 4 then 'lt.4' when 5 then 'lt. 5' when 6 then 'lt. 6' when 7 then 'lt. 7' when 8 then 'lt. 8' when 9 then 'lt. 9' else '' END AS lokasimobil, [KERJABODY_CATATAN] FROM [TEMP_KERJABODY] WHERE ([KERJABODY_NOWO] = " + wo + ") ORDER BY KERJABODY_STATUS ASC";
+            ds = getDataSet(sql, 1);
+            LvReportBP.DataSource = ds;
+            LvReportBP.DataBind();
+        } else {
+            DataSet ds = new DataSet();
+            string sql = "SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL], [KERJABODY_USER], case [KERJABODY_STATUS] when 1 then 'DITERIMA' when 2 then 'BONGKAR' when 3 then 'KETOK' when 4 then 'DEMPUL' when 5 then 'CAT/OVEN' when 6 then 'POLES' when 7 then 'PEMASANGAN' when 8 then 'FINISHING'  when 9 then 'ANTRIAN' when 10 then 'PENILAIAN QC - OK' when 11 then 'PENILAIAN QC - REWORK' when 12 then 'PENILAIAN QC - HASIL REWORK -- GOOD' when 13 then 'PENILAIAN QC - HASIL REWORK -- NOT GOOD' when 14 then 'PENILAIAN QC - HASIL REWORK -- LAIN-LAIN' when 15 then 'PENILAIAN QC - HASIL REWORK -- CATATAN'  when 16 then 'PENYERAHAN UNIT VENDOR KE QC' when 17 then 'PENERIMAAN UNIT QC DARI VENDOR' when 18 then 'PENYERAHAN UNIT KE SA BP' else 'UNCATEGORIZED' end AS statusval, case [KERJABODY_LOKASI] when 1 then 'lt. 1' when 2 then 'lt. 2' when 3 then 'lt. 3' when 4 then 'lt.4' when 5 then 'lt. 5' when 6 then 'lt. 6' when 7 then 'lt. 7' when 8 then 'lt. 8' when 9 then 'lt. 9' else '' END AS lokasimobil, [KERJABODY_CATATAN] FROM [TEMP_KERJABODY] WHERE ([KERJABODY_NOWO] = " + wo + ") ORDER BY KERJABODY_STATUS ASC";
+            ds= getDataSet(sql, 2);
+            LvReportBP.DataSource = ds;
+            LvReportBP.DataBind();
+        }
     }
-
-    private DataTable GetData(SqlCommand cmd)
+    public DataSet getDataSet(string sql, int cabang)
     {
-        DataTable dt = new DataTable();
-        String strConnString = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
-        SqlConnection con = new SqlConnection(strConnString);
-        SqlDataAdapter sda = new SqlDataAdapter();
-        cmd.CommandType = CommandType.Text;
-        cmd.Connection = con;
+        string koneksi;
+        DataSet ds = new DataSet();
+        if (cabang == 1) {
+            koneksi = "serviceConnection";
+        } else {
+            koneksi = "service128Connection";
+        }
+        String strconn = WebConfigurationManager.ConnectionStrings[koneksi].ConnectionString;
+        conn = new SqlConnection(strconn);
+        SqlDataAdapter da = new SqlDataAdapter(sql, conn);
         try
         {
-            con.Open();
-            sda.SelectCommand = cmd;
-            sda.Fill(dt);
-            return dt;
+            conn.Open();
+            da.Fill(ds);
         }
         catch (Exception ex)
         {
-            throw ex;
+            ds = null;
         }
         finally
         {
-            con.Close();
-            sda.Dispose();
-            con.Dispose();
+            conn.Close();
+            conn.Dispose();
+            da.Dispose();
         }
+
+        return ds;
     }
 
     protected void BtnKirimEmail_Click(object sender, EventArgs e) // bisa di eksekusi oleh user budi / linda ketika proses sudah sampe prosesnya budi
