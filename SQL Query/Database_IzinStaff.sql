@@ -72,7 +72,8 @@ SELECT        dbo.DATA_IZIN_BODY.IZIN_ID, dbo.DATA_IZIN_HEADER.IZIN_NAMA, dbo.DA
 						 then 'Disetujui Atasan Langsung'	
 						 when dbo.DATA_IZIN_BODY.IZIN_STATUS ='Dibatalkan Atasan'
 						 and dbo.DATA_IZIN_BODY.IZIN_JENIS <>'Cuti'
-						 then 'Dibatalkan Atasan Langsung'					  				 
+						 then 'Dibatalkan Atasan Langsung'			
+						 when dbo.DATA_IZIN_BODY.IZIN_STATUS = 'Pending' and dbo.DATA_IZIN_BODY.IZIN_TGLDEADLINE < getdate() then 'Expired'		  				 
 						 else dbo.DATA_IZIN_BODY.IZIN_STATUS end as IZIN_STATUS,
 						 dbo.DATA_IZIN_BODY.IZIN_JENIS, 
                          dbo.DATA_STAFF.STAFF_SUBJABATAN, dbo.DATA_STAFF.STAFF_STATUSKERJADEPT
@@ -191,6 +192,10 @@ GROUP BY fmbhead.disetujui2fmb, fmbhead.tgldisetujui2fmb, fmbhead.nofmbhead, fmb
    join 
    data_izin_header h
    on b.izin_nik = h.IZIN_NIK 
+
+****TAMBAJAM
+-Jika izin status null maka : 
+1.ketika null dan tgl 
 */
 
 /*
@@ -309,3 +314,306 @@ SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL], [KERJABODY_USER],
 		ORDER BY KERJABODY_STATUS ASC
 
 */
+/*
+FLOW : KETIKA SELESAI PILIH RUANGAN, MAKA BISA PILIH MULTIPLE SUB BLOCK RUANGAN . KEMUDIAN BISA PILIH MULTIPLE POIN PENILAIAN DAN MEMILIH  
+*/
+
+/*
+TAMBAH KOLOM INI DI TRXN_kpin
+ALTER TABLE TRXN_KPIN
+ADD KPIN_NAMA varchar(255); --nama
+
+ALTER TABLE TRXN_KPIN
+ADD KPIN_DEPT varchar(100); -- sales
+
+ALTER TABLE TRXN_KPIN
+ADD KPIN_SUBJAB varchar(20); -- a
+
+ALTER TABLE TRXN_KPIN
+ADD KPIN_KODES varchar(30); --112 / 128
+
+STATE AKHIR PENGERJAAN : KONEKSI KE 180 UNTUK DAPAT NAMA SALES BERDASARKAN NKODE., NANTINYA AKAN DI SAVE KETIKA SAVE PENILAIAN SALES KE ATSAN
+
+PAKE PIVOT
+*/
+
+/*
+===========QUERY UNTUK MENAMPILKAN PENGAJUAN IZIN DETAIL , BERIKUT LOGIC STATUS NYA (FIX/10/6/19)
+note : di tampilkan yg pending saja . yang expired tampilkan ke bu okta 
+
+ SELECT Details.izin_id,
+     b.izin_nik AS NIK,
+	 h.IZIN_NAMA,
+	 h.IZIN_NIK_APPVSPV,b.IZIN_TGLAPPVSPV,
+	 h.IZIN_NIK_APPVMNG,b.IZIN_TGLAPPVMNG,
+	 Details.id_detail,
+     b.izin_jenis,
+     b.izin_alasan,
+     Details.izin_tgldetail,
+	 (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) as TglDeadline,
+	 --Details.izin_status,
+	 case 
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) < GETDATE()
+		and Details.izin_status is null
+		then 'Expired' -- untuk case expired
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) >= GETDATE()
+		and Details.izin_status is null
+		then 'Pending'
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) >= GETDATE()
+		and Details.izin_status is not null
+		then Details.izin_status
+		end as Status_Izin,
+     Details.Source,
+     Details.Flag
+   FROM DATA_IZIN_BODY b
+   JOIN 
+          (SELECT izin_id, izin_nik, izin_tgldetail,  izin_status, izin_id_detail as id_detail
+		   ,'DT' AS Source, FLAG
+           FROM DATA_IZIN_DETAIL
+
+           UNION ALL
+
+          SELECT izin_id, izin_nik, izin_tgldetail, izin_status, izin_id_detailpc as id_detail
+		   ,'PC' AS Source, FLAG
+           FROM DATA_IZIN_DETAILPC) AS Details
+   
+   ON b.izin_id = Details.izin_id  
+   join 
+   data_izin_header h
+   on b.izin_nik = h.IZIN_NIK 
+
+	 =====REVISI==================
+ SELECT Details.izin_id,
+     b.izin_nik AS NIK,
+	 h.IZIN_NAMA,
+	 CASE 
+		WHEN h.IZIN_NIK_APPVMNG ='--' THEN NULL
+		WHEN h.IZIN_NIK_APPVMNG <>'--' THEN h.IZIN_NIK_APPVMNG 
+		END as NIKMNG, 
+	 h.IZIN_NIK_APPVSPV as NIKSPV,
+	 (select staff_nama from data_staff where staff_nik = h.IZIN_NIK_APPVSPV) as Atasan1,
+	 --b.IZIN_TGLAPPVSPV,
+	 case 
+		when  h.IZIN_NIK_APPVMNG = '--'
+		then '--'
+		when h.IZIN_NIK_APPVMNG <> '--'
+		then (select staff_nama from data_staff where staff_nik = h.IZIN_NIK_APPVMNG)
+		end as Atasan2
+	 ,
+	 --h.IZIN_NIK_APPVMNG,
+	 b.IZIN_TGLAPPVMNG,
+	 b.IZIN_TGLAPPVSPV,
+	 Details.id_detail,
+     b.izin_jenis,
+     b.izin_alasan,
+     Details.izin_tgldetail,
+	 (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) as TglDeadline,
+	 --Details.izin_status,
+	 case 
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) < CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null 
+		then 'Expired' -- untuk case expired
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) >= CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null
+		then 'Pending'
+		when Details.izin_status is not null
+		then Details.izin_status
+		end as Status_Izin,
+     Details.Source,
+     Details.Flag
+   FROM DATA_IZIN_BODY b
+   JOIN 
+          (SELECT izin_id, izin_nik, izin_tgldetail,  izin_status, izin_id_detail as id_detail
+		   ,'DT' AS Source, FLAG
+           FROM DATA_IZIN_DETAIL
+
+           UNION ALL
+
+          SELECT izin_id, izin_nik, izin_tgldetail, izin_status, izin_id_detailpc as id_detail
+		   ,'PC' AS Source, FLAG
+           FROM DATA_IZIN_DETAILPC) AS Details
+   
+   ON b.izin_id = Details.izin_id  
+   join 
+   data_izin_header h
+   on b.izin_nik = h.IZIN_NIK 
+
+	 ----masih belum sempurna / ketika tgl appv mng ada status masih expired NIKMNG & NIKSPV = '462'
+	    SELECT * FROM [DetailPengajuanIzin] 
+   WHERE (([NIKMNG] = '462') OR ([NIKSPV] = '462'))  order by status_izin desc
+*/
+--good code / hanya menampilkan yg pending
+
+--NOTE : 
+/*
+	jika ingin menambahkan user baru untuk PO, 88. maka masukan ke mugensupport ->tb_user. 
+	dan masukan juga ke tb_userGeneral (jika bukan staff / venor luar)
+	untuk bisa login ke sistem. berikan hak akses di menu utility
+*/
+
+-- bad code
+--/Kondisi ketika expired (2 atasan namun baru di setujui 1 atasan) //masuknya expired
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) 
+		< CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+			and Details.izin_status is null 
+			and h.IZIN_NIK_APPVMNG <> '--' 
+			and b.izin_jenis = 'Cuti'
+			and b.IZIN_TGLAPPVSPV is not null
+			and b.IZIN_TGLAPPVMNG is null
+			then 'Expired'
+	--/Kondisi ketika expired (1 atasan belum menyetujui) //masuknya expired
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) 
+		< CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+			and Details.izin_status is null 
+			and h.IZIN_NIK_APPVMNG <> '--' 
+			and b.izin_jenis = 'Cuti'
+			and b.IZIN_TGLAPPVSPV is null
+			then 'Expired'
+
+select KERJABODY_STATUS from TEMP_KERJABODY 
+where KERJABODY_STATUS = 16 and KERJABODY_NOWO = '152186'
+
+SELECT * FROM TEMP_KERJABODY
+WHERE KERJABODY_NOWO = '152186'
+
+1 'DITERIMA'                                           (SELURUH SA - PSM / PURI)
+              2 'BONGKAR'                                            (BUDI & ROBY)
+              3 'KETOK'                                              (BUDI & ROBY)
+              4 'DEMPUL'                                             (BUDI & ROBY)
+              5 'CAT/OVEN'                                           (BUDI & ROBY)
+              6 'POLES'                                              (BUDI & ROBY)
+              7 'PEMASANGAN'                                         (BUDI & ROBY)
+              8 'FINISHING'                                          (BUDI & ROBY)
+              9 'ANTRIAN'                                            (BUDI & ROBY)
+              10 'PENILAIAN QC - OK'                                 (MUCHLIS & REGIANSYAH)
+              11 'PENILAIAN QC - REWORK'                             (MUCHLIS & REGIANSYAH)
+              12 'PENILAIAN QC - HASIL REWORK -- GOOD'               (MUCHLIS & REGIANSYAH)
+              13 'PENILAIAN QC - HASIL REWORK -- NOT GOOD'           (MUCHLIS & REGIANSYAH)
+              14 'PENILAIAN QC - HASIL REWORK -- LAIN-LAIN'          (MUCHLIS & REGIANSYAH)
+              15 'PENILAIAN QC - HASIL REWORK -- CATATAN'            (MUCHLIS & REGIANSYAH)
+              16 'PENYERAHAN UNIT VENDOR KE QC'                      (MUCHLIS & REGIANSYAH)
+              17 'PENERIMAAN UNIT QC DARI VENDOR'                    (MUCHLIS & REGIANSYAH)
+              18 'PENYERAHAN UNIT KE SA BP'                          (MUCHLIS & REGIANSYAH)
+
+		WHEN 1 THEN 'DISERAHKAN SA KE VENDOR'
+		when 2 then 'DITERIMA' 
+		when 3 then 'BONGKAR' 
+		when 4 then 'KETOK' 
+		when 5 then 'DEMPUL' 
+		when 6 then 'CAT/OVEN' 
+		when 7 then 'POLES' 
+		when 8 then 'PEMASANGAN' 
+		when 9 then 'FINISHING'  
+		when 10 then 'PENILAIAN QC - OK'	
+		when 11 then 'PENILAIAN QC - REWORK' 
+		when 12 then 'PENILAIAN QC - HASIL REWORK -- GOOD' 
+		when 13 then 'PENILAIAN QC - HASIL REWORK -- NOT GOOD' 
+		when 14 then 'PENILAIAN QC - HASIL REWORK -- LAIN-LAIN' 
+		when 15 then 'JIKA HASIL REWORK LAIN2, CATATAN DARI QC'  
+		when 16 then 'PENYERAHAN UNIT DARI VENDOR KE QC' 
+		when 17 then 'PENERIMAAN UNIT QC DARI VENDOR'  
+		when 18 then 'PENILAIAN QC KE SA BP'
+
+
+-- YANG BARU
+
+                  <asp:ListItem Value="01">DISERAHKAN SA KE VENDOR</asp:ListItem>
+                  <asp:ListItem Value="02">DITERIMA</asp:ListItem>
+                  <asp:ListItem Value="03">BONGKAR</asp:ListItem>
+                  <asp:ListItem Value="04">KETOK</asp:ListItem>
+                  <asp:ListItem Value="05">DEMPUL</asp:ListItem>
+                  <asp:ListItem Value="06">CAT / OVEN</asp:ListItem>
+                  <asp:ListItem Value="07">POLES</asp:ListItem>
+                  <asp:ListItem Value="08">PEMASANGAN</asp:ListItem>
+                  <asp:ListItem Value="09">FINISHING</asp:ListItem>
+                  <asp:ListItem Value="10">PENILAIAN QC - OK</asp:ListItem>
+                  <asp:ListItem Value="11">PENILAIAN QC - REWORK</asp:ListItem>
+                  <asp:ListItem Value="12">PENILAIAN QC - HASIL REWORK -- GOOD</asp:ListItem>
+                  <asp:ListItem Value="13">PENILAIAN QC - HASIL REWORK -- NOT GOOD</asp:ListItem>
+                  <asp:ListItem Value="14">PENILAIAN QC - HASIL REWORK -- LAIN-LAIN</asp:ListItem>
+                  <asp:ListItem Value="15">JIKA HASIL REWORK LAIN2, CATATAN DARI QC</asp:ListItem>
+                  <asp:ListItem Value="16">PENYERAHAN UNIT DARI VENDOR KE QC</asp:ListItem>
+                  <asp:ListItem Value="17">PENERIMAAN UNIT QC DARI VENDOR</asp:ListItem>
+                  <asp:ListItem Value="18">PENILAIAN QC KE SA BP</asp:ListItem>
+
+       
+		      1 'DISERAHKAN SA KE VENDOR                              (SELURUH SA BP – PSM / PURI) == budi/roby      
+		      2. DITERIMA'                                            (BUDI / ROBY) ==
+              3. 'BONGKAR'                                            (BUDI / ROBY)
+              4. 'KETOK'                                              (BUDI / ROBY)
+              5. 'DEMPUL'                                             (BUDI / ROBY)
+              6. 'CAT/OVEN'                                           (BUDI / ROBY)
+              7. 'POLES'                                              (BUDI / ROBY)
+              8. 'PEMASANGAN'                                         (BUDI / ROBY)
+              9. 'FINISHING'                                          (BUDI / ROBY) ---------------------→ JIKA OK, LANGSUNG KE NOMOR 14 DST
+              10.'PENILAIAN QC - OK'                                  (MUCHLIS / REGIANSYAH)
+              11. 'PENILAIAN QC - REWORK'                             (MUCHLIS / REGIANSYAH)
+              12. 'PENILAIAN QC - HASIL REWORK – GOOD/NOT GOOD/LAIN2  (MUCHLIS / REGIANSYAH)
+              13.  JIKA HASIL REWORK LAIN2, CATATAN DARI QC'          (MUCHLIS / REGIANSYAH)
+              14. 'PENYERAHAN UNIT DARI VENDOR KE QC'                 (BUDI / ROBY)
+              15. 'PENERIMAAN UNIT QC DARI VENDOR'                    (MUCHLIS / REGIANSYAH)
+              16. 'PENYERAHAN UNIT QC KE SA BP'                       (MUCHLIS / REGIANSYAH)
+              
+			  17.    QC KLIK TOMBOL SEND EMAIL KE VENDOR              (MUCHLIS / REGIANSYAH)     
+
+			  1-8 : budi / roby
+			  9-12 : muchlis / REGIANSYAH
+			  13 : budi /roby
+			  14 - 15: muchlis/REGIANSYAH
+			  16 : ke sa terkait
+
+
+when 1 then 'DISERAHKAN SA KE VENDOR' when 2 then 'DITERIMA' when 3 then 'BONGKAR' when 4 then 'KETOK' when 5 then 'DEMPUL' when 6 then 'CAT/OVEN' when 7 then 'POLES' when 8 then 'PEMASANGAN' when 9 then 'FINISHING' when 10 then 'PENILAIAN QC - OK' when 11 then 'PENILAIAN QC - REWORK' when 12 then 'PENILAIAN QC - HASIL REWORK – GOOD/NOT GOOD/LAIN2' when 13 then 'JIKA HASIL REWORK LAIN2, CATATAN DARI QC' when 14 then 'PENYERAHAN UNIT DARI VENDOR KE QC' when 15 then 'PENERIMAAN UNIT QC DARI VENDOR' when 16 then 'PENYERAHAN UNIT QC KE SA BP' 
+
+
+SELECT * FROM TEMP_KERJABODY
+WHERE KERJABODY_NOWO = '153093'
+
+SELECT * FROM TEMP_KERJABODY
+WHERE KERJABODY_NOWO = '153093'
+
+
+			  RULES : 
+			  /*
+			  1. Muchlis bisa isi [10] / [11] ketika di database nilai tertinggi proses = 9
+			  2. Siapapun ketika mengisi, jika nilai tertinggi [10] maka hanya bisa isi [14] - [16]. Lainya tidak bisa
+			  3. SA di beri Akses : FORM JOB CONTROL FOREMAN -- ADD HISTORY & FORM JOB CONTROL FORMAN -- VIEW MENU
+
+			  
+			  4. Ketika delete, hanya bisa di status paling terakhir. jika delete yg lain tidak bisa
+			  5. setelah delete update status_ketok ke state sebelum data yg di hapus 
+			  6. yg bisa delete adalah yg masukin status terakhir 
+			  	-ada 2 test case : 
+				  	a. jika status 01, ketika delete maka update ke ketok menjadi null
+					b. jika status di atas 01 ketika delete maka update ke ketok menjadi satus satu tingkat di bawahnya (select max)
+			  7.setiap isi status , email ke user terkait
+			  */     
+			  
+
+			-- ganti user wahyusa menjadi wahyu
+			/*
+			Case temuan : 
+			1. Problem : ketika delete history pengerjaan, update yang di lakukan tidak sesuai data history. [karena history -1]
+			harusnya delete dulu, kemudian di update berdasarkan select max di history bp
+			*/
+
+			  --CEK PSM USER SA
+SELECT * FROM tb_userutility 
+WHERE username IN (
+'AGUS','SANDY','SUWANDI'
+) ORDER BY username DESC
+
+-- FORM JOB CONTROL FOREMAN -- ADD HISTORY
+-- FORM JOB CONTROL FORMAN -- VIEW MENU
+
+--INSERT INTO tb_userutility
+--VALUES (
+--'AGUS',
+--'FORM JOB CONTROL FOREMAN -- ADD HISTORY')
+
+--INSERT INTO tb_userutility
+--VALUES (
+--'SUWANDI',
+--'FORM JOB CONTROL FOREMAN -- ADD HISTORY')
+
+

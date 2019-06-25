@@ -56,6 +56,18 @@ padding:1em 1.2em;
 display:none;
 opacity: 0.7;
 }
+    .table th {
+
+    text-align: center;
+
+}
+
+.table {
+    border-radius: 5px;
+    width: 50%;
+  margin: auto;
+    float: none;
+}
     </style>
      <script src="js/jquery-ui.js" type="text/javascript"></script>
     <script src="js/jquery.js" type="text/javascript"></script>
@@ -117,7 +129,7 @@ opacity: 0.7;
 
     
           <table style="font-size:0.85em;float:left;width:100%;"><tr><td><center style="background:#c0c0c0;">History Pengerjaan                                                            </center>
-      <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource4" EnableModelValidation="True" class="table table-striped" AllowSorting="True" CellPadding="4" ForeColor="#333333" GridLines="None" style="width:100%;">
+      <asp:GridView ID="GridView3" runat="server" Visible="false" AutoGenerateColumns="False" DataSourceID="SqlDataSource4" EnableModelValidation="True" class="table table-striped" AllowSorting="True" CellPadding="4" ForeColor="#333333" GridLines="None" style="width:100%;">
           <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
           <Columns>
                <asp:TemplateField HeaderText="User" SortExpression="KERJABODY_USER">
@@ -163,45 +175,85 @@ opacity: 0.7;
           <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
           <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
          </asp:GridView>
-         </td></tr></table>
+        
+         </td></tr>
+          </table>
          <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:serviceConnection %>" SelectCommand="SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL], [KERJABODY_USER], 
 	case [KERJABODY_STATUS] 
-		when 1 then 'DITERIMA' 
-		when 2 then 'BONGKAR' 
-		when 3 then 'KETOK' 
-		when 4 then 'DEMPUL' 
-		when 5 then 'CAT/OVEN' 
-		when 6 then 'POLES' 
-		when 7 then 'PEMASANGAN' 
-		when 8 then 'FINISHING'  
-		when 9 then 'ANTRIAN' 
+		WHEN 1 THEN 'DISERAHKAN SA KE VENDOR'
+		when 2 then 'DITERIMA' 
+		when 3 then 'BONGKAR' 
+		when 4 then 'KETOK' 
+		when 5 then 'DEMPUL' 
+		when 6 then 'CAT/OVEN' 
+		when 7 then 'POLES' 
+		when 8 then 'PEMASANGAN' 
+		when 9 then 'FINISHING'  
 		when 10 then 'PENILAIAN QC - OK'	
 		when 11 then 'PENILAIAN QC - REWORK' 
-		when 12 then 'PENILAIAN QC - HASIL REWORK -- GOOD' 
-		when 13 then 'PENILAIAN QC - HASIL REWORK -- NOT GOOD' 
-		when 14 then 'PENILAIAN QC - HASIL REWORK -- LAIN-LAIN' 
-		when 15 then 'PENILAIAN QC - HASIL REWORK -- CATATAN'  
-		when 16 then 'PENYERAHAN UNIT VENDOR KE QC' 
-		when 17 then 'PENERIMAAN UNIT QC DARI VENDOR'  
-		when 18 then 'PENYERAHAN UNIT KE SA BP'
+		when 12 then 'PENILAIAN QC - HASIL REWORK -- GOOD/NOT GOOD/LAIN2' 
+		when 13 then 'JIKA HASIL REWORK LAIN2, CATATAN DARI QC'  
+		when 14 then 'PENYERAHAN UNIT DARI VENDOR KE QC' 
+		when 15 then 'PENERIMAAN UNIT QC DARI VENDOR'  
+		when 16 then 'PENYERAHAN UNIT QC KE SA BP'
 		else 'UNCATEGORIZED' end AS statusval, 
 	case [KERJABODY_LOKASI] 
 		when 1 then 'lt. 1' 
 		when 2 then 'lt. 2' 
 		when 3 then 'lt. 3' 
-		when 4 then 'lt.4' 
+		when 4 then 'lt. 4' 
 		when 5 then 'lt. 5' 
 		when 6 then 'lt. 6' 
 		when 7 then 'lt. 7' 
 		when 8 then 'lt. 8' 
 		when 9 then 'lt. 9' 
-		else '' END AS lokasimobil, [KERJABODY_CATATAN] FROM [TEMP_KERJABODY] WHERE ([KERJABODY_NOWO] = @KERJABODY_NOWO) 
+		else '' END AS lokasimobil, [KERJABODY_CATATAN], [IDkrj_body] FROM [TEMP_KERJABODY] WHERE ([KERJABODY_NOWO] = @KERJABODY_NOWO) 
 		ORDER BY KERJABODY_STATUS ASC">
              <SelectParameters>
                  <asp:QueryStringParameter Name="KERJABODY_NOWO" QueryStringField="qnowo" Type="String" />
              </SelectParameters>
          </asp:SqlDataSource>
-                <asp:Button ID="BtnReportBPPsm" runat="server" CssClass="btn btn-danger" Text="Cetak Report" OnClick="BtnReportBPPsm_Click" />
+         <asp:ListView ID="ListViewHistoryPengerjaan" DataKeyNames ="IDkrj_body" DataSourceID="SqlDataSource4" runat="server" OnSelectedIndexChanged="ListViewHistoryPengerjaan_SelectedIndexChanged" >
+                  <LayoutTemplate>
+                      <table class="table table-hover text-centered">
+                          <thead>
+                              <tr>
+                                  <th>ID</th>
+                                  <th>USER</th>
+                                  <th>TANGGAL KERJA</th>
+                                  <th>STATUS</th>
+                                  <th>LOKASI</th>
+                                  <th>CATATAN</th>
+                                  <th>Aksi</th>
+                              </tr>
+                          </thead>
+                          <asp:PlaceHolder ID="itemPlaceHolder" runat="server" />
+                      </table>
+                  </LayoutTemplate>
+                  <ItemTemplate>
+                    <tr>
+                        <td><%#Eval("IDkrj_body")%></td>
+                        <td><%#Eval("KERJABODY_USER")%></td>
+                        <td><%#Eval("KERJABODY_TANGGAL","{0:dd/MM/yyyy}")%></td>
+                        <td><%#Eval("statusval")%></td>
+                        <td><%#Eval("lokasimobil")%></td>
+                        <td><%#Eval("KERJABODY_CATATAN")%></td>
+                        <td>
+                            <asp:LinkButton ID="lnkSelect" Text='DETAIL' CommandName="Select" runat="server" ><img src="delete.png" width="80px" height="50px" /></asp:LinkButton>
+                        </td>
+                    </tr>
+                  </ItemTemplate>
+                  <EmptyDataTemplate>
+                      DATA TIDAK DI TEMUKAN
+                  </EmptyDataTemplate>
+              </asp:ListView>
+            <div class="form-row text-center">
+                <div class="col-12">
+                    <asp:Button ID="BtnDelete" Visible="false" runat="server" class="btn btn-danger btn-xs" Text="Delete Data Terpilih" OnClick="BtnDelete_Click" />
+                </div>
+             </div>    
+                <asp:Button ID="BtnReportBPPsm" runat="server" CssClass="btn btn-danger" Text="Cetak Report" OnClick="BtnReportBPPsm_Click"  />
+                
       <div id="addHistory" runat="server">
       <table style="width:100%;" id="inputHistory" runat="server">
           <tr>
@@ -229,24 +281,22 @@ opacity: 0.7;
           <td> 
               <asp:DropDownList ID="txtStatus" runat="server" class="form-control input-sm" style="margin:5px;">
                   <asp:ListItem></asp:ListItem>
-                  <asp:ListItem Value="01">DITERIMA</asp:ListItem>
-                  <asp:ListItem Value="02">BONGKAR</asp:ListItem>
-                  <asp:ListItem Value="03">KETOK</asp:ListItem>
-                  <asp:ListItem Value="04">DEMPUL</asp:ListItem>
-                  <asp:ListItem Value="05">CAT / OVEN</asp:ListItem>
-                  <asp:ListItem Value="06">POLES</asp:ListItem>
-                  <asp:ListItem Value="07">PEMASANGAN</asp:ListItem>
-                  <asp:ListItem Value="08">FINISHING</asp:ListItem>
-                  <asp:ListItem Value="09">ANTRIAN</asp:ListItem>
+                  <asp:ListItem Value="01">DISERAHKAN SA KE VENDOR</asp:ListItem>
+                  <asp:ListItem Value="02">DITERIMA</asp:ListItem>
+                  <asp:ListItem Value="03">BONGKAR</asp:ListItem>
+                  <asp:ListItem Value="04">KETOK</asp:ListItem>
+                  <asp:ListItem Value="05">DEMPUL</asp:ListItem>
+                  <asp:ListItem Value="06">CAT / OVEN</asp:ListItem>
+                  <asp:ListItem Value="07">POLES</asp:ListItem>
+                  <asp:ListItem Value="08">PEMASANGAN</asp:ListItem>
+                  <asp:ListItem Value="09">FINISHING</asp:ListItem>
                   <asp:ListItem Value="10">PENILAIAN QC - OK</asp:ListItem>
                   <asp:ListItem Value="11">PENILAIAN QC - REWORK</asp:ListItem>
-                  <asp:ListItem Value="12">PENILAIAN QC - HASIL REWORK -- GOOD</asp:ListItem>
-                  <asp:ListItem Value="13">PENILAIAN QC - HASIL REWORK -- NOT GOOD</asp:ListItem>
-                  <asp:ListItem Value="14">PENILAIAN QC - HASIL REWORK -- LAIN-LAIN</asp:ListItem>
-                  <asp:ListItem Value="15">PENILAIAN QC - HASIL REWORK -- CATATAN</asp:ListItem>
-                  <asp:ListItem Value="16">PENYERAHAN UNIT VENDOR KE QC</asp:ListItem>
-                  <asp:ListItem Value="17">PENERIMAAN UNIT QC DARI VENDOR</asp:ListItem>
-                  <asp:ListItem Value="18">PENILAIAN QC - OK - PENYERAHAN UNIT KE SA BP</asp:ListItem>
+                  <asp:ListItem Value="12">PENILAIAN QC - HASIL REWORK -- GOOD/NOT GOOD/LAIN2</asp:ListItem>
+                  <asp:ListItem Value="13">JIKA HASIL REWORK LAIN2, CATATAN DARI QC</asp:ListItem>
+                  <asp:ListItem Value="14">PENYERAHAN UNIT DARI VENDOR KE QC</asp:ListItem>
+                  <asp:ListItem Value="15">PENERIMAAN UNIT QC DARI VENDOR</asp:ListItem>
+                  <asp:ListItem Value="16">PENYERAHAN UNIT QC KE SA BP</asp:ListItem>
               </asp:DropDownList>
           </td></tr>
             <tr>

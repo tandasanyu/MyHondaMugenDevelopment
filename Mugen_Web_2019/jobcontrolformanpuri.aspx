@@ -236,7 +236,31 @@ visibility: visible;
                 <RowStyle BackColor="#EFF3FB" />
                 <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
             </asp:GridView>
-             <asp:SqlDataSource ID="SqlDataSource8" runat="server" ConnectionString="<%$ ConnectionStrings:service128Connection %>" SelectCommand="SELECT WOHDR_TGWO, WOHDR_FNOPOL, WOHDR_FNMS, WOHDR_FNRK, WOHDR_FORG, WOHDR_KDTAGIH, WOHDR_SA, WOHDR_NO, CONTROLBR_TGLESELESAI, case [CONTROLBR_KETOKNILAI] when 1 then 'DITERIMA' when 2 then 'BONGKAR' when 3 then 'KETOK' when 4 then 'DEMPUL' when 5 then 'CAT/OVEN' when 6 then 'POLES' when 7 then 'PEMASANGAN' when 8 then 'FINISHING' when 0 then 'CLOSING' when 9 then 'ANTRIAN' else '' end AS statuskerja, SUPPLIER_NAMA FROM TRXN_WOHDR INNER JOIN TEMP_CONTROLBR ON TRXN_WOHDR.WOHDR_NO = TEMP_CONTROLBR.CONTROLBR_NOWO INNER JOIN DATA_SUPPLIER ON TRXN_WOHDR.WOHDR_KDTAGIH = DATA_SUPPLIER.SUPPLIER_KODE WHERE (WOHDR_NO = @cari) OR (WOHDR_FNOPOL LIKE '%' + @cari + '%')">
+             <asp:SqlDataSource ID="SqlDataSource8" runat="server" ConnectionString="<%$ ConnectionStrings:service128Connection %>" SelectCommand="SELECT WOHDR_TGWO, WOHDR_FNOPOL, WOHDR_FNMS, WOHDR_FNRK, WOHDR_FORG, WOHDR_KDTAGIH, WOHDR_SA, 
+WOHDR_NO, CONTROLBR_TGLESELESAI, 
+case [CONTROLBR_KETOKNILAI] 
+when 1  then 'DISERAHKAN SA KE VENDOR ' 
+when 2 then 'DITERIMA' 
+when 3 then 'BONGKAR' 
+when 4 then 'KETOK' 
+when 5 then 'DEMPUL' 
+when 6 then 'CAT / OVEN' 
+when 7 then 'POLES' 
+when 8 then 'PEMASANGAN' 
+WHEN 9 then 'FINISHING' 
+when 10 then 'PENILAIAN QC - OK' 
+when 11 then 'PENILAIAN QC - REWORK'
+when 12 then 'PENILAIAN QC - HASIL REWORK – GOOD/NOT GOOD/LAIN2'
+when 13 then 'JIKA HASIL REWORK LAIN2, CATATAN DARI QC'
+when 14 then 'PENYERAHAN UNIT DARI VENDOR KE QC'
+when 15 then 'PENERIMAAN UNIT QC DARI VENDOR'
+when 16 then 'PENYERAHAN UNIT QC KE SA BP'
+else '' 
+end AS statuskerja, 
+SUPPLIER_NAMA 
+FROM TRXN_WOHDR 
+INNER JOIN TEMP_CONTROLBR ON TRXN_WOHDR.WOHDR_NO = TEMP_CONTROLBR.CONTROLBR_NOWO 
+INNER JOIN DATA_SUPPLIER ON TRXN_WOHDR.WOHDR_KDTAGIH = DATA_SUPPLIER.SUPPLIER_KODE  WHERE (WOHDR_NO = @cari) OR (WOHDR_FNOPOL LIKE '%' + @cari + '%')">
                   <SelectParameters>
                      <asp:QueryStringParameter Name="cari" QueryStringField="q" />
                  </SelectParameters>
@@ -308,7 +332,30 @@ visibility: visible;
                 <RowStyle BackColor="#EFF3FB" />
                 <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
             </asp:GridView>
-             <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:service128Connection %>" SelectCommand="SELECT WOHDR_TGWO, WOHDR_FNOPOL, WOHDR_FNMS, WOHDR_FNRK, WOHDR_FORG, WOHDR_KDTAGIH, WOHDR_SA, WOHDR_NO, CONTROLBR_TGLESELESAI, case [CONTROLBR_KETOKNILAI] when 1 then 'DITERIMA' when 2 then 'BONGKAR' when 3 then 'KETOK' when 4 then 'DEMPUL' when 5 then 'CAT/OVEN' when 6 then 'POLES' when 7 then 'PEMASANGAN' when 8 then 'FINISHING' WHEN 0 then 'Closing' when 9 then 'ANTRIAN' else '' end AS statuskerja, SUPPLIER_NAMA, (select max(KERJABODY_TANGGAL)  from TEMP_KERJABODY WHERE KERJABODY_NOWO =WOHDR_NO GROUP BY KERJABODY_NOWO) AS tglAkhir FROM TRXN_WOHDR , TEMP_CONTROLBR,DATA_SUPPLIER where WOHDR_NO = CONTROLBR_NOWO and WOHDR_KDTAGIH = SUPPLIER_KODE and CONTROLBR_TGLSELESAIA IS NULL"></asp:SqlDataSource>
+             <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:service128Connection %>" SelectCommand="SELECT WOHDR_TGWO, WOHDR_FNOPOL, WOHDR_FNMS, WOHDR_FNRK, WOHDR_FORG, WOHDR_KDTAGIH, 
+WOHDR_SA, WOHDR_NO, CONTROLBR_TGLESELESAI, 
+case [CONTROLBR_KETOKNILAI] 
+when 1  then 'DISERAHKAN SA KE VENDOR ' 
+when 2 then 'DITERIMA' 
+when 3 then 'BONGKAR' 
+when 4 then 'KETOK' 
+when 5 then 'DEMPUL' 
+when 6 then 'CAT / OVEN' 
+when 7 then 'POLES' 
+when 8 then 'PEMASANGAN' 
+WHEN 9 then 'FINISHING' 
+when 10 then 'PENILAIAN QC - OK' 
+when 11 then 'PENILAIAN QC - REWORK'
+when 12 then 'PENILAIAN QC - HASIL REWORK – GOOD/NOT GOOD/LAIN2'
+when 13 then 'JIKA HASIL REWORK LAIN2, CATATAN DARI QC'
+when 14 then 'PENYERAHAN UNIT DARI VENDOR KE QC'
+when 15 then 'PENERIMAAN UNIT QC DARI VENDOR'
+when 16 then 'PENYERAHAN UNIT QC KE SA BP'
+else '' end AS statuskerja, SUPPLIER_NAMA, 
+(select max(KERJABODY_TANGGAL)  from TEMP_KERJABODY WHERE KERJABODY_NOWO =WOHDR_NO 
+GROUP BY KERJABODY_NOWO) AS tglAkhir FROM TRXN_WOHDR , 
+TEMP_CONTROLBR,DATA_SUPPLIER 
+where WOHDR_NO = CONTROLBR_NOWO and WOHDR_KDTAGIH = SUPPLIER_KODE and CONTROLBR_TGLSELESAIA IS NULL"></asp:SqlDataSource>
      </ContentTemplate>
 </asp:UpdatePanel>
       

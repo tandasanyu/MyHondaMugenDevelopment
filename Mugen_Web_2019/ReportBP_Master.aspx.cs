@@ -19,7 +19,8 @@ using System.Net.Mail;
 using System.Net;
 using System.Web.Configuration;
 
-public partial class Report_BP : System.Web.UI.Page
+
+public partial class ReportBP_Master : System.Web.UI.Page
 {
     public string wo;
     public string cabang;
@@ -38,8 +39,10 @@ public partial class Report_BP : System.Web.UI.Page
             Lbltelp.Text = "Telp : (021) 797 3000 (Show Room), 797 2000 (Bengkel)";
             LblFax.Text = "Fax : (021) 7973834";
             LblHttp.Text = "Web : www.hondamugen.co.id";
-            TxtEmailReciever.Text = "richard.nurtjahja@gmail.com";
-            TxtEmailReciever2.Text = "adm_bodyrepair@hondamugen.co.id";
+            //TxtEmailReciever.Text = "richard.nurtjahja@gmail.com";
+            //TxtEmailReciever2.Text = "adm_bodyrepair@hondamugen.co.id";
+            TxtEmailReciever.Text = "tandasanyu.movie1@gmail.com";
+            TxtEmailReciever2.Text = "tandasanyu.movie2@hondamugen.co.id";
             TxtEmailReciever.ReadOnly = true;
             TxtEmailReciever2.ReadOnly = true;
         }
@@ -49,8 +52,10 @@ public partial class Report_BP : System.Web.UI.Page
             Lbltelp.Text = "Telp : Showroom (021) 5835 8000, Bengkel (021) 5835 9000";
             LblFax.Text = "Fax : (021) 5835 7942 ";
             LblHttp.Text = "Web : www.hondamugen.co.id";
-            TxtEmailReciever.Text = "richard.nurtjahja@gmail.com";
-            TxtEmailReciever2.Text = "Piutangservicepuri@hondamugen.co.id";
+            //TxtEmailReciever.Text = "richard.nurtjahja@gmail.com";
+            //TxtEmailReciever2.Text = "Piutangservicepuri@hondamugen.co.id";
+            TxtEmailReciever.Text = "tandasanyu.movie1@gmail.com";
+            TxtEmailReciever2.Text = "tandasanyu.movie2@hondamugen.co.id";
             TxtEmailReciever.ReadOnly = true;
             TxtEmailReciever2.ReadOnly = true;
         }
@@ -61,27 +66,34 @@ public partial class Report_BP : System.Web.UI.Page
         Label2.Visible = false;
         Label3.Visible = false;
         //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No Wo : "+wo+" -- Cabang "+cabang+"')", true);
-        if (cabang =="112") {
+        if (cabang == "112")
+        {
             DataSet ds = new DataSet();
             string sql = "SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL], [KERJABODY_USER],case [KERJABODY_STATUS]  WHEN 1 THEN 'DISERAHKAN SA KE VENDOR'when 2 then 'DITERIMA' when 3 then 'BONGKAR' when 4 then 'KETOK' when 5 then 'DEMPUL' when 6 then 'CAT/OVEN' when 7 then 'POLES' when 8 then 'PEMASANGAN' when 9 then 'FINISHING' when 10 then 'PENILAIAN QC - OK' when 11 then 'PENILAIAN QC - REWORK' when 12 then 'PENILAIAN QC - HASIL REWORK -- GOOD/NOT GOOD/LAIN2' when 13 then 'JIKA HASIL REWORK LAIN2, CATATAN DARI QC' when 14 then 'PENYERAHAN UNIT DARI VENDOR KE QC' when 15 then 'PENERIMAAN UNIT QC DARI VENDOR'when 16 then 'PENYERAHAN UNIT QC KE SA BP' else 'UNCATEGORIZED' end AS statusval, case [KERJABODY_LOKASI] when 1 then 'lt. 1' when 2 then 'lt. 2' when 3 then 'lt. 3' when 4 then 'lt. 4' when 5 then 'lt. 5' when 6 then 'lt. 6' when 7 then 'lt. 7' when 8 then 'lt. 8' when 9 then 'lt. 9'  else '' END AS lokasimobil, [KERJABODY_CATATAN] FROM [TEMP_KERJABODY] WHERE ([KERJABODY_NOWO] = " + wo + ") ORDER BY KERJABODY_STATUS ASC";
             ds = getDataSet(sql, 1);
             LvReportBP.DataSource = ds;
             LvReportBP.DataBind();
-        } else {
+        }
+        else
+        {
             DataSet ds = new DataSet();
             string sql = "SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL], [KERJABODY_USER],case [KERJABODY_STATUS]  WHEN 1 THEN 'DISERAHKAN SA KE VENDOR'when 2 then 'DITERIMA' when 3 then 'BONGKAR' when 4 then 'KETOK' when 5 then 'DEMPUL' when 6 then 'CAT/OVEN' when 7 then 'POLES' when 8 then 'PEMASANGAN' when 9 then 'FINISHING' when 10 then 'PENILAIAN QC - OK' when 11 then 'PENILAIAN QC - REWORK' when 12 then 'PENILAIAN QC - HASIL REWORK -- GOOD/NOT GOOD/LAIN2' when 13 then 'JIKA HASIL REWORK LAIN2, CATATAN DARI QC' when 14 then 'PENYERAHAN UNIT DARI VENDOR KE QC' when 15 then 'PENERIMAAN UNIT QC DARI VENDOR'when 16 then 'PENYERAHAN UNIT QC KE SA BP' else 'UNCATEGORIZED' end AS statusval, case [KERJABODY_LOKASI] when 1 then 'lt. 1' when 2 then 'lt. 2' when 3 then 'lt. 3' when 4 then 'lt. 4' when 5 then 'lt. 5' when 6 then 'lt. 6' when 7 then 'lt. 7' when 8 then 'lt. 8' when 9 then 'lt. 9'  else '' END AS lokasimobil, [KERJABODY_CATATAN] FROM [TEMP_KERJABODY] WHERE ([KERJABODY_NOWO] = " + wo + ") ORDER BY KERJABODY_STATUS ASC";
-            ds= getDataSet(sql, 2);
+            ds = getDataSet(sql, 2);
             LvReportBP.DataSource = ds;
             LvReportBP.DataBind();
         }
     }
+
     public DataSet getDataSet(string sql, int cabang)
     {
         string koneksi;
         DataSet ds = new DataSet();
-        if (cabang == 1) {
+        if (cabang == 1)
+        {
             koneksi = "serviceConnection";
-        } else {
+        }
+        else
+        {
             koneksi = "service128Connection";
         }
         String strconn = WebConfigurationManager.ConnectionStrings[koneksi].ConnectionString;
@@ -110,27 +122,27 @@ public partial class Report_BP : System.Web.UI.Page
     {
         //cek state aktivitas bp sampai mana
 
-            var doc = new Document();
-            MemoryStream memoryStream = new MemoryStream();
-            PdfWriter writer = PdfWriter.GetInstance(doc, memoryStream);
-            //added**********
-            StringWriter sw = new StringWriter();
+        var doc = new Document();
+        MemoryStream memoryStream = new MemoryStream();
+        PdfWriter writer = PdfWriter.GetInstance(doc, memoryStream);
+        //added**********
+        StringWriter sw = new StringWriter();
 
 
-            HtmlTextWriter w = new HtmlTextWriter(sw);
-            print.RenderControl(w);
+        HtmlTextWriter w = new HtmlTextWriter(sw);
+        print.RenderControl(w);
 
 
-            string htmWrite = sw.GetStringBuilder().ToString();
-            htmWrite = Regex.Replace(htmWrite, "</?(a|A).*?>", "");
-            htmWrite = htmWrite.Replace("\r\n", "");
-            StringReader reader = new StringReader(htmWrite);
+        string htmWrite = sw.GetStringBuilder().ToString();
+        htmWrite = Regex.Replace(htmWrite, "</?(a|A).*?>", "");
+        htmWrite = htmWrite.Replace("\r\n", "");
+        StringReader reader = new StringReader(htmWrite);
 
-            HTMLWorker htmlparser = new HTMLWorker(doc);
-            //added************
-            doc.Open();
-            var titleFont = FontFactory.GetFont("Arial", 18, Font.BOLD);
-            var subTitleFont = FontFactory.GetFont("Arial", 14, Font.BOLD);
+        HTMLWorker htmlparser = new HTMLWorker(doc);
+        //added************
+        doc.Open();
+        var titleFont = FontFactory.GetFont("Arial", 18, Font.BOLD);
+        var subTitleFont = FontFactory.GetFont("Arial", 14, Font.BOLD);
 
         //doc.Add(new Paragraph("Laporan Aktivitas Pekerjaan BP " + DateTime.Now.ToShortDateString() + "", titleFont));
         //doc.Add(new Paragraph("No WO : " + wo + "", titleFont));
@@ -180,42 +192,39 @@ public partial class Report_BP : System.Web.UI.Page
         }
         htmlparser.Parse(reader);
 
-            writer.CloseStream = false;
-            doc.Close();
-            memoryStream.Position = 0;
-            string penerima_2 = TxtEmailReciever2.Text;
-            string penerima = TxtEmailReciever.Text + "," + penerima_2;
-            
-            //mailMessage.CC.Add(new MailAddress(cc)); //Adding CC email Id
-            MailMessage mm = new MailMessage("hmugen1991@gmail.com", penerima )
-            {
-                Subject = "Laporan Aktivitas BP - " + DateTime.Now.ToShortDateString() + " - " + wo + "",
-                
-                IsBodyHtml = true,
-                Body = "Berikut Telampir Laporan Aktivitas Body Paint untuk No. WO = " + wo + "."
-                
-            };
+        writer.CloseStream = false;
+        doc.Close();
+        memoryStream.Position = 0;
+        string penerima_2 = TxtEmailReciever2.Text;
+        string penerima = TxtEmailReciever.Text + "," + penerima_2;
 
-        
+        //mailMessage.CC.Add(new MailAddress(cc)); //Adding CC email Id
+        MailMessage mm = new MailMessage("hmugen1991@gmail.com", penerima)
+        {
+            Subject = "Laporan Aktivitas BP - " + DateTime.Now.ToShortDateString() + " - " + wo + "",
+
+            IsBodyHtml = true,
+            Body = "Berikut Telampir Laporan Aktivitas Body Paint untuk No. WO = " + wo + "."
+
+        };
+
+
         mm.Attachments.Add(new Attachment(memoryStream, "ReportAktivitasBP_" + DateTime.Now.ToShortDateString() + "_" + wo + ".pdf"));
         SmtpClient smtp = new SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                Credentials = new NetworkCredential("hmugen1991@gmail.com", "112m128p")
+        {
+            Host = "smtp.gmail.com",
+            Port = 587,
+            EnableSsl = true,
+            Credentials = new NetworkCredential("hmugen1991@gmail.com", "112m128p")
 
-            };
+        };
 
-            smtp.Send(mm);
+        smtp.Send(mm);
 
         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Berhasil Mengirim Laporan BP ke Email!')", true);
-        
+
     }
     //
-
-
-
     protected void BtnDownload_Click(object sender, EventArgs e)
     {
         Response.ContentType = "application/pdf";
@@ -259,11 +268,12 @@ public partial class Report_BP : System.Web.UI.Page
         ////Give some space after the image
         ////jpg.SpacingAfter = 0f;
         ////jpg.Alignment = Element.ALIGN_LEFT;
-        
+
         //jpg.SetAbsolutePosition(440, 720);//jpg.Alignment = 6; x/y
         //doc.Add(jpg);
-        
-        if (cabang=="112") {
+
+        if (cabang == "112")
+        {
             //doc.Add(new Paragraph(" "));
             //doc.Add(new Paragraph("Honda Mugen", timesubhead));
             //doc.Add(new Paragraph("PT. Mitra Usaha Gentaniaga", times));
@@ -283,7 +293,7 @@ public partial class Report_BP : System.Web.UI.Page
             string imageURL = Server.MapPath(".") + "/Header.jpg";
             iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(imageURL);
             //Resize image depend upon your need
-            jpg.ScaleToFit(550,1000); //x/y
+            jpg.ScaleToFit(550, 1000); //x/y
             //Give space before image
             //jpg.SpacingBefore = 0f;
             //Give some space after the image
@@ -300,7 +310,9 @@ public partial class Report_BP : System.Web.UI.Page
             doc.Add(new Paragraph(" "));
             doc.Add(new Paragraph(" "));
             doc.Add(new Paragraph(" "));
-        } else {
+        }
+        else
+        {
             //doc.Add(new Paragraph(" "));
             //doc.Add(new Paragraph("Honda Mugen", timesubhead));
             //doc.Add(new Paragraph("PT. Mitra Usaha Gentaniaga", times));
@@ -309,7 +321,7 @@ public partial class Report_BP : System.Web.UI.Page
             //doc.Add(new Paragraph("Fax : (021) 5835 7942", times));
             //doc.Add(new Paragraph("Web: www.hondamugen.co.id", times));
             //*******************add by img
-            string imageURL = Server.MapPath(".") + "/Header2.jpg";
+            string imageURL = Server.MapPath(".") + "/Header.jpg";
             iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(imageURL);
             //Resize image depend upon your need
             jpg.ScaleToFit(550, 1000); //x/y
