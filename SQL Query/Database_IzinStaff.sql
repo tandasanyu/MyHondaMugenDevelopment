@@ -236,17 +236,6 @@ when 2 then 'lt. 2' when 3 then 'lt. 3' when 4 then 'lt.4' when 5 then 'lt. 5' w
 when 8 then 'lt. 8' when 9 then 'lt. 9' else '' END AS lokasimobil, [KERJABODY_CATATAN] FROM [TEMP_KERJABODY] 
 WHERE ([KERJABODY_NOWO] = 148834)
 
-                  <asp:ListItem Value="10">PENILAIAN QC - OK</asp:ListItem>
-                  <asp:ListItem Value="11">PENILAIAN QC - REWORK</asp:ListItem>
-                  <asp:ListItem Value="12">PENILAIAN QC - HASIL REWORK -- GOOD</asp:ListItem>
-                  <asp:ListItem Value="13">PENILAIAN QC - HASIL REWORK -- NOT GOOD</asp:ListItem>
-                  <asp:ListItem Value="14">PENILAIAN QC - HASIL REWORK -- LAIN-LAIN</asp:ListItem>
-                  <asp:ListItem Value="15">PENILAIAN QC - HASIL REWORK -- CATATAN</asp:ListItem>
-                  <asp:ListItem Value="16">PENYERAHAN UNIT VENDOR KE QC</asp:ListItem>
-                  <asp:ListItem Value="17">PENERIMAAN UNIT QC DARI VENDOR</asp:ListItem>
-
-				  when 10 then 'PENILAIAN QC - OK' when 11 then 'PENILAIAN QC - REWORK' when 12 then 'PENILAIAN QC - HASIL REWORK -- GOOD' when 13 then 'PENILAIAN QC - HASIL REWORK -- NOT GOOD' when 14 then 'PENILAIAN QC - HASIL REWORK -- LAIN-LAIN' when 15 then 'PENILAIAN QC - HASIL REWORK -- CATATAN'  when 16 then 'PENYERAHAN UNIT VENDOR KE QC' when 17 then 'PENERIMAAN UNIT QC DARI VENDOR'  
-
 
 /*
 SP UNTUK STATUS PERKAWINAN
@@ -450,10 +439,70 @@ note : di tampilkan yg pending saja . yang expired tampilkan ke bu okta
 	dan masukan juga ke tb_userGeneral (jika bukan staff / venor luar)
 	untuk bisa login ke sistem. berikan hak akses di menu utility
 */
+--good code 
+/*
+ SELECT Details.izin_id,
+     b.izin_nik AS NIK,
+	 h.IZIN_NAMA,
+	 CASE 
+		WHEN h.IZIN_NIK_APPVMNG ='--' THEN NULL
+		WHEN h.IZIN_NIK_APPVMNG <>'--' THEN h.IZIN_NIK_APPVMNG 
+		END as NIKMNG, 
+	 h.IZIN_NIK_APPVSPV as NIKSPV,
+	 (select staff_nama from data_staff where staff_nik = h.IZIN_NIK_APPVSPV) as Atasan1,
+	 --b.IZIN_TGLAPPVSPV,
+	 case 
+		when  h.IZIN_NIK_APPVMNG = '--'
+		then '--'
+		when h.IZIN_NIK_APPVMNG <> '--'
+		then (select staff_nama from data_staff where staff_nik = h.IZIN_NIK_APPVMNG)
+		end as Atasan2
+	 ,
+	 --h.IZIN_NIK_APPVMNG,
+	 b.IZIN_TGLAPPVMNG,
+	 b.IZIN_TGLAPPVSPV,
+	 Details.id_detail,
+     b.izin_jenis,
+     b.izin_alasan,
+     Details.izin_tgldetail,
+	 (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) as TglDeadline,
+	 --Details.izin_status,
+	 --/status yang pending saja yang di tampilkan 
+	 case
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) >= CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null and b.IZIN_TGLAPPVSPV is null and b.izin_jenis <> 'Cuti'
+		or 
+		(select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) >= CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null and b.IZIN_TGLAPPVMNG is null and b.izin_jenis <> 'Cuti'
+		then 'Pending'
+
+		else null
+		end as Status_Izin,
+     Details.Source,
+     Details.Flag
+   FROM DATA_IZIN_BODY b
+   JOIN 
+          (SELECT izin_id, izin_nik, izin_tgldetail,  izin_status, izin_id_detail as id_detail
+		   ,'DT' AS Source, FLAG
+           FROM DATA_IZIN_DETAIL
+
+           UNION ALL
+
+          SELECT izin_id, izin_nik, izin_tgldetail, izin_status, izin_id_detailpc as id_detail
+		   ,'PC' AS Source, FLAG
+           FROM DATA_IZIN_DETAILPC) AS Details
+   
+   ON b.izin_id = Details.izin_id  
+   join 
+   data_izin_header h
+   on b.izin_nik = h.IZIN_NIK 
+   order by TglDeadline DESC
+*/
+
 
 -- bad code
 --/Kondisi ketika expired (2 atasan namun baru di setujui 1 atasan) //masuknya expired
-		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) 
+/*		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) 
 		< CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
 			and Details.izin_status is null 
 			and h.IZIN_NIK_APPVMNG <> '--' 
@@ -469,51 +518,13 @@ note : di tampilkan yg pending saja . yang expired tampilkan ke bu okta
 			and b.izin_jenis = 'Cuti'
 			and b.IZIN_TGLAPPVSPV is null
 			then 'Expired'
+*/
 
 select KERJABODY_STATUS from TEMP_KERJABODY 
 where KERJABODY_STATUS = 16 and KERJABODY_NOWO = '152186'
 
 SELECT * FROM TEMP_KERJABODY
 WHERE KERJABODY_NOWO = '152186'
-
-1 'DITERIMA'                                           (SELURUH SA - PSM / PURI)
-              2 'BONGKAR'                                            (BUDI & ROBY)
-              3 'KETOK'                                              (BUDI & ROBY)
-              4 'DEMPUL'                                             (BUDI & ROBY)
-              5 'CAT/OVEN'                                           (BUDI & ROBY)
-              6 'POLES'                                              (BUDI & ROBY)
-              7 'PEMASANGAN'                                         (BUDI & ROBY)
-              8 'FINISHING'                                          (BUDI & ROBY)
-              9 'ANTRIAN'                                            (BUDI & ROBY)
-              10 'PENILAIAN QC - OK'                                 (MUCHLIS & REGIANSYAH)
-              11 'PENILAIAN QC - REWORK'                             (MUCHLIS & REGIANSYAH)
-              12 'PENILAIAN QC - HASIL REWORK -- GOOD'               (MUCHLIS & REGIANSYAH)
-              13 'PENILAIAN QC - HASIL REWORK -- NOT GOOD'           (MUCHLIS & REGIANSYAH)
-              14 'PENILAIAN QC - HASIL REWORK -- LAIN-LAIN'          (MUCHLIS & REGIANSYAH)
-              15 'PENILAIAN QC - HASIL REWORK -- CATATAN'            (MUCHLIS & REGIANSYAH)
-              16 'PENYERAHAN UNIT VENDOR KE QC'                      (MUCHLIS & REGIANSYAH)
-              17 'PENERIMAAN UNIT QC DARI VENDOR'                    (MUCHLIS & REGIANSYAH)
-              18 'PENYERAHAN UNIT KE SA BP'                          (MUCHLIS & REGIANSYAH)
-
-		WHEN 1 THEN 'DISERAHKAN SA KE VENDOR'
-		when 2 then 'DITERIMA' 
-		when 3 then 'BONGKAR' 
-		when 4 then 'KETOK' 
-		when 5 then 'DEMPUL' 
-		when 6 then 'CAT/OVEN' 
-		when 7 then 'POLES' 
-		when 8 then 'PEMASANGAN' 
-		when 9 then 'FINISHING'  
-		when 10 then 'PENILAIAN QC - OK'	
-		when 11 then 'PENILAIAN QC - REWORK' 
-		when 12 then 'PENILAIAN QC - HASIL REWORK -- GOOD' 
-		when 13 then 'PENILAIAN QC - HASIL REWORK -- NOT GOOD' 
-		when 14 then 'PENILAIAN QC - HASIL REWORK -- LAIN-LAIN' 
-		when 15 then 'JIKA HASIL REWORK LAIN2, CATATAN DARI QC'  
-		when 16 then 'PENYERAHAN UNIT DARI VENDOR KE QC' 
-		when 17 then 'PENERIMAAN UNIT QC DARI VENDOR'  
-		when 18 then 'PENILAIAN QC KE SA BP'
-
 
 -- YANG BARU
 
@@ -550,8 +561,8 @@ WHERE KERJABODY_NOWO = '152186'
               11. 'PENILAIAN QC - REWORK'                             (MUCHLIS / REGIANSYAH)
               12. 'PENILAIAN QC - HASIL REWORK – GOOD/NOT GOOD/LAIN2  (MUCHLIS / REGIANSYAH)
               13.  JIKA HASIL REWORK LAIN2, CATATAN DARI QC'          (MUCHLIS / REGIANSYAH)
-              14. 'PENYERAHAN UNIT DARI VENDOR KE QC'                 (BUDI / ROBY)
-              15. 'PENERIMAAN UNIT QC DARI VENDOR'                    (MUCHLIS / REGIANSYAH)
+              ==============================================================================14. 'PENYERAHAN UNIT DARI VENDOR KE QC'                 (BUDI / ROBY)
+              ==============================================================================15. 'PENERIMAAN UNIT QC DARI VENDOR'                    (MUCHLIS / REGIANSYAH)
               16. 'PENYERAHAN UNIT QC KE SA BP'                       (MUCHLIS / REGIANSYAH)
               
 			  17.    QC KLIK TOMBOL SEND EMAIL KE VENDOR              (MUCHLIS / REGIANSYAH)     
@@ -562,12 +573,9 @@ WHERE KERJABODY_NOWO = '152186'
 			  14 - 15: muchlis/REGIANSYAH
 			  16 : ke sa terkait
 
+			  // tanya bu linda, ketika penilaian qc butuh catatan atau tidak
 
-when 1 then 'DISERAHKAN SA KE VENDOR' when 2 then 'DITERIMA' when 3 then 'BONGKAR' when 4 then 'KETOK' when 5 then 'DEMPUL' when 6 then 'CAT/OVEN' when 7 then 'POLES' when 8 then 'PEMASANGAN' when 9 then 'FINISHING' when 10 then 'PENILAIAN QC - OK' when 11 then 'PENILAIAN QC - REWORK' when 12 then 'PENILAIAN QC - HASIL REWORK – GOOD/NOT GOOD/LAIN2' when 13 then 'JIKA HASIL REWORK LAIN2, CATATAN DARI QC' when 14 then 'PENYERAHAN UNIT DARI VENDOR KE QC' when 15 then 'PENERIMAAN UNIT QC DARI VENDOR' when 16 then 'PENYERAHAN UNIT QC KE SA BP' 
 
-
-SELECT * FROM TEMP_KERJABODY
-WHERE KERJABODY_NOWO = '153093'
 
 SELECT * FROM TEMP_KERJABODY
 WHERE KERJABODY_NOWO = '153093'
@@ -615,5 +623,19 @@ WHERE username IN (
 --VALUES (
 --'SUWANDI',
 --'FORM JOB CONTROL FOREMAN -- ADD HISTORY')
+
+/*
+Query untuk update Tanggal Form SDR
+
+  UPDATE [TRXN_SDR]
+  SET SDRLOG_TGLCLOSE = '2019-01-07 14:39:00', SDRLOG_UJITGL = '2019-01-07 14:34:00'
+    WHERE SDRLOG_NO = 'SDR2018115'
+
+*/
+
+
+idbody	nobody	namaitem	tujuanitem	jumlahitem	hargaitem	pusatbiaya	reject	alasanreject	rejectoleh	vendor	nopurchaseorder	jumlahterima	jumlahkeluar	kelompok
+4985	2019/INQ/05-00023	STAND PAMERAN	PAMERAN DI MALL DAAN MOGOT TGL 25 APRIL - 01 MEI 2019	1	27310000	SHOWROOM	APPROVE	NULL	NULL	WIN INTI PROMOSINDO, CV	2019/PO/05-00016	0	0	1
+
 
 
