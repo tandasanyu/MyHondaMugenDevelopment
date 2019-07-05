@@ -1,0 +1,66 @@
+﻿<%@ Master Language="VB" CodeFile="MasterPage.master.vb" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>Forms Authentication, Authorization, and User Accounts</title>
+    <link href="main.css" rel="stylesheet" type="text/css" />
+    
+    <style type="text/css">
+         input:focus{
+         background-color : Red ;
+         color:Navy;
+         border:dotted 2px furchasia;
+          
+          }
+          
+        #Button1
+        {
+            width: 158px;
+        }
+    </style>
+
+
+</head>
+<body>
+<div id="wrapper">
+    <form id="form1" runat="server">
+        <div id="header">
+	       <p>Sistem Informasi Dealer MUGEN  (Ver 0.0)
+	       <br />
+           <asp:Label ID="DateDisplay" runat="server" Font-Size="Smaller"></asp:Label>
+	       </p>
+        </div>
+
+        <div id="subheader">
+            <asp:LoginView ID="LoginView1" runat="server">
+            </asp:LoginView>
+            <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutAction="Redirect" LogoutPageUrl="" />                   
+        </div>
+
+        <div id="menu" style="width:100%;padding:0;margin:0;font-size:12pt;font-family:Verdana;">
+            <asp:Menu ID ="Menu1" runat ="server" DataSourceID="SiteMapDataSource1" Orientation ="Horizontal" 
+                  StaticDisplayLevels ="2" style="margin:8px;" Width="70%">
+            </asp:Menu>
+            <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+            <br />
+            <br />
+        </div>
+        <div id="mainContent">
+            <asp:ContentPlaceHolder id="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+	        <p>&nbsp;<asp:Label ID="LblUser" runat="server" Visible="False"></asp:Label>	  
+            <asp:TextBox ID="TxtUser" runat="server"  Text="" Visible="False" ></asp:TextBox>
+           	</p>
+        </asp:ContentPlaceHolder>
+        <div id="footer">
+	    <p>PT. Mitrausaha Gentaniaga &copy; info IT Dept  <a href="#">link.</a></p>
+        </div>
+    </form>
+</div>
+</body>
+</html>

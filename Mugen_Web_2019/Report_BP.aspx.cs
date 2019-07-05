@@ -62,19 +62,89 @@ public partial class Report_BP : System.Web.UI.Page
         Label3.Visible = false;
         //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No Wo : "+wo+" -- Cabang "+cabang+"')", true);
         if (cabang =="112") {
+            //new process
+            string sqlcmd_ = " select CONTROLBR_TGLESELESAI from TEMP_CONTROLBR where CONTROLBR_NOWO ='" + wo + "'";
+            List<String> hasil = new List<String>();
+            hasil = KelasKoneksi_SelectGlobal(sqlcmd_, "1", cabang);
+            foreach (string data in hasil)
+            {
+                LblTanggalEstimasi.Text = data;
+            }
+            
+            //new process
             DataSet ds = new DataSet();
             string sql = "SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL], [KERJABODY_USER],case [KERJABODY_STATUS]  WHEN 1 THEN 'DISERAHKAN SA KE VENDOR'when 2 then 'DITERIMA' when 3 then 'BONGKAR' when 4 then 'KETOK' when 5 then 'DEMPUL' when 6 then 'CAT/OVEN' when 7 then 'POLES' when 8 then 'PEMASANGAN' when 9 then 'FINISHING' when 10 then 'PENILAIAN QC - OK' when 11 then 'PENILAIAN QC - REWORK' when 12 then 'PENILAIAN QC - HASIL REWORK -- GOOD/NOT GOOD/LAIN2' when 13 then 'JIKA HASIL REWORK LAIN2, CATATAN DARI QC' when 14 then 'PENYERAHAN UNIT DARI VENDOR KE QC' when 15 then 'PENERIMAAN UNIT QC DARI VENDOR'when 16 then 'PENYERAHAN UNIT QC KE SA BP' else 'UNCATEGORIZED' end AS statusval, case [KERJABODY_LOKASI] when 1 then 'lt. 1' when 2 then 'lt. 2' when 3 then 'lt. 3' when 4 then 'lt. 4' when 5 then 'lt. 5' when 6 then 'lt. 6' when 7 then 'lt. 7' when 8 then 'lt. 8' when 9 then 'lt. 9'  else '' END AS lokasimobil, [KERJABODY_CATATAN] FROM [TEMP_KERJABODY] WHERE ([KERJABODY_NOWO] = " + wo + ") ORDER BY KERJABODY_STATUS ASC";
             ds = getDataSet(sql, 1);
             LvReportBP.DataSource = ds;
             LvReportBP.DataBind();
         } else {
+            //new process
+            string sqlcmd_ = " select CONTROLBR_TGLESELESAI from TEMP_CONTROLBR where CONTROLBR_NOWO ='" + wo + "'";
+            List<String> hasil = new List<String>();
+            hasil = KelasKoneksi_SelectGlobal(sqlcmd_, "1", cabang);
+            foreach (string data in hasil)
+            {
+                LblTanggalEstimasi.Text = data;
+            }
+            //new process
             DataSet ds = new DataSet();
             string sql = "SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL], [KERJABODY_USER],case [KERJABODY_STATUS]  WHEN 1 THEN 'DISERAHKAN SA KE VENDOR'when 2 then 'DITERIMA' when 3 then 'BONGKAR' when 4 then 'KETOK' when 5 then 'DEMPUL' when 6 then 'CAT/OVEN' when 7 then 'POLES' when 8 then 'PEMASANGAN' when 9 then 'FINISHING' when 10 then 'PENILAIAN QC - OK' when 11 then 'PENILAIAN QC - REWORK' when 12 then 'PENILAIAN QC - HASIL REWORK -- GOOD/NOT GOOD/LAIN2' when 13 then 'JIKA HASIL REWORK LAIN2, CATATAN DARI QC' when 14 then 'PENYERAHAN UNIT DARI VENDOR KE QC' when 15 then 'PENERIMAAN UNIT QC DARI VENDOR'when 16 then 'PENYERAHAN UNIT QC KE SA BP' else 'UNCATEGORIZED' end AS statusval, case [KERJABODY_LOKASI] when 1 then 'lt. 1' when 2 then 'lt. 2' when 3 then 'lt. 3' when 4 then 'lt. 4' when 5 then 'lt. 5' when 6 then 'lt. 6' when 7 then 'lt. 7' when 8 then 'lt. 8' when 9 then 'lt. 9'  else '' END AS lokasimobil, [KERJABODY_CATATAN] FROM [TEMP_KERJABODY] WHERE ([KERJABODY_NOWO] = " + wo + ") ORDER BY KERJABODY_STATUS ASC";
             ds= getDataSet(sql, 2);
             LvReportBP.DataSource = ds;
             LvReportBP.DataBind();
         }
+
     }
+    //fungsi read data from db 
+    public List<String> GlobalAr = new List<String>();
+    public string status;
+    public List<String> KelasKoneksi_SelectGlobal(string SqlCmd, string sub, string cab)
+    {
+        //serviceConnection & service128Connection
+        string connect = string.Empty;
+        if (cab == "112") {
+            connect = "serviceConnection";
+        }
+        else
+        {
+            connect = "service128Connection";
+        }
+        String strconn = WebConfigurationManager.ConnectionStrings[connect].ConnectionString;
+        conn = new SqlConnection(strconn);
+        string sql = SqlCmd;
+        cmd = new SqlCommand(sql, conn);
+        SqlDataReader reader; //Menggunakan data reader untuk select dan mengambil value nya 
+
+        GlobalAr.Clear();
+        try
+        {
+            conn.Open();
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                if (sub == "1")
+                {
+                    GlobalAr.Add(reader["CONTROLBR_TGLESELESAI"].ToString()); //0
+                }        
+            }
+        }
+        catch (SqlException ex)
+        {
+            status = "Terjadi error Ketika Select: " + ex.Message;
+            GlobalAr.Clear();
+            GlobalAr.Add(status);
+            // return ArrayLogin;
+
+        }
+        finally
+        {
+            cmd.Dispose();
+            conn.Close();
+        }
+
+        return GlobalAr;
+    }
+    //fungsi get data set untuk listview
     public DataSet getDataSet(string sql, int cabang)
     {
         string koneksi;

@@ -159,6 +159,15 @@ WHERE pemohonfmb = 'IT128'
 --AND rejectoleh IS NOT NULL) 
 GROUP BY fmbhead.disetujui2fmb, fmbhead.tgldisetujui2fmb, fmbhead.nofmbhead, fmbhead.userfmb, fmbhead.tglpemohonfmb, fmbhead.disetujuifmb, fmbhead.tgldisetujuifmb, fmbhead.mengetahuifmb, fmbhead.tglmengetahuifmb, fmbhead.approveheadpurc, fmbhead.tglapproveheadpurc, fmbhead.rejecthead, divisi.nmdivisi, tb_user.kdcabang, fmbbody.rejectoleh,fmbbody.namaitem ,fmbbody.tujuanitem,fmbbody.jumlahitem  ORDER BY nofmbhead DESC
 
+/*
+Menghapus PO
+delete from fmbhead where nofmbhead = '2019/INQ/07-00004'
+delete from fmbbody where nobody = '2019/INQ/07-00004'
+
+	2019/INQ/07-00007
+
+*/
+
 */
 -- ada masaslah di pk nilai kalkulasi akhir tidak muncul 
 /*
@@ -630,6 +639,21 @@ Query untuk update Tanggal Form SDR
   UPDATE [TRXN_SDR]
   SET SDRLOG_TGLCLOSE = '2019-01-07 14:39:00', SDRLOG_UJITGL = '2019-01-07 14:34:00'
     WHERE SDRLOG_NO = 'SDR2018115'
+
+*/
+
+/*
+Query untuk update table pekerjaan bp
+
+ delete from TEMP_KERJABODY where KERJABODY_NOWO = 479029 and KERJABODY_USER = 'BUDI'
+ 
+
+  
+  UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '01' WHERE CONTROLBR_NOWO = 479029
+
+  delete from TEMP_KERJABODY where KERJABODY_NOWO = 152186   
+UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = null WHERE CONTROLBR_NOWO = 152186
+
 
 */
 

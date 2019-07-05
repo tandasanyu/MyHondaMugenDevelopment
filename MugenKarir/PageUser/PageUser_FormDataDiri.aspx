@@ -385,7 +385,7 @@ $(function() {
                                   ControlToValidate="RadioButtonListJamsostek"
                                   ></asp:RequiredFieldValidator>  
                           <div class="col-sm-8">
-                              <p style="color:red">NPWP wajib 13 Angka</p>
+                              <p style="color:red">Jamsostek wajib 13 Angka</p>
                               <asp:TextBox ID="TxtJamsos" class="form-control" runat="server" autocomplete="off"></asp:TextBox>
                           </div>                         
                       </div>

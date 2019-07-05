@@ -188,9 +188,20 @@ public partial class mintabeli : System.Web.UI.Page
             connection.Open();
             SqlDataAdapter adapter = new SqlDataAdapter(sql, connection);
             adapter.Fill(ds);
+            int nomor00 = ds.Tables[0].Rows.Count+1;// 8 +1
+            string nomor0 = Convert.ToString(nomor00).PadLeft(maxWidth, '0'); // 00000 8+1
+            // ds.Tables[0].Rows.Count.ToString().PadLeft(maxWidth, '0')
+            string nobukti = strTime + nomor0;
+            /*
+             * LAST CODING ERROR : AUTO COUNT WONT WORK 5/7/2019
+            SqlDataAdapter adapter = new SqlDataAdapter(sql, connection);
+            adapter.Fill(ds);
             string nomor = ds.Tables[0].Rows.Count.ToString().PadLeft(maxWidth, '0');
 
             string nobukti = strTime + ds.Tables[0].Rows.Count.ToString().PadLeft(maxWidth, '0');
+             */
+
+
             SqlCommand cmd = new SqlCommand("INSERT INTO fmbhead (nofmbhead, pemohonfmb, tglpemohonfmb, rejecthead, userfmb) VALUES('" + nobukti + "', '" + pemohon + "', '" + tglSkrng + "', 'N', '" + namaSiapa + "')", connection);
             SqlCommand cmd2 = new SqlCommand("INSERT INTO fmbbody (namaitem, tujuanitem, jumlahitem, hargaitem, pusatbiaya, reject, vendor, kelompok, nobody) SELECT namaitem, tujuanitem, jumlahitem, hargaitem, pusatbiaya, 'APPROVE', vendor, kelompok, '" + nobukti + "' FROM fmb WHERE username = '" + pemohon + "'", connection);
             SqlCommand cmd3 = new SqlCommand("DELETE FROM fmb WHERE username = '" + pemohon + "'", connection);
@@ -202,7 +213,8 @@ public partial class mintabeli : System.Web.UI.Page
                 ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Mohon isikan nama yang mengajukan terlebih dahulu !');</script>");
                 txtNama.Focus();
             }
-            else {
+            else
+            {
                 using (var connection2 = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["setiawanConnectionString1"].ConnectionString))
                 using (var command2 = connection2.CreateCommand())
                 {

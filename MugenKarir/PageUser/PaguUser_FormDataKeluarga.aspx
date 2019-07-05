@@ -372,7 +372,7 @@ h2.FormDataDiri {
                           
                         </div>
                       <div class="form-group" id="DivJmlAnak"><!-- Jumlah Anak -->
-                      <asp:Label ID="Label4" runat="server" Text="Berapa Jumlah Saudara Kandung Anda :" Font-Bold="true"></asp:Label>
+                      <asp:Label ID="Label4" runat="server" Text="Berapa Jumlah Saudara Kandung (Termasuk Anda) :" Font-Bold="true"></asp:Label>
                       <asp:RadioButtonList ID="RadioButtonListJmlAnak" RepeatDirection="Horizontal" runat="server" CellPadding="5">
                           <asp:ListItem>1</asp:ListItem>
                           <asp:ListItem>2</asp:ListItem>

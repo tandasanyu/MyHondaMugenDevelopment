@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap>
+  <siteMapNode url="~/Default.aspx" title="Home"  description="Kembali Ke Halaman Utama">
+    <siteMapNode url="~/Form0101ApprovalSPK.aspx" title="Persetujuan"   description="" />
+    <siteMapNode url="~/Form0104Diskontypemaksimal.aspx" title="Diskon"  description="Input Polcy Maksimal Diskon" />
+    <siteMapNode url="~/Form0202StatusSPK.aspx" title="Service"  description="" />
+    <siteMapNode url="~/Form0203PerformanceSales.aspx" title="Performance"  description="" />
+    <siteMapNode url="~/Form0204PerformanceUnit.aspx" title="Unit"  description="" />
+    <siteMapNode url="~/Form0102Aksesoris.aspx" title="Permohonan Sales"  description="" />
+    <siteMapNode url="~/Form0205Warehouse.aspx" title="Warehouse"  description="" />
+    <siteMapNode url="~/Form0100Changepassword.aspx" title="Ganti kata kunci"  description="" />
+  </siteMapNode>
+</siteMap>

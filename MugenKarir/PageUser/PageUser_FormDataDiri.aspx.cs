@@ -15,7 +15,7 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
     public string TTL_KTP= string.Empty;
     public string Alamat= string.Empty;
     public string telp_rumah = string.Empty;
-    public int nosim;
+    public string nosim;
     public string rek= string.Empty;
     public string npwp= string.Empty;
     public string jamsos= string.Empty;
@@ -42,7 +42,7 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
             TxtNPWP.Text = "--";
         }
         if (jamsos.Length !=0 && rek.Length != 0 && npwp.Length !=0) {
-            string SqlCmd = "Insert into Data_Diri (Id_lamaran, Nama_Lengkap, Nama_Panggilan, Tempat_Lahir, Tgl_Lahir, JenKel, Agama, Alamat_KTP, Alamat_Tinggal, No_Telp, No_HP, Email, Hobi, No_KTP, No_NPWP, No_Jamsos, Jen_SIM, No_SIM, NoRekBCA) values (" + Convert.ToInt32(IdLamar) + ", '" + TxtNamaLengkap.Text + "', '" + TxtNamaPanggilan.Text + "', '" + TxtTempatLahir.Text + "', convert(date,'" + TxtTglLahir.Text + "',105), " + Convert.ToInt32(rbList_JenKels) + ",  " + Convert.ToInt32(rbList_Agama) + ",'" + Alamat + "', '" + TTL_KTP + "', '" + telp_rumah + "', '" + TxtHandphone.Text + "', '" + TxtEmail.Text + "', '" + TxtHobi.Text + "', '" + TxtNoKTP.Text + "', '" + npwp + "', '" + jamsos + "', " + Convert.ToInt32(rbList_JenSIM) + ", " + nosim + ", " + rek + ")";
+            string SqlCmd = "Insert into Data_Diri (Id_lamaran, Nama_Lengkap, Nama_Panggilan, Tempat_Lahir, Tgl_Lahir, JenKel, Agama, Alamat_KTP, Alamat_Tinggal, No_Telp, No_HP, Email, Hobi, No_KTP, No_NPWP, No_Jamsos, Jen_SIM, No_SIM, NoRekBCA) values (" + Convert.ToInt32(IdLamar) + ", '" + TxtNamaLengkap.Text + "', '" + TxtNamaPanggilan.Text + "', '" + TxtTempatLahir.Text + "', convert(date,'" + TxtTglLahir.Text + "',105), " + Convert.ToInt32(rbList_JenKels) + ",  " + Convert.ToInt32(rbList_Agama) + ",'" + Alamat + "', '" + TTL_KTP + "', '" + telp_rumah + "', '" + TxtHandphone.Text + "', '" + TxtEmail.Text + "', '" + TxtHobi.Text + "', '" + TxtNoKTP.Text + "', '" + npwp + "', '" + jamsos + "', " + Convert.ToInt32(rbList_JenSIM) + ", '" + nosim + "', " + rek + ")";
             string Hasil_Insert = kn.KelasKoneksi_Insert(SqlCmd);
             if (Hasil_Insert == "1")
             {
@@ -217,16 +217,18 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
             if (rbList_JenSIM == "SIM A")
             {
                 rbList_JenSIM = "1";
-                nosim = Convert.ToInt32(TxtNomorSIM.Text);
+                //nosim = Convert.ToInt32(TxtNomorSIM.Text);
+                nosim = TxtNomorSIM.Text;
             }
             else if (rbList_JenSIM == "SIM C")
             {
                 rbList_JenSIM = "2";
-                nosim = Convert.ToInt32(TxtNomorSIM.Text);
+                //nosim = Convert.ToInt32(TxtNomorSIM.Text);
+                nosim = TxtNomorSIM.Text;
             }
             else if (rbList_JenSIM == "Tidak Ada") {
                 rbList_JenSIM = "0";
-                nosim  = 0;
+                nosim  = "0";
             }
             //***validasi agama RadioButtonListAgama
 
