@@ -557,21 +557,21 @@ WHERE KERJABODY_NOWO = '152186'
                   <asp:ListItem Value="18">PENILAIAN QC KE SA BP</asp:ListItem>
 
        
-		      1 'DISERAHKAN SA KE VENDOR                              (SELURUH SA BP – PSM / PURI) == budi/roby      
-		      2. DITERIMA'                                            (BUDI / ROBY) ==
-              3. 'BONGKAR'                                            (BUDI / ROBY)
-              4. 'KETOK'                                              (BUDI / ROBY)
-              5. 'DEMPUL'                                             (BUDI / ROBY)
-              6. 'CAT/OVEN'                                           (BUDI / ROBY)
-              7. 'POLES'                                              (BUDI / ROBY)
-              8. 'PEMASANGAN'                                         (BUDI / ROBY)
-              9. 'FINISHING'                                          (BUDI / ROBY) ---------------------→ JIKA OK, LANGSUNG KE NOMOR 14 DST
-              10.'PENILAIAN QC - OK'                                  (MUCHLIS / REGIANSYAH)
-              11. 'PENILAIAN QC - REWORK'                             (MUCHLIS / REGIANSYAH)
-              12. 'PENILAIAN QC - HASIL REWORK – GOOD/NOT GOOD/LAIN2  (MUCHLIS / REGIANSYAH)
-              13.  JIKA HASIL REWORK LAIN2, CATATAN DARI QC'          (MUCHLIS / REGIANSYAH)
-              ==============================================================================14. 'PENYERAHAN UNIT DARI VENDOR KE QC'                 (BUDI / ROBY)
-              ==============================================================================15. 'PENERIMAAN UNIT QC DARI VENDOR'                    (MUCHLIS / REGIANSYAH)
+		      1 'DISERAHKAN SA KE VENDOR'                              (SELURUH SA BP – PSM / PURI) == budi/roby    
+			  2.'DISERAHKAN SA KE DRIVER'  
+		      3. 'DITERIMA'                                            (BUDI / ROBY) ==
+              4. 'BONGKAR'                                            (BUDI / ROBY)
+              5. 'KETOK'                                              (BUDI / ROBY)
+              6. 'DEMPUL'                                             (BUDI / ROBY)
+              7. 'CAT/OVEN'                                           (BUDI / ROBY)
+              8. 'POLES'                                              (BUDI / ROBY)
+              9. 'PEMASANGAN'                                         (BUDI / ROBY)
+              10. 'FINISHING'                                          (BUDI / ROBY) ---------------------→ JIKA OK, LANGSUNG KE NOMOR 14 DST
+              11.'PENILAIAN QC - OK'                                  (MUCHLIS / REGIANSYAH)
+			  12. 'PENILAIAN QC - NOT OK'                             (MUCHLIS / REGIANSYAH)
+              13. 'PENILAIAN QC - REWORK'                             (MUCHLIS / REGIANSYAH)
+			  14. 'PENILAIAN QC - REWORK - OK'                        (MUCHLIS / REGIANSYAH)
+			  15. 'PENILAIAN QC - REWORK - NOT OK'                    (MUCHLIS / REGIANSYAH)
               16. 'PENYERAHAN UNIT QC KE SA BP'                       (MUCHLIS / REGIANSYAH)
               
 			  17.    QC KLIK TOMBOL SEND EMAIL KE VENDOR              (MUCHLIS / REGIANSYAH)     
@@ -582,7 +582,16 @@ WHERE KERJABODY_NOWO = '152186'
 			  14 - 15: muchlis/REGIANSYAH
 			  16 : ke sa terkait
 
-			  // tanya bu linda, ketika penilaian qc butuh catatan atau tidak
+			  /*
+			  NO WO YANG DI GUNAKAN UNTUK TESTING : 154495
+
+			  EMAIL OTOMATIS MASIH BERANTAKAN, CEK LAGI //DONE
+
+			  KETIKA SUDAH MASUK TAHAP REWORK DIA TIDAK BISA MEMILIH TAHAP QC OK
+
+			  tanya bu linda ketika sudah tahap rework ok / not ok apakah langsung ke tahap akhir 
+			  */
+			  BAHRUR NAMA USERNYA
 
 
 
@@ -661,5 +670,40 @@ UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = null WHERE CONTROLBR_NOWO = 152
 idbody	nobody	namaitem	tujuanitem	jumlahitem	hargaitem	pusatbiaya	reject	alasanreject	rejectoleh	vendor	nopurchaseorder	jumlahterima	jumlahkeluar	kelompok
 4985	2019/INQ/05-00023	STAND PAMERAN	PAMERAN DI MALL DAAN MOGOT TGL 25 APRIL - 01 MEI 2019	1	27310000	SHOWROOM	APPROVE	NULL	NULL	WIN INTI PROMOSINDO, CV	2019/PO/05-00016	0	0	1
 
+/*
+MAIN RULE 
+1. BUAT STEP BARU SA MENYERAHKAN MOBIL KE DRIVER //done
+2. LENGKAPI KEBUTUHAN DI SETIAP FUNCTION TERHADAP STEP BARU 
+3. BUAT USER QC PSM PURI // BAHRUL  
+4. BUAT USER BP PSM PURI // ROBY2 -- MEMPUNYAI HAK AKSES UNTUK MENGISI BP DI PSM DENGAN STEP KHUSUS. //done
+
+INFOKAN KE MUCHLIS & BUDI
+
+STEP BARU BERNILAI 20
+
+
+TESTING OK : 479817
+
+user nya robypuri/roby128
+lanjut testing ke bp budi
+*/
+
+
+
+
+select * from tb_user where username like '%ROBY%'
+select * from tb_userutility where username like '%budi%'
+
+insert into tb_user (username, password, kdcabang, kddivisi, online, banned) 
+values ('BAHRUL', 'BAHRUL112', 112, 'SERVICE112', 'N','N')
+
+INSERT INTO tb_userutility
+(username, hakakses)
+--VALUES ('ROBYPURI', 'FORM JOB CONTROL FORMAN -- VIEW MENU'),
+--VALUES ('ROBYPURI', 'FORM JOB CONTROL FOREMAN -- ADD HISTORY'),
+--VALUES ('ROBYPURI', 'FORM JOB CONTROL FOREMAN -- DELETE HISTORY'),
+--VALUES ('ROBYPURI', 'FORM JOB CONTROL FOREMAN -- CLOSING'),
+--VALUES ('ROBYPURI', 'FORM JOB CONTROL FOREMAN -- UNCLOSING'),
+--VALUES ('ROBYPURI', 'BODY & PAINT -- VIEW MENU')
 
 

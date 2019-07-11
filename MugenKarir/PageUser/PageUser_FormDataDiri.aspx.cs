@@ -15,6 +15,7 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
     public string TTL_KTP= string.Empty;
     public string Alamat= string.Empty;
     public string telp_rumah = string.Empty;
+    
     public string nosim;
     public string rek= string.Empty;
     public string npwp= string.Empty;
@@ -35,6 +36,7 @@ public partial class PageUser_PageUser_FormDataDiri : System.Web.UI.Page
     public string InsertDataDiri() {
         string Hasil = string.Empty;
         Alamat = TextAreaAlamatKTP.InnerText;
+        telp_rumah = TxtTeleponRumah.Text;
         //proses insert ke table data_diri*********** di buat method 
         KelasKoneksi kn = new KelasKoneksi();
         //tambah validasi npwp jika kosong

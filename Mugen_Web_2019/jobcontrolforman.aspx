@@ -240,21 +240,21 @@ visibility: visible;
 WOHDR_NO, CONTROLBR_TGLESELESAI, 
 case [CONTROLBR_KETOKNILAI] 
 when 1  then 'DISERAHKAN SA KE VENDOR ' 
-when 2 then 'DITERIMA' 
-when 3 then 'BONGKAR' 
-when 4 then 'KETOK' 
-when 5 then 'DEMPUL' 
-when 6 then 'CAT / OVEN' 
-when 7 then 'POLES' 
-when 8 then 'PEMASANGAN' 
-WHEN 9 then 'FINISHING' 
-when 10 then 'PENILAIAN QC - OK' 
-when 11 then 'PENILAIAN QC - REWORK'
-when 12 then 'PENILAIAN QC - HASIL REWORK – GOOD/NOT GOOD/LAIN2'
-when 13 then 'JIKA HASIL REWORK LAIN2, CATATAN DARI QC'
-when 14 then 'PENYERAHAN UNIT DARI VENDOR KE QC'
-when 15 then 'PENERIMAAN UNIT QC DARI VENDOR'
-when 16 then 'PENYERAHAN UNIT QC KE SA BP'
+when 2 then 'DISERAHKAN SA KE DRIVER'
+when 3 then 'DITERIMA' 
+when 4 then 'BONGKAR' 
+when 5 then 'KETOK' 
+when 6 then 'DEMPUL' 
+when 7 then 'CAT / OVEN' 
+when 8 then 'POLES' 
+when 9 then 'PEMASANGAN' 
+WHEN 10 then 'FINISHING' 
+when 11 then 'PENILAIAN QC - OK'	
+when 12 then 'PENILAIAN QC - NOT OK' 
+when 13 then 'PENILAIAN QC - REWORK' 
+when 14 then 'PENILAIAN QC - REWORK - OK'  
+when 15 then 'PENILAIAN QC - REWORK - NOT OK' 
+when 16 then 'PENYERAHAN UNIT QC KE SA BP' 
 else '' 
 end AS statuskerja, 
 SUPPLIER_NAMA 
@@ -266,7 +266,7 @@ INNER JOIN DATA_SUPPLIER ON TRXN_WOHDR.WOHDR_KDTAGIH = DATA_SUPPLIER.SUPPLIER_KO
                  </SelectParameters>
              </asp:SqlDataSource>
             
-
+         <!-- This one works -->
             <asp:GridView ID="GridView2" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource3" EnableModelValidation="True" ForeColor="#333333" GridLines="None" class="table table-bordered table-stripped" style="width:98%;margin:5px;font-size:0.85em;font-family:verdana;color:#333;">
                 <AlternatingRowStyle BackColor="White" />
                 <Columns>
@@ -336,21 +336,21 @@ INNER JOIN DATA_SUPPLIER ON TRXN_WOHDR.WOHDR_KDTAGIH = DATA_SUPPLIER.SUPPLIER_KO
 WOHDR_SA, WOHDR_NO, CONTROLBR_TGLESELESAI, 
 case [CONTROLBR_KETOKNILAI] 
 when 1  then 'DISERAHKAN SA KE VENDOR ' 
-when 2 then 'DITERIMA' 
-when 3 then 'BONGKAR' 
-when 4 then 'KETOK' 
-when 5 then 'DEMPUL' 
-when 6 then 'CAT / OVEN' 
-when 7 then 'POLES' 
-when 8 then 'PEMASANGAN' 
-WHEN 9 then 'FINISHING' 
-when 10 then 'PENILAIAN QC - OK' 
-when 11 then 'PENILAIAN QC - REWORK'
-when 12 then 'PENILAIAN QC - HASIL REWORK – GOOD/NOT GOOD/LAIN2'
-when 13 then 'JIKA HASIL REWORK LAIN2, CATATAN DARI QC'
-when 14 then 'PENYERAHAN UNIT DARI VENDOR KE QC'
-when 15 then 'PENERIMAAN UNIT QC DARI VENDOR'
-when 16 then 'PENYERAHAN UNIT QC KE SA BP'
+when 2 then 'DISERAHKAN SA KE DRIVER'
+when 3 then 'DITERIMA' 
+when 4 then 'BONGKAR' 
+when 5 then 'KETOK' 
+when 6 then 'DEMPUL' 
+when 7 then 'CAT / OVEN' 
+when 8 then 'POLES' 
+when 9 then 'PEMASANGAN' 
+WHEN 10 then 'FINISHING' 
+when 11 then 'PENILAIAN QC - OK'	
+when 12 then 'PENILAIAN QC - NOT OK' 
+when 13 then 'PENILAIAN QC - REWORK' 
+when 14 then 'PENILAIAN QC - REWORK - OK'  
+when 15 then 'PENILAIAN QC - REWORK - NOT OK' 
+when 16 then 'PENYERAHAN UNIT QC KE SA BP' 
 else '' end AS statuskerja, SUPPLIER_NAMA, 
 (select max(KERJABODY_TANGGAL)  from TEMP_KERJABODY WHERE KERJABODY_NOWO =WOHDR_NO 
 GROUP BY KERJABODY_NOWO) AS tglAkhir FROM TRXN_WOHDR , 

@@ -120,6 +120,7 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
             btnUnclosing.Visible = false;
         }
     }
+    //BUTTON DELETE
     protected void Button2_Click(object sender, EventArgs e)
     {
         string noWoDel = Request.QueryString["qnowodel"];
@@ -155,7 +156,7 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
         string userAkses = (string)(Session["username"]);
         if (userAkses == "REGIANSYAH")
         {
-            if (txtStatus.Text == "10" || txtStatus.Text == "11" || txtStatus.Text == "12" || txtStatus.Text == "13" || txtStatus.Text == "14" )
+            if (txtStatus.Text == "10" || txtStatus.Text == "11" || txtStatus.Text == "12" || txtStatus.Text == "13" || txtStatus.Text == "14" || txtStatus.Text == "15")
             {
                 try
                 {
@@ -173,7 +174,7 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
                     string status_hasil = Fungsi_CekStatus(woBp);
                     if (status_hasil == "10up") {
                         //bisa isi langsung ke 11 - 14
-                        if (txtStatus.Text == "10"||txtStatus.Text == "11" || txtStatus.Text == "12" || txtStatus.Text == "13" || txtStatus.Text == "15" || txtStatus.Text == "16")
+                        if (txtStatus.Text == "10"||txtStatus.Text == "11" || txtStatus.Text == "12" || txtStatus.Text == "13" || txtStatus.Text == "14" || txtStatus.Text == "15")
                         {
                             string cs = System.Configuration.ConfigurationManager.ConnectionStrings["service128Connection"].ConnectionString;
                             SqlConnection con = new SqlConnection(cs);
@@ -213,12 +214,12 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
                                     if (statusBp == "10")
                                     {
                                         //cmd3.ExecuteNonQuery();
-                                        string sql_insert = "INSERT INTO TEMP_KERJABODY(KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES('" + woBp + "', '" + DateTime.Now.ToShortDateString() + "', '" + user + "', '14', '" + catatanBp + "', '" + lokasiBp + "')";
-                                        string sql_update = "UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '14' WHERE CONTROLBR_NOWO = '" + woBp + "'";
+                                        string sql_insert = "INSERT INTO TEMP_KERJABODY(KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES('" + woBp + "', '" + DateTime.Now.ToShortDateString() + "', '" + user + "', '15', '" + catatanBp + "', '" + lokasiBp + "')";
+                                        string sql_update = "UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '15' WHERE CONTROLBR_NOWO = '" + woBp + "'";
                                         trigger_action(sql_insert, sql_update);
-                                        //email staff status 14
-                                        bool status2 = EmailStaff(14);
-                                        ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedtpuri.aspx");
+                                        //email staff status 15
+                                        bool status2 = EmailStaff(15);
+                                        ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedtpuri.aspx?qnowo=" + woBp + "");
                                     }
                                     bool status = EmailStaff(Convert.ToInt32(txtStatus.Text));
                                     if (status == true)
@@ -279,11 +280,11 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
                                     if (statusBp == "10")
                                     {
                                         //cmd3.ExecuteNonQuery();
-                                        string sql_insert = "INSERT INTO TEMP_KERJABODY(KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES('" + woBp + "', '" + DateTime.Now.ToShortDateString() + "', '" + user + "', '14', '" + catatanBp + "', '" + lokasiBp + "')";
-                                        string sql_update = "UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '14' WHERE CONTROLBR_NOWO = '" + woBp + "'";
+                                        string sql_insert = "INSERT INTO TEMP_KERJABODY(KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES('" + woBp + "', '" + DateTime.Now.ToShortDateString() + "', '" + user + "', '15', '" + catatanBp + "', '" + lokasiBp + "')";
+                                        string sql_update = "UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '15' WHERE CONTROLBR_NOWO = '" + woBp + "'";
                                         trigger_action(sql_insert, sql_update);
                                         //email staff status 14
-                                        bool status2 = EmailStaff(14);
+                                        bool status2 = EmailStaff(15);
                                         ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedtpuri.aspx");
                                     }
                                     bool status = EmailStaff(Convert.ToInt32(txtStatus.Text));
@@ -861,7 +862,8 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
         //ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di unClosing karena data ini tidak dalam status Closing !"+ noWo + "');</script>");
         //Response.Write("<script language='javascript'>window.alert('"+pesan_global+"');</script>");
         //Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + noWo);
-        ShowAlertAndNavigate(pesan_global, "jobcontrolformanedtpuri.aspx?qnowo=" + noWo + "");
+        //ShowAlertAndNavigate(pesan_global, "jobcontrolformanpuri.aspx");
+        ShowAlertAndNavigate(pesan_global, "jobcontrolformanpuri.aspx");
     }
     //FUNGSI UNTUK DRAFTPESAN
     public string DraftEmail_;
@@ -907,17 +909,21 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
         }
         else if (status == 11)
         {
-            DraftEmail_ = "UNIT TELAH DI NILAI QC (REWORK) ";
+            DraftEmail_ = "PENILAIAN QC - NOT OK";
         }
         else if (status == 12)
         {
-            DraftEmail_ = "UNIT TELAH DI NILAI QC (HASIL REWORK) ";
+            DraftEmail_ = "PENILAIAN QC - REWORK ";
         }
         else if (status == 13)
         {
-            DraftEmail_ = "UNIT TELAH DI NILAI QC , TERDAPAT CATATAN SILAHKAN DI CEK DI WEB";
+            DraftEmail_ = "PENILAIAN QC - REWORK - OK";
         }
         else if (status == 14)
+        {
+            DraftEmail_ = "PENILAIAN QC - REWORK - NOT OK";
+        }
+        else if (status == 15)
         {
             DraftEmail_ = "PENYERAHAN UNIT QC KE SA BP";
         }
@@ -955,35 +961,35 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
             string pesan_ = DraftEmail_bankStatus(status);
             pesan = "DEAR ROBY, "+ pesan_ + ", silahkan cek web office.hondamugen untuk lebih jelasnya";
         }
-        else if (status == 9 || status == 10 || status == 11 || status == 12)
+        else if (status == 9 || status == 10 || status == 11 || status == 12 || status == 13 || status == 14 )
         {//JIKA STATUS 10 MAKA KIRIM KE BUDI / ROBY          
-            if (status == 10) {
-                email = "robiyana219@gmail.com";
-                //email = "tandasanyu.movie1@gmail.com";
-                string pesan__ = DraftEmail_bankStatus(status);
-                pesan = "DEAR ROBY, " + pesan__ + ", silahkan cek web office.hondamugen untuk lebih jelasnya";
-            } else {
+            //if (status == 10) {
+            //    email = "robiyana219@gmail.com";
+            //    //email = "tandasanyu.movie1@gmail.com";
+            //    string pesan__ = DraftEmail_bankStatus(status);
+            //    pesan = "DEAR ROBY, " + pesan__ + ", silahkan cek web office.hondamugen untuk lebih jelasnya";
+            //} else {
                 email = "regiansyah.nozle@gmail.com";
                 //email = "tandasanyu.movie2@gmail.com";
                 string pesan_ = DraftEmail_bankStatus(status);
                 pesan = "DEAR REGY, " + pesan_ + ", silahkan cek web office.hondamugen untuk lebih jelasnya";
-            }
+            //}
         }
-        else if (status == 13)
-        {
-            email = "robiyana219@gmail.com";
-            //email = "tandasanyu.movie3@gmail.com";
-            string pesan_ = DraftEmail_bankStatus(status);
-            pesan = "DEAR ROBY, " + pesan_ + ", silahkan cek web office.hondamugen untuk lebih jelasnya";
-        }
-        else if (status == 14 || status == 15)
-        {
-            email = "regiansyah.nozle@gmail.com";
-            //email = "tandasanyu.movie4@gmail.com";
-            string pesan_ = DraftEmail_bankStatus(status);
-            pesan = "DEAR REGY, " + pesan_ + ", silahkan cek web office.hondamugen untuk lebih jelasnya";
-        }
-        else if (status == 16)
+        //else if (status == 13)
+        //{
+        //    email = "robiyana219@gmail.com";
+        //    //email = "tandasanyu.movie3@gmail.com";
+        //    string pesan_ = DraftEmail_bankStatus(status);
+        //    pesan = "DEAR ROBY, " + pesan_ + ", silahkan cek web office.hondamugen untuk lebih jelasnya";
+        //}
+        //else if (status == 14 || status == 15)
+        //{
+        //    email = "regiansyah.nozle@gmail.com";
+        //    //email = "tandasanyu.movie4@gmail.com";
+        //    string pesan_ = DraftEmail_bankStatus(status);
+        //    pesan = "DEAR REGY, " + pesan_ + ", silahkan cek web office.hondamugen untuk lebih jelasnya";
+        //}
+        else if (status == 15)
         {
             //KE SA TERKAIT
             string sql = "SELECT WOHDR_SA FROM TRXN_WOHDR WHERE (WOHDR_NO = " + noWo + ")";
@@ -1015,7 +1021,7 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
             }
             //email = "tandasanyu.movie4@gmail.com";
             string pesan_ = DraftEmail_bankStatus(status);
-            pesan = "DEAR "+ hasil_namasa + " ," + pesan_ + ", silahkan cek web office.hondamugen untuk lebih jelasnya ";
+            pesan = "DEAR "+ hasil_namasa + " ," + pesan_ + ", silahkan cek web office.hondamugen.co.id untuk lebih jelasnya ";
         }
 
         //kirim email
@@ -1103,6 +1109,10 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
         else if (status_kerja == "14")
         {
             RB14.Checked = true;
+        }
+        else if (status_kerja == "15")
+        {
+            RB15.Checked = true;
         }
         return result;
     }

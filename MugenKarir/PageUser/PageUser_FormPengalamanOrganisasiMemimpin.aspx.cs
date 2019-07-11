@@ -90,7 +90,7 @@ public partial class PageUser_PageUser_FormPengalamanOrganisasiMemimpin : System
         }
         if (rBList_PengOrg == "1")
         {
-            if (TxtNamaOrganisasi1.Text.Length !=0 || TxtTahunOrganisasi1.Text.Length != 0) {
+            if (TxtNamaOrganisasi1.Text.Length ==0 || TxtTahunOrganisasi1.Text.Length == 0) {
                 err1 = "Nama Organisasi / Tahun Organisasi Wajib di Isi";
             } else {
                 string Hasil = InsertData_Organisasi(Convert.ToInt32(IdLamar), TxtNamaOrganisasi1.Text, Convert.ToInt32(TxtTahunOrganisasi1.Text));

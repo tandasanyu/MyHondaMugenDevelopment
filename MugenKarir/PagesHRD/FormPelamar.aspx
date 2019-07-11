@@ -97,7 +97,7 @@
 				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
 				SelectCommand="SELECT Id_DataDiri, Id_Lamaran, Nama_Lengkap, Nama_Panggilan, Tempat_Lahir,
  Tgl_Lahir, JenKel, Agama, Alamat_KTP, Alamat_Tinggal, No_Telp, No_HP, Email,
-  Hobi, No_KTP, No_NPWP, No_Jamsos, Jen_SIM, No_SIM, NoRekBCA, Agama, 
+  Hobi, No_KTP, No_NPWP, No_Jamsos,Hobi, Jen_SIM, No_SIM, NoRekBCA, Agama, 
    FLOOR(DATEDIFF(DAY, Tgl_Lahir, GETDATE()) / 365.25) as Umur FROM Data_Diri where (Id_Lamaran = @Param1)">
 				<SelectParameters>
                     <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
@@ -172,8 +172,8 @@
                                  <div class="row">
                                     <div class="col-sm-5" style="">SIM </div>
                                     <div class="col-sm-6">
-                                        : <asp:Label ID="Jen_SIMLabel" runat="server" Text='<%# Eval("Jen_sim")  !=null ? (int)Eval("Jen_sim")==1?"Sim A ":(int)Eval("Jen_sim")==2?"Sim B":"Tidak Ada Data": "Data Tidak Ada" %>' /> /
-                                        <asp:Label ID="Label9" runat="server" Text='<%# Eval("No_SIM") !=null ? Eval("No_SIM"): "Data Tidak Ada"  %>'></asp:Label>
+                                        : <asp:Label ID="Jen_SIMLabel" runat="server" Text='<%# (int)Eval("jen_sim") !=0 ? (int)Eval("jen_sim")==1?"A":"C": "Data Tidak Ada"  %>' /> /
+                                        <asp:Label ID="Label9" runat="server" Text='<%#  Eval("no_sim") !=null ? Eval("no_sim"): "Data Tidak Ada"  %>'></asp:Label>
                                     </div>
                                 </div>
                                  <div class="row">
@@ -245,7 +245,7 @@
 					            </td>
 					            <td>
 						            <div class="col-sm-12">
-							            <%# (int)Eval("pendidikan") !=0 ? (int)Eval("pendidikan")==1?"SMA":(int)Eval("pendidikan")==2?"D1":(int)Eval("pendidikan")==3?"D2":(int)Eval("pendidikan")==4?"D3":(int)Eval("pendidikan")==5?"Magister":(int)Eval("pendidikan")==6?"Doktor": "Tidak Ada Data":"Tidak Ada Data" %>
+							            <%# (int)Eval("pendidikan") !=0 ? (int)Eval("pendidikan")==1?"SMA":(int)Eval("pendidikan")==2?"D1":(int)Eval("pendidikan")==3?"D2":(int)Eval("pendidikan")==4?"D3":(int)Eval("pendidikan")==5?"Sarjana":(int)Eval("pendidikan")==6?"Magister": "Tidak Ada Data":"Tidak Ada Data" %>
 						            </div>
 					            </td>
 					            <td>
@@ -374,12 +374,12 @@
 						        </td>
 						        <td>
 							        <div class="col-sm-12">
-								        <asp:Label ID="Label15" runat="server" Text='<%# (int)Eval("pendidikan") !=0 ? (int)Eval("pendidikan")==1?"SMP":(int)Eval("pendidikan")==2?"SMA":(int)Eval("pendidikan")==3?"Sarjana": "SMA":(int)Eval("pendidikan")==4?"Magister": "Tidak Ada Data" %>'></asp:Label>
+								        <asp:Label ID="Label15" runat="server" Text='<%# (int)Eval("pendidikan") !=0 ? (int)Eval("pendidikan")==1?"Belum Sekolah":(int)Eval("pendidikan")==2?"TK":(int)Eval("pendidikan")==3?"SD":(int)Eval("pendidikan")==4?"SMP":(int)Eval("pendidikan")==5?"SMA":(int)Eval("pendidikan")==6?"D1":(int)Eval("pendidikan")==7?"D2":(int)Eval("pendidikan")==8?"D3":(int)Eval("pendidikan")==9?"S1":(int)Eval("pendidikan")==10?"S2":"Tidak Ada Data": "Tidak Ada Data" %>'></asp:Label>
 							        </div>
 						        </td>
 						        <td>
 							        <div class="col-sm-12">
-								        <asp:Label ID="Label16" runat="server" Text='<%# (int)Eval("Pekerjaan")==1?"PNS":(int)Eval("Pekerjaan")==2?"Pegawai Swasta":(int)Eval("Pekerjaan")==3?"Wira Usaha":(int)Eval("Pekerjaan")==4?"Pensiun":(int)Eval("Pekerjaan")==5?"Tidak Bekerja":"Tidak Ada Data" %>'></asp:Label>
+								        <asp:Label ID="Label16" runat="server" Text='<%# (int)Eval("Pekerjaan")==1?"Tidak Bekerja":(int)Eval("Pekerjaan")==2?"Wira Usaha":(int)Eval("Pekerjaan")==3?"Ibu Rumah Tangga":(int)Eval("Pekerjaan")==4?"PNS":(int)Eval("Pekerjaan")==5?"Peg. Swasta":(int)Eval("Pekerjaan")==6?"Mahasiswa":(int)Eval("Pekerjaan")==7?"Pelajar":"Tidak Ada Data" %>'></asp:Label>
 							        </div>
 						        </td>
 					        </tr> 
@@ -657,12 +657,12 @@
             <h4><asp:Label ID="Label3" runat="server" Text="Hobi"></asp:Label></h4>
             <asp:SqlDataSource ID="SqlDataSource1" runat="server"
 				ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
-				SelectCommand="SELECT*  ROM Data_Diri where (Id_Lamaran = @Param1)">
+				SelectCommand="SELECT * from Data_Diri where (Id_Lamaran = @Param1)">
 				<SelectParameters>
                     <asp:ControlParameter ControlID="LblIdLamaran" Name="Param1" PropertyName="Text" />
                 </SelectParameters>
 			</asp:SqlDataSource>
-            <asp:ListView ID="ListView5" DataSourceID="SqlDataSourceLeader" runat="server">
+            <asp:ListView ID="ListView5" DataSourceID="SqlDataSource1" runat="server">
                 <LayoutTemplate>
                     <div id="itemPlaceholderContainer" runat="server" style="">
                         <span runat="server" id="itemPlaceholder" />

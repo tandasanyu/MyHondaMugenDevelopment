@@ -140,6 +140,10 @@ opacity: 0.7;
                 document.getElementById('<%=txtStatus.ClientID %>').value = "14";
                 document.getElementById('<%= btnProses.ClientID %>').click()
             });
+            $('#Div15').click(function () {
+                document.getElementById('<%=txtStatus.ClientID %>').value = "15";
+                document.getElementById('<%= btnProses.ClientID %>').click()
+            });
             //document.getElementById("dew").style.background = "#FF00FF";
             if (document.getElementById('<%=RB1.ClientID %>').checked) {
                 document.getElementById("Div1").style.background = "#FFDC00";
@@ -169,6 +173,8 @@ opacity: 0.7;
                 document.getElementById("Div13").style.background = "#FFDC00";
             }else if (document.getElementById('<%=RB14.ClientID %>').checked){
                 document.getElementById("Div14").style.background = "#FFDC00";
+            }else if (document.getElementById('<%=RB15.ClientID %>').checked){
+                document.getElementById("Div15").style.background = "#FFDC00";
             }
         });
     </script>
@@ -299,12 +305,11 @@ opacity: 0.7;
 		when 8 then 'PEMASANGAN' 
 		when 9 then 'FINISHING'  
 		when 10 then 'PENILAIAN QC - OK'	
-		when 11 then 'PENILAIAN QC - REWORK' 
-		when 12 then 'PENILAIAN QC - HASIL REWORK -- GOOD/NOT GOOD/LAIN2' 
-		when 13 then 'JIKA HASIL REWORK LAIN2, CATATAN DARI QC'  
-		when 14 then 'PENYERAHAN UNIT DARI VENDOR KE QC' 
-		when 15 then 'PENERIMAAN UNIT QC DARI VENDOR'  
-		when 16 then 'PENYERAHAN UNIT QC KE SA BP'
+		when 11 then 'PENILAIAN QC - NOT OK' 
+		when 12 then 'PENILAIAN QC - REWORK' 
+		when 13 then 'PENILAIAN QC - REWORK - OK'  
+		when 14 then 'PENILAIAN QC - REWORK - NOT OK' 
+		when 15 then 'PENYERAHAN UNIT QC KE SA BP'  
 		else 'UNCATEGORIZED' end AS statusval, 
 	case [KERJABODY_LOKASI] 
 		when 1 then 'lt. 1' 
@@ -347,7 +352,7 @@ opacity: 0.7;
             <tr>
                 <td style="padding:10px"><div class="rcorners1" style="width:160px;height:160px;background-color:red;"><div class="ThisDiv"><asp:RadioButton GroupName="A" ID="RB13" runat="server" /></div></div></td>
                 <td style="padding:10px"><div class="rcorners1" style="width:160px;height:160px;background-color:red;"><div class="ThisDiv"><asp:RadioButton GroupName="A" ID="RB14" runat="server" /></div></div></td>
-                <td style="padding:10px"><div  class="rcorners1" style="width:160px;height:160px;background-color:red;" onclick="myFunction()"><div class="ThisDiv"><asp:RadioButton GroupName="A" ID="RB15" Text="15" Visible="true" runat="server" /></div></div></td>
+                <td style="padding:10px"><div class="rcorners1" style="width:160px;height:160px;background-color:red;"><div class="ThisDiv"><asp:RadioButton GroupName="A" ID="RB15" runat="server" /></div></div></td>
             </tr>
         </table>
         <hr />
@@ -374,12 +379,13 @@ opacity: 0.7;
                         <tr>
                             <td style="padding:10px"><div id="Div9" class="rcorners1" runat="server"><h2 style="align-self:center">FINISHING</h2></div></td>
                             <td style="padding:10px"><div id="Div10" class="rcorners1" runat="server"><h2 style="align-self:center">PENILAIAN QC - OK</h2></div></td>
-                            <td style="padding:10px"><div id="Div11" class="rcorners1" runat="server"><h2 style="align-self:center">PENILAIAN QC - REWORK</h2></div></td>
-                            <td style="padding:10px"><div id="Div12" class="rcorners1" runat="server"><h2 style="align-self:center">PENILAIAN QC - HASIL REWORK – GOOD/NOT GOOD/LAIN2</h2></div></td>
+                            <td style="padding:10px"><div id="Div11" class="rcorners1" runat="server"><h2 style="align-self:center">PENILAIAN QC - NOT OK</h2></div></td>
+                            <td style="padding:10px"><div id="Div12" class="rcorners1" runat="server"><h2 style="align-self:center">PENILAIAN QC - REWORK</h2></div></td>
                         </tr>
                         <tr>
-                            <td style="padding:10px"><div id="Div13" class="rcorners1" runat="server"><h2 style="align-self:center">JIKA HASIL REWORK LAIN2, CATATAN DARI QC</h2></div></td>
-                            <td style="padding:10px"><div id="Div14" class="rcorners1" runat="server"><h2 style="align-self:center">PENYERAHAN UNIT QC KE SA BP</h2></div></td>
+                            <td style="padding:10px"><div id="Div13" class="rcorners1" runat="server"><h2 style="align-self:center">PENILAIAN QC - REWORK - OK</h2></div></td>
+                            <td style="padding:10px"><div id="Div14" class="rcorners1" runat="server"><h2 style="align-self:center">PENILAIAN QC - REWORK - NOT OK</h2></div></td>
+                            <td style="padding:10px"><div id="Div15" class="rcorners1" runat="server"><h2 style="align-self:center">PENYERAHAN UNIT QC KE SA BP</h2></div></td>
                         </tr>
                     </table>
                     <div class="form-group">
