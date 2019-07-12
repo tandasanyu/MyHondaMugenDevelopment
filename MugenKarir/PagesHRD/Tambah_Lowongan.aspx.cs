@@ -18,6 +18,7 @@ public partial class PagesHRD_Tambah_Lowongan : System.Web.UI.Page
     //public List<DateTime> ListTgl_Pend = new List<DateTime>();
     //public List<string> ListTgl_seluruh = new List<string>();
     private SqlConnection conn;
+    public string id = string.Empty;
     protected void Page_Load(object sender, EventArgs e)
     {
         TxtTglPosting.Text = DateTime.Now.ToShortDateString();
@@ -40,12 +41,11 @@ public partial class PagesHRD_Tambah_Lowongan : System.Web.UI.Page
         var insert = cn.KelasKoneksi_Insert(query_insert_lowongan);
         if (insert == "1") {
             TxtPosisi.Text = "";
-            tbxTinymce.Text = "";
-
-            Response.Write("<script>alert('Berhasil Menambahkan Data Lowongan')</script>");
+            tbxTinymce.Text = "";        
+            ShowAlertAndNavigate("Berhasil Menambahkan Data Lowongan", "HomeHRD.aspx?Menu=1");
         }
         else {
-            Response.Write("<script>alert('Gagal Menambahkan Data Lowongan.  "+ insert + " ')</script>");
+            ShowAlertAndNavigate("Gagal Menambahkan Data Lowongan", "HomeHRD.aspx?Menu=1");
         }
     }
     
@@ -74,5 +74,23 @@ public partial class PagesHRD_Tambah_Lowongan : System.Web.UI.Page
         //    Response.Write("<script>alert('Koneksi Gagal')</script>");
         //}
 
+    }
+
+    public void ShowAlertAndNavigate(string msg, string destination)
+    {
+        //string alert_redirect_Script = string.Format(@"<script type=""text/javascript"">
+        //                               alert('{0}');
+        //                                window.location.href = destination;
+        //                               </script>", msg);
+        //ClientScript.RegisterClientScriptBlock(this.GetType(), "alertredirectscript", alert_redirect_Script, false);
+        string message = msg;
+        string url = destination;
+        string script = "window.onload = function(){ alert('";
+        script += message;
+        script += "');";
+        script += "window.location = '";
+        script += url;
+        script += "'; }";
+        ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script, true);
     }
 }

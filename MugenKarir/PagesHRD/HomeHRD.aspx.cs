@@ -15,6 +15,7 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
             val1 = Request.QueryString["Menu"];
             if (val1 == null)
             {
+                
                 MultiViewHRD.ActiveViewIndex = 0;
             }
             else
@@ -812,6 +813,62 @@ public partial class PagesHRD_HomeHRD : System.Web.UI.Page
         }
         LvListLowongan.DataBind();
     }
+    //update lowongan 
+    protected void BtnUpdate_Click(object sender, EventArgs e)
+    {
+        ID_low.Clear();
+        foreach (ListViewDataItem item in LvListLowongan.Items)
+        {
+            CheckBox chkSelect = (CheckBox)item.FindControl("CheckBoxListLowongan");
+            if (chkSelect != null)
+            {
+                int ID = Convert.ToInt32(chkSelect.Attributes["value"]);
+                if (chkSelect.Checked && !this.ID_low.Contains(ID))
+                {
+                    this.ID_low.Add(ID);
+                }
+                else if (!chkSelect.Checked && this.ID_low.Contains(ID))
+                {
+                    this.ID_low.Remove(ID);
+                }
+            }
+        }
+        if (ID_low != null && ID_low.Count > 0)
+        {
+            if (ID_low.Count==1) {
+                string id = Convert.ToString(ID_low[0].ToString());
+                //Response.Redirect("Tambah_Lowongan.aspx?id="+id+"");
+                Response.Redirect("Edit_Lowongan.aspx?id=" + id + "");
+            } else {
+                Response.Write("<script>alert('Hanya Di Perbolehkan Memilih 1 Lowongan untuk di Edit dalam 1 Waktu')</script>");
+            }
+            //KelasKoneksi cn = new KelasKoneksi();
+
+
+            //int count = 0;
+            //foreach (int element in ID_low)
+            //{
+            //    count++;
+            //    //Response.Write("<script>alert('List ID Terpilih : " + element.ToString() + " ')</script>");
+            //    string query_update = "update List_Lowongan set Status_Lowongan=1 where id_lowongan = '" + element + "'";
+            //    string hasil = cn.KelasKoneksi_Update(query_update);
+            //    if (hasil == "1")
+            //    {
+            //        Response.Write("<script>alert('Berhasil Aktifkan Lowongan dengan ID : " + element + "')</script>");
+            //    }
+            //    else
+            //    {
+            //        Response.Write("<script>alert('Gagal Aktifkan Lowongan')</script>");
+            //    }
+            //}
+
+        }
+        else
+        {
+            Response.Write("<script>alert('Harap Pilih Lowongan yang akan di  Edit ')</script>");
+        }
+    }
+    //fungsi untuk redirect 
 
     public string val1;
 

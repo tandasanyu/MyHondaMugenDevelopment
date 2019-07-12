@@ -256,6 +256,12 @@ public class KelasKoneksi
                 else if (sub == "11") {
                     GlobalAr.Add(reader["status_pernikahan"].ToString()); //0
                 }
+                else if (sub == "12") {
+                    GlobalAr.Add(reader["posisi"].ToString()); //0
+                    GlobalAr.Add(reader["kualifikasi"].ToString()); //1
+                    GlobalAr.Add(reader["Tgl_Post"].ToString()); //2
+                    GlobalAr.Add(reader["Status_Lowongan"].ToString()); //3
+                }
             }
                 //status_hasil = "1";
 
@@ -509,6 +515,7 @@ public class KelasKoneksi
         }
         return status_hasil;
     }
+
     public string KelasKoneksi_UndangInterview(string e,string pesan) {
         string hasil = "";
         string subject = "PT. Mutra Usaha Gentaniaga (Honda Mugen) Email Notification"; ;

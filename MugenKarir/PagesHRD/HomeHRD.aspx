@@ -32,8 +32,10 @@
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
+            //$('#ListPelamarBaru').DataTable();
         });
     </script>
+
     <style>
                 /***************/
        #table-wrapper {
@@ -88,7 +90,7 @@
                 <div class="col-12" style="overflow:auto">
                     <div class="form-group">
                         <div class="col" style="margin-bottom:4%;margin-top:1%">
-  <div class="col" style="margin-bottom:4%;margin-top:1%">
+                            <div class="col" style="margin-bottom:4%;margin-top:1%">
                     	        <asp:SqlDataSource ID="SqlPelamarBaru" runat="server"
 					                ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
 					                SelectCommand="select Id_lamaran, User_nama, User_Posisi from Data_Lamaran where status_lamaran = 1 and Status_undangan = 0  order by Tgl_Lamar DESC"
@@ -166,6 +168,7 @@
                                     </tr>
                                 </ItemTemplate>
                             </asp:ListView>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -232,7 +235,7 @@
                             </div>
                             </div>
                         </div>
-                    <br />
+                    <br /> 
                     <div id="outer">
                             <div class="inner">
                                 <asp:Button ID="BtnHapus" runat="server" Text="Hapus Lowongan" class="btn btn-danger" OnClick="BtnHapus_Click" /></div>
@@ -240,6 +243,8 @@
                                 <asp:Button ID="BtnNonAktif" runat="server" Text="NonAktifkan Lowongan" class="btn btn-warning" OnClick="BtnNonAktif_Click" /></div>
                             <div class="inner">
                                 <asp:Button ID="BtnAktif" runat="server" Text="Aktifkan Lowongan" class="btn btn-success" OnClick="BtnAktif_Click"/></div>
+                            <div class="inner">
+                                <asp:Button ID="BtnUpdate" runat="server" Text="Perbarui Lowongan" class="btn btn-success" OnClick="BtnUpdate_Click"/></div>                    
                     </div> 
                     <br />
             </div>
