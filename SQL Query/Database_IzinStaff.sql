@@ -707,3 +707,99 @@ INSERT INTO tb_userutility
 --VALUES ('ROBYPURI', 'BODY & PAINT -- VIEW MENU')
 
 
+/*
+====== testing pembuatan detail izin 15/7/2019
+use HRDWEB
+
+select * from DATA_IZIN_BODY 
+where IZIN_STATUS <> 'Pending' and izin_status <> 'Disetujui Manajer'
+and izin_status <> 'Disetujui Atasan'
+
+-- 10185 / di batalkan staff
+
+--- desain view untuk detail
+ SELECT Details.izin_id,
+     b.izin_nik AS NIK,
+	 h.IZIN_NAMA,
+	 CASE 
+		WHEN h.IZIN_NIK_APPVMNG ='--' THEN NULL
+		WHEN h.IZIN_NIK_APPVMNG <>'--' THEN h.IZIN_NIK_APPVMNG 
+		END as NIKMNG, 
+	 h.IZIN_NIK_APPVSPV as NIKSPV,
+	 (select staff_nama from data_staff where staff_nik = h.IZIN_NIK_APPVSPV) as Atasan1,
+	 --b.IZIN_TGLAPPVSPV,
+	 case 
+		when  h.IZIN_NIK_APPVMNG = '--'
+		then '--'
+		when h.IZIN_NIK_APPVMNG <> '--'
+		then (select staff_nama from data_staff where staff_nik = h.IZIN_NIK_APPVMNG)
+		end as Atasan2
+	 ,
+	 --h.IZIN_NIK_APPVMNG,
+	 b.IZIN_TGLAPPVMNG,
+	 b.IZIN_TGLAPPVSPV,
+	 Details.id_detail,
+     b.izin_jenis,
+     b.izin_alasan,
+     Details.izin_tgldetail,
+	 (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) as TglDeadline,
+	 --Details.izin_status,
+	 case 
+		-- untuk case expired
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) < CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null 
+		then 'Expired' 
+		-- untuk case pending
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) >= CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null and b.IZIN_STATUS ='Pending'
+		then 'Pending' 
+		---- untuk case dibatalkan staff
+		--when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) >= CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		--and Details.izin_status is null and b.IZIN_STATUS ='Dibatalkan Staff'
+		--then 'Dibatalkan Staff' 
+		---- untuk case di batalkan hrd
+		--when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) >= CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		--and Details.izin_status is null and b.IZIN_STATUS ='Dibatalkan HRD'
+		--then 'Dibatalkan HRD' 
+		---- untuk case di batalkan Manajer
+		--when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) >= CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		--and Details.izin_status is null and b.IZIN_STATUS ='Dibatalkan Manajer'
+		--then 'Dibatalkan Manajer' 
+		---- untuk case di batalkan Atasan
+		--when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) >= CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		--and Details.izin_status is null and b.IZIN_STATUS ='Dibatalkan Atasan'
+		--then 'Dibatalkan Atasan' 
+		else 
+		b.IZIN_STATUS
+		end as Status_Izin,
+     Details.Source,
+     Details.Flag
+   FROM DATA_IZIN_BODY b
+   JOIN 
+          (SELECT izin_id, izin_nik, izin_tgldetail,  izin_status, izin_id_detail as id_detail
+		   ,'DT' AS Source, FLAG
+           FROM DATA_IZIN_DETAIL
+
+           UNION ALL
+
+          SELECT izin_id, izin_nik, izin_tgldetail, izin_status, izin_id_detailpc as id_detail
+		   ,'PC' AS Source, FLAG
+           FROM DATA_IZIN_DETAILPC) AS Details
+   
+   ON b.izin_id = Details.izin_id  
+   join 
+   data_izin_header h
+   on b.izin_nik = h.IZIN_NIK 
+
+
+
+
+
+	 ----masih belum sempurna / ketika tgl appv mng ada status masih expired NIKMNG & NIKSPV = '462'
+	    SELECT * FROM [DetailPengajuanIzin] 
+   WHERE (([NIKMNG] = '462') OR ([NIKSPV] = '462'))  order by status_izin desc
+   */
+
+
+
+

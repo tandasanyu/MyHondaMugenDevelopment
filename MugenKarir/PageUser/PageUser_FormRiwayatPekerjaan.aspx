@@ -260,11 +260,13 @@
                                 <br />
                                 <asp:Label ID="Label11" runat="server" Text="Gaji Awal :" Font-Bold="true"></asp:Label>
                                 <asp:TextBox ID="TxtGajiAwal1" autocomplete="off" class="form-control" runat="server" onkeypress="return isNumberKey(event)"></asp:TextBox>
+                            <asp:Label ID="Label38" runat="server" Text="Isi Hanya dengan Angka tanpa spasi dan karakter lainya!" ForeColor="Red"></asp:Label>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label12" runat="server" Text="Gaji Akhir :" Font-Bold="true"></asp:Label>
                                 <asp:TextBox ID="TxtGajiAkhir1" autocomplete="off" class="form-control" runat="server" onkeypress="return isNumberKey(event)"></asp:TextBox>
+                            <asp:Label ID="Label39" runat="server" Text="Isi Hanya dengan Angka tanpa spasi dan karakter lainya!" ForeColor="Red"></asp:Label>
                             </div>
                             <div class="col-sm-5" >
                                 <br />

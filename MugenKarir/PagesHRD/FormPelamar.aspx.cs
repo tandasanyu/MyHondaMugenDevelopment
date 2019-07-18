@@ -47,11 +47,12 @@ public partial class PagesHRD_FormPelamar : System.Web.UI.Page
             ImagePelamar.ImageUrl = "../UploadFile/Foto/"+hasil[0] +"";
         }
         //Checkboxlist Status Perkawinan (1=menikah, 2=lajang, 3=duda/janda)
-        List<string> status_pernikahan = cn.KelasKoneksi_SelectGlobal("select status_pernikahan from data_pasangan where id_lamaran = "+ IdLamar + "", "11");
-        if (status_pernikahan[0].ToString() == "Menikah") {
-            CheckBoxListStatusPerkawinan.SelectedIndex = 0;
-        } else if (status_pernikahan[0].ToString() == "Belum Menikah") {
+        List <string> status_pernikahan = cn.KelasKoneksi_SelectGlobal("select status_pernikahan from data_pasangan where id_lamaran = "+ IdLamar + "", "11");
+
+        if (status_pernikahan.Count == 0) {
             CheckBoxListStatusPerkawinan.SelectedIndex = 1;
+        } else if (status_pernikahan[0].ToString() == "Menikah") {
+            CheckBoxListStatusPerkawinan.SelectedIndex = 0;
         } else if (status_pernikahan[0].ToString() == "Duda/Janda") {
             CheckBoxListStatusPerkawinan.SelectedIndex = 2;
         }

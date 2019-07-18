@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -18,6 +20,7 @@ public partial class PageUser_PageUser_FormRiwayatPekerjaan : System.Web.UI.Page
         //get url param       
         IdLamar = Request.QueryString["IdLamaran"];
     }
+
     //kumpulan fungsi insert 
     public string InsertData_Riwayat(string NamaPt, string AlamatPt, string TelpPt, string NamaAtasan, string GajiAw,
         string AlasanK, string TglMasuk, string TglKeluar, string Jab, string JobDesk, string GajiAk)
@@ -26,7 +29,15 @@ public partial class PageUser_PageUser_FormRiwayatPekerjaan : System.Web.UI.Page
         if (GajiAw.Length != 0 && GajiAk.Length != 0 && NamaPt.Length != 0 && AlamatPt.Length != 0 && TelpPt.Length != 0 && NamaAtasan.Length != 0 && AlasanK.Length != 0
             && TglMasuk.Length != 0 && TglKeluar.Length != 0 && Jab.Length != 0 && JobDesk.Length != 0)
         {
-            
+            //fungsi remove special char except number
+            //string subject1 = GajiAw;
+            //string result_gajiAwal = Regex.Replace(subject1, "[^0-9]", ""); // result = "9134445555"
+            //Convert.ToInt32(result_gajiAwal);
+
+            //string subject2 = GajiAk;
+            //string result_gajiAkhir = Regex.Replace(subject2, "[^0-9]", ""); // result = "9134445555"
+            //Convert.ToInt32(result_gajiAkhir);
+
             int idLamaran = Convert.ToInt32(IdLamar);
             string NamaPT = NamaPt;
             string AlamatPT = AlamatPt;

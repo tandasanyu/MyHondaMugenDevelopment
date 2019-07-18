@@ -183,13 +183,13 @@ public partial class PageUser_PageUser_FormRiwayatPendidikan : System.Web.UI.Pag
                         }
                         else
                         {
-                            Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
+                            Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + HasilS1 + "');</script>");
                         }
                         //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
                     }
                     else
                     {
-                        Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + Hasil + "');</script>");
+                        Response.Write("<script language='javascript'>window.alert('Gagal Menyimpan Data dengan error : " + HasilSMA + "');</script>");
                     }
                     //Response.Write("<script language='javascript'>window.alert('Berhasil Menyimpan Data');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
                 }

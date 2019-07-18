@@ -1225,7 +1225,7 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
         }
 
         else if (status == 2) {
-            email = "robiyana219@gmail.com";
+            email = "081297686377rb@gmail.com";
             string pesan_ = DraftEmail_bankStatus(status);
             pesan = "DEAR ROBY ada Unit yang di Kirim SA Pasar Minggu untuk Anda Kerjakan, " + pesan_ + ", silahkan cek web office.hondamugen untuk lebih jelasnya";
         }
@@ -1263,7 +1263,7 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
             {
                 email = "marwan3103@gmail.com";
             } else if (hasil_namasa == "TJAHYADI") {
-                email = "tjahyadi03 @yahoo.com";
+                email = "tjahyadi03@yahoo.com";
             } else if (hasil_namasa == "WAHYUSA") {
                 email = "wahyu.febriyansyah@gmail.com";
             }

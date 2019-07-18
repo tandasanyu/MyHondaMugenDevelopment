@@ -25,7 +25,7 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
         userAkses = (string)(Session["username"]);
         if (userAkses == "LINDA" || userAkses == "REGIANSYAH")
         {
-            string hasil = Fungsi_GetValue("select KERJABODY_STATUS from TEMP_KERJABODY where KERJABODY_STATUS = 14 and KERJABODY_NOWO = " + noWo + "");
+            string hasil = Fungsi_GetValue("select KERJABODY_STATUS from TEMP_KERJABODY where KERJABODY_STATUS = 15 and KERJABODY_NOWO = " + noWo + "");
             string.IsNullOrEmpty(hasil);
             if (hasil == null || hasil == string.Empty)
             {
@@ -956,7 +956,7 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
         string pesan = string.Empty;
         if (status == 1 || status == 2 || status == 3 || status == 4 || status == 5 || status == 6 || status == 7 || status == 8)
         {
-            email = "robiyana219@gmail.com";
+            email = "081297686377rb@gmail.com";
             //email = "tandasanyu.movie1@gmail.com";
             string pesan_ = DraftEmail_bankStatus(status);
             pesan = "DEAR ROBY, "+ pesan_ + ", silahkan cek web office.hondamugen untuk lebih jelasnya";
@@ -996,11 +996,11 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
             string hasil_namasa = Fungsi_GetValue(sql);
             if (hasil_namasa == "SUWANDI")
             {
-                email = "bodyrepair_suwandi @hondamugen.co.id";
+                email = "bodyrepair_suwandi@hondamugen.co.id";
             }
             else if (hasil_namasa == "AGUS")
             {
-                email = "bpmugen.agus @gmail.com";
+                email = "bpmugen.agus@gmail.com";
             }
             else if (hasil_namasa == "SANDY")
             {
@@ -1012,7 +1012,7 @@ public partial class jobcontrolformanedtpuri : System.Web.UI.Page
             }
             else if (hasil_namasa == "TJAHYADI")
             {
-                email = "tjahyadi03 @yahoo.com";
+                email = "tjahyadi03@yahoo.com";
                 //email = "tandasanyu.movie1@gmail.com";
             }
             else if (hasil_namasa == "WAHYUSA")

@@ -79,5 +79,54 @@
    (TglDeadline >= CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime))
 ----
 
+		-- untuk case expired untuk 1 atasan (selain cuti biasa) - berarti 
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) < CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null and b.IZIN_TGLAPPVSPV is null and b.IZIN_JENIS <> 'Cuti'
+		then 'Expired Selain Cuti' 
+		-- untuk case expired untuk 2 atasan (cuti biasa)
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) < CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null and (b.IZIN_TGLAPPVSPV is null or b.IZIN_TGLAPPVMNG is null) and b.IZIN_JENIS = 'Cuti'
+		then 'Expired Cuti' 
+
+-- *** HAMPIR SELESAI***
+		-- ***UNTUK CASE EXPIRED *** DONE 17/7/2019
+		-- untuk case expired cuti biasa 1 atasan
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) < CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null and b.IZIN_TGLAPPVSPV is null and b.IZIN_JENIS = 'Cuti'
+		and h.IZIN_NIK_APPVMNG = '--'
+		then 'Expired Cuti 1 Atasan' 
+		-- untuk case expired cuti biasa 2 atasan (case atasan1 blm apprv)
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) < CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null and b.IZIN_TGLAPPVSPV is null and b.IZIN_JENIS = 'Cuti'
+		and h.IZIN_NIK_APPVMNG <> '--'
+		then 'Expired Cuti 2 Atasan -- ATASAN 1 BLM APPRV' 
+		-- untuk case expired cuti biasa 2 atasan (case atasan2 blm apprv / atasan 1 sudah apprv)
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) < CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null and b.IZIN_TGLAPPVSPV is NOT null and b.IZIN_TGLAPPVMNG is null and b.IZIN_JENIS = 'Cuti'
+		and h.IZIN_NIK_APPVMNG <> '--'
+		then 'Expired Cuti 2 Atasan -- ATASAN 1 SDH APPV / ATASAN 2 BLM APPRV' 
+		-- untuk case expired selain cuti biasa (hanya 1 atasan)
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) < CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null and b.IZIN_TGLAPPVSPV is null and b.IZIN_JENIS <> 'Cuti'
+		then 'Expired Selain Cuti' 
+		-- ***UNTUK CASE EXPIRED *** DONE 17/7/2019
+		-- ***UNTUK CASE APPROVAL *** 
+		--1. CASE APPROVE CUTI BIASA // 1 ATASAN // "DISETUJUI ATASAN LANGSUNG"
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) >= CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null and b.IZIN_STATUS <>'Pending' AND h.IZIN_NIK_APPVMNG = '--'
+		AND b.IZIN_TGLAPPVSPV is NOT null and b.IZIN_JENIS = 'Cuti'
+		then 'Disetujui Atasan Langsung -- CUTI BIASA' 
+		--2. CASE APPROVE CUTI BIASA // 2 ATASAN // "DISETUJUI ATASAN 1TK LEBIH TINGGI"
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) >= CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null and b.IZIN_STATUS <>'Pending' AND h.IZIN_NIK_APPVMNG <> '--'
+		AND b.IZIN_TGLAPPVSPV is NOT null and b.IZIN_TGLAPPVMNG is not null and b.IZIN_JENIS = 'Cuti'
+		then 'Disetujui Atasan 1tk Lebih Tinggi -- CUTI BIASA' 
+		--3. CASE APPROVE SELAIN CUTI BIASA // 1 ATASAN // DI SETUJUI ATASAN LANGSUNG
+		when (select izin_tgldeadline from data_izin_body where izin_id = Details.izin_id) >= CAST(CONVERT (CHAR(8),GETDATE(), 112) AS smalldatetime)
+		and Details.izin_status is null and b.IZIN_STATUS <>'Pending' /*AND h.IZIN_NIK_APPVMNG = '--'*/
+		AND b.IZIN_TGLAPPVSPV is NOT null and b.IZIN_JENIS <> 'Cuti'
+		then 'Disetujui Atasan Langsung -- SELAIN CUTI BIASA' 
+		-- ***UNTUK CASE APPROVAL *** 
+
 
 
