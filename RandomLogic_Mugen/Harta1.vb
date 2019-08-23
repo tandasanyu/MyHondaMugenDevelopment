@@ -1,0 +1,37 @@
+                    ' *** cek apakah alasan batal kosong 
+                    If alasanbtl <> String.Empty Then
+                        If TxtStaffNIK.Text = nik_staff Then 'untuk case staff yg login
+                            'Response.Write("<script>alert('Staff Login')</script>")
+                            If nik_mng = "--" And tglapv1 = "" Then 'untuk case staff dengan 1 atasan
+                                'Response.Write("<script>alert('Staff dengan 1 atasan')</script>")
+                                If saldo_cutiStaff >= 0 Then
+                                    saldo_cutiStaff = Convert.ToInt32(saldo_cutiStaff) + Convert.ToInt32(TxtDetailJmlPengajuan.Text)
+                                    Call UpdateData_ServerCancel("update DATA_IZIN_BODY set IZIN_STATUS ='Dibatalkan Staff', IZIN_ALASANBTLSTJ='" & TxtDetailAlasanBtlStj.Text & "' where IZIN_ID = '" & TxtDetailIdIzin.Text & "'")
+                                    'Call UpdateData_ServerCancel("update DATA_IZIN set IZIN_SALDO_CUTI ='" & saldo_cutiStaff & "' where IZIN_NIK ='" & TxtDetailNik.Text & "'")
+                                    Call GetData_UserHead("select STAFF_EMAIL from DATA_STAFF where STAFF_NIK ='" & TxtDetailNik.Text & "'", "5") 'get email nama atasan 1 value dan menyimpan ke variabel : staffEmailnotif
+                                    Call emailNotifikasi("<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'><div style='margin:0 auto;background: #FFfFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:10pt;'>Pengajuan Izin atas nama " + TxtDetailNama.Text + " dengan NIK " + TxtDetailNik.Text + " dan tanggal Pengajuan " + TxtDetailTglPengajuanIzin.Text + " dengan Id Izin " + TxtDetailIdIzin.Text + " telah di batalkan Staff yang Bersangkutan dengan Alasan : " + alasan + " <br/><span style='color:blue;font-size:8pt;'></span></div><br/><center><a href='http://office.hondamugen.co.id:8082/login.aspx' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Klik untuk Menuju Web</a></center><br><center style='color: blue; '>**Pastikan perangkat anda terhubung dengan WI-FI/LAN yang ada di Honda Mugen.</center><br/><center>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.</center><br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>")
+                                    Response.Write("<script>alert('Anda Berhasil Membatalkan Pengajuan Izin staff dengan Nik : " + nik_staff1 + " dan Id Izin : " + TxtDetailIdIzin.Text + " ')</script>")
+                                    Call CallState_ListIzin("Bawahan")
+                                    'Response.Write("<script>window.location.href='HRDFORMIZIN.aspx';</script>")
+                                Else
+                                    Response.Write("<script>alert('Saldo Cuti anda kurang dari 0')</script>")
+                                End If
+                            ElseIf nik_mng <> "--" And tglapv1 = "" Or tglapv2 = "" Then 'untuk case staff dengan 2 atasan (special : tidak update saldo cuti karena blm di kurangi saldo cuti awal nya )
+                                Call UpdateData_ServerCancel("update DATA_IZIN_BODY set IZIN_STATUS ='Dibatalkan Staff', IZIN_ALASANBTLSTJ='" & TxtDetailAlasanBtlStj.Text & "' where IZIN_ID = '" & TxtDetailIdIzin.Text & "'")
+                                Call GetData_UserHead("select STAFF_EMAIL from DATA_STAFF where STAFF_NIK ='" & TxtDetailNik.Text & "'", "5") 'get email nama atasan 1 value dan menyimpan ke variabel : staffEmailnotif
+                                Call emailNotifikasi("<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'><div style='margin:0 auto;background: #FFfFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:10pt;'>Pengajuan Izin atas nama " + TxtDetailNama.Text + " dengan NIK " + TxtDetailNik.Text + " dan tanggal Pengajuan " + TxtDetailTglPengajuanIzin.Text + " dengan Id Izin " + TxtDetailIdIzin.Text + " telah di batalkan Staff yang Bersangkutan dengan Alasan : " + alasan + " <br/><span style='color:blue;font-size:8pt;'></span></div><br/><center><a href='http://office.hondamugen.co.id:8082/login.aspx' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Klik untuk Menuju Web</a></center><br><center style='color: blue; '>**Pastikan perangkat anda terhubung dengan WI-FI/LAN yang ada di Honda Mugen.</center><br/><center>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.</center><br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>")
+                                Response.Write("<script>alert('Anda Berhasil Membatalkan Pengajuan Izin staff dengan Nik : " + nik_staff1 + " dan Id Izin : " + TxtDetailIdIzin.Text + " ')</script>")
+                                Call CallState_ListIzin("Bawahan")
+                                'Response.Write("<script>window.location.href='HRDFORMIZIN.aspx';</script>")
+                            Else
+                                Response.Write("<script>alert('Anda tidak di Izinkan melakukan Pembatalan')</script>")
+                                Response.Write("<script>window.location.href='HRDFORMIZIN.aspx';</script>")
+                            End If
+                        ElseIf TxtStaffNIK.Text = nik_spv Then ' untuk case spv login
+                            Response.Write("<script>alert('SPV Login')</script>")
+                        ElseIf TxtStaffNIK.Text = nik_mng Then ' untuk case mng login
+                            Response.Write("<script>alert('MNG Login')</script>")
+                        End If
+                    Else
+                        Response.Write("<script>alert('Alasan Pembatalan Wajib di Isi')</script>")
+                    End If

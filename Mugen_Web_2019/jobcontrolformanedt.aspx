@@ -96,11 +96,26 @@ opacity: 0.7;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-     <script src="js/jquery-ui.js" type="text/javascript"></script>
     <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/jquery-1.12.4_2.js"></script>
+    <script src="js/jquery-ui_2.js"></script>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="css/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.datetimepicker.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
     <!-- Related JS -->
+
+
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#<%= TxtPembaruanEstimasi.ClientID %>").datetimepicker({
+
+                //defaultDate: "+1w",
+                changeMonth: true,
+                //maxDate: new Date(2018, 12, 31),
+                numberOfMonths: 1
+            });
             $('#Div1').click(function () {
                 document.getElementById('<%=txtStatus.ClientID %>').value = "01";
                 document.getElementById('<%= btnProses.ClientID %>').click()
@@ -259,82 +274,29 @@ opacity: 0.7;
     </div>
 
           <div id="spoiler">
+              
 <div class="hidden"><input style="font-size: 11px; padding: 2px;" onclick="if (this.parentNode.parentNode.getElementsByTagName('div')['show'].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')['show'].style.display = ''; this.parentNode.parentNode.getElementsByTagName('div')['hide'].style.display = 'none'; this.innerText = ''; this.value = 'Sembunyikan'; } else { this.parentNode.parentNode.getElementsByTagName('div')['show'].style.display = 'none'; this.parentNode.parentNode.getElementsByTagName('div')['hide'].style.display = ''; this.innerText = ''; this.value = 'Tampilkan'; }" name="button" type="button" value="Buka Gambar Terakhir" /></div>
 <div id="show" style="border: 1px solid white; display: none; margin: 5px; padding: 2px; width: 98%;">
     <asp:Image ID="Image1" runat="server"  Style="width:600px;height:400px;"/>
 </div><div id="hide"></div></div>
-
-    <!-- Gridview tidak terpakai -->
-          <table style="font-size:0.85em;float:left;width:100%;"><tr><td><center ><h2>History Pengerjaan </h2>                                                           </center>
-      <asp:GridView ID="GridView3"  runat="server" Visible="false" AutoGenerateColumns="False" DataSourceID="SqlDataSource4" EnableModelValidation="True" class="table table-striped" AllowSorting="True" CellPadding="4" ForeColor="#333333" GridLines="None" style="width:100%;">
-          <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-          <Columns>
-               <asp:TemplateField HeaderText="User" SortExpression="KERJABODY_USER">
-                   <ItemTemplate>
-                       <asp:Label ID="Label1" runat="server" Text='<%# Bind("KERJABODY_USER") %>'></asp:Label>
-                   </ItemTemplate>
-                   <HeaderStyle Width="200px" />
-               </asp:TemplateField>
-               <asp:TemplateField HeaderText="Tgl Kerja" SortExpression="KERJABODY_TANGGAL">
-                   <ItemTemplate>
-                       <asp:Label ID="Label2" runat="server" Text='<%# Bind("KERJABODY_TANGGAL") %>'></asp:Label>
-                   </ItemTemplate>
-                   <HeaderStyle Width="150px" />
-               </asp:TemplateField>
-               <asp:TemplateField HeaderText="Status" SortExpression="KERJABODY_STATUS">
-                   <ItemTemplate>
-                       <asp:Label ID="Label3" runat="server" Text='<%# Bind("statusval") %>'></asp:Label>
-                   </ItemTemplate>
-                   <HeaderStyle Width="5px" />
-               </asp:TemplateField>
-               <asp:TemplateField HeaderText="Lokasi" SortExpression="KERJABODY_LOKASI">
-                   <ItemTemplate>
-                       <asp:Label ID="Label4" runat="server" Text='<%# Bind("lokasimobil") %>'></asp:Label>
-                   </ItemTemplate>
-                   <HeaderStyle Width="5px" />
-               </asp:TemplateField>
-               <asp:TemplateField  HeaderText="Catatan" SortExpression="KERJABODY_CATATAN">
-                   <ItemTemplate>
-                       <asp:Label ID="Label5" runat="server" Text='<%# Bind("KERJABODY_CATATAN") %>'></asp:Label>
-                   </ItemTemplate>
-               </asp:TemplateField>
-               <asp:TemplateField HeaderText="" SortExpression="vendor" HeaderStyle-Width="5">
-                     <ItemTemplate>
-                          <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# "jobcontrolformanedt.aspx?qnowodel=" +  Eval("KERJABODY_NOWO") + "&&qtgldel=" + Eval("KERJABODY_TANGGAL") + "#popup2"%>' 
-                             Target="_self" Text="<span class='glyphicon glyphicon-trash'></span> Delete" class="btn btn-danger btn-xs"></asp:HyperLink>
-                     </ItemTemplate>
-                 </asp:TemplateField>
-               </Columns>
-          <EditRowStyle BackColor="#999999" />
-          <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-          <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-          <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-          <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-          <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-         </asp:GridView>
-        
-         </td></tr>
-          </table>    
-    <!-- Gridview tidak terpakai -->
          <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:serviceConnection %>" SelectCommand="SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL], [KERJABODY_USER], 
 	case [KERJABODY_STATUS] 
-		WHEN 1 THEN 'DISERAHKAN SA KE VENDOR'
-        when 2 then 'DISERAHKAN SA KE DRIVER'  
-		when 3 then 'DITERIMA' 
-		when 4 then 'BONGKAR' 
-		when 5 then 'KETOK' 
-		when 6 then 'DEMPUL' 
-		when 7 then 'CAT/OVEN' 
-		when 8 then 'POLES' 
-		when 9 then 'PEMASANGAN' 
-		when 10 then 'FINISHING'  
-		when 11 then 'PENILAIAN QC - OK'	
+		WHEN 1 THEN 'DISERAHKAN SA KE VENDOR / PURI'
+		when 2 then 'SERAH TERIMA UNIT' 
+		when 3 then 'BONGKAR' 
+		when 4 then 'KETOK' 
+		when 5 then 'DEMPUL' 
+		when 6 then 'CAT/OVEN' 
+		when 7 then 'POLES' 
+		when 8 then 'PEMASANGAN' 
+		when 9 then 'FINISHING'  
+		when 10 then 'UNIT SELESAI OLEH VENDOR'	
+        when 11 then 'PENILAIAN QC - OK'	
 		when 12 then 'PENILAIAN QC - NOT OK' 
 		when 13 then 'PENILAIAN QC - REWORK' 
 		when 14 then 'PENILAIAN QC - REWORK - OK'  
 		when 15 then 'PENILAIAN QC - REWORK - NOT OK' 
 		when 16 then 'PENYERAHAN UNIT QC KE SA BP'  
-
 		else 'UNCATEGORIZED' end AS statusval, 
 	case [KERJABODY_LOKASI] 
 		when 1 then 'lt. 1' 
@@ -346,8 +308,9 @@ opacity: 0.7;
 		when 7 then 'lt. 7' 
 		when 8 then 'lt. 8' 
 		when 9 then 'lt. 9' 
-		else '' END AS lokasimobil, [KERJABODY_CATATAN], [IDkrj_body] FROM [TEMP_KERJABODY] WHERE ([KERJABODY_NOWO] = @KERJABODY_NOWO) 
-		ORDER BY KERJABODY_STATUS ASC">
+        when 10 then 'N / A' 
+		else '' END AS lokasimobil, [KERJABODY_CATATAN], [IDkrj_body],  [KERJABODY_DETAILCATATAN]  FROM [TEMP_KERJABODY] WHERE ([KERJABODY_NOWO] = @KERJABODY_NOWO and KERJABODY_STATUS <17) 
+		order by CONVERT(int,KERJABODY_STATUS) asc">
              <SelectParameters>
                  <asp:QueryStringParameter Name="KERJABODY_NOWO" QueryStringField="qnowo" Type="String" />
              </SelectParameters>
@@ -386,34 +349,42 @@ opacity: 0.7;
             
         <br />
         </div>
+             <div class="col-xl text-center">
+
+             
+              <h2 style="text-align:center">History Pengerjaan </h2>  
+              <asp:Label ID="TglEstimasi" CssClass="hidden" runat="server"  Text="Label"></asp:Label>
+              <asp:Label ID="Label6" Font-Size="X-Large" runat="server" Text="Target Selesai :"></asp:Label><asp:Label ID="demo" runat="server" ForeColor="Red" Font-Size="X-Large" Text="Label"></asp:Label>
+            </div>
         <div class="row">
             <div class="col">
-                <div class="d-flex justify-content-center align-items-center" >
+                <div  ><!-- class="d-flex justify-content-center align-items-center" -->
                     <table align="center">
                         <tr>
-                            <td style="padding:10px"><div id="Div1" class="rcorners1" runat="server"><h2 style="align-self:center">DISERAHKAN SA KE VENDOR</h2></div></td>
-                            <td style="padding:10px"><div id="Div2" class="rcorners1" runat="server"><h2 style="align-self:center">DISERAHKAN SA KE DRIVER</h2></div></td>
-                            <td style="padding:10px"><div id="Div3" class="rcorners1" runat="server"><h2 style="align-self:center">DITERIMA</h2></div></td>
-                            <td style="padding:10px"><div id="Div4" class="rcorners1" runat="server"><h2 style="align-self:center">BONGKAR</h2></div></td>
-
+                            <td style="padding:10px"><div id="Div1" class="rcorners1" runat="server" style="background-color:greenyellow"><h2 style="align-self:center;">1. DISERAHKAN SA KE VENDOR / PURI</h2></div></td>
+                            <td style="padding:10px"><div id="Div2" class="rcorners1" runat="server" style="background-color:deepskyblue"><h2 style="align-self:center;">2. SERAH TERIMA UNIT</h2></div></td>
+                            <td style="padding:10px"><div id="Div3" class="rcorners1" runat="server" style="background-color:deepskyblue"><h2 style="align-self:center;">3. BONGKAR</h2></div></td>
+                            <td style="padding:10px"><div id="Div4" class="rcorners1" runat="server" style="background-color:deepskyblue"><h2 style="align-self:center;">4. KETOK</h2></div></td>
                         </tr>
                         <tr>
-                            <td style="padding:10px"><div id="Div5" class="rcorners1" runat="server"><h2 style="align-self:center">KETOK</h2></div></td>
-                            <td style="padding:10px"><div id="Div6" class="rcorners1" runat="server"><h2 style="align-self:center">DEMPUL</h2></div></td>
-                            <td style="padding:10px"><div id="Div7" class="rcorners1" runat="server"><h2 style="align-self:center">CAT/OVEN</h2></div></td>
-                            <td style="padding:10px"><div id="Div8" class="rcorners1" runat="server"><h2 style="align-self:center">POLES</h2></div></td>                           
+                            
+                            <td style="padding:10px"><div id="Div5" class="rcorners1" runat="server" style="background-color:deepskyblue"><h2 style="align-self:center;">5. DEMPUL</h2></div></td>
+                            <td style="padding:10px"><div id="Div6" class="rcorners1" runat="server" style="background-color:deepskyblue"><h2 style="align-self:center;">6. CAT/OVEN</h2></div></td>
+                            <td style="padding:10px"><div id="Div7" class="rcorners1" runat="server" style="background-color:deepskyblue"><h2 style="align-self:center;">7. POLES</h2></div></td>                           
+                        <td style="padding:10px"><div id="Div8" class="rcorners1" runat="server" style="background-color:deepskyblue"><h2 style="align-self:center;">8. PEMASANGAN</h2></div></td>
                         </tr>
                         <tr>
-                            <td style="padding:10px"><div id="Div9" class="rcorners1" runat="server"><h2 style="align-self:center">PEMASANGAN</h2></div></td>
-                            <td style="padding:10px"><div id="Div10" class="rcorners1" runat="server"><h2 style="align-self:center">FINISHING</h2></div></td>
-                            <td style="padding:10px"><div id="Div11" class="rcorners1" runat="server"><h2 style="align-self:center">PENILAIAN QC - OK</h2></div></td>
-                            <td style="padding:10px"><div id="Div12" class="rcorners1" runat="server"><h2 style="align-self:center">PENILAIAN QC - NOT OK</h2></div></td>                           
+                            
+                            <td style="padding:10px"><div id="Div9" class="rcorners1" runat="server" style="background-color:deepskyblue"><h2 style="align-self:center;">9. FINISHING</h2></div></td>
+                            <td style="padding:10px"><div id="Div10" class="rcorners1" runat="server" style="background-color:deepskyblue"><h2 style="align-self:center;">10. UNIT SELESAI OLEH VENDOR</h2></div></td>
+                            <td style="padding:10px"><div id="Div11" class="rcorners1" runat="server" style="background-color:greenyellow"><h2 style="align-self:center;">11. PENILAIAN QC - OK</h2></div></td>
+                            <td style="padding:10px"><div id="Div12" class="rcorners1" runat="server" style="background-color:greenyellow"><h2 style="align-self:center;">12. PENILAIAN QC - NOT OK</h2></div></td>                           
                         </tr>
                         <tr>
-                            <td style="padding:10px"><div id="Div13" class="rcorners1" runat="server"><h2 style="align-self:center">PENILAIAN QC - REWORK</h2></div></td>
-                            <td style="padding:10px"><div id="Div14" class="rcorners1" runat="server"><h2 style="align-self:center">PENILAIAN QC - REWORK - OK</h2></div></td>
-                            <td style="padding:10px"><div id="Div15" class="rcorners1" runat="server"><h2 style="align-self:center">PENILAIAN QC - REWORK - NOT OK</h2></div></td>
-                            <td style="padding:10px"><div id="Div16" class="rcorners1" runat="server"><h2 style="align-self:center">PENYERAHAN UNIT QC KE SA BP</h2></div></td>
+                            <td style="padding:10px"><div id="Div13" class="rcorners1" runat="server" style="background-color:greenyellow"><h2 style="align-self:center;">13. PENILAIAN QC - REWORK</h2></div></td>
+                            <td style="padding:10px"><div id="Div14" class="rcorners1" runat="server" style="background-color:greenyellow"><h2 style="align-self:center;">14. PENILAIAN QC - REWORK - OK</h2></div></td>
+                            <td style="padding:10px"><div id="Div15" class="rcorners1" runat="server" style="background-color:greenyellow"><h2 style="align-self:center;">15. PENILAIAN QC - REWORK - NOT OK</h2></div></td>
+                            <td style="padding:10px"><div id="Div16" class="rcorners1" runat="server" style="background-color:greenyellow"><h2 style="align-self:center;">16. PENYERAHAN UNIT QC KE SA BP</h2></div></td>
                         </tr>
                     </table>
                     <div class="form-group">
@@ -434,7 +405,8 @@ opacity: 0.7;
                                               <th>USER</th>
                                               <th>TANGGAL KERJA</th>
                                               <th>STATUS</th>
-                                              <th>LOKASI</th>
+                                              <th>LOKASI MOBIL</th>
+                                              <th>DETAIL CATATAN</th>
                                               <th>CATATAN</th>
                                               <th>Aksi</th>
                                           </tr>
@@ -449,6 +421,7 @@ opacity: 0.7;
                                     <td><%#Eval("KERJABODY_TANGGAL","{0:dd/MM/yyyy}")%></td>
                                     <td><%#Eval("statusval")%></td>
                                     <td><%#Eval("lokasimobil")%></td>
+                                    <td><%#Eval("KERJABODY_DETAILCATATAN")%></td>
                                     <td><%#Eval("KERJABODY_CATATAN")%></td>
                                     <td>
                                         <asp:LinkButton ID="lnkSelect" Text='DETAIL' CommandName="Select" runat="server" ><img src="delete.png" width="80px" height="50px" /></asp:LinkButton>
@@ -456,9 +429,22 @@ opacity: 0.7;
                                 </tr>
                               </ItemTemplate>
                               <EmptyDataTemplate>
-                                  DATA TIDAK DI TEMUKAN
+                                  DATA HISTORY PEKERJAAN TIDAK DI TEMUKAN
                               </EmptyDataTemplate>
                           </asp:ListView>
+                    <div class="form-group">
+                        <asp:Label ID="Label8" runat="server" Text="Detail Catatan"></asp:Label>
+                                      <asp:CheckBoxList ID="RbDetailCatatan" runat="server">
+                                          <asp:ListItem>Tunggu SparePart</asp:ListItem>
+                                          <asp:ListItem>Survey Ulang Asuransi</asp:ListItem>
+                                          <asp:ListItem>Unit Belum Masuk</asp:ListItem>
+                                          <asp:ListItem>Rawat Jalan</asp:ListItem>
+                                          <asp:ListItem>Tunggu Konfirmasi Pelanggan</asp:ListItem>
+                                          <asp:ListItem>Tunggu SPK Tambahan</asp:ListItem>
+                                          <asp:ListItem>Antrian Dalam Proses</asp:ListItem>
+                                          <asp:ListItem>Lain-Lain</asp:ListItem>
+                                      </asp:CheckBoxList>
+                    </div>
                     <div class="form-group">
                         <div id="addHistory" runat="server">
                               <table style="width:100%;" id="inputHistory" runat="server">
@@ -473,6 +459,7 @@ opacity: 0.7;
                                   <td></td>
                                   <td> <asp:DropDownList ID="txtLokasi" Width="100px" runat="server" style="margin:5px;" CssClass="form-control input-sm">
                                       <asp:ListItem></asp:ListItem>
+                                      <asp:ListItem Value="10"> N/A</asp:ListItem>
                                       <asp:ListItem Value="1">Lantai 1</asp:ListItem>
                                       <asp:ListItem Value="2">Lantai 2</asp:ListItem>
                                       <asp:ListItem Value="3">Lantai 3</asp:ListItem>
@@ -482,6 +469,7 @@ opacity: 0.7;
                                       <asp:ListItem Value="7">Lantai 7</asp:ListItem>
                                       <asp:ListItem Value="8">Lantai 8</asp:ListItem>
                                       <asp:ListItem Value="9">Lantai 9</asp:ListItem>
+                                      
                                       </asp:DropDownList></td></tr>
                                   <tr>
                                   <td style="display:none">Status</td>
@@ -519,6 +507,55 @@ opacity: 0.7;
                                   <td style="display:none"><asp:Button ID="btnProses" runat="server" Text="SUBMIT" CssClass="btn btn-success btn-sm" style="margin:5px;" OnClick="btnProses_Click" /> </td></tr>
                             </table>
                       </div>
+                    </div>
+                    <div class="form-group">
+                        <asp:Label ID="Label7" runat="server" Text="Checklis Jika Mengirim Ke Puri : "></asp:Label>
+                        <asp:CheckBox ID="ChkSAKePuri" runat="server" />
+                        <asp:Label ID="LblStsUnit" runat="server" Text="Label"></asp:Label>
+                    </div>
+                    <div class="form-group">
+                         <asp:SqlDataSource ID="ass" runat="server" ConnectionString="<%$ ConnectionStrings:serviceConnection %>" SelectCommand="select kerjabody_catatan, idkrj_body from TEMP_KERJABODY where kerjabody_nowo = @WOHDR_FNOPOL and kerjabody_status = 17">
+                             <SelectParameters>
+                                 <asp:QueryStringParameter Name="WOHDR_FNOPOL" QueryStringField="qnowo" Type="String" />
+                             </SelectParameters>
+                        </asp:SqlDataSource>
+                        <asp:ListView ID="GvHistoryUpdateEstimasi" DataSourceID="ass" runat="server">
+                            <LayoutTemplate>
+                               <table  class="table  table-bordered  table-hover" id="test">
+                                    <thead>
+                                        <tr>
+                                            <td style="padding:10px"><div class="" style="font-weight:bold">ID </div></td>
+                                            <td style="padding:10px"><div class="" style="font-weight:bold">Tgl Estimasi </div></td>
+                                        </tr>
+                                    </thead>
+                                    <asp:PlaceHolder ID="itemPlaceHolder" runat="server" />
+                               </table>
+                            </LayoutTemplate>
+                            <EmptyDataTemplate>
+                                <p><em>Data Perubahan Tanggal Estimasi Tidak Ada</em></p>
+                            </EmptyDataTemplate>
+                            <ItemTemplate>
+                                        <tr>
+                                            <td style="padding:10px">
+                                                <div class=""><asp:Label ID="Label18" runat="server" Text='<%# (int)Eval("idkrj_body") !=0 ? Eval("idkrj_body") :"Tidak Ada Data"%>'></asp:Label></div>
+                                            </td>
+                                            <td style="padding:10px">
+                                                <div class=""><asp:Label ID="Label11" runat="server" Text='<%# (string)Eval("kerjabody_catatan") !=null ? Eval("kerjabody_catatan") :"Tidak Ada Data"%>'></asp:Label></div>
+                                            </td>
+                                        </tr>
+                            </ItemTemplate>
+                        </asp:ListView>
+                    </div>
+                    <div class="form-group">
+                        <br />
+                        <asp:Label ID="Label10" runat="server" Text="Masukan Tanggal Pembaruan Estimasi (Max 2 Kali Pembaruan) : "></asp:Label>
+                        <asp:TextBox ID="TxtPembaruanEstimasi" AutoComplete ="off" CssClass="form-control" Width="300px" runat="server"></asp:TextBox>
+                        <asp:Button ID="BtnUpdateEstimasi" runat="server" CssClass="btn btn-secondary" Text="Simpan" OnClick="BtnUpdateEstimasi_Click" />
+                    </div>
+                    <div class="form-group">
+                        <asp:Label ID="Label9" runat="server" Text="Mulai Percakapan : "></asp:Label>
+                        <asp:Button ID="BtnChat" runat="server" CssClass="btn btn-secondary" Text="Mulai Percakapan" OnClick="BtnChat_Click" />
+                        <asp:Image ID="Image2" runat="server" Width="2%" Height="2%" ImageUrl="~/img/dotsign.png" />
                     </div>
                     <div class="form-group">
                         <asp:Button ID="BtnReportBPPsm" runat="server" CssClass="btn btn-danger" Text="Cetak Report" OnClick="BtnReportBPPsm_Click"  />
@@ -564,4 +601,34 @@ $(window).on("beforeunload", function() {
 //]]>
 </script>
 </body>
+        <script>
+        // Set the date we're counting down to
+        var date2 = document.getElementById('<%=TglEstimasi.ClientID%>').innerHTML;
+        var countDownDate = new Date(date2).getTime();
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+
+      // Get today's date and time
+      var now = new Date().getTime();
+    
+      // Find the distance between now and the count down date
+      var distance = countDownDate - now;
+    
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+      // Output the result in an element with id="demo"
+      document.getElementById("demo").innerHTML = days + "Hari " + hours + "Jam "
+      + minutes + "Menit " + seconds + "Detik ";
+    
+      // If the count down is over, write some text 
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("demo").innerHTML = "EXPIRED";
+      }
+    }, 1000);
+    </script>
 </html>

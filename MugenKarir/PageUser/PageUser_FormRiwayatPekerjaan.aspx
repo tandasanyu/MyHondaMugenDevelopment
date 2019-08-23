@@ -206,6 +206,8 @@
                                     ControlToValidate="TxtNamaPerusahaan1"
                                     ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
                                     ></asp:RegularExpressionValidator>
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="Red" ControlToValidate = "TxtNamaPerusahaan1" ID="RegularExpressionValidator14" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 220 characters allowed.">
+                                </asp:RegularExpressionValidator>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -216,13 +218,15 @@
                                 <br />
                                 <asp:Label ID="Label2" runat="server" Text="Alamat Perusahaan :" Font-Bold="true"></asp:Label>
                                 <textarea id="TxtAlamatPerusahaan1" cols="20" rows="2" runat="server" class="form-control" autocomplete="off"></textarea>                             
-                              <asp:RegularExpressionValidator ID="RegularExpressionValidator3" 
+<%--                              <asp:RegularExpressionValidator ID="RegularExpressionValidator3" 
                                 runat="server" 
                                 ErrorMessage="Nama Hanya boleh Huruf"
                                 ForeColor="Red"
                                 ControlToValidate="TxtAlamatPerusahaan1"
                                 ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
-                                ></asp:RegularExpressionValidator>                           
+                                ></asp:RegularExpressionValidator>  --%>  
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="Red" ControlToValidate = "TxtAlamatPerusahaan1" ID="RegularExpressionValidator16" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 220 characters allowed.">
+                                </asp:RegularExpressionValidator>                       
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -247,14 +251,18 @@
                                 runat="server" 
                                 ErrorMessage="Nama Hanya boleh Huruf"
                                 ForeColor="Red"
-                                ControlToValidate="TxtAlamatPerusahaan1"
+                                ControlToValidate="TxtNamaAtasan1"
                                 ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
-                                ></asp:RegularExpressionValidator>        
+                                ></asp:RegularExpressionValidator>      
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="Red" ControlToValidate = "TxtNamaAtasan1" ID="RegularExpressionValidator19" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 220 characters allowed.">
+                                </asp:RegularExpressionValidator>   
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label10" runat="server" Text="Job Desk :" Font-Bold="true"></asp:Label>
                                 <asp:TextBox ID="TxtJobDesk1" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="Red" ControlToValidate = "TxtJobDesk1" ID="RegularExpressionValidator17" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 220 characters allowed.">
+                                </asp:RegularExpressionValidator>      
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -276,9 +284,11 @@
                                 runat="server" 
                                 ErrorMessage="Nama Hanya boleh Huruf"
                                 ForeColor="Red"
-                                ControlToValidate="TxtAlamatPerusahaan1"
+                                ControlToValidate="TxtAlasanKeluar1"
                                 ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
-                                ></asp:RegularExpressionValidator>        
+                                ></asp:RegularExpressionValidator>   
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="red" ControlToValidate = "TxtAlasanKeluar1" ID="RegularExpressionValidator18" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 220 characters allowed.">
+                                </asp:RegularExpressionValidator>          
                             </div>
                           </div>                       
                         </div>
@@ -296,6 +306,8 @@
                                     ValidationExpression="^([\sA-Za-z]+)$"
                                     ControlToValidate="TxtNamaPerusahaan2"
                                     ></asp:RegularExpressionValidator>
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="Red" ControlToValidate = "TxtNamaPerusahaan2" ID="RegularExpressionValidator15" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 5 characters allowed.">
+                                </asp:RegularExpressionValidator>
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -305,14 +317,9 @@
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label16" runat="server" Text="Alamat Perusahaan :" Font-Bold="true"></asp:Label>
-                                <textarea id="TxtAlamatPerusahaan2"  cols="20" rows="2" runat="server" class="form-control" autocomplete="off"></textarea>                             
-                               <asp:RegularExpressionValidator ID="RegularExpressionValidator6" 
-                                runat="server" 
-                                ErrorMessage="Nama Hanya boleh Huruf"
-                                ForeColor="Red"
-                                ControlToValidate="TxtAlamatPerusahaan2"
-                                ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
-                                ></asp:RegularExpressionValidator>                                
+                                <textarea id="TxtAlamatPerusahaan2"  cols="20" rows="2" runat="server" class="form-control" autocomplete="off"></textarea>                               
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="Red" ControlToValidate = "TxtAlamatPerusahaan2" ID="RegularExpressionValidator20" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 5 characters allowed.">
+                                </asp:RegularExpressionValidator>                            
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -340,11 +347,15 @@
                                 ControlToValidate="TxtNamaAtasan2"
                                 ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
                                 ></asp:RegularExpressionValidator>  
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="Red" ControlToValidate = "TxtNamaAtasan2" ID="RegularExpressionValidator21" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 5 characters allowed.">
+                                </asp:RegularExpressionValidator>   
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label21" runat="server" Text="Job Desk :" Font-Bold="true"></asp:Label>
                                 <asp:TextBox ID="TxtJobDesk2" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="Red" ControlToValidate = "TxtJobDesk2" ID="RegularExpressionValidator22" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 5 characters allowed.">
+                                </asp:RegularExpressionValidator>   
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -366,7 +377,9 @@
                                 ForeColor="Red"
                                 ControlToValidate="TxtAlasanKeluar2"
                                 ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
-                                ></asp:RegularExpressionValidator>  
+                                ></asp:RegularExpressionValidator>
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="Red" ControlToValidate = "TxtAlasanKeluar2" ID="RegularExpressionValidator23" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 5 characters allowed.">
+                                </asp:RegularExpressionValidator>     
                             </div>
                           </div>                       
                         </div>
@@ -384,6 +397,8 @@
                                 ControlToValidate="TxtNamaPerusahaan3"
                                 ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
                                 ></asp:RegularExpressionValidator>  
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="Red" ControlToValidate = "TxtNamaPerusahaan3" ID="RegularExpressionValidator24" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 5 characters allowed.">
+                                </asp:RegularExpressionValidator>   
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -394,6 +409,8 @@
                                 <br />
                                 <asp:Label ID="Label27" runat="server" Text="Alamat Perusahaan :" Font-Bold="true"></asp:Label>
                                 <textarea id="TxtAlamatPerusahaan3"  cols="20" rows="2" runat="server" class="form-control" autocomplete="off"></textarea>                             
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="Red" ControlToValidate = "TxtNamaPerusahaan3" ID="RegularExpressionValidator25" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 5 characters allowed.">
+                                </asp:RegularExpressionValidator>                               
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -421,11 +438,15 @@
                                 ControlToValidate="TxtNamaAtasan3"
                                 ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
                                 ></asp:RegularExpressionValidator>  
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="Red" ControlToValidate = "TxtNamaAtasan3" ID="RegularExpressionValidator3" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 5 characters allowed.">
+                                </asp:RegularExpressionValidator>     
                             </div>
                             <div class="col-sm-5" >
                                 <br />
                                 <asp:Label ID="Label32" runat="server" Text="Job Desk :" Font-Bold="true"></asp:Label>
                                 <asp:TextBox ID="TxtJobDesk3" autocomplete="off" class="form-control" runat="server"></asp:TextBox>
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="Red" ControlToValidate = "TxtJobDesk3" ID="RegularExpressionValidator6" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 5 characters allowed.">
+                                </asp:RegularExpressionValidator>     
                             </div>
                             <div class="col-sm-5" >
                                 <br />
@@ -448,6 +469,8 @@
                                 ControlToValidate="TxtAlasanKeluar3"
                                 ValidationExpression="([A-Za-z])+( [A-Za-z]+)*" 
                                 ></asp:RegularExpressionValidator>  
+                                <asp:RegularExpressionValidator Display = "Dynamic" ForeColor="Red" ControlToValidate = "TxtAlasanKeluar3" ID="RegularExpressionValidator26" ValidationExpression = "^[\s\S]{0,220}$" runat="server" ErrorMessage="Maximum 5 characters allowed.">
+                                </asp:RegularExpressionValidator>   
                             </div>
                           </div>                       
                         </div>

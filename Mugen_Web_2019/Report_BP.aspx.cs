@@ -28,39 +28,60 @@ public partial class Report_BP : System.Web.UI.Page
     SqlDataReader reader;
     protected void Page_Load(object sender, EventArgs e)
     {
+        //TglKirimReport.Visible = false;
         wo = Request.QueryString["qnowo"];
         cabang = Request.QueryString["cabang"];
         NoWo.Text = wo;
         LblWo.Text = wo;
         if (cabang == "112")
         {
-            LblAlamat.Text = "Jl. Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia";
-            Lbltelp.Text = "Telp : (021) 797 3000 (Show Room), 797 2000 (Bengkel)";
-            LblFax.Text = "Fax : (021) 7973834";
-            LblHttp.Text = "Web : www.hondamugen.co.id";
+            //LblAlamat.Text = "Jl. Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia";
+            //Lbltelp.Text = "Telp : (021) 797 3000 (Show Room), 797 2000 (Bengkel)";
+            //LblFax.Text = "Fax : (021) 7973834";
+            //LblHttp.Text = "Web : www.hondamugen.co.id";
             TxtEmailReciever.Text = "richard.nurtjahja@gmail.com";
-            TxtEmailReciever2.Text = "adm_bodyrepair@hondamugen.co.id";
+            TxtEmailReciever2.Text = "bengkel@hondamugen.co.id";
+            TxtEmailReciever3.Text = "adm_bodyrepair@hondamugen.co.id ";
             TxtEmailReciever.ReadOnly = true;
             TxtEmailReciever2.ReadOnly = true;
+            TxtEmailReciever3.ReadOnly = true;
+            LblTglDibuat.Text=getLastValue_special(wo,cabang);
+            //get additional value 
+            List<string> value__ = add_value(wo,cabang, "SELECT WOHDR_FNOPOL, WOHDR_FNMS, WOHDR_FNRK, WOHDR_FORG FROM TRXN_WOHDR WHERE (WOHDR_NO = "+wo+")");
+            NoPol.Text = value__[0];
+            NoMesin.Text = value__[1];
+            NoRangka.Text = value__[2];
+            Pemilik.Text = value__[3];
         }
         else
         {
-            LblAlamat.Text = "Jl. Lingkar Luar Barat, Puri Kembangan Jakarta Barat 11610 - Indonesia";
-            Lbltelp.Text = "Telp : Showroom (021) 5835 8000, Bengkel (021) 5835 9000";
-            LblFax.Text = "Fax : (021) 5835 7942 ";
-            LblHttp.Text = "Web : www.hondamugen.co.id";
+            //LblAlamat.Text = "Jl. Lingkar Luar Barat, Puri Kembangan Jakarta Barat 11610 - Indonesia";
+            //Lbltelp.Text = "Telp : Showroom (021) 5835 8000, Bengkel (021) 5835 9000";
+            //LblFax.Text = "Fax : (021) 5835 7942 ";
+            //LblHttp.Text = "Web : www.hondamugen.co.id";
             TxtEmailReciever.Text = "richard.nurtjahja@gmail.com";
-            TxtEmailReciever2.Text = "Piutangservicepuri@hondamugen.co.id";
+            TxtEmailReciever2.Text = "didi.musdianto@hondamugen.co.id";
+            TxtEmailReciever3.Text = "Piutangservicepuri@hondamugen.co.id ";
             TxtEmailReciever.ReadOnly = true;
             TxtEmailReciever2.ReadOnly = true;
+            TxtEmailReciever3.ReadOnly = true;
+            LblTglDibuat.Text=getLastValue_special(wo, cabang);
+            //get additional value 
+            List<string> value__ = add_value(wo, cabang, "SELECT WOHDR_FNOPOL, WOHDR_FNMS, WOHDR_FNRK, WOHDR_FORG FROM TRXN_WOHDR WHERE (WOHDR_NO = " + wo + ")");
+            NoPol.Text = value__[0];
+            NoMesin.Text = value__[1];
+            NoRangka.Text = value__[2];
+            Pemilik.Text = value__[3];
         }
-        LblAlamat.Visible = false;
-        Lbltelp.Visible = false;
-        LblFax.Visible = false;
-        LblHttp.Visible = false;
-        Label2.Visible = false;
-        Label3.Visible = false;
+        //LblAlamat.Visible = false;
+        //Lbltelp.Visible = false;
+        //LblFax.Visible = false;
+        //LblHttp.Visible = false;
+        //Label2.Visible = false;
+        //Label3.Visible = false;
         //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('No Wo : "+wo+" -- Cabang "+cabang+"')", true);
+        string kerusakan = string.Empty;
+        string jmlpanel = string.Empty;
         if (cabang =="112") {
             //new process
             string sqlcmd_ = " select CONTROLBR_TGLESELESAI from TEMP_CONTROLBR where CONTROLBR_NOWO ='" + wo + "'";
@@ -73,10 +94,26 @@ public partial class Report_BP : System.Web.UI.Page
             
             //new process
             DataSet ds = new DataSet();
-            string sql = "SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL], [KERJABODY_USER],case [KERJABODY_STATUS]  WHEN 1 THEN 'DISERAHKAN SA KE VENDOR' when 2 then 'DISERAHKAN SA KE DRIVER' when 3 then 'DITERIMA' when 4 then 'BONGKAR' when 5 then 'KETOK' when 6 then 'DEMPUL' when 7 then 'CAT/OVEN' when 8 then 'POLES' when 9 then 'PEMASANGAN' when 10 then 'FINISHING' when 11 then 'PENILAIAN QC - OK' when 12 then 'PENILAIAN QC - NOT OK' when 13 then 'PENILAIAN QC - REWORK' when 14 then 'PENILAIAN QC - REWORK - OK' when 15 then 'PENILAIAN QC - REWORK - NOT OK' when 16 then 'PENYERAHAN UNIT QC KE SA BP' else 'UNCATEGORIZED' end AS statusval, case [KERJABODY_LOKASI] when 1 then 'lt. 1' when 2 then 'lt. 2' when 3 then 'lt. 3' when 4 then 'lt. 4' when 5 then 'lt. 5' when 6 then 'lt. 6' when 7 then 'lt. 7' when 8 then 'lt. 8' when 9 then 'lt. 9'  else '' END AS lokasimobil, [KERJABODY_CATATAN] FROM [TEMP_KERJABODY] WHERE ([KERJABODY_NOWO] = " + wo + ") ORDER BY KERJABODY_STATUS ASC";
+            string sql = "SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL],[KERJABODY_DETAILCATATAN], [KERJABODY_USER],case [KERJABODY_STATUS] WHEN 0 THEN 'WO TELAH DI CLOSE' WHEN 1 THEN 'DISERAHKAN SA KE VENDOR / PURI' when 2 then 'SERAH TERIMA UNIT' when 3 then 'BONGKAR' when 4 then 'KETOK' When 5 then 'DEMPUL' when 6 then 'CAT/OVEN' when 7 then 'POLES' when 8 then 'PEMASANGAN' when 9 then 'FINISHING' when 10 then 'UNIT SELESAI OLEH VENDOR' when 11 then 'PENILAIAN QC - OK' when 12 then 'PENILAIAN QC - NOT OK' when 13 then 'PENILAIAN QC - REWORK' when 14 then 'PENILAIAN QC - REWORK - OK' when 15 then 'PENILAIAN QC - REWORK - NOT OK' when 16 then 'PENYERAHAN UNIT QC KE SA BP' else 'UNCATEGORIZED' end AS statusval, case [KERJABODY_LOKASI] when 1 then 'lt. 1' when 2 then 'lt. 2' when 3 then 'lt. 3' when 4 then 'lt. 4' when 5 then 'lt. 5' when 6 then 'lt. 6' when 7 then 'lt. 7' when 8 then 'lt. 8' when 9 then 'lt. 9' when 10 then 'N / A'    else '' END AS lokasimobil, [KERJABODY_CATATAN] FROM[TEMP_KERJABODY] WHERE([KERJABODY_NOWO] = " + wo + ") AND KERJABODY_STATUS< 17 order by CONVERT(int,KERJABODY_STATUS) asc";
             ds = getDataSet(sql, 1);
             LvReportBP.DataSource = ds;
             LvReportBP.DataBind();
+            //get data tgl kirim report
+            string tglkirimreport = string.Empty;
+            tglkirimreport = Fungsi_GetValue("select CONTROLBR_EMAILREPORT from TEMP_CONTROLBR where CONTROLBR_NOWO ='" + wo + "'", cabang);
+            if (tglkirimreport != string.Empty) {
+                TglKirimReport.Visible = true;
+                TglKirimReport.Text = tglkirimreport;
+            }
+            else
+            {
+                TglKirimReport.Visible = false;
+            }
+            //get nilai kerusakan dan jumlah panel
+            kerusakan = Fungsi_GetValue("select CONTROLBR_PANELBOBOT from TEMP_CONTROLBR where CONTROLBR_NOWO ='" + wo + "'", cabang);
+            jmlpanel = Fungsi_GetValue("select CONTROLBR_PANELQTY from TEMP_CONTROLBR where CONTROLBR_NOWO ='" + wo + "'", cabang);
+            LblKerusakan.Text = kerusakan;
+            LblPanel.Text = jmlpanel;
         } else {
             //new process
             string sqlcmd_ = " select CONTROLBR_TGLESELESAI from TEMP_CONTROLBR where CONTROLBR_NOWO ='" + wo + "'";
@@ -88,10 +125,27 @@ public partial class Report_BP : System.Web.UI.Page
             }
             //new process
             DataSet ds = new DataSet();
-            string sql = "SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL], [KERJABODY_USER],case [KERJABODY_STATUS]  WHEN 1 THEN 'DISERAHKAN SA KE VENDOR' when 2 then 'DITERIMA' when 3 then 'BONGKAR' when 4 then 'KETOK' when 5 then 'DEMPUL' when 6 then 'CAT/OVEN' when 7 then 'POLES' when 8 then 'PEMASANGAN' when 9 then 'FINISHING' when 10 then 'PENILAIAN QC - OK' when 11 then 'PENILAIAN QC - NOT OK' when 12 then 'PENILAIAN QC - REWORK' when 13 then 'PENILAIAN QC - REWORK - OK' when 14 then 'PENILAIAN QC - REWORK - NOT OK' when 15 then 'PENYERAHAN UNIT QC KE SA BP' else 'UNCATEGORIZED' end AS statusval, case [KERJABODY_LOKASI] when 1 then 'lt. 1' when 2 then 'lt. 2' when 3 then 'lt. 3' when 4 then 'lt. 4' when 5 then 'lt. 5' when 6 then 'lt. 6' when 7 then 'lt. 7' when 8 then 'lt. 8' when 9 then 'lt. 9'  else '' END AS lokasimobil, [KERJABODY_CATATAN] FROM [TEMP_KERJABODY] WHERE ([KERJABODY_NOWO] = " + wo + ") ORDER BY KERJABODY_STATUS ASC";
+            string sql = "SELECT [KERJABODY_NOWO], [KERJABODY_TANGGAL],[KERJABODY_DETAILCATATAN], [KERJABODY_USER],case [KERJABODY_STATUS]  WHEN 0 THEN 'WO TELAH DI CLOSE' WHEN 1 THEN 'DISERAHKAN SA KE VENDOR' when 2 then 'SERAH TERIMA UNIT' when 3 then 'BONGKAR' when 4 then 'KETOK' When 5 then 'DEMPUL' when 6 then 'CAT/OVEN' when 7 then 'POLES' when 8 then 'PEMASANGAN' when 9 then 'FINISHING' when 10 then 'UNIT SELESAI OLEH VENDOR' when 11 then 'PENILAIAN QC - OK' when 12 then 'PENILAIAN QC - NOT OK' when 13 then 'PENILAIAN QC - REWORK' when 14 then 'PENILAIAN QC - REWORK - OK' when 15 then 'PENILAIAN QC - REWORK - NOT OK' when 16 then 'PENYERAHAN UNIT QC KE SA BP' else 'UNCATEGORIZED' end AS statusval, case [KERJABODY_LOKASI] when 1 then 'lt. 1' when 2 then 'lt. 2' when 3 then 'lt. 3' when 4 then 'lt. 4' when 5 then 'lt. 5' when 6 then 'lt. 6' when 7 then 'lt. 7' when 8 then 'lt. 8' when 9 then 'lt. 9' when 10 then 'N / A'  else '' END AS lokasimobil, [KERJABODY_CATATAN] FROM[TEMP_KERJABODY] WHERE([KERJABODY_NOWO] = " + wo + ") AND KERJABODY_STATUS< 17 order by CONVERT(int,KERJABODY_STATUS) asc";
             ds= getDataSet(sql, 2);
             LvReportBP.DataSource = ds;
             LvReportBP.DataBind();
+            //get data tgl kirim report
+            string tglkirimreport = string.Empty;
+            tglkirimreport = Fungsi_GetValue("select CONTROLBR_EMAILREPORT from TEMP_CONTROLBR where CONTROLBR_NOWO ='" + wo + "'", cabang);
+            if (tglkirimreport != string.Empty)
+            {
+                TglKirimReport.Visible = true;
+                TglKirimReport.Text = tglkirimreport;
+            }
+            else
+            {
+                TglKirimReport.Visible = false;
+            }
+            //get nilai kerusakan dan jumlah panel
+            kerusakan = Fungsi_GetValue("select CONTROLBR_PANELBOBOT from TEMP_CONTROLBR where CONTROLBR_NOWO ='" + wo + "'", cabang);
+            jmlpanel = Fungsi_GetValue("select CONTROLBR_PANELQTY from TEMP_CONTROLBR where CONTROLBR_NOWO ='" + wo + "'", cabang);
+            LblKerusakan.Text = kerusakan;
+            LblPanel.Text = jmlpanel;
         }
 
     }
@@ -234,7 +288,8 @@ public partial class Report_BP : System.Web.UI.Page
             doc.Add(new Paragraph("Telp : (021) 797 3000 (Show Room), 797 2000 (Bengkel)", times));
             doc.Add(new Paragraph("Fax : (021) 79738341", times));
             doc.Add(new Paragraph("Web: www.hondamugen.co.id", times));
-            //add by img
+            //call function closing wo dan insert tgl kirim email
+            string hasil = ClosingWo(wo, "CLOSE", cabang);
 
         }
         else
@@ -246,7 +301,8 @@ public partial class Report_BP : System.Web.UI.Page
             doc.Add(new Paragraph("Telp : (021) 5835 8000(Show Room), (021) 5835 9000 (Bengkel)", times));
             doc.Add(new Paragraph("Fax : (021) 5835 7942", times));
             doc.Add(new Paragraph("Web: www.hondamugen.co.id", times));
-
+            //call function closing wo dan insert tgl kirim email
+            string hasil = ClosingWo(wo, "CLOSE", cabang);
         }
         htmlparser.Parse(reader);
 
@@ -254,7 +310,8 @@ public partial class Report_BP : System.Web.UI.Page
             doc.Close();
             memoryStream.Position = 0;
             string penerima_2 = TxtEmailReciever2.Text;
-            string penerima = TxtEmailReciever.Text + "," + penerima_2;
+            string penerima_3 = TxtEmailReciever3.Text;
+            string penerima = TxtEmailReciever.Text + "," + penerima_2+","+penerima_3;
             
             //mailMessage.CC.Add(new MailAddress(cc)); //Adding CC email Id
             MailMessage mm = new MailMessage("hmugen1991@gmail.com", penerima )
@@ -283,9 +340,6 @@ public partial class Report_BP : System.Web.UI.Page
         
     }
     //
-
-
-
     protected void BtnDownload_Click(object sender, EventArgs e)
     {
         Response.ContentType = "application/pdf";
@@ -350,7 +404,7 @@ public partial class Report_BP : System.Web.UI.Page
             //doc.Add(new Paragraph("Fax : (021) 5835 7942", times));
             //doc.Add(new Paragraph("Web: www.hondamugen.co.id", times));
             //*******************add by img
-            string imageURL = Server.MapPath(".") + "/Header.jpg";
+            string imageURL = Server.MapPath(".") + "/HeaderPSM.jpg";
             iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(imageURL);
             //Resize image depend upon your need
             jpg.ScaleToFit(550,1000); //x/y
@@ -379,7 +433,7 @@ public partial class Report_BP : System.Web.UI.Page
             //doc.Add(new Paragraph("Fax : (021) 5835 7942", times));
             //doc.Add(new Paragraph("Web: www.hondamugen.co.id", times));
             //*******************add by img
-            string imageURL = Server.MapPath(".") + "/Header2.jpg";
+            string imageURL = Server.MapPath(".") + "/HeaderPUR.jpg";
             iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(imageURL);
             //Resize image depend upon your need
             jpg.ScaleToFit(550, 1000); //x/y
@@ -416,5 +470,212 @@ public partial class Report_BP : System.Web.UI.Page
         {
             doc.Close();
         }
+    }
+    //fungsi untuk mendapatkan additional value 
+    public List<String> Result__ = new List<String>();
+    public List<string> add_value(string wo, string cabang, string sqlcmd) {
+        if (cabang == "112") {
+            String strconn = WebConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
+            conn = new SqlConnection(strconn);
+            string sql = sqlcmd;
+            cmd = new SqlCommand(sql, conn);
+            SqlDataReader reader; //Menggunakan data reader untuk select dan mengambil value nya 
+            Result__.Clear();
+            try
+            {
+                conn.Open();
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Result__.Add(reader["WOHDR_FNOPOL"].ToString()); //0
+                    Result__.Add(reader["WOHDR_FNMS"].ToString()); //1
+                    Result__.Add(reader["WOHDR_FNRK"].ToString()); //2
+                    Result__.Add(reader["WOHDR_FORG"].ToString()); //3
+                }
+            }
+            catch (SqlException ex)
+            {
+                Result__.Clear();
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+            }
+        }
+        else {
+            String strconn = WebConfigurationManager.ConnectionStrings["service128Connection"].ConnectionString;
+            conn = new SqlConnection(strconn);
+            string sql = sqlcmd;
+            cmd = new SqlCommand(sql, conn);
+            SqlDataReader reader; //Menggunakan data reader untuk select dan mengambil value nya 
+            Result__.Clear();
+            try
+            {
+                conn.Open();
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Result__.Add(reader["WOHDR_FNOPOL"].ToString()); //0
+                    Result__.Add(reader["WOHDR_FNMS"].ToString()); //0
+                    Result__.Add(reader["WOHDR_FNRK"].ToString()); //0
+                    Result__.Add(reader["WOHDR_FORG"].ToString()); //0
+                }
+            }
+            catch (SqlException ex)
+            {
+                Result__.Clear();
+            }
+            finally
+            {
+                cmd.Dispose();
+                conn.Close();
+            }
+        }
+        return Result__;
+    }
+    //fungsi untuk get tgl wo di buat
+    //fungsi get last value  -- TEMP_CONTROLBR
+    public string getLastValue_special(string wo, string cabang)
+    {
+        string result = string.Empty;
+        string sql = "select controlbr_tglemulai from TEMP_CONTROLBR WHERE CONTROLBR_NOWO =  '" + wo + "'";
+        result = Fungsi_GetValue(sql, cabang);
+        return result;
+    }
+    //FUNGSI KONEKSI HERLAMBANG
+    public string Fungsi_GetValue(string SqlCmd, string cabang)
+    {
+        SqlConnection conn;
+        SqlCommand cmd;
+        SqlDataReader reader;
+        string status_hasil = string.Empty;
+        String strconn;
+        if (cabang == "112") {
+            strconn = WebConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
+        } else {
+            strconn = WebConfigurationManager.ConnectionStrings["service128Connection"].ConnectionString;
+        }
+        conn = new SqlConnection(strconn);
+        string sql = string.Empty;
+        sql = SqlCmd;
+        cmd = new SqlCommand(sql, conn);
+
+
+        try
+        {
+            conn.Open();
+            reader = cmd.ExecuteReader(); //Menggunakan data reader untuk select dan mengambil value nya 
+            while (reader.Read())
+            {
+                status_hasil = reader.GetValue(0).ToString();
+
+
+            }
+            //status_hasil = "1";
+            return status_hasil;
+        }
+        catch (SqlException ex)
+        {
+            status_hasil = "Terjadi error Ketika Mengambil Data: " + ex.Message;
+            return status_hasil;
+        }
+        finally
+        {
+            cmd.Dispose();
+            conn.Close();
+        }
+
+    }
+    // FUNGSI CLOSING WO KETIKA KIRIM EMAIL 
+    public string ClosingWo(string wo, string userClosing, string cabang)
+    {
+        string hasil = string.Empty;
+        string hasil2 = string.Empty;
+        string hasil3 = string.Empty;
+        string sql1 = "INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + wo + "',GETDATE(), '" + userClosing + "', '0', 'This closing note is automatically by system', '')";
+        string sql2 = "UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '0', CONTROLBR_TGLSELESAIA = GETDATE() WHERE CONTROLBR_NOWO = '" + wo + "'";
+        string sql3 = "update TEMP_CONTROLBR set CONTROLBR_EMAILREPORT = GETDATE() where CONTROLBR_NOWO = '" + wo + "'";
+        if (cabang == "112") {
+            hasil = KelasKoneksi_CUD112(sql1);
+            hasil2 = KelasKoneksi_CUD112(sql2);
+            hasil3 = KelasKoneksi_CUD112(sql3);
+        }
+        else
+        {
+            hasil = KelasKoneksi_CUD128(sql1);
+            hasil2 = KelasKoneksi_CUD128(sql2);
+            hasil3 = KelasKoneksi_CUD128(sql3);
+        }
+        string final = string.Empty;
+        if (hasil == "1" && hasil2 == "1" && hasil3 == "1")
+        {
+            final = "OK";
+        }
+        else
+        {
+            final = "NOT OK";
+        }
+        return final;
+    }
+    //FUNGSI CUD
+    //fungsi untuk update
+    public string KelasKoneksi_CUD128(string SqlCmd)
+    {
+        string status;
+        SqlConnection conn;
+        SqlCommand cmd;
+        SqlDataReader reader;
+        String strconn = WebConfigurationManager.ConnectionStrings["service128Connection"].ConnectionString;
+        conn = new SqlConnection(strconn);
+        string sql = SqlCmd;
+        cmd = new SqlCommand(sql, conn);
+        try
+        {
+            conn.Open();
+            //cmd.ExecuteScalar();
+            cmd.ExecuteNonQuery();
+            status = "1";
+        }
+        catch (SqlException sqlEx)
+        {
+            status = "Terjadi error : " + sqlEx.Message;
+        }
+        finally
+        {
+            cmd.Dispose();
+            conn.Close();
+        }
+        return status;
+    }
+    //FUNGSI CUD
+    //fungsi untuk update
+    public string KelasKoneksi_CUD112(string SqlCmd)
+    {
+        string status;
+        SqlConnection conn;
+        SqlCommand cmd;
+        SqlDataReader reader;
+        String strconn = WebConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
+        conn = new SqlConnection(strconn);
+        string sql = SqlCmd;
+        cmd = new SqlCommand(sql, conn);
+        try
+        {
+            conn.Open();
+            //cmd.ExecuteScalar();
+            cmd.ExecuteNonQuery();
+            status = "1";
+        }
+        catch (SqlException sqlEx)
+        {
+            status = "Terjadi error : " + sqlEx.Message;
+        }
+        finally
+        {
+            cmd.Dispose();
+            conn.Close();
+        }
+        return status;
     }
 }

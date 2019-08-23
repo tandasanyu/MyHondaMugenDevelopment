@@ -14,12 +14,17 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
 {
     public string noWo;
     public string userAkses;
+    public string nopol_bywo;
+    public string status_unit = string.Empty;
+    public string stsunit = string.Empty;
     protected void Page_Load(object sender, EventArgs e)
     {   
         
         ListViewHistoryPengerjaan.DataBind();
          noWo = Request.QueryString["qnowo"];
         GetLastValue(noWo);
+        //get nilai nopol berdasarkan wo
+        nopol_bywo = Fungsi_GetValue("SELECT WOHDR_FNOPOL FROM TRXN_WOHDR WHERE WOHDR_NO =" + noWo + "");
         Image1.ImageUrl = "lamp/" + noWo + ".jpg";
         userAkses = (string)(Session["username"]);
         //UNTUK VALIDASI MEMUNCULKAN BTN REPORT
@@ -115,7 +120,7 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
         if (count2 == 0)
         {
             inputHistory.Visible = false;
-            btnUnclosing.Visible = true;
+            btnUnclosing.Visible = false;
         }
         else
         {
@@ -123,8 +128,81 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
             btnUnclosing.Visible = false;
         }
         //cek jika status sudah ada 16 maka tombol report muncul / sebaliknya jika belum
-
-        
+        //*** cek setiap tahap yang telah di lalui apakah ada. jika ya, maka check radiobutton checked -- Fungsi_GetValue
+        string rb1 = string.Empty;
+        string rb2 = string.Empty;
+        string rb3 = string.Empty;
+        string rb4 = string.Empty;
+        string rb5 = string.Empty;
+        string rb6 = string.Empty;
+        string rb7 = string.Empty;
+        string rb8 = string.Empty;
+        string rb9 = string.Empty;
+        string rb10 = string.Empty;
+        string rb11 = string.Empty;
+        string rb12= string.Empty;
+        string rb13 = string.Empty;
+        string rb14 = string.Empty;
+        string rb15 = string.Empty;
+        string rb16 = string.Empty;
+        if (userAkses == "MUCHLIS" || userAkses == "BAHRUR"|| userAkses == "BUDI" || userAkses == "ROBYPURI")
+        {
+            Label10.Visible = false;
+            TxtPembaruanEstimasi.Visible = false;
+            //GvHistoryUpdateEstimasi.Visible = false;
+            BtnUpdateEstimasi.Visible = false;
+        }
+        else
+        {
+            Label10.Visible = true;
+            TxtPembaruanEstimasi.Visible = true;
+            //GvHistoryUpdateEstimasi.Visible = true;
+            BtnUpdateEstimasi.Visible = true;
+        }
+        //** get last value 
+        string last_value = Fungsi_GetValue("select CONTROLBR_KETOKNILAI from TEMP_CONTROLBR where CONTROLBR_NOWO = "+noWo+"");
+        //*** get allpassed value and store it in an arraylist
+        List<String> PekerjaanBP = Select_ListArray("select kerjabody_status from TEMP_KERJABODY WHERE KERJABODY_NOWO = "+noWo+" order by kerjabody_status desc", "1");
+        //*** eliminate same value 
+        if (PekerjaanBP.Count != 0) {
+            PekerjaanBP.RemoveAt(0);
+            auto_checked(PekerjaanBP);
+        }
+        //get tgl estimasi
+        string tglestimasi__ = Fungsi_GetValue("select CONTROLBR_TGLESELESAI from TEMP_CONTROLBR where CONTROLBR_NOWO = "+noWo+"");
+        TglEstimasi.Text = tglestimasi__;
+        //LblStsUnit
+        stsunit = Fungsi_GetValue("select Flag from TEMP_CONTROLBR where CONTROLBR_NOWO = " + noWo + "");
+        if (stsunit != string.Empty)
+        {
+            Label7.Visible = false;
+            LblStsUnit.Text = "Mobil Unit : " + stsunit;
+            ChkSAKePuri.Visible = false;
+        }
+        else {
+            LblStsUnit.Visible = false;
+            ChkSAKePuri.Visible = true;
+        }
+        //cek apakah ada history chat di wo tsb
+        string result_chat = string.Empty;
+        result_chat = Fungsi_GetValue("select count (id_chat) from DATA_HISTORY_CHAT where NOWO_CHAT = " + noWo + "");
+        if (result_chat == "0")
+        {
+            Image2.Visible = false;
+        }
+        else
+        {
+            Image2.Visible = true;
+        }
+        //string result_qc_ok = string.Empty;
+        //result_qc_ok = Fungsi_GetValue("select count(kerjabody_status) from TEMP_KERJABODY WHERE KERJABODY_NOWO = " + noWo + " and kerjabody_status = 11");
+        //if (result_qc_ok == "0") {
+        //    Div12.Visible = false;
+        //    Div13.Visible = false;
+        //    Div14.Visible = false;
+        //    Div15.Visible = false;
+        //    Div16.Visible = true;
+        //}
     }
     //BTN DELETE TIDAK TERPAKAI
     protected void Button2_Click(object sender, EventArgs e)
@@ -162,390 +240,535 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
         string userAkses = (string)(Session["username"]);
         if (userAkses == "MUCHLIS" || userAkses == "BAHRUR")
         {
-            if ( txtStatus.Text == "11" || txtStatus.Text == "12" || txtStatus.Text == "13" || txtStatus.Text == "14" || txtStatus.Text == "15" || txtStatus.Text == "16")
+            //test input by bahrur ketika vemdor belum input
+            string result_ = string.Empty;
+            result_ = getLastValue_special(noWo);
+            //MENDAPATKAN VALUE CHECKLIST DETAIL CATATAN
+            string detaicatatanBp = string.Empty;
+            foreach (ListItem li in RbDetailCatatan.Items)
             {
-
-                try
+                if (li.Selected)
                 {
-                    string filename = System.IO.Path.GetFileName(txtFoto.FileName);
-                    string catatanBp = string.Empty;
-                    catatanBp = txtCatatan.Text;
+                    detaicatatanBp += li.Text + ",";
+                }
+            }
+            if (result_ == string.Empty)
+            {
+                ShowAlertAndNavigate("Proses Gagal, Karena SA belum melakukan Input Data", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
+            }
+            else if (Convert.ToInt32(result_)<=15 && Convert.ToInt32(result_) >=10) //apakah <=15 & 
+            {
+                string last_value = string.Empty;
+                last_value = Convert.ToString(LastValueAct(noWo));
+                if (Convert.ToInt32(last_value) >= Convert.ToInt32(txtStatus.Text)) {
+                    ShowAlertAndNavigate("Proses Gagal, Karena Input Proses yang Anda Pilih Sudah Ada / Sudah Di Lewati", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
+                }
+                else if ( txtStatus.Text == "11" || txtStatus.Text == "12" || txtStatus.Text == "13" || txtStatus.Text == "14" || txtStatus.Text == "15" || txtStatus.Text == "16")
+                {
 
-                    string lokasiBp = txtLokasi.Text;
-                    string statusBp = txtStatus.Text;
-                    string woBp = Request.QueryString["qnowo"];
-                    string user = (string)(Session["username"]);
-                    DateTime toDay = DateTime.Now;
-                    string hariIni = toDay.ToString("MM/dd/yyyy hh:mm:ss");
-
-                    //validasi
-                    string status_hasil = Fungsi_CekStatus(woBp);
-                    if (status_hasil == "10up") //>=10
+                    try
                     {
-                        //bisa langsung 11 - 14
-                        if (txtStatus.Text == "10" || txtStatus.Text == "11" || txtStatus.Text == "12" || txtStatus.Text == "13" || txtStatus.Text == "14" || txtStatus.Text == "15" || txtStatus.Text == "16")
+                        string filename = System.IO.Path.GetFileName(txtFoto.FileName);
+                        string catatanBp = string.Empty;
+                        catatanBp = txtCatatan.Text;
+                        string lokasiBp = txtLokasi.Text;
+                        string statusBp = txtStatus.Text;
+                        string woBp = Request.QueryString["qnowo"];
+                        string user = (string)(Session["username"]);
+                        DateTime toDay = DateTime.Now;
+                        string hariIni = toDay.ToString("MM/dd/yyyy hh:mm:ss");
+
+                        //validasi
+                        string status_hasil = Fungsi_CekStatus(woBp); // unit selesai oleh vendor (10)
+                        if (status_hasil == "10up") //>=10
                         {
-                            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
-                            SqlConnection con = new SqlConnection(cs);
-                            SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "')", con);
-                            SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
-                            //command khusus input ketika status 
-                            SqlCommand cmd3 = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '14', '" + catatanBp + "', '" + lokasiBp + "')", con);
+                            //bisa langsung 11 - 14
+                            if (txtStatus.Text == "11" || txtStatus.Text == "12" || txtStatus.Text == "13" || txtStatus.Text == "14" || txtStatus.Text == "15" || txtStatus.Text == "16")
+                            {
+                                string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
+                                SqlConnection con = new SqlConnection(cs);
+                                SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI, KERJABODY_DETAILCATATAN) VALUES ('" + woBp + "', GETDATE(), '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "', '" + detaicatatanBp + "')", con);
+                                SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
+                                //command khusus input ketika status 
+                                SqlCommand cmd3 = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI, KERJABODY_DETAILCATATAN) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '14', '" + catatanBp + "', '" + lokasiBp + "', '" + detaicatatanBp + "')", con);
 
-                            con.Open();
-                            if (catatanBp == "")
-                            {
-                                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Catatan anda belum diisi.');</script>");
-                                //catatanBp = null;
-                            }
-                            else if (lokasiBp == "")
-                            {
-                                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Lokasi Mobil belum anda isi.');</script>");
-                            }
-                            else if (statusBp == "")
-                            {
-                                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
-                            }
-                            else
-                            {
-
-                                DataSet ds2 = new DataSet();
-
-                                SqlDataAdapter da2 = new SqlDataAdapter("SELECT * FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + woBp + "' AND CONTROLBR_TGLSELESAIA IS NULL", con);
-                                da2.Fill(ds2);
-                                int count2 = ds2.Tables[0].Rows.Count;
-                                if (count2 == 0)
+                                con.Open();
+                                if (catatanBp == "")
                                 {
-                                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !');</script>");
+                                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Catatan anda belum diisi.');</script>");
+                                    //catatanBp = null;
+                                }
+                                else if (lokasiBp == "")
+                                {
+                                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Lokasi Mobil belum anda isi.');</script>");
+                                }
+                                else if (statusBp == "")
+                                {
+                                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
                                 }
                                 else
                                 {
-                                    txtFoto.SaveAs(Server.MapPath("~/lamp/") + woBp + ".jpg");
-                                    cmd.ExecuteNonQuery();
-                                    cmd2.ExecuteNonQuery();
-                                    bool status = EmailStaff(Convert.ToInt32(txtStatus.Text));
-                                    if (statusBp == "11")
-                                    {
-                                        //cmd3.ExecuteNonQuery();
-                                        string sql_insert = "INSERT INTO TEMP_KERJABODY(KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES('" + woBp + "', '" + DateTime.Now.ToShortDateString() + "', '" + user + "', '16', '" + catatanBp + "', '" + lokasiBp + "')";
-                                        string sql_update = "UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '16' WHERE CONTROLBR_NOWO = '" + woBp + "'";
-                                        trigger_action(sql_insert, sql_update);
-                                        //email staff status 14
-                                        bool status2 = EmailStaff(16);
-                                        ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolforman.aspx");
-                                    }
-                                    if (status == true)
-                                    {
-                                        ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
-                                    }
-                                    else {
-                                        ShowAlertAndNavigate("Gagal Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
-                                    }
-                                    //Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
-                                }
-                            }
-                            con.Close();
-                        }
-                        else
-                        {
-                            //status yang anda pilih tidak dapat di input karena proses sudah melewati tahap finishing.
-                            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('status yang anda pilih tidak dapat di input karena proses sudah melewati tahap finishing');</script>");
-                        }
-                    }
-                    else if (status_hasil == "10dw") {
-                        // bisa isi di bawah 10
-                        if (txtStatus.Text == "11" )
-                        {
-                            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
-                            SqlConnection con = new SqlConnection(cs);
-                            SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "')", con);
-                            SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
-                            //command khusus input ketika status 
-                            SqlCommand cmd3 = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '14', '" + catatanBp + "', '" + lokasiBp + "')", con);
 
-                            con.Open();
-                            if (catatanBp == "")
-                            {
-                                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Catatan anda belum diisi.');</script>");
-                                //catatanBp = null;
-                            }
-                            else if (lokasiBp == "")
-                            {
-                                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Lokasi Mobil belum anda isi.');</script>");
-                            }
-                            else if (statusBp == "")
-                            {
-                                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
-                            }
-                            else
-                            {
+                                    DataSet ds2 = new DataSet();
 
-                                DataSet ds2 = new DataSet();
-
-                                SqlDataAdapter da2 = new SqlDataAdapter("SELECT * FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + woBp + "' AND CONTROLBR_TGLSELESAIA IS NULL", con);
-                                da2.Fill(ds2);
-                                int count2 = ds2.Tables[0].Rows.Count;
-                                if (count2 == 0)
-                                {
-                                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !');</script>");
-                                }
-                                else
-                                {
-                                    txtFoto.SaveAs(Server.MapPath("~/lamp/") + woBp + ".jpg");
-                                    cmd.ExecuteNonQuery();
-                                    cmd2.ExecuteNonQuery();
-                                    if (statusBp == "11")
+                                    SqlDataAdapter da2 = new SqlDataAdapter("SELECT * FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + woBp + "' AND CONTROLBR_TGLSELESAIA IS NULL", con);
+                                    da2.Fill(ds2);
+                                    int count2 = ds2.Tables[0].Rows.Count;
+                                    if (count2 == 0)
                                     {
-                                        //cmd3.ExecuteNonQuery();
-                                        string sql_insert = "INSERT INTO TEMP_KERJABODY(KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES('" + woBp + "', '" + DateTime.Now.ToShortDateString() + "', '" + user + "', '16', '" + catatanBp + "', '" + lokasiBp + "')";
-                                        string sql_update = "UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '16' WHERE CONTROLBR_NOWO = '" + woBp + "'";
-                                        trigger_action(sql_insert, sql_update);
-                                        //email staff status 14
-                                        bool status2 = EmailStaff(16);
-                                        ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolforman.aspx");
-                                    }
-                                    //Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
-                                    bool status = EmailStaff(Convert.ToInt32(txtStatus.Text));
-                                    if (status == true)
-                                    {
-                                        ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !');</script>");
                                     }
                                     else
                                     {
-                                        ShowAlertAndNavigate("Gagal Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                                        txtFoto.SaveAs(Server.MapPath("~/lamp/") + woBp + ".jpg");
+                                        cmd.ExecuteNonQuery();
+                                        cmd2.ExecuteNonQuery();
+
+                                        bool status = EmailStaff(Convert.ToInt32(txtStatus.Text), Convert.ToInt32(noWo), nopol_bywo);
+                                        if (statusBp == "11" || statusBp == "12" || statusBp == "14" || statusBp == "15")
+                                        {
+                                            //cmd3.ExecuteNonQuery();
+                                            string sql_insert = "INSERT INTO TEMP_KERJABODY(KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI, KERJABODY_DETAILCATATAN) VALUES('" + woBp + "', GETDATE(), '" + user + "', '16', '" + catatanBp + "', '" + lokasiBp + "', '" + detaicatatanBp + "')";
+                                            string sql_update = "UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '16' WHERE CONTROLBR_NOWO = '" + woBp + "'";
+                                            trigger_action(sql_insert, sql_update);
+                                            //email staff status 14
+                                            bool status2 = EmailStaff(16, Convert.ToInt32(noWo), nopol_bywo);                                           
+                                            string hasil = ClosingWo(noWo, userAkses);
+                                            if (status2 == true)
+                                            {
+                                                ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolforman.aspx");
+                                            }
+                                        }
+                                        //if (statusBp == "16")
+                                        //{
+                                        //    //string hasil = ClosingWo(noWo, userAkses);
+                                        //    //if (hasil == "OK")
+                                        //    //{
+                                        //    //    ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolforman.aspx");
+                                        //    //}
+                                        //}
+                                        if (status == true)
+                                        {
+                                            ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                                        }
+                                        else
+                                        {
+                                            ShowAlertAndNavigate("Gagal Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                                        }
+                                        //Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
                                     }
                                 }
+                                con.Close();
                             }
-                            con.Close();
+                            else
+                            {
+                                //status yang anda pilih tidak dapat di input karena proses sudah melewati tahap finishing.
+                                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('status yang anda pilih tidak dapat di input karena proses sudah melewati tahap finishing');</script>");
+                            }
                         }
                         else {
-                            //status yang anda pilih tidak dapat di input karena belum melewati tahap finishing.
-                            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('status yang anda pilih tidak dapat di input karena belum melewati tahap finishing.');</script>");
+                            ShowAlertAndNavigate("Gagal Input Proses, Karena belum mencapai proses Unit Selesai Oleh Vendor", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
                         }
-                    } else if (status_hasil == "Empty")
-                    {
-                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Proses yang anda pilih tidak dapat di input karena belum ada proses apapun yang berjalan sebelumnya.');</script>");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    btnProses.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
-                }
+                    //    else if (status_hasil == "10dw") {
+                    //        // bisa isi di bawah 10
+                    //        if (txtStatus.Text == "11" )
+                    //        {
+                    //            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
+                    //            SqlConnection con = new SqlConnection(cs);
+                    //            SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "')", con);
+                    //            SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
+                    //            //command khusus input ketika status 
+                    //            SqlCommand cmd3 = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '14', '" + catatanBp + "', '" + lokasiBp + "')", con);
 
+                    //            con.Open();
+                    //            if (catatanBp == "")
+                    //            {
+                    //                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Catatan anda belum diisi.');</script>");
+                    //                //catatanBp = null;
+                    //            }
+                    //            else if (lokasiBp == "")
+                    //            {
+                    //                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Lokasi Mobil belum anda isi.');</script>");
+                    //            }
+                    //            else if (statusBp == "")
+                    //            {
+                    //                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
+                    //            }
+                    //            else
+                    //            {
+
+                    //                DataSet ds2 = new DataSet();
+
+                    //                SqlDataAdapter da2 = new SqlDataAdapter("SELECT * FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + woBp + "' AND CONTROLBR_TGLSELESAIA IS NULL", con);
+                    //                da2.Fill(ds2);
+                    //                int count2 = ds2.Tables[0].Rows.Count;
+                    //                if (count2 == 0)
+                    //                {
+                    //                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !');</script>");
+                    //                }
+                    //                else
+                    //                {
+                    //                    txtFoto.SaveAs(Server.MapPath("~/lamp/") + woBp + ".jpg");
+                    //                    cmd.ExecuteNonQuery();
+                    //                    cmd2.ExecuteNonQuery();
+                    //                    if (statusBp == "11")
+                    //                    {
+                    //                        //cmd3.ExecuteNonQuery();
+                    //                        string sql_insert = "INSERT INTO TEMP_KERJABODY(KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES('" + woBp + "', '" + DateTime.Now.ToShortDateString() + "', '" + user + "', '16', '" + catatanBp + "', '" + lokasiBp + "')";
+                    //                        string sql_update = "UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '16' WHERE CONTROLBR_NOWO = '" + woBp + "'";
+                    //                        trigger_action(sql_insert, sql_update);
+                    //                        //email staff status 14
+                    //                        bool status2 = EmailStaff(16, Convert.ToInt32(noWo), nopol_bywo);
+                    //                        ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolforman.aspx");
+                    //                    }
+                    //                    //Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
+                    //                    bool status = EmailStaff(Convert.ToInt32(txtStatus.Text), Convert.ToInt32(noWo), nopol_bywo);
+                    //                    if (status == true)
+                    //                    {
+                    //                        ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                    //                    }
+                    //                    else
+                    //                    {
+                    //                        ShowAlertAndNavigate("Gagal Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                    //                    }
+                    //                }
+                    //            }
+                    //            con.Close();
+                    //        }
+                    //        else {
+                    //            //status yang anda pilih tidak dapat di input karena belum melewati tahap finishing.
+                    //            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('status yang anda pilih tidak dapat di input karena belum melewati tahap finishing.');</script>");
+                    //        }
+                    //    } else if (status_hasil == "Empty")
+                    //    {
+                    //        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Proses yang anda pilih tidak dapat di input karena belum ada proses apapun yang berjalan sebelumnya.');</script>");
+                    //    }
+                    }
+                    catch (Exception ex)
+                    {
+                        btnProses.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+                    }
+
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. !');</script>");
+
+                }
             }
             else
             {
-                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. !');</script>");
-
+                ShowAlertAndNavigate("Wo yang Anda Pilih Belum Mencapai tahap Unit Selesai Oleh Vendor! Proses Gagal", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
             }
         }
         else if (userAkses == "BUDI" || userAkses =="ROBYPURI")
         {
-            if (txtStatus.Text == "03" || txtStatus.Text == "04" || txtStatus.Text == "05" || txtStatus.Text == "06" || txtStatus.Text == "07" || txtStatus.Text == "08" || txtStatus.Text == "09" || txtStatus.Text == "10" )
+            //get catatan detail yang di checklis
+            string detaicatatanBp = string.Empty;
+            foreach (ListItem li in RbDetailCatatan.Items)
             {
-
-                try
+                if (li.Selected)
                 {
-                    string filename = System.IO.Path.GetFileName(txtFoto.FileName);
-                    string catatanBp = string.Empty;
-                    catatanBp = txtCatatan.Text;
-                    string lokasiBp = txtLokasi.Text;
-                    string statusBp = txtStatus.Text;
-                    string woBp = Request.QueryString["qnowo"];
-                    string user = (string)(Session["username"]);
-                    DateTime toDay = DateTime.Now;
-                    string hariIni = toDay.ToString("MM/dd/yyyy hh:mm:ss");
-
-                    //validasi
-                    string status_hasil = Fungsi_CekStatus(woBp);
-                    if (status_hasil == "10up" || userAkses == "ROBYPURI") //10up >=10
-                    {
-                        string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
-                        SqlConnection con = new SqlConnection(cs);
-                        SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "')", con);
-                        SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
-                        con.Open();
-                        if (lokasiBp == "")
-                        {
-                            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Lokasi Mobil belum anda isi.');</script>");
-                        }
-                        else if (statusBp == "")
-                        {
-                            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
-                        }
-                        else
-                        {
-
-                            DataSet ds2 = new DataSet();
-
-                            SqlDataAdapter da2 = new SqlDataAdapter("SELECT * FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + woBp + "' AND CONTROLBR_TGLSELESAIA IS NULL", con);
-                            da2.Fill(ds2);
-                            int count2 = ds2.Tables[0].Rows.Count;
-                            if (count2 == 0)
-                            {
-                                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !');</script>");
-                            }
-                            else
-                            {
-                                txtFoto.SaveAs(Server.MapPath("~/lamp/") + woBp + ".jpg");
-                                cmd.ExecuteNonQuery();
-                                cmd2.ExecuteNonQuery();
-                                //Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
-                                bool status = EmailStaff(Convert.ToInt32(txtStatus.Text));
-                                if (status == true)
-                                {
-                                    ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
-                                }
-                                else
-                                {
-                                    ShowAlertAndNavigate("Gagal Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
-                                }
-                            }
-                        }
-                        con.Close();
-                    }
-                    if (status_hasil == "10up" && userAkses != "ROBYPURI") //10up>=10
-                    {
-                        if (txtStatus.Text == "14") {
-                            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
-                            SqlConnection con = new SqlConnection(cs);
-                            SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "')", con);
-                            SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
-                            con.Open();
-                            //if (catatanBp == "")
-                            //{
-                            //    //ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Catatan anda belum diisi.');</script>");
-                            //    catatanBp = null;
-                            //}
-                            if (lokasiBp == "")
-                            {
-                                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Lokasi Mobil belum anda isi.');</script>");
-                            }
-                            else if (statusBp == "")
-                            {
-                                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
-                            }
-                            else
-                            {
-
-                                DataSet ds2 = new DataSet();
-
-                                SqlDataAdapter da2 = new SqlDataAdapter("SELECT * FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + woBp + "' AND CONTROLBR_TGLSELESAIA IS NULL", con);
-                                da2.Fill(ds2);
-                                int count2 = ds2.Tables[0].Rows.Count;
-                                if (count2 == 0)
-                                {
-                                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !');</script>");
-                                }
-                                else
-                                {
-                                    txtFoto.SaveAs(Server.MapPath("~/lamp/") + woBp + ".jpg");
-                                    cmd.ExecuteNonQuery();
-                                    cmd2.ExecuteNonQuery();
-                                    //Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
-                                    bool status = EmailStaff(Convert.ToInt32(txtStatus.Text));
-                                    if (status == true)
-                                    {
-                                        ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
-                                    }
-                                    else
-                                    {
-                                        ShowAlertAndNavigate("Gagal Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
-                                    }
-                                }
-                            }
-                            con.Close();
-                        }
-                        else
-                        {
-                            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. Karena WO sudah masuk / melewati tahap finishing !');</script>");
-                        }
-                    }
-                    else if (status_hasil == "10dw" && userAkses != "ROBYPURI")
-                    {
-                        if (txtStatus.Text == "03" || txtStatus.Text == "04" || txtStatus.Text == "05" || txtStatus.Text == "06" || txtStatus.Text == "07" || txtStatus.Text == "08" || txtStatus.Text == "09" || txtStatus.Text == "10")
-                        {
-                            string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
-                            SqlConnection con = new SqlConnection(cs);
-                            SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "')", con);
-                            SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
-                            con.Open();
-                            //if (catatanBp == "")
-                            //{
-                            //    //ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Catatan anda belum diisi.');</script>");
-                            //    catatanBp = null;
-                            //}
-                            if (lokasiBp == "")
-                            {
-                                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Lokasi Mobil belum anda isi.');</script>");
-                            }
-                            else if (statusBp == "")
-                            {
-                                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
-                            }
-                            else
-                            {
-
-                                DataSet ds2 = new DataSet();
-
-                                SqlDataAdapter da2 = new SqlDataAdapter("SELECT * FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + woBp + "' AND CONTROLBR_TGLSELESAIA IS NULL", con);
-                                da2.Fill(ds2);
-                                int count2 = ds2.Tables[0].Rows.Count;
-                                if (count2 == 0)
-                                {
-                                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !');</script>");
-                                }
-                                else
-                                {
-                                    txtFoto.SaveAs(Server.MapPath("~/lamp/") + woBp + ".jpg");
-                                    cmd.ExecuteNonQuery();
-                                    cmd2.ExecuteNonQuery();
-                                    //Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
-                                    bool status = EmailStaff(Convert.ToInt32(txtStatus.Text));
-                                    if (status == true)
-                                    {
-                                        ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
-                                    }
-                                    else
-                                    {
-                                        ShowAlertAndNavigate("Gagal Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
-                                    }
-                                }
-                            }
-                            con.Close();
-                        }
-                        else
-                        {
-                            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. WO tersebut belum mencapai tahap finishing !');</script>");
-                        }
-                    }
-                    else if (status_hasil == "Empty")
-                    {
-                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Proses yang anda pilih tidak dapat di input karena belum ada proses apapun yang berjalan sebelumnya.');</script>");
-                    }
+                    detaicatatanBp += li.Text + ",";
                 }
-                catch (Exception ex)
-                {
-                    btnProses.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
-                }
-
             }
-            else
+            //****
+            string result_ = string.Empty;
+            result_ = getLastValue_special(noWo);
+            if (result_ == string.Empty) {
+                ShowAlertAndNavigate("Proses Gagal, Karena SA belum melakukan Input Data", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
+            }
+            else if (Convert.ToInt32(result_) < 2 && Convert.ToInt32(txtStatus.Text) > 2) {
+                ShowAlertAndNavigate("Proses Gagal, Karena Anda Sebagai Vendor Belum Input Tahapan SERAH TERIMA UNIT di sistem!", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
+            }
+            else if (Convert.ToInt32(result_) > 10) {
+                ShowAlertAndNavigate("Proses Gagal, Karena telah Melewati tahap Unit Selesai Oleh Vendor!", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
+            }
+            else if (Convert.ToInt32(result_) >= Convert.ToInt32(txtStatus.Text))
             {
-                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. !');</script>");
+                ShowAlertAndNavigate("Proses Gagal, Karena Proses yang Anda Pilih Sudah di Lewati / Sudah Ada!", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
+            }
+            else {
+                if (txtStatus.Text == "02" || txtStatus.Text == "03" || txtStatus.Text == "04" || txtStatus.Text == "05" || txtStatus.Text == "06" || txtStatus.Text == "07" || txtStatus.Text == "08" || txtStatus.Text == "09" || txtStatus.Text == "10")
+                {
 
+                    try
+                    {
+                        string filename = System.IO.Path.GetFileName(txtFoto.FileName);
+                        string catatanBp = string.Empty;
+                        catatanBp = txtCatatan.Text;
+                        string lokasiBp = txtLokasi.Text;
+                        string statusBp = txtStatus.Text;
+                        string woBp = Request.QueryString["qnowo"];
+                        string user = (string)(Session["username"]);
+                        DateTime toDay = DateTime.Now;
+                        string hariIni = toDay.ToString("MM/dd/yyyy hh:mm:ss");
+
+                        //validasi
+
+                        //if (status_hasil == "10up" || userAkses == "ROBYPURI") //10up >=10
+                        //{
+                        //    string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
+                        //    SqlConnection con = new SqlConnection(cs);
+                        //    SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "')", con);
+                        //    SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
+                        //    con.Open();
+                        //    if (lokasiBp == "")
+                        //    {
+                        //        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Lokasi Mobil belum anda isi.');</script>");
+                        //    }
+                        //    else if (statusBp == "")
+                        //    {
+                        //        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
+                        //    }
+                        //    else
+                        //    {
+
+                        //        DataSet ds2 = new DataSet();
+
+                        //        SqlDataAdapter da2 = new SqlDataAdapter("SELECT * FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + woBp + "' AND CONTROLBR_TGLSELESAIA IS NULL", con);
+                        //        da2.Fill(ds2);
+                        //        int count2 = ds2.Tables[0].Rows.Count;
+                        //        if (count2 == 0)
+                        //        {
+                        //            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !');</script>");
+                        //        }
+                        //        else
+                        //        {
+                        //            txtFoto.SaveAs(Server.MapPath("~/lamp/") + woBp + ".jpg");
+                        //            cmd.ExecuteNonQuery();
+                        //            cmd2.ExecuteNonQuery();
+                        //            //Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
+                        //            bool status = EmailStaff(Convert.ToInt32(txtStatus.Text), Convert.ToInt32(noWo), nopol_bywo);
+                        //            if (status == true)
+                        //            {
+                        //                ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                        //            }
+                        //            else
+                        //            {
+                        //                ShowAlertAndNavigate("Gagal Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                        //            }
+                        //        }
+                        //    }
+                        //    con.Close();
+                        //}
+                        //if (status_hasil == "10up" && userAkses != "ROBYPURI") //10up>=10
+                        //{
+                        //    if (txtStatus.Text == "14") {
+                        //        string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
+                        //        SqlConnection con = new SqlConnection(cs);
+                        //        SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "')", con);
+                        //        SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
+                        //        con.Open();
+                        //        //if (catatanBp == "")
+                        //        //{
+                        //        //    //ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Catatan anda belum diisi.');</script>");
+                        //        //    catatanBp = null;
+                        //        //}
+                        //        if (lokasiBp == "")
+                        //        {
+                        //            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Lokasi Mobil belum anda isi.');</script>");
+                        //        }
+                        //        else if (statusBp == "")
+                        //        {
+                        //            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
+                        //        }
+                        //        else
+                        //        {
+
+                        //            DataSet ds2 = new DataSet();
+
+                        //            SqlDataAdapter da2 = new SqlDataAdapter("SELECT * FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + woBp + "' AND CONTROLBR_TGLSELESAIA IS NULL", con);
+                        //            da2.Fill(ds2);
+                        //            int count2 = ds2.Tables[0].Rows.Count;
+                        //            if (count2 == 0)
+                        //            {
+                        //                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !');</script>");
+                        //            }
+                        //            else
+                        //            {
+                        //                txtFoto.SaveAs(Server.MapPath("~/lamp/") + woBp + ".jpg");
+                        //                cmd.ExecuteNonQuery();
+                        //                cmd2.ExecuteNonQuery();
+                        //                //Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
+                        //                bool status = EmailStaff(Convert.ToInt32(txtStatus.Text), Convert.ToInt32(noWo), nopol_bywo);
+                        //                if (status == true)
+                        //                {
+                        //                    ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                        //                }
+                        //                else
+                        //                {
+                        //                    ShowAlertAndNavigate("Gagal Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                        //                }
+                        //            }
+                        //        }
+                        //        con.Close();
+                        //    }
+                        //    else
+                        //    {
+                        //        //ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. Karena WO sudah masuk / melewati tahap finishing !');</script>");
+                        //        ShowAlertAndNavigate("Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. Karena WO sudah masuk / melewati tahap finishing !", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                        //    }
+
+                        //}
+                        //*** baru sampe sini 5/8/2019 -8.50am
+                        string status_hasil = Fungsi_CekStatus(woBp);
+                        if (status_hasil == "10dw") // yang di < 11 (Penilaian QC -OK)
+                        {
+                            if (userAkses == "ROBYPURI")
+                            {
+                                if (txtStatus.Text == "02" || txtStatus.Text == "03" || txtStatus.Text == "04" || txtStatus.Text == "05" || txtStatus.Text == "06" || txtStatus.Text == "07" || txtStatus.Text == "08" || txtStatus.Text == "09" || txtStatus.Text == "10")
+                                {
+                                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
+                                    SqlConnection con = new SqlConnection(cs);
+                                    SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI, KERJABODY_DETAILCATATAN) VALUES ('" + woBp + "', GETDATE(), '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "', '" + detaicatatanBp + "')", con);
+                                    SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
+                                    con.Open();
+                                    if (lokasiBp == "")
+                                    {
+                                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Lokasi Mobil belum anda isi.');</script>");
+                                    }
+                                    else if (statusBp == "")
+                                    {
+                                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
+                                    }
+                                    else
+                                    {
+
+                                        DataSet ds2 = new DataSet();
+
+                                        SqlDataAdapter da2 = new SqlDataAdapter("SELECT * FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + woBp + "' AND CONTROLBR_TGLSELESAIA IS NULL", con);
+                                        da2.Fill(ds2);
+                                        int count2 = ds2.Tables[0].Rows.Count;
+                                        if (count2 == 0)
+                                        {
+                                            //ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !');</script>");
+                                            ShowAlertAndNavigate("Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                                        }
+                                        else
+                                        {
+                                            txtFoto.SaveAs(Server.MapPath("~/lamp/") + woBp + ".jpg");
+                                            cmd.ExecuteNonQuery();
+                                            cmd2.ExecuteNonQuery();
+                                            //Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
+                                            bool status = EmailStaff(Convert.ToInt32(txtStatus.Text), Convert.ToInt32(noWo), nopol_bywo);
+                                            if (status == true)
+                                            {
+                                                ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                                            }
+                                            else
+                                            {
+                                                ShowAlertAndNavigate("Gagal Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                                            }
+                                        }
+                                    }
+                                    con.Close();
+                                }
+                                else
+                                {
+                                    ShowAlertAndNavigate("Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. Anda Tidak Memiliki Hak untuk input proses tersebut !", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                                }
+                            }
+                            else
+                            {
+                                if (txtStatus.Text == "02" || txtStatus.Text == "03" || txtStatus.Text == "04" || txtStatus.Text == "05" || txtStatus.Text == "06" || txtStatus.Text == "07" || txtStatus.Text == "08" || txtStatus.Text == "09" || txtStatus.Text == "10")
+                                {
+                                    string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
+                                    SqlConnection con = new SqlConnection(cs);
+                                    SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI, KERJABODY_DETAILCATATAN) VALUES ('" + woBp + "', GETDATE(), '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "', '" + detaicatatanBp + "')", con);
+                                    SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
+                                    con.Open();
+                                    //if (catatanBp == "")
+                                    //{
+                                    //    //ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Catatan anda belum diisi.');</script>");
+                                    //    catatanBp = null;
+                                    //}
+                                    if (lokasiBp == "")
+                                    {
+                                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Lokasi Mobil belum anda isi.');</script>");
+                                    }
+                                    else if (statusBp == "")
+                                    {
+                                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
+                                    }
+                                    else
+                                    {
+
+                                        DataSet ds2 = new DataSet();
+
+                                        SqlDataAdapter da2 = new SqlDataAdapter("SELECT * FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + woBp + "' AND CONTROLBR_TGLSELESAIA IS NULL", con);
+                                        da2.Fill(ds2);
+                                        int count2 = ds2.Tables[0].Rows.Count;
+                                        if (count2 == 0)
+                                        {
+                                            //ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !');</script>");
+                                            ShowAlertAndNavigate("Gagal ! Tidak bisa di Delete karena WO ini sudah di Closing oleh Forman !", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                                        }
+                                        else
+                                        {
+                                            txtFoto.SaveAs(Server.MapPath("~/lamp/") + woBp + ".jpg");
+                                            cmd.ExecuteNonQuery();
+                                            cmd2.ExecuteNonQuery();
+                                            //Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
+                                            bool status = EmailStaff(Convert.ToInt32(txtStatus.Text), Convert.ToInt32(noWo), nopol_bywo);
+                                            if (status == true)
+                                            {
+                                                ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                                            }
+                                            else
+                                            {
+                                                ShowAlertAndNavigate("Gagal Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                                            }
+                                        }
+                                    }
+                                    con.Close();
+                                }
+                                else
+                                {
+                                    ShowAlertAndNavigate("Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. Anda Tidak Memiliki Hak untuk input proses tersebut !", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                                }
+                            }
+                        }
+                        else if (status_hasil == "10up") {
+                            ShowAlertAndNavigate("Unit Ini Telah Selesai Oleh Vendor, Proses Input Gagal", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                        }
+                        else if (status_hasil == "Empty")
+                        {
+                            ShowAlertAndNavigate("Proses yang anda pilih tidak dapat di input karena belum ada proses apapun yang berjalan sebelumnya.", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        btnProses.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+                    }
+
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. !');</script>");
+                    ShowAlertAndNavigate("Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. !", "jobcontrolforman.aspx");
+
+                }
             }
         }
         // else untuk seluruh sa  psm
         else
         {
+            string detaicatatanBp = string.Empty;
+            foreach (ListItem li in RbDetailCatatan.Items)
+            {
+                if (li.Selected)
+                {
+                    detaicatatanBp += li.Text + ",";
+                }
+            }
+            //
             //get value status apakah ada 02
             //cek apakah wo tsb ada status 2 nya.
             string Status_wo = string.Empty;
             string Status_wo2 = string.Empty;
-            Status_wo = Fungsi_GetValue("select KERJABODY_STATUS from TEMP_KERJABODY WHERE KERJABODY_NOWO=" + noWo + " and KERJABODY_STATUS = '02'");
-            Status_wo2 = Fungsi_GetValue("select KERJABODY_STATUS from TEMP_KERJABODY WHERE KERJABODY_NOWO=" + noWo + " and KERJABODY_STATUS = '01'");
-            if (txtStatus.Text == "01" || txtStatus.Text == "02")
+            Status_wo = Fungsi_GetValue("select KERJABODY_STATUS from TEMP_KERJABODY WHERE KERJABODY_NOWO=" + noWo + " and KERJABODY_STATUS = '01'");
+            if (txtStatus.Text == "01")
             {
                 try
                 {
@@ -556,13 +779,21 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
                     string statusBp = txtStatus.Text;
                     string woBp = Request.QueryString["qnowo"];
                     string user = (string)(Session["username"]);
-                    DateTime toDay = DateTime.Now;
-                    string hariIni = toDay.ToString("MM/dd/yyyy hh:mm:ss");
+                    //DateTime toDay = DateTime.Now.ToLongDateString;
+                    //string hariIni = toDay.ToString("MM/dd/yyyy hh:mm:ss");
+                    //cek apakah checklis ke puri true                    
+                    if (ChkSAKePuri.Checked == true) {
+                        status_unit = "Puri";
+                    } else {
+                        status_unit = "Psm";
+                    }
+                    //****
+                    //cek value terakhir berapa
 
                     string cs = System.Configuration.ConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
                     SqlConnection con = new SqlConnection(cs);
-                    SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + woBp + "', '" + hariIni + "', '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "')", con);
-                    SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI, KERJABODY_DETAILCATATAN) VALUES ('" + woBp + "', GETDATE(), '" + user + "', '" + statusBp + "', '" + catatanBp + "', '" + lokasiBp + "', '" + detaicatatanBp + "')", con);
+                    SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '" + statusBp + "', Flag='"+status_unit+"' WHERE CONTROLBR_NOWO = '" + woBp + "'", con);
                     con.Open();
                     //if (catatanBp == "")
                     //{
@@ -577,11 +808,8 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
                     {
                         ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Pilih status pengerjaan anda terlebih dahulu.');</script>");
                     }
-                    else if (Status_wo == "02" && statusBp == "01") {
-                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Anda Tidak dapat memilih Tahap ini, karena mobil telah di serahkan SA ke driver');</script>");
-                    }
-                    else if (statusBp == "02" && Status_wo2 == "01") {
-                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Anda Tidak dapat memilih tahap ini, karena SA telah menyerahkan UNIT ke Vendor');</script>");
+                    else if (Status_wo == "01") {
+                        ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Anda Tidak dapat memilih Tahap ini, karena mobil telah di serahkan SA ke driver / Puri');</script>");
                     }
                     else
                     {
@@ -601,7 +829,19 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
                             cmd.ExecuteNonQuery();
                             cmd2.ExecuteNonQuery();
                             //Response.Redirect("jobcontrolformanedt.aspx?qnowo=" + woBp);
-                            bool status = EmailStaff(Convert.ToInt32(txtStatus.Text));
+                            string status_unit_ = string.Empty;
+                            bool status;
+                            if (status_unit == "Puri")
+                            {
+                                status = EmailStaff(02, Convert.ToInt32(noWo), nopol_bywo);
+                                EmailStaff_spesialBahrur("DEAR BAHRUR, UNIT TELAH DI SERAHKAN SA KE PURI dengan nomor wo "+noWo+". silahkan cek web office.hondamugen untuk lebih jelasnya ");
+
+                            }
+                            else {
+                                status = EmailStaff(01, Convert.ToInt32(noWo), nopol_bywo);
+
+                            }
+                             
                             if (status == true)
                             {
                                 ShowAlertAndNavigate("Berhasil Mengirim Email", "jobcontrolformanedt.aspx?qnowo=" + woBp + "");
@@ -620,11 +860,11 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
                 }
             }
             else {
-                ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. !');</script>");
+                //ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. !');</script>");
+                ShowAlertAndNavigate("Gagal ! Status yang Anda Pilih Tidak Bisa di Proses. !", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
             }
         }
     }
-
     protected void btnUnclosing_Click(object sender, EventArgs e)
     {
         string noWounClosing = Request.QueryString["qnowo"];
@@ -654,13 +894,44 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
         }
         con.Close();
     }
-
     protected void BtnReportBPPsm_Click(object sender, EventArgs e)
     {
         Response.Redirect("Report_BP.aspx?qnowo=" + noWo + "&&cabang=112");
         //Response.Redirect("ReportBP_Master.aspx?qnowo=" + noWo + "&&cabang=128");
     }
-    //FUNGSI KONEKSI HERLAMBANG
+    protected void BtnChat_Click(object sender, EventArgs e)
+    {
+        string userak_ = string.Empty;
+        userak_ = (string)(Session["username"]);
+        if (userak_ != string.Empty)
+        {
+            //Response.Redirect("HalamanChat.aspx");
+            Session["noWo"] = noWo;
+            ShowAlert("HalamanChat.aspx?USERNAME=" + userAkses + "&&NOWO=" + noWo + "&&CAB=112");
+        }
+        else
+        {
+            ShowAlertAndNavigate("Sesi Anda Telah Habis, Silahkan Login Kembali", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
+        }
+    }
+    //fungsi get last value act 
+    public int LastValueAct(string wo) {
+        //get last value status dari TEMP_CONTROLBR dengan field CONTROLBR_KETOKNILAI dan wo CONTROLBR_NOWO
+        string last_act = string.Empty;
+        last_act = Fungsi_GetValue("select CONTROLBR_KETOKNILAI from TEMP_CONTROLBR where CONTROLBR_NOWO = " + wo + " ");
+
+        if (last_act == string.Empty) {
+            return 0;
+        } else {
+            return Convert.ToInt32(last_act);
+        }
+    }
+    public void ShowAlert(string destination)
+    {
+        string url = destination;
+        Response.Write("<script language='javascript'>window.location.assign('" + destination + "');</script>");
+    }
+    //FUNGSI get single value
     public string Fungsi_GetValue(string SqlCmd)
     {
         SqlConnection conn;
@@ -776,7 +1047,7 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
     {
         string hasil_akhir = string.Empty;
 
-        string hasil = Fungsi_GetValue("select max(kerjabody_status) from temp_kerjabody where kerjabody_nowo = '" + wo + "'");
+        string hasil = Fungsi_GetValue("select max(kerjabody_status) from temp_kerjabody where kerjabody_nowo = '" + wo + "' and kerjabody_status < 17");
         string.IsNullOrEmpty(hasil);
         if (hasil == null || hasil == string.Empty)
         {
@@ -788,7 +1059,7 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
             {
                 hasil_akhir = "10up";
             }
-            else if (Convert.ToInt32(hasil) < 11 || hasil== "02")
+            else if (Convert.ToInt32(hasil) < 11)
             {
                 hasil_akhir = "10dw";
             }
@@ -1126,48 +1397,50 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
     {
 
 
+
         if (status == 1)
         {
             DraftEmail_ = "UNIT TELAH DI SERAHKAN SA KE VENDOR";
         }
-        else if (status == 2) {
-            DraftEmail_ = "UNIT TELAH DI SERAHKAN SA KE DRIVER";
-        }
-        else if (status == 3)
+        else if (status == 2)
         {
             DraftEmail_ = "UNIT TELAH DI TERIMA VENDOR";
         }
-        else if (status == 4)
+        else if (status == 3)
         {
             DraftEmail_ = "UNIT TELAH DI BONGKAR VENDOR";
         }
-        else if (status == 5)
+        else if (status == 4)
         {
             DraftEmail_ = "UNIT TELAH DI KETOK VENDOR";
         }
-        else if (status == 6)
+        else if (status == 5)
         {
             DraftEmail_ = "UNIT TELAH DI DEMPUL VENDOR";
         }
-        else if (status == 7)
+        else if (status == 6)
         {
             DraftEmail_ = "UNIT TELAH DI CAT / OVEN VENDOR";
         }
-        else if (status == 8)
+        else if (status == 7)
         {
             DraftEmail_ = "UNIT TELAH DI POLES VENDOR";
         }
-        else if (status == 9)
+        else if (status == 8)
         {
             DraftEmail_ = "UNIT TELAH DI PEMASANGAN VENDOR";
         }
-        else if (status == 10)
+        else if (status == 9)
         {
             DraftEmail_ = "UNIT TELAH DI FINISHING VENDOR";
         }
+        else if (status == 10)
+        {
+            DraftEmail_ = "UNIT SELESAI OLEH VENDOR";
+        }
         else if (status == 11)
         {
-            DraftEmail_ = "UNIT TELAH DI NILAI QC (OK) ";
+            DraftEmail_ = "PENILAIAN QC - OK";
         }
         else if (status == 12)
         {
@@ -1175,7 +1448,7 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
         }
         else if (status == 13)
         {
-            DraftEmail_ = "PENILAIAN QC - REWORK ";
+            DraftEmail_ = "PENILAIAN QC - REWORK";
         }
         else if (status == 14)
         {
@@ -1211,39 +1484,79 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
         ClientScript.RegisterStartupScript(this.GetType(), "Redirect", script, true);
     }
     //FUNGSI UNTUK EMAIL
-    public bool EmailStaff(int status) {
+    public bool EmailStaff(int status, int wo, string nopol)
+    {
         //logic kirim ke siapa
         string email=string.Empty;
         string pesan = string.Empty;
-        if (status == 1 || status == 3 || status == 4 || status == 5 || status == 6 || status == 7 || status == 8 || status == 9  ) {
-
-                email = "budiarthe@gmail.com";
-                string pesan_ = DraftEmail_bankStatus(status);
-                pesan = "DEAR BUDI, " + pesan_ + ", silahkan cek web office.hondamugen untuk lebih jelasnya";
-            //email = "tandasanyu.movie1@gmail.com";
-
-        }
-
-        else if (status == 2) {
-            email = "081297686377rb@gmail.com";
-            string pesan_ = DraftEmail_bankStatus(status);
-            pesan = "DEAR ROBY ada Unit yang di Kirim SA Pasar Minggu untuk Anda Kerjakan, " + pesan_ + ", silahkan cek web office.hondamugen untuk lebih jelasnya";
-        }
-        else if (status == 10 || status == 11 || status == 12 || status == 13 || status == 14 || status == 15 || status == 16)
+        if (status == 1)
         {
-            //cek apakah wo tsb ada status 2 nya.
+            email = "ibudiarthe@gmail.com";
+            string pesan_ = DraftEmail_bankStatus(status);
+            pesan = "DEAR BUDI, " + pesan_ + ", dengan WO : " + wo + " & NOPOL : " + nopol + " silahkan cek web office.hondamugen untuk lebih jelasnya";
+            //email = "tandasanyu.movie1@gmail.com";
+            EmailStaff_spesial(pesan);
+
+        }
+        else if (status == 3 || status == 4 || status == 5 || status == 6 || status == 7 || status == 8 || status == 9) {
+            //cek apakah wo tsb ada flag puri / psm
             string Status_wo = string.Empty;
-                Status_wo= Fungsi_GetValue("select KERJABODY_STATUS from TEMP_KERJABODY WHERE KERJABODY_NOWO=" + noWo+ " and KERJABODY_STATUS = '02'");
-            if (Status_wo == string.Empty) {
+            Status_wo = Fungsi_GetValue("select Flag from TEMP_CONTROLBR WHERE CONTROLBR_NOWO=" + noWo + "");
+            if (Status_wo == "Psm") {
+                email = "ibudiarthe@gmail.com";
+                string pesan_ = DraftEmail_bankStatus(status);
+                pesan = "DEAR BUDI, " + pesan_ + ", dengan WO : " + wo + " & NOPOL : " + nopol + " silahkan cek web office.hondamugen untuk lebih jelasnya";
+                //email = "tandasanyu.movie1@gmail.com";
+                EmailStaff_spesial(pesan);
+            } else {
+                email = "081297686377rb@gmail.com";
+                string pesan_ = DraftEmail_bankStatus(status);
+                pesan = "DEAR ROBY ada Unit yang di Kirim SA Pasar Minggu untuk Anda Kerjakan, " + pesan_ + ",dengan WO : " + wo + " & NOPOL : " + nopol + " silahkan cek web office.hondamugen untuk lebih jelasnya";
+                EmailStaff_spesial(pesan);
+            }
+        }
+        else if (status == 2)
+        {
+            //cek apakah wo tsb ada flag puri / psm
+            string Status_wo = string.Empty;
+            Status_wo = Fungsi_GetValue("select Flag from TEMP_CONTROLBR WHERE CONTROLBR_NOWO=" + noWo + "");
+            if (Status_wo == "Psm")
+            {
+                email = "ibudiarthe@gmail.com";
+                string pesan_ = DraftEmail_bankStatus(status);
+                pesan = "DEAR BUDI, " + pesan_ + ", dengan WO : " + wo + " & NOPOL : " + nopol + " silahkan cek web office.hondamugen untuk lebih jelasnya";
+                //email = "tandasanyu.movie1@gmail.com";
+                EmailStaff_spesial(pesan);
+            }
+            else {
+                email = "081297686377rb@gmail.com";
+                string pesan_ = DraftEmail_bankStatus(status);
+                pesan = "DEAR ROBY ada Unit yang di Kirim SA Pasar Minggu untuk Anda Kerjakan, " + pesan_ + ",dengan WO : " + wo + " & NOPOL : " + nopol + " silahkan cek web office.hondamugen untuk lebih jelasnya";
+                EmailStaff_spesial(pesan);
+            }
+        }
+        else if (status == 10 || status == 11 || status == 12 || status == 13 || status == 14 || status == 15 )
+        {
+            //cek apakah wo tsb ada flag puri / psm
+            string Status_wo = string.Empty;
+            Status_wo = Fungsi_GetValue("select Flag from TEMP_CONTROLBR WHERE CONTROLBR_NOWO=" + noWo + "");
+            if (Status_wo == "Psm")
+            {
                 email = "muchlishidayat02@gmail.com";
                 string pesan_ = DraftEmail_bankStatus(status);
-                pesan = "DEAR MUCHLIS, " + pesan_ + ", silahkan cek web office.hondamugen untuk lebih jelasnya";
-            } else {
+                pesan = "DEAR MUCHLIS, " + pesan_ + ",dengan WO : " + wo + " & NOPOL : " + nopol + " silahkan cek web office.hondamugen untuk lebih jelasnya";
+                EmailStaff_spesial(pesan);
+            }
+            else
+            {
                 email = "bahrurrojikin1@gmail.com";
                 string pesan_ = DraftEmail_bankStatus(status);
-                pesan = "DEAR BAHRUR, " + pesan_ + ", silahkan cek web office.hondamugen untuk lebih jelasnya";
+                pesan = "DEAR BAHRUR, " + pesan_ + ",dengan WO : " + wo + " & NOPOL : " + nopol + " silahkan cek web office.hondamugen untuk lebih jelasnya";
+                EmailStaff_spesial(pesan);
             }
-        } else if (status == 16) {
+        }
+        else if (status == 16)
+        {
             //KE SA TERKAIT
             string sql = "SELECT WOHDR_SA FROM TRXN_WOHDR WHERE (WOHDR_NO = " + noWo + ")";
             string hasil_namasa = Fungsi_GetValue(sql);
@@ -1262,14 +1575,19 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
             else if (hasil_namasa == "MARWAN") //----128{}
             {
                 email = "marwan3103@gmail.com";
-            } else if (hasil_namasa == "TJAHYADI") {
+            }
+            else if (hasil_namasa == "TJAHYADI")
+            {
                 email = "tjahyadi03@yahoo.com";
-            } else if (hasil_namasa == "WAHYUSA") {
+            }
+            else if (hasil_namasa == "WAHYUSA")
+            {
                 email = "wahyu.febriyansyah@gmail.com";
             }
             //email = "tandasanyu.movie4@gmail.com";
             string pesan_ = DraftEmail_bankStatus(status);
-            pesan = "DEAR " + hasil_namasa + " ," + pesan_ + ", silahkan cek web office.hondamugen.co.id untuk lebih jelasnya ";
+            pesan = "DEAR " + hasil_namasa + " ," + pesan_ + ", dengngan WO : " + wo + " & NOPOL : " + nopol + " silahkan cek web office.hondamugen.co.id untuk lebih jelasnya ";
+            EmailStaff_spesial(pesan);
         }
 
         //kirim email
@@ -1292,6 +1610,54 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
         {
             return false;
         }      
+    }
+    //fungsi untuk email spesial (ke ritchard)
+    public bool EmailStaff_spesial(string pesan)
+    {
+        //kirim email
+        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+        smtpClient.UseDefaultCredentials = false;
+        smtpClient.EnableSsl = true;
+        smtpClient.Credentials = new System.Net.NetworkCredential("hmugen1991@gmail.com", "112m128p");
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+        MailMessage mailMessage = new MailMessage("hmugen1991@gmail.com", "richard.nurtjahja@gmail.com");
+        mailMessage.Subject = "Body Repair Notification";
+        mailMessage.Body = pesan;
+        mailMessage.IsBodyHtml = true;
+        try
+        {
+            smtpClient.Send(mailMessage);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+    //untuk notifikasi ke bahrur ketika sa isi
+    public bool EmailStaff_spesialBahrur(string pesan)
+    {
+        //kirim email
+        SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+        smtpClient.UseDefaultCredentials = false;
+        smtpClient.EnableSsl = true;
+        smtpClient.Credentials = new System.Net.NetworkCredential("hmugen1991@gmail.com", "112m128p");
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+
+        MailMessage mailMessage = new MailMessage("hmugen1991@gmail.com", "bahrurrojikin1@gmail.com");
+        mailMessage.Subject = "Body Repair Notification";
+        mailMessage.Body = pesan;
+        mailMessage.IsBodyHtml = true;
+        try
+        {
+            smtpClient.Send(mailMessage);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
     }
     //get last value to checked radiobutton
     public string GetLastValue(string wo) {
@@ -1389,4 +1755,123 @@ public partial class jobcontrolformanedt : System.Web.UI.Page
         ShowAlertAndNavigate(""+value+"", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
         
     }
+    //fungsi get last value  -- TEMP_CONTROLBR
+    public string getLastValue_special(string wo)
+    {
+        string result = string.Empty;
+        string sql = "SELECT CONTROLBR_KETOKNILAI FROM TEMP_CONTROLBR WHERE CONTROLBR_NOWO = '" + wo + "'";
+        result = Fungsi_GetValue(sql);
+        return result;
+    }
+    public List<String> Result = new List<String>();
+    public List<String> Select_ListArray(string SqlCmd, string sub)
+    {
+        SqlConnection conn;
+        SqlCommand cmd;
+        SqlDataReader reader;
+        string status_hasil = string.Empty;
+        String strconn = WebConfigurationManager.ConnectionStrings["serviceConnection"].ConnectionString;
+        conn = new SqlConnection(strconn);
+        string sql = SqlCmd;
+        cmd = new SqlCommand(sql, conn);
+
+        Result.Clear();
+        try
+        {
+            conn.Open();
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                if (sub == "1")
+                {
+                    Result.Add(reader["kerjabody_status"].ToString()); //0
+                }
+                //status_hasil = "1";
+
+            }
+        }
+        catch (SqlException ex)
+        {
+            //status_hasil = "Terjadi error Ketika Select: " + ex.Message;
+            Result.Clear();
+            // return ArrayLogin;
+
+        }
+        finally
+        {
+            cmd.Dispose();
+            conn.Close();
+        }
+
+        return Result;
+
+    }
+    public void auto_checked (List<string> par1){
+
+    }
+    //FUNGSI UNTUK CLOSE ESTIMASI
+    /*
+             SqlCommand cmd = new SqlCommand("INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + noWoClosing + "', '" + tglClosing + "', '" + userClosing + "', '0', 'This closing note is automatically by system', '')", con);
+        SqlCommand cmd2 = new SqlCommand("UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '0', CONTROLBR_TGLSELESAIA = '" + tglClosing + "' WHERE CONTROLBR_NOWO = '" + noWoClosing + "'", con);
+    */
+    public string ClosingWo(string wo, string userClosing) {
+        string hasil = string.Empty;
+        string hasil2 = string.Empty;
+        string sql1 = "INSERT INTO TEMP_KERJABODY (KERJABODY_NOWO, KERJABODY_TANGGAL, KERJABODY_USER, KERJABODY_STATUS, KERJABODY_CATATAN, KERJABODY_LOKASI) VALUES ('" + wo + "',GETDATE(), '" + userClosing + "', '0', 'This closing note is automatically by system', '')";
+        string sql2 = "UPDATE TEMP_CONTROLBR SET CONTROLBR_KETOKNILAI = '0', CONTROLBR_TGLSELESAIA = GETDATE() WHERE CONTROLBR_NOWO = '" + wo + "'";
+        hasil = KelasKoneksi_CUD(sql1);
+        hasil2 = KelasKoneksi_CUD(sql2);
+        string final = string.Empty;
+        if (hasil=="1" && hasil2 == "1") {
+            final = "OK";
+        }else
+        {
+            final = "NOT OK";
+        }
+        return final;      
+    }
+    protected void BtnUpdateEstimasi_Click(object sender, EventArgs e)
+    {
+        string updt_estimasi = string.Empty;
+        updt_estimasi = TxtPembaruanEstimasi.Text;
+        //cek apakah value status 17 di wo bersangklutan sudah lebih dari 3
+        string hasil_ = Fungsi_GetValue("select count (kerjabody_status) as hasil from  TEMP_KERJABODY WHERE KERJABODY_NOWO = " + noWo + " and kerjabody_status = 17 ");
+        if (Convert.ToInt32(hasil_) == 3 || Convert.ToInt32(hasil_) >= 3)
+        {
+            ShowAlertAndNavigate("Anda Sudah mencapai Batas Maksimal Pembaruan Estimasi (3 Kali)! Proses Gagal", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
+        }
+        else if (updt_estimasi == string.Empty)
+        {
+            ShowAlertAndNavigate("Tanggal Pembaruan Estimasi Wajib di Isi Proses Gagal", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
+        }
+        else
+        {
+            //ambil value terbaru di temp_controlbr 
+            string last_value = Fungsi_GetValue("select CONTROLBR_TGLESELESAI from TEMP_CONTROLBR where CONTROLBR_NOWO ='" + noWo + "'");
+            //update value terbaru di tem_controlbr
+            string sql_ = "update TEMP_CONTROLBR set CONTROLBR_TGLESELESAI = '" + updt_estimasi + "' where CONTROLBR_NOWO ='" + noWo + "'";
+            string result_updt = KelasKoneksi_CUD(sql_);
+            if (result_updt == "1")
+            {
+                string sql_insert = "insert into TEMP_KERJABODY (KERJABODY_NOWO,KERJABODY_STATUS, KERJABODY_CATATAN) values ('" + noWo + "',17,'" + updt_estimasi + "')";
+                string result_insert2 = KelasKoneksi_CUD(sql_insert);
+                if (result_insert2 == "1")
+                {
+                    ShowAlertAndNavigate("Sukses Update Tanggal Estimasi & Simpan Histori Estimasi!", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
+                }
+                else
+                {
+                    ShowAlertAndNavigate("Gagal Simpan Histori Estimasi!", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
+                }
+            }
+            else
+            {
+                ShowAlertAndNavigate("Gagal Update Tanggal Estimasi!", "jobcontrolformanedt.aspx?qnowo=" + noWo + "");
+            }
+            //string sqlcmd_ = " select CONTROLBR_TGLESELESAI from TEMP_CONTROLBR where CONTROLBR_NOWO ='" + wo + "'";
+            //string result_estimasi = KelasKoneksi_CUD(sql_);
+        }
+    }
+
+
 }

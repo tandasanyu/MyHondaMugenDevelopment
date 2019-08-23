@@ -29,15 +29,6 @@ public partial class PageUser_PageUser_FormRiwayatPekerjaan : System.Web.UI.Page
         if (GajiAw.Length != 0 && GajiAk.Length != 0 && NamaPt.Length != 0 && AlamatPt.Length != 0 && TelpPt.Length != 0 && NamaAtasan.Length != 0 && AlasanK.Length != 0
             && TglMasuk.Length != 0 && TglKeluar.Length != 0 && Jab.Length != 0 && JobDesk.Length != 0)
         {
-            //fungsi remove special char except number
-            //string subject1 = GajiAw;
-            //string result_gajiAwal = Regex.Replace(subject1, "[^0-9]", ""); // result = "9134445555"
-            //Convert.ToInt32(result_gajiAwal);
-
-            //string subject2 = GajiAk;
-            //string result_gajiAkhir = Regex.Replace(subject2, "[^0-9]", ""); // result = "9134445555"
-            //Convert.ToInt32(result_gajiAkhir);
-
             int idLamaran = Convert.ToInt32(IdLamar);
             string NamaPT = NamaPt;
             string AlamatPT = AlamatPt;
@@ -108,13 +99,6 @@ public partial class PageUser_PageUser_FormRiwayatPekerjaan : System.Web.UI.Page
 
         if (Riwayat == "1")
         {
-            //if (TxtNamaPerusahaan1.Text == "" && TxtAlamatPerusahaan1.InnerText == "" && TxtTelpKantor1.Text == "" && TxtNamaAtasan1.Text == "" && TxtGajiAwal1.Text == "" && TxtAlasanKeluar1.Text == "" && TxtWaktuMasuk1.Text == "" && TxtJabatan1.Text == "" && TxtJobDesk1.Text == "" && TxtGajiAkhir1.Text == "")
-            //{
-            //    Response.Write("<script language='javascript'>window.alert('Periksa Kembali Data RiwayatPekerjaan Anda, Lengkapi yang Belum di Isi');</script>");
-            //}
-            //else
-            //{
-            //Control myControl1 = FindControl("TxtNamaPerusahaan1");
             if (string.IsNullOrEmpty(TxtNamaPerusahaan1.Text) && string.IsNullOrEmpty(TxtAlamatPerusahaan1.InnerText) && string.IsNullOrEmpty(TxtTelpKantor1.Text) && string.IsNullOrEmpty(TxtNamaAtasan1.Text) && string.IsNullOrEmpty(TxtGajiAwal1.Text) && string.IsNullOrEmpty(TxtAlasanKeluar1.Text) && string.IsNullOrEmpty(TxtWaktuMasuk1.Text) && string.IsNullOrEmpty(TxtWaktuKeluar1.Text) && string.IsNullOrEmpty(TxtJabatan1.Text) && string.IsNullOrEmpty(TxtJobDesk1.Text) && string.IsNullOrEmpty(TxtGajiAkhir1.Text)) 
             {
                 Response.Write("<script language='javascript'>window.alert('Masih ada data yang Kosong pada Form Riwayat Pekerjaan. Proses Simpan data Riwayat Pekerjaan di Batalkan');</script>");

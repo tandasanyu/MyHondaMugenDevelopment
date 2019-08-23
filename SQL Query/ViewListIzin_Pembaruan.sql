@@ -128,5 +128,14 @@
 		then 'Disetujui Atasan Langsung -- SELAIN CUTI BIASA' 
 		-- ***UNTUK CASE APPROVAL *** 
 
+/*
+buat 2 view
+1. untuk jenis izin cuti dan alasan izin cuti
+	1.a ) ketika izin cuti di tampilan atasan : where jenis_izin= 'cuti' and alasan_izin = 'cuti' and nikspv = ? or nikmng = ?
+	2.b.) ketika izin cuti atasanya 
+2. untuk jenis izin selain cuti dan alasan izin selain cuti
+
+*/
+
 
 

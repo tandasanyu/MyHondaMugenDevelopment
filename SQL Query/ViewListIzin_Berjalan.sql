@@ -24,3 +24,5 @@ SELECT        dbo.DATA_IZIN_BODY.IZIN_ID, dbo.DATA_IZIN_HEADER.IZIN_NAMA, dbo.DA
 FROM            dbo.DATA_IZIN_BODY INNER JOIN
                          dbo.DATA_IZIN_HEADER ON dbo.DATA_IZIN_HEADER.IZIN_NIK = dbo.DATA_IZIN_BODY.IZIN_NIK INNER JOIN
                          dbo.DATA_STAFF ON dbo.DATA_IZIN_HEADER.IZIN_NIK = dbo.DATA_STAFF.STAFF_NIK
+
+						 SELECT `message_id`,`message_title`,`message_content` FROM `message` WHERE `user_id` =558

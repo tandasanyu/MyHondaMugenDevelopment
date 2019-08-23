@@ -167,6 +167,12 @@ visibility: visible;
         <asp:TextBox ID="txtCari" runat="server" CssClass="form-control input-sm" onkeyup="upper(this)" placeholder="Tulis Nomor WO / NOPOL untuk mencari data .." style="width:220px;"></asp:TextBox>
              <asp:Button ID="Button1" runat="server" Text="CARI DATA" class="btn btn-sm btn-primary" style="font-family:Verdana;margin-left:5px;" OnClick="Button1_Click" />   </div>
         </div>
+                 <div style="width:400px;margin:5px;background:linear-gradient(#c0c0c0, #ddd);padding:5px;border-radius:4px;-webkit-border-radius:4px;-o-border-radius:4px;-moz-border-radius:4px;">
+         <div class="input-group" style="padding:2px;">
+  <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-search"></span></span>
+        <asp:TextBox ID="TxtCariReport" runat="server"  autocomplete="off" CssClass="form-control input-sm" onkeyup="upper(this)" placeholder="Tulis Nomor WO  untuk mencari data .." style="width:220px;"></asp:TextBox>
+             <asp:Button ID="BtnLihatReport" runat="server" Text="LIHAT REPORT" class="btn btn-sm btn-danger" style="font-family:Verdana;margin-left:5px;" OnClick="BtnLihatReport_Click"  />   </div>
+        </div>
          <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -217,15 +223,11 @@ visibility: visible;
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Last Act" SortExpression="WOHDR_SA">
                         <ItemTemplate>
-                            <asp:Label ID="Label7" runat="server" Text='<%# Bind("statuskerja") %>'></asp:Label>
+                            <asp:Label ID="Label7" runat="server" Text='<%# Bind("statuskerja") %>'></asp:Label><br /> 
+                            <asp:Label ID="Label10" runat="server" Text='<%# Bind("tglAkhir") %>' style="font-size:0.95em;color:#888;font-family:Verdana;"></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                     <asp:TemplateField HeaderText="" SortExpression="vendor" HeaderStyle-Width="5">
-                     <ItemTemplate>
-                          <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# "jobcontrolformanclo.aspx?qnowo2=" + Eval("WOHDR_NO")%>' 
-                             Target="_blank" Text="<span class='glyphicon glyphicon-floppy-saved'></span> Closing" class="btn btn-success btn-xs"></asp:HyperLink>
-                     </ItemTemplate>
-                 </asp:TemplateField>
+
 
                 </Columns>
                 <EditRowStyle BackColor="#2461BF" />
@@ -239,24 +241,26 @@ visibility: visible;
              <asp:SqlDataSource ID="SqlDataSource8" runat="server" ConnectionString="<%$ ConnectionStrings:serviceConnection %>" SelectCommand="SELECT WOHDR_TGWO, WOHDR_FNOPOL, WOHDR_FNMS, WOHDR_FNRK, WOHDR_FORG, WOHDR_KDTAGIH, WOHDR_SA, 
 WOHDR_NO, CONTROLBR_TGLESELESAI, 
 case [CONTROLBR_KETOKNILAI] 
-when 1  then 'DISERAHKAN SA KE VENDOR ' 
-when 2 then 'DISERAHKAN SA KE DRIVER'
-when 3 then 'DITERIMA' 
-when 4 then 'BONGKAR' 
-when 5 then 'KETOK' 
-when 6 then 'DEMPUL' 
-when 7 then 'CAT / OVEN' 
-when 8 then 'POLES' 
-when 9 then 'PEMASANGAN' 
-WHEN 10 then 'FINISHING' 
-when 11 then 'PENILAIAN QC - OK'	
-when 12 then 'PENILAIAN QC - NOT OK' 
-when 13 then 'PENILAIAN QC - REWORK' 
-when 14 then 'PENILAIAN QC - REWORK - OK'  
-when 15 then 'PENILAIAN QC - REWORK - NOT OK' 
-when 16 then 'PENYERAHAN UNIT QC KE SA BP' 
+		WHEN 1 THEN 'DISERAHKAN SA KE VENDOR / PURI'
+		when 2 then 'SERAH TERIMA UNIT' 
+		when 3 then 'BONGKAR' 
+		when 4 then 'KETOK' 
+		when 5 then 'DEMPUL' 
+		when 6 then 'CAT/OVEN' 
+		when 7 then 'POLES' 
+		when 8 then 'PEMASANGAN' 
+		when 9 then 'FINISHING'  
+		when 10 then 'UNIT SELESAI OLEH VENDOR'	
+        when 11 then 'PENILAIAN QC - OK'	
+		when 12 then 'PENILAIAN QC - NOT OK' 
+		when 13 then 'PENILAIAN QC - REWORK' 
+		when 14 then 'PENILAIAN QC - REWORK - OK'  
+		when 15 then 'PENILAIAN QC - REWORK - NOT OK' 
+		when 16 then 'PENYERAHAN UNIT QC KE SA BP'  
 else '' 
 end AS statuskerja, 
+(select max(KERJABODY_TANGGAL)  from TEMP_KERJABODY WHERE KERJABODY_NOWO =WOHDR_NO 
+GROUP BY KERJABODY_NOWO) AS tglAkhir ,
 SUPPLIER_NAMA 
 FROM TRXN_WOHDR 
 INNER JOIN TEMP_CONTROLBR ON TRXN_WOHDR.WOHDR_NO = TEMP_CONTROLBR.CONTROLBR_NOWO 
@@ -316,12 +320,7 @@ INNER JOIN DATA_SUPPLIER ON TRXN_WOHDR.WOHDR_KDTAGIH = DATA_SUPPLIER.SUPPLIER_KO
                             <asp:Label ID="Label10" runat="server" Text='<%# Bind("tglAkhir") %>' style="font-size:0.95em;color:#888;font-family:Verdana;"></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                     <asp:TemplateField HeaderText="" SortExpression="vendor" HeaderStyle-Width="5">
-                     <ItemTemplate>
-                          <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl='<%# "jobcontrolformanclo.aspx?qnowo2=" + Eval("WOHDR_NO")%>' 
-                             Target="_blank" Text="<span class='glyphicon glyphicon-floppy-saved'></span> Closing" class="btn btn-success btn-xs"></asp:HyperLink>
-                     </ItemTemplate>
-                 </asp:TemplateField>
+
 
                 </Columns>
                 <EditRowStyle BackColor="#2461BF" />
@@ -335,27 +334,27 @@ INNER JOIN DATA_SUPPLIER ON TRXN_WOHDR.WOHDR_KDTAGIH = DATA_SUPPLIER.SUPPLIER_KO
              <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:serviceConnection %>" SelectCommand="SELECT WOHDR_TGWO, WOHDR_FNOPOL, WOHDR_FNMS, WOHDR_FNRK, WOHDR_FORG, WOHDR_KDTAGIH, 
 WOHDR_SA, WOHDR_NO, CONTROLBR_TGLESELESAI, 
 case [CONTROLBR_KETOKNILAI] 
-when 1  then 'DISERAHKAN SA KE VENDOR ' 
-when 2 then 'DISERAHKAN SA KE DRIVER'
-when 3 then 'DITERIMA' 
-when 4 then 'BONGKAR' 
-when 5 then 'KETOK' 
-when 6 then 'DEMPUL' 
-when 7 then 'CAT / OVEN' 
-when 8 then 'POLES' 
-when 9 then 'PEMASANGAN' 
-WHEN 10 then 'FINISHING' 
-when 11 then 'PENILAIAN QC - OK'	
-when 12 then 'PENILAIAN QC - NOT OK' 
-when 13 then 'PENILAIAN QC - REWORK' 
-when 14 then 'PENILAIAN QC - REWORK - OK'  
-when 15 then 'PENILAIAN QC - REWORK - NOT OK' 
-when 16 then 'PENYERAHAN UNIT QC KE SA BP' 
+		WHEN 1 THEN 'DISERAHKAN SA KE VENDOR'
+		when 2 then 'SERAH TERIMA UNIT' 
+		when 3 then 'BONGKAR' 
+		when 4 then 'KETOK' 
+		when 5 then 'DEMPUL' 
+		when 6 then 'CAT/OVEN' 
+		when 7 then 'POLES' 
+		when 8 then 'PEMASANGAN' 
+		when 9 then 'FINISHING'  
+		when 10 then 'UNIT SELESAI OLEH VENDOR'	
+        when 11 then 'PENILAIAN QC - OK'	
+		when 12 then 'PENILAIAN QC - NOT OK' 
+		when 13 then 'PENILAIAN QC - REWORK' 
+		when 14 then 'PENILAIAN QC - REWORK - OK'  
+		when 15 then 'PENILAIAN QC - REWORK - NOT OK' 
+		when 16 then 'PENYERAHAN UNIT QC KE SA BP'  
 else '' end AS statuskerja, SUPPLIER_NAMA, 
 (select max(KERJABODY_TANGGAL)  from TEMP_KERJABODY WHERE KERJABODY_NOWO =WOHDR_NO 
 GROUP BY KERJABODY_NOWO) AS tglAkhir FROM TRXN_WOHDR , 
 TEMP_CONTROLBR,DATA_SUPPLIER 
-where WOHDR_NO = CONTROLBR_NOWO and WOHDR_KDTAGIH = SUPPLIER_KODE and CONTROLBR_TGLSELESAIA IS NULL"></asp:SqlDataSource>
+where WOHDR_NO = CONTROLBR_NOWO and WOHDR_KDTAGIH = SUPPLIER_KODE and CONTROLBR_TGLSELESAIA IS NULL ORDER BY WOHDR_TGWO DESC"></asp:SqlDataSource>
      </ContentTemplate>
 </asp:UpdatePanel>
       

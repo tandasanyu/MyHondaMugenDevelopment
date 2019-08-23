@@ -279,35 +279,39 @@ public partial class formhardsoft : System.Web.UI.Page
             {
                 if (cTujuan == "112")
                 {
-                    MailAddress from = new MailAddress("hmugen1991@gmail.com");
-                    MailAddress to = new MailAddress("yusufanang20@gmail.com, ga@hondamugen.co.id");
-                    MailMessage message = new MailMessage(from, to);
-                    message.Body = @"<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'>e-Mail ini adalah konfirmasi pemberitahuan bahwa ada perbaikan yang baru diajukan sebagai berikut:<br/><br/><div style='margin:0 auto;background: #FFEFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:8pt;'>Diajukan oleh : " + user + "<br/>Masalah : " + masalah + "</div><br/><center><a href='http://192.168.0.9:8080/default.aspx?goto=deadlinehardsoft.aspx' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Lihat Daftar Permintaan</a></center><br></br>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.<br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>";
-                    message.IsBodyHtml = true;
-                    SmtpClient sc = new SmtpClient();
-                    message.Subject = "[HONDA MUGEN] Konfirmasi Perbaikan Hardware & Software";
-                    sc.Host = "smtp.gmail.com";
-                    sc.Port = 587;
-                    sc.EnableSsl = true;
-                    sc.Credentials = new System.Net.NetworkCredential("hmugen1991@gmail.com", "112m128p");
-                    sc.Send(message);
+                    string bod_email = "<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'>e-Mail ini adalah konfirmasi pemberitahuan bahwa ada perbaikan yang baru diajukan sebagai berikut:<br/><br/><div style='margin:0 auto;background: #FFEFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:8pt;'>Diajukan oleh : " + user + "<br/>Masalah : " + masalah + "</div><br/><center><a href='http://192.168.0.9:8080/default.aspx?goto=deadlinehardsoft.aspx' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Lihat Daftar Permintaan</a></center><br></br>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.<br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>";
+                    string kirim_email = FungsiEmail("anangyusuf46@gmail.com, ga_puri@hondamugen.co.id", bod_email);
+                    //MailAddress from = new MailAddress("hmugen1991@gmail.com");
+                    //MailAddress to = new MailAddress("yusufanang20@gmail.com, tandasanyu.movie1@gmail.com");
+                    //MailMessage message = new MailMessage(from, to);
+                    //message.Body = @"<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'>e-Mail ini adalah konfirmasi pemberitahuan bahwa ada perbaikan yang baru diajukan sebagai berikut:<br/><br/><div style='margin:0 auto;background: #FFEFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:8pt;'>Diajukan oleh : " + user + "<br/>Masalah : " + masalah + "</div><br/><center><a href='http://192.168.0.9:8080/default.aspx?goto=deadlinehardsoft.aspx' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Lihat Daftar Permintaan</a></center><br></br>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.<br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>";
+                    //message.IsBodyHtml = true;
+                    //SmtpClient sc = new SmtpClient();
+                    //message.Subject = "[HONDA MUGEN] Konfirmasi Perbaikan Hardware & Software";
+                    //sc.Host = "smtp.gmail.com";
+                    //sc.Port = 587;
+                    //sc.EnableSsl = true;
+                    //sc.Credentials = new System.Net.NetworkCredential("hmugen1991@gmail.com", "112m128p");
+                    //sc.Send(message);
                     cmd.ExecuteNonQuery();
                     Response.Redirect("formhardsoft.aspx");
                 }
                 else if (cTujuan == "128")
                 {
-                    MailAddress from = new MailAddress("hmugen1991@gmail.com");
-                    MailAddress to = new MailAddress("ga_puri@hondamugen.co.id");
-                    MailMessage message = new MailMessage(from, to);
-                    message.Body = @"<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'>e-Mail ini adalah konfirmasi pemberitahuan bahwa ada perbaikan yang baru diajukan sebagai berikut:<br/><br/><div style='margin:0 auto;background: #FFEFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:8pt;'>Diajukan oleh : " + user + "<br/>Masalah : " + masalah + "</div><br/><center><a href='http://192.168.0.9:8080/default.aspx?goto=deadlinehardsoft.aspx' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Lihat Daftar Permintaan</a></center><br></br>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.<br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>";
-                    message.IsBodyHtml = true;
-                    SmtpClient sc = new SmtpClient();
-                    message.Subject = "[HONDA MUGEN] Konfirmasi Perbaikan Hardware & Software";
-                    sc.Host = "smtp.gmail.com";
-                    sc.Port = 587;
-                    sc.EnableSsl = true;
-                    sc.Credentials = new System.Net.NetworkCredential("hmugen1991@gmail.com", "112m128p");
-                    sc.Send(message);
+                    //MailAddress from = new MailAddress("hmugen1991@gmail.com");
+                    //MailAddress to = new MailAddress("ga_puri@hondamugen.co.id");
+                    //MailMessage message = new MailMessage(from, to);
+                    //message.Body = @"<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'>e-Mail ini adalah konfirmasi pemberitahuan bahwa ada perbaikan yang baru diajukan sebagai berikut:<br/><br/><div style='margin:0 auto;background: #FFEFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:8pt;'>Diajukan oleh : " + user + "<br/>Masalah : " + masalah + "</div><br/><center><a href='http://192.168.0.9:8080/default.aspx?goto=deadlinehardsoft.aspx' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Lihat Daftar Permintaan</a></center><br></br>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.<br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>";
+                    //message.IsBodyHtml = true;
+                    //SmtpClient sc = new SmtpClient();
+                    //message.Subject = "[HONDA MUGEN] Konfirmasi Perbaikan Hardware & Software";
+                    //sc.Host = "smtp.gmail.com";
+                    //sc.Port = 587;
+                    //sc.EnableSsl = true;
+                    //sc.Credentials = new System.Net.NetworkCredential("hmugen1991@gmail.com", "112m128p");
+                    //sc.Send(message);
+                    string bod_email = "<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'>e-Mail ini adalah konfirmasi pemberitahuan bahwa ada perbaikan yang baru diajukan sebagai berikut:<br/><br/><div style='margin:0 auto;background: #FFEFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:8pt;'>Diajukan oleh : " + user + "<br/>Masalah : " + masalah + "</div><br/><center><a href='http://192.168.0.9:8080/default.aspx?goto=deadlinehardsoft.aspx' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Lihat Daftar Permintaan</a></center><br></br>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.<br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>";
+                    string kirim_email = FungsiEmail("ga_puri@hondamugen.co.id", bod_email);
                     cmd.ExecuteNonQuery();
                     Response.Redirect("formhardsoft.aspx");
                 }
@@ -316,35 +320,39 @@ public partial class formhardsoft : System.Web.UI.Page
             {
                 if (cTujuan == "112")
                 {
-                    MailAddress from = new MailAddress("hmugen1991@gmail.com");
-                    MailAddress to = new MailAddress("stiiawanchen94@gmail.com, ga@hondamugen.co.id, jupri@hondamugen.co.id");
-                    MailMessage message = new MailMessage(from, to);
-                    message.Body = @"<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'>e-Mail ini adalah konfirmasi pemberitahuan bahwa ada perbaikan yang baru diajukan sebagai berikut:<br/><br/><div style='margin:0 auto;background: #FFEFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:8pt;'>Diajukan oleh : " + user + "<br/>Masalah : " + masalah + "</div><br/><center><a href='http://192.168.0.9:8080/default.aspx?goto=deadlinehardsoft.aspx' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Lihat Daftar Permintaan</a></center><br></br>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.<br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>";
-                    message.IsBodyHtml = true;
-                    SmtpClient sc = new SmtpClient();
-                    message.Subject = "[HONDA MUGEN] Konfirmasi Perbaikan Hardware & Software";
-                    sc.Host = "smtp.gmail.com";
-                    sc.Port = 587;
-                    sc.EnableSsl = true;
-                    sc.Credentials = new System.Net.NetworkCredential("hmugen1991@gmail.com", "112m128p");
-                    sc.Send(message);
+                    //MailAddress from = new MailAddress("hmugen1991@gmail.com");
+                    //MailAddress to = new MailAddress("herlambang@hondamugen.co.id, ga@hondamugen.co.id, jupri@hondamugen.co.id");
+                    //MailMessage message = new MailMessage(from, to);
+                    //message.Body = @"<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'>e-Mail ini adalah konfirmasi pemberitahuan bahwa ada perbaikan yang baru diajukan sebagai berikut:<br/><br/><div style='margin:0 auto;background: #FFEFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:8pt;'>Diajukan oleh : " + user + "<br/>Masalah : " + masalah + "</div><br/><center><a href='http://192.168.0.9:8080/default.aspx?goto=deadlinehardsoft.aspx' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Lihat Daftar Permintaan</a></center><br></br>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.<br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>";
+                    //message.IsBodyHtml = true;
+                    //SmtpClient sc = new SmtpClient();
+                    //message.Subject = "[HONDA MUGEN] Konfirmasi Perbaikan Hardware & Software";
+                    //sc.Host = "smtp.gmail.com";
+                    //sc.Port = 587;
+                    //sc.EnableSsl = true;
+                    //sc.Credentials = new System.Net.NetworkCredential("hmugen1991@gmail.com", "112m128p");
+                    //sc.Send(message);
+                    string bod_email = "<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'>e-Mail ini adalah konfirmasi pemberitahuan bahwa ada perbaikan yang baru diajukan sebagai berikut:<br/><br/><div style='margin:0 auto;background: #FFEFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:8pt;'>Diajukan oleh : " + user + "<br/>Masalah : " + masalah + "</div><br/><center><a href='http://192.168.0.9:8080/default.aspx?goto=deadlinehardsoft.aspx' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Lihat Daftar Permintaan</a></center><br></br>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.<br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>";
+                    string kirim_email = FungsiEmail("herlambang@hondamugen.co.id, ga@hondamugen.co.id, jupri@hondamugen.co.id", bod_email);
                     cmd.ExecuteNonQuery();
                     Response.Redirect("formhardsoft.aspx");
                 }
                 else if (cTujuan == "128")
                 {
-                    MailAddress from = new MailAddress("hmugen1991@gmail.com");
-                    MailAddress to = new MailAddress("stiiawanchen94@gmail.com, ga_puri@hondamugen.co.id, azis@hondamugen.co.id");
-                    MailMessage message = new MailMessage(from, to);
-                    message.Body = @"<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'>e-Mail ini adalah konfirmasi pemberitahuan bahwa ada perbaikan yang baru diajukan sebagai berikut:<br/><br/><div style='margin:0 auto;background: #FFEFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:8pt;'>Diajukan oleh : " + user + "<br/>Masalah : " + masalah + "</div><br/><center><a href='http://192.168.0.9:8080/default.aspx?goto=deadlinehardsoft.aspx' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Lihat Daftar Permintaan</a></center><br></br>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.<br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>";
-                    message.IsBodyHtml = true;
-                    SmtpClient sc = new SmtpClient();
-                    message.Subject = "[HONDA MUGEN] Konfirmasi Perbaikan Hardware & Software";
-                    sc.Host = "smtp.gmail.com";
-                    sc.Port = 587;
-                    sc.EnableSsl = true;
-                    sc.Credentials = new System.Net.NetworkCredential("hmugen1991@gmail.com", "112m128p");
-                    sc.Send(message);
+                    //MailAddress from = new MailAddress("hmugen1991@gmail.com");
+                    //MailAddress to = new MailAddress("stiiawanchen94@gmail.com, ga_puri@hondamugen.co.id, azis@hondamugen.co.id");
+                    //MailMessage message = new MailMessage(from, to);
+                    //message.Body = @"<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'>e-Mail ini adalah konfirmasi pemberitahuan bahwa ada perbaikan yang baru diajukan sebagai berikut:<br/><br/><div style='margin:0 auto;background: #FFEFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:8pt;'>Diajukan oleh : " + user + "<br/>Masalah : " + masalah + "</div><br/><center><a href='http://192.168.0.9:8080/default.aspx?goto=deadlinehardsoft.aspx' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Lihat Daftar Permintaan</a></center><br></br>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.<br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>";
+                    //message.IsBodyHtml = true;
+                    //SmtpClient sc = new SmtpClient();
+                    //message.Subject = "[HONDA MUGEN] Konfirmasi Perbaikan Hardware & Software";
+                    //sc.Host = "smtp.gmail.com";
+                    //sc.Port = 587;
+                    //sc.EnableSsl = true;
+                    //sc.Credentials = new System.Net.NetworkCredential("hmugen1991@gmail.com", "112m128p");
+                    //sc.Send(message);
+                    string bod_email = "<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'>e-Mail ini adalah konfirmasi pemberitahuan bahwa ada perbaikan yang baru diajukan sebagai berikut:<br/><br/><div style='margin:0 auto;background: #FFEFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:8pt;'>Diajukan oleh : " + user + "<br/>Masalah : " + masalah + "</div><br/><center><a href='http://192.168.0.9:8080/default.aspx?goto=deadlinehardsoft.aspx' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Lihat Daftar Permintaan</a></center><br></br>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.<br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>";
+                    string kirim_email = FungsiEmail("stiiawanchen94@gmail.com, ga_puri@hondamugen.co.id, azis@hondamugen.co.id", bod_email);
                     cmd.ExecuteNonQuery();
                     Response.Redirect("formhardsoft.aspx");
                 }
@@ -359,5 +367,44 @@ public partial class formhardsoft : System.Web.UI.Page
     {
     
         Response.Redirect("formhardsoft.aspx?q2=" + drpView.Text + "");
+    }
+    //fungsi email
+    public string FungsiEmail(string e, string pesan)
+    {
+        string hasil = "";
+        string subject = "PT. Mutra Usaha Gentaniaga (Honda Mugen) Email Notification"; ;
+        string body = pesan;
+
+        //****WORKING CODE**************************************************************
+        SmtpClient client = new SmtpClient("smtp.gmail.com");
+        client.Port = 587;
+        client.DeliveryMethod = SmtpDeliveryMethod.Network;
+        client.UseDefaultCredentials = false;
+        try
+        {
+            System.Net.NetworkCredential credentials =
+                new System.Net.NetworkCredential("hmugen1991@gmail.com", "112m128p");
+            client.EnableSsl = true;
+            client.Credentials = credentials;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        //Creates a new message
+        try
+        {
+            var mail = new MailMessage("hmugen1991@gmail.com", e);
+            mail.Subject = subject;
+            mail.IsBodyHtml = true;
+            mail.Body = body;
+            client.Send(mail);
+        }
+        //Failing to deliver the message or to authentication will throw an exception
+        catch (Exception ex)
+        {
+            hasil = "Terdapat error Ketika Mengirim Email : " + ex.Message;
+        }
+        return hasil;
     }
 }
