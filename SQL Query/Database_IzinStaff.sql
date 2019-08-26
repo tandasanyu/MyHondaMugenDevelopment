@@ -266,6 +266,14 @@ when 8 then 'lt. 8' when 9 then 'lt. 9' else '' END AS lokasimobil, [KERJABODY_C
 WHERE ([KERJABODY_NOWO] = 148834)
 
 /*
+
+/*
+cara mendapatkan id terbaru di PO 
+
+SELECT count(nofmbhead) FROM fmbhead 
+WHERE DATEPART(month, tglpemohonfmb) = month(GETDATE())
+AND DATEPART(year, tglpemohonfmb) = year(GETDATE())
+*/
 -- 
 
 UPDATE TEMP_CONTROLBR

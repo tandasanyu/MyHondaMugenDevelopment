@@ -189,9 +189,10 @@ public partial class mintabeli : System.Web.UI.Page
             SqlDataAdapter adapter = new SqlDataAdapter(sql, connection);
             adapter.Fill(ds);
             int nomor00 = ds.Tables[0].Rows.Count+1;// 8 +1
-            string nomor0 = Convert.ToString(nomor00).PadLeft(maxWidth, '0'); // 00000 8+1
+            string nomor0 = Convert.ToString(nomor00+1).PadLeft(maxWidth, '0'); // 00000 8+1
             // ds.Tables[0].Rows.Count.ToString().PadLeft(maxWidth, '0')
             string nobukti = strTime + nomor0;
+            ClientScript.RegisterStartupScript(GetType(), "Message", "<SCRIPT LANGUAGE='javascript'>alert('No PO : "+nobukti+"');</script>");
             /*
              * LAST CODING ERROR : AUTO COUNT WONT WORK 5/7/2019
             SqlDataAdapter adapter = new SqlDataAdapter(sql, connection);
