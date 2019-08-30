@@ -9,9 +9,23 @@
     <script src="../js/jquery-3.3.1.js"></script>
     <script src="../js/jquery.dataTables.min.js"></script>
     <script src="../js/dataTables.bootstrap4.min.js"></script>
+    <script src="../js/dataTables.fixedColumns.min.js"></script>
+    <link href="../css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+    <link href="../css/jquery.dataTables.min.css" rel="stylesheet" />
     <!-- DataTable -->
     <script>
         $(document).ready(function () {
+            //untuk fix row 
+            var table = $('#ListPelamarBaru').DataTable({
+                "ordering": false,
+                scrollY: "500px",
+                scrollX: true,
+                scrollCollapse: true,
+                paging: false,
+                fixedColumns: {
+                    leftColumns: 2
+                }
+            });
             //pelamar terposes
             $("#SearchPelamarter").on("keyup", function () {
                 var value = $(this).val().toLowerCase();
@@ -38,7 +52,13 @@
 
     <style>
                 /***************/
-       #table-wrapper {
+/* Ensure that the demo table scrolls */
+    /*th, td { white-space: nowrap; }
+    div.dataTables_wrapper {
+        width: 100%;
+        margin: 0 auto;
+    }*/
+       /*#table-wrapper {
           position:relative;
         }
         #table-scroll {
@@ -57,7 +77,7 @@
           height:20px;
           width:35%;
           border:1px solid black;
-        }
+        }*/
 #outer
 {
     width:100%;
@@ -73,6 +93,9 @@
   background-color: #cccccc;
   border-color: #cccccc;
 }
+#SearchPelamarBaru{
+    display:none;
+}
     </style>
     <asp:MultiView ID="MultiViewHRD" runat="server">
         <asp:View ID="View0" runat="server"><!-- -->
@@ -84,12 +107,12 @@
                 </div>
             </div>
                             <br />
-                            <input id="SearchPelamarBaru"  type="text" placeholder="Ketik yang akan di Cari!" class="form-control required" autocomplete="off" style="width:300px"/>
+                            <input id="SearchPelamarBaru" type="text" placeholder="Ketik yang akan di Cari!" class="form-control required" autocomplete="off" style="width:300px"/>
                             <br /> 
             <%--<div class="row">--%>
                     <div class="col" style="margin-bottom:4%;margin-top:1%">                            
-                        <div id="table-scroll" class="table-scroll">
-                          <div class="table-wrap">
+<%--                        <div id="table-scroll" class="table-scroll">
+                          <div class="table-wrap">--%>
                     	        <asp:SqlDataSource ID="SqlPelamarBaru" runat="server"
 					                ConnectionString="<%$ ConnectionStrings:MugenKarirConnection %>"
 					                SelectCommand="select Id_lamaran, User_nama, User_Posisi from Data_Lamaran where status_lamaran = 1 and Status_undangan = 0  order by Tgl_Lamar DESC"
@@ -99,7 +122,7 @@
                                 <LayoutTemplate>
                                     <table  id="ListPelamarBaru" class="table table-bordered striped data" align="left">
                                         <thead>
-                                            <th style="text-align:center; color:red; background-color:#a9a9a9">No</th>
+                                            <%--<th style="text-align:center; color:red; background-color:#a9a9a9">No</th>--%>
                                             <th style="text-align:center; color:red; background-color:#a9a9a9">ID Lamaran</th>
                                             <th style="text-align:center; color:red; background-color:#a9a9a9">Nama Pelamar</th>
                                             <th style="text-align:center; color:red; background-color:#a9a9a9">Posisi</th>
@@ -125,7 +148,7 @@
                                 </EmptyDataTemplate>
                                 <ItemTemplate>
                                     <tr>
-                                        <td align="center" style="padding-top:40px"><p class="small"><%#Container.DataItemIndex + 1 %></p></td>
+                                        <%--<td align="center" style="padding-top:40px"><p class="small"><%#Container.DataItemIndex + 1 %></p></td>--%>
                                         <td style="padding-top:40px"><center>DFT - <%#Eval("Id_Lamaran")%></center>
                                         </td>
                                         <td style="padding-top:40px"><%#Eval("User_nama")%></td>
@@ -167,8 +190,8 @@
                                     </tr>
                                 </ItemTemplate>
                             </asp:ListView>
-                          </div>
-                        </div>
+<%--                          </div>
+                        </div>--%>
                     </div>
            <%-- </div>--%>
 
