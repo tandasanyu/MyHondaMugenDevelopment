@@ -1,0 +1,8 @@
+select * from TEMP_BOOKING
+
+order by BOOKMOB_TglBook desc
+
+db nya service
+
+untuk regis : db nya virtual acc
+mymugend
