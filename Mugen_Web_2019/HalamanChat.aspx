@@ -36,6 +36,16 @@
             //alert(color.val());
             $('#<%=TextBoxID.ClientID %>').val(color.val());
         });
+        $('#TxtIsiChat').keyup(function () {
+            max = this.getAttribute("maxlength");
+            var len = $(this).val().length;
+            if (len >= max) {
+                $('#charNum').text('Anda Mencapai Batas Limit Karakter untuk Chat');
+            } else {
+                var char = max - len;
+                $('#charNum').text(char + ' Karakter Tersisa');
+            }
+        });
     });
 </script>
 </head>
@@ -65,8 +75,11 @@
         </div>
         <div class="row">
             <div class="col">
-            <textarea id="TxtIsiChat" name ="TxtIsiChat" style="width:100%" runat="server" class="form-control" cols="2" rows="5"></textarea><br />
+            <textarea id="TxtIsiChat" name ="TxtIsiChat" maxlength="200" style="width:100%" runat="server" class="form-control" cols="2" rows="5"></textarea><br />
             
+            </div>
+            <div class="col">
+                <span id="charNum"></span>
             </div>
         </div>
         <div class="row">

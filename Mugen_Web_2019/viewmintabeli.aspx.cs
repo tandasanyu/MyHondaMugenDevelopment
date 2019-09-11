@@ -718,7 +718,7 @@ public partial class viewmintabeli : System.Web.UI.Page
         }
         con.Close();
     }
-    protected void Button2_Click(object sender, EventArgs e)
+    protected void Button2_Click(object sender, EventArgs e)// ini button untuk approval head 
     {
         string idApproval = txtAppApprove.Text;
         string nextApproval = drpNamaApprove.Text;
@@ -770,20 +770,20 @@ public partial class viewmintabeli : System.Web.UI.Page
                         {
                             while (reader.Read())
                             {
-                                string eMail = reader["email"].ToString();
+                                //string eMail = reader["email"].ToString();
                                 
-                                MailAddress from = new MailAddress("hmugen1991@gmail.com");
-                                MailAddress to = new MailAddress("" + eMail + ",setiawan-it@hondamugen.co.id");
-                                MailMessage message = new MailMessage(from, to);
-                                message.Subject = "Permintaan Pembelian No." + idApproval + " Membutuhkan Persetujuan Anda.";
-                                message.Body = @"<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'><div style='margin:0 auto;background: #FFfFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:10pt;'>Anda memiliki sebuah permintaan persetujuan untuk pembuatan sebuah Purchase Order, dengan nomor permintaan: <strong><center> " + idApproval + " </center></strong><br/><span style='color:blue;font-size:8pt;'></span></div><br/><center><a href='http://192.168.0.9:8080/default.aspx?goto=approvemintabeli.aspx?q=headapproval' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Klik untuk Lihat Daftar Approval</a></center><br><center style='color: blue; '>**Pastikan perangkat anda terhubung dengan WI-FI/LAN yang ada di Honda Mugen.</center><br/><center>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.</center><br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>";
-                                message.IsBodyHtml = true;
-                                SmtpClient sc = new SmtpClient();
-                                sc.Host = "smtp.gmail.com";
-                                sc.Port = 587;
-                                sc.EnableSsl = true;
-                                sc.Credentials = new System.Net.NetworkCredential("hmugen1991@gmail.com", "112m128p");
-                                sc.Send(message);
+                                //MailAddress from = new MailAddress("hmugen1991@gmail.com");
+                                //MailAddress to = new MailAddress("" + eMail + ",setiawan-it@hondamugen.co.id");
+                                //MailMessage message = new MailMessage(from, to);
+                                //message.Subject = "Permintaan Pembelian No." + idApproval + " Membutuhkan Persetujuan Anda.";
+                                //message.Body = @"<div style='background:linear-gradient(#c0c0c0, #f5f5f5);border-bottom:1px solid #d60000;padding:5px;font-family:verdana;'>Pemberitahuan Honda Mugen Web System</div><div style='font-family:verdana;font-size:10pt;padding:4px;margin:5px auto;border-left:3px solid #0080c0;'><div style='margin:0 auto;background: #FFfFD5;width:50%;padding:5px;border-radius:4px;border-left:3px solid #0080c0;font-family:verdana;font-size:10pt;'>Anda memiliki sebuah permintaan persetujuan untuk pembuatan sebuah Purchase Order, dengan nomor permintaan: <strong><center> " + idApproval + " </center></strong><br/><span style='color:blue;font-size:8pt;'></span></div><br/><center><a href='http://192.168.0.9:8080/default.aspx?goto=approvemintabeli.aspx?q=headapproval' style='padding:6px;border:1px solid #f5f5f5;background:#0080c0;color:#f5f5f5;text-decoration:none;' target='_blank'>Klik untuk Lihat Daftar Approval</a></center><br><center style='color: blue; '>**Pastikan perangkat anda terhubung dengan WI-FI/LAN yang ada di Honda Mugen.</center><br/><center>Atas perhatian dan kerjasamanya kami ucapkan terimakasih.</center><br/><br/><br/><strong style='color:blue;font-family:verdana;'>Regards,<br/><i style='font-size:8pt;color:#666;'>Web Mugen System | Developed by IT Department</i></strong><br/><strong>Honda Mugen Group</strong><br/><i>PT. Mitrausaha Gentaniaga</i><br/><span style='font-size:9pt;color:#666;'>Jl.Raya Pasar Minggu No.10, Jakarta 12740 - Indonesia<br/>Jl.Lingkar luar barat, Cengkareng, Jakarta Barat - Indonesia</span><br/>Telp : (021) 797 3000(Show Room), 797 2000 (Bengkel)<br/>Fax &nbsp;: (021) 797 3834, 798 4735<br/>Website : <a href='www.hondamugen.co.id' target='_blank'>www.hondamugen.co.id</a><br/></div>";
+                                //message.IsBodyHtml = true;
+                                //SmtpClient sc = new SmtpClient();
+                                //sc.Host = "smtp.gmail.com";
+                                //sc.Port = 587;
+                                //sc.EnableSsl = true;
+                                //sc.Credentials = new System.Net.NetworkCredential("hmugen1991@gmail.com", "112m128p");
+                                //sc.Send(message);
                                 cmd.ExecuteNonQuery();
                                 cmd2.ExecuteNonQuery();
                                 Response.Redirect("approvemintabeli.aspx?q=headapproval");
