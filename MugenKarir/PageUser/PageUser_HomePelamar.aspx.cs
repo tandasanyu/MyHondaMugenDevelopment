@@ -270,7 +270,7 @@ public partial class PageUser_PageUser_HomePelamar : System.Web.UI.Page
             // delete rer & riwayat
             kn.KelasKoneksi_Delete("delete Data_Pekerjaan where Id_Lamaran = " + LblIdLamaran.Text + "");
             kn.KelasKoneksi_Delete("delete Data_Referensi where Id_Lamaran = " + LblIdLamaran.Text + "");
-            Response.Write("<script>alert('Data Referensi / Data Riwayat Pekerjaan tidak tersimpan. Mohong Input Data Anda Kembali!')</script>");
+            Response.Write("<script language='javascript'>window.alert('Data Referensi / Data Riwayat Pekerjaan tidak tersimpan. Mohong Input Data Anda Kembali!');window.location='../PageUser/PageUser_HomePelamar.aspx';</script>");
         }
         else if (status_DataDiri == 1 && 
             status_DataKeluarga == 1 && 
