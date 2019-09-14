@@ -260,7 +260,19 @@ public partial class PageUser_PageUser_HomePelamar : System.Web.UI.Page
     //btn kirim lamaran 
     protected void BtnKirimLamaran_Click(object sender, EventArgs e)//status_PengalamanOrganisasi = 0; //tidak wajib //status_NPWP = 0;//tidak wajib
     {
-        if (status_DataDiri == 1 && 
+        // cek data apakah data pekerjaan & referensi sudah masuk
+        KelasKoneksi kn = new KelasKoneksi();
+        bool Status_Riwayat = false;
+        bool status_Ref = false;
+        status_Ref = kn.KelasKoneksi_CheckData("select * from Data_Referensi where Id_Lamaran = " + LblIdLamaran.Text + "");
+        Status_Riwayat = kn.KelasKoneksi_CheckData("select * from Data_Pekerjaan where Id_Lamaran = " + LblIdLamaran.Text + "");
+        if (status_Ref == false || Status_Riwayat == false) {
+            // delete rer & riwayat
+            kn.KelasKoneksi_Delete("delete Data_Pekerjaan where Id_Lamaran = " + LblIdLamaran.Text + "");
+            kn.KelasKoneksi_Delete("delete Data_Referensi where Id_Lamaran = " + LblIdLamaran.Text + "");
+            Response.Write("<script>alert('Data Referensi / Data Riwayat Pekerjaan tidak tersimpan. Mohong Input Data Anda Kembali!')</script>");
+        }
+        else if (status_DataDiri == 1 && 
             status_DataKeluarga == 1 && 
             status_RiwayatPendidikan == 1 && 
             status_RiwayatPekerjaan == 1 &&
